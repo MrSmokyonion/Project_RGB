@@ -4,5 +4,35 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/01.Scenes/SplashScene.unity
+    guid: 171b5fe328175d54bac175cbdd0c5e73
+  - enabled: 1
+    path: Assets/01.Scenes/TitleScene.unity
+    guid: cd5650626c3dbcb44b3729adf0226dfc
+  - enabled: 1
+    path: Assets/01.Scenes/TutorialScene.unity
+    guid: 7f5ffd78519381042870bfabc036e250
+  - enabled: 1
+    path: Assets/01.Scenes/TownScene.unity
+    guid: a593caa81a4cbb2459d5b78dabe11042
+  - enabled: 1
+    path: Assets/01.Scenes/ChoiceDungeonScene.unity
+    guid: 57aa6090978591247aa5d8f631b1f0ce
+  - enabled: 1
+    path: Assets/01.Scenes/DungeonChapterScene_1.unity
+    guid: 447ffd2dcf20db34bab86f768ee7e8c6
+  - enabled: 1
+    path: Assets/01.Scenes/DungeonChapterScene_2.unity
+    guid: e245968a2a8473342902a634ba03c08f
+  - enabled: 1
+    path: Assets/01.Scenes/DungeonChapterScene_3.unity
+    guid: 4b1257e0bd30ec04c971461b08edae50
+  - enabled: 1
+    path: Assets/01.Scenes/DungeonChapterScene_4.unity
+    guid: 47f5bdb852e70924db95c9f90b5f6424
+  - enabled: 1
+    path: Assets/01.Scenes/DungeonChapterScene_5.unity
+    guid: 5f144a4ab486c944cbf580863631a0e4
   m_configObjects: {}

@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class HelloScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    // 테스트 (씬)
+    public SceneType sceneType;
+    public void SceneTest()
     {
-        
+        GameObject.FindObjectOfType<SceneManager>().ChangeScene(sceneType);
+    }
+    // 테스트 (텔레포트)
+    public GameObject cube;
+    public void TeleportTest()
+    {
+        // GameObject.FindObjectOfType<TeleportManager>().TeleportTarget(cube, new Vector3(5, 5, 5));
+        GameObject.FindObjectOfType<TeleportManager>().TeleportFindTarget("Cube", new Vector3(5, 5, 5));
     }
 }
