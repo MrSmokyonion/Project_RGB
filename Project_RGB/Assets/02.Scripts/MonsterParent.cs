@@ -74,11 +74,11 @@ public class MonsterInfo
     public GameObject monsterDropItem;  //드랍 아이템  (장비, 스킬, 아이템) ????
 }
 
-public class MonsterInfoList : MonoBehaviour
+public class MonsterInfoList
 {
     List<MonsterInfo> monsterInfoList = new List<MonsterInfo>();
 
-    private void Start()
+    public MonsterInfoList()
     {
         // 몬스터 코드, 등급, 이름, 상태, 공격력, 방어력, 체력, 이동속도, 드랍골드량, 드랍률, 드롭 아이템
         //?????????아이템에도 몬스터 코드가 있어야하나? 아니면 몬스터가 아이템 코드를 가지고 있어야하나?
@@ -112,18 +112,22 @@ public class MonsterInfoList : MonoBehaviour
 
 public class MonsterParent : MonoBehaviour
 {
-    MonsterInfoList monsterInfoDataBase;
 
-    public MonsterCode myMonsterCode;     //고유코드 (Inspector)
-    MonsterInfo myMonsterInfo;
+    public MonsterCode myMonsterCode;   //고유코드 (Inspector)
+    MonsterInfo myMonsterInfo;          //이 몬스터의 정보
 
     public GameObject DropGoldObject;   //드랍 골드 오브젝트 (Inspector)
     public Animator monsterAnimator;    //애니메이터
 
     public virtual void Start()
     {
+        if (myMonsterCode != MonsterCode.PARENT)    //부모 일 경우 정보 불러오지 않음
+        {
+        MonsterInfoList monsterInfoDataBase = new MonsterInfoList();    //메모리 절약을 위해 전역변수가 아닌 1회성 지역변수로 사용.
         monsterAnimator = GetComponent<Animator>();
         myMonsterInfo = monsterInfoDataBase.MonsterDataLoadWithCode(myMonsterCode);
+        Debug.Log(name+" "+myMonsterInfo.monsterName);
+        }
     }
 
     void Update()
