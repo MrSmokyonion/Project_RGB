@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,7 +69,7 @@ public class MonsterInfo
     public int monsterSpeed;            //이동속도
 
     public int monsterDropGoldAmount;   //드랍 골드량
-    public int monsterDropRate;         //드랍률
+    public int monsterDropRate;         //드랍률 0~100%
     public GameObject monsterDropItem;  //드랍 아이템  (장비, 스킬, 아이템) ????
 }
 
@@ -81,17 +80,17 @@ public class MonsterInfoList
     public MonsterInfoList()
     {
         // 몬스터 코드, 등급, 이름, 상태, 공격력, 방어력, 체력, 이동속도, 드랍골드량, 드랍률, 드롭 아이템
-        //?????????아이템에도 몬스터 코드가 있어야하나? 아니면 몬스터가 아이템 코드를 가지고 있어야하나?
 
-        monsterInfoList.Add(new MonsterInfo(MonsterCode.WALK_MONSTER_1, false, "작은 꽃", MonsterState.IDLE, 10, 10, 100, 100, 100, 0, null));
-        monsterInfoList.Add(new MonsterInfo(MonsterCode.WALK_MONSTER_2, false, "화난 돌", MonsterState.IDLE, 10, 10, 100, 100, 100, 0, null));
-        monsterInfoList.Add(new MonsterInfo(MonsterCode.WALK_MONSTER_3, false, "부끄럼 나무", MonsterState.IDLE, 10, 10, 100, 100, 100, 0, null));
+        //Walk Monsters
+        monsterInfoList.Add(new MonsterInfo(MonsterCode.WALK_MONSTER_1, false, "작은 꽃", MonsterState.IDLE, 10, 10, 100, 100, 101, 0, null));
+        monsterInfoList.Add(new MonsterInfo(MonsterCode.WALK_MONSTER_2, false, "화난 돌", MonsterState.IDLE, 10, 10, 100, 100, 150, 0, null));
+        monsterInfoList.Add(new MonsterInfo(MonsterCode.WALK_MONSTER_3, false, "부끄럼 나무", MonsterState.IDLE, 10, 10, 100, 200, 50, 0, null));
 
-
+        //Fly Monsters
         monsterInfoList.Add(new MonsterInfo(MonsterCode.FLY_MONSTER_1, false, "과일 박쥐", MonsterState.IDLE, 10, 10, 100, 100, 100, 0, null));
 
-
-        monsterInfoList.Add(new MonsterInfo(MonsterCode.BOSS_1, true, "숲의 여왕", MonsterState.IDLE, 10, 10, 100, 100, 100, 0, null));
+        //Boss Monsters
+        monsterInfoList.Add(new MonsterInfo(MonsterCode.BOSS_1, true, "숲의 여왕", MonsterState.IDLE, 10, 10, 100, 100, 500, 80, null));
     }
 
     public MonsterInfo MonsterDataLoadWithCode(MonsterCode mCode)
@@ -113,25 +112,74 @@ public class MonsterInfoList
 public class MonsterParent : MonoBehaviour
 {
 
-    public MonsterCode myMonsterCode;   //고유코드 (Inspector)
-    MonsterInfo myMonsterInfo;          //이 몬스터의 정보
+    protected MonsterCode myMonsterCode;   //고유코드 (Inspector)
+    protected MonsterInfo myMonsterInfo;   //이 몬스터의 정보
 
-    public GameObject DropGoldObject;   //드랍 골드 오브젝트 (Inspector)
-    public Animator monsterAnimator;    //애니메이터
+    protected GameObject DropGoldObject;   //드랍 골드 오브젝트 (Inspector)
+    protected Animator monsterAnimator;    //애니메이터
 
-    public virtual void Start()
+    protected GameObject PlayerObject;     //현재 이 맵의 Player 오브젝트 (Find)
+
+    protected bool isAttacking;            //공격중인가?
+    protected bool isDameged;              //데미지 입었는가? (피격 상태)
+
+    protected void Awake()
     {
+        PlayerObject = GameObject.FindWithTag("Player");
         if (myMonsterCode != MonsterCode.PARENT)    //부모 일 경우 정보 불러오지 않음
         {
-        MonsterInfoList monsterInfoDataBase = new MonsterInfoList();    //메모리 절약을 위해 전역변수가 아닌 1회성 지역변수로 사용.
-        monsterAnimator = GetComponent<Animator>();
-        myMonsterInfo = monsterInfoDataBase.MonsterDataLoadWithCode(myMonsterCode);
-        Debug.Log(name+" "+myMonsterInfo.monsterName);
+            MonsterInfoList monsterInfoDataBase = new MonsterInfoList();                    //메모리 절약을 위해 전역변수가 아닌 1회성 지역변수로 사용.
+            monsterAnimator = GetComponent<Animator>();
+            myMonsterInfo = monsterInfoDataBase.MonsterDataLoadWithCode(myMonsterCode);
+            //Debug.Log(name + " " + myMonsterInfo.monsterName + myMonsterCode.ToString()); //불러온 것 이름 확인
         }
     }
 
-    void Update()
+    protected void DropGoldAndItems()
     {
+        //골드 드랍
+        DroppedGold gold = Instantiate(DropGoldObject).GetComponent<DroppedGold>();
 
+        int mDropGold = myMonsterInfo.monsterDropGoldAmount;
+        gold.GoldAmount = Random.Range(mDropGold - 50, mDropGold + 1);                      // (몬스터 골드량 -50) ~ (몬스터의 골드량)을 전달 함.
+        gold.name = myMonsterInfo.monsterName + " 드롭 골드량:" + gold;
+
+        int ranX = Random.Range(-100, 101);     //min ~ max-1
+        int ranY = Random.Range(100, 201);      //min ~ max-1
+        gold.transform.position = GetComponent<Transform>().position;
+        gold.GetComponent<Rigidbody2D>().AddForce(new Vector3(ranX, ranY, 0));              //위 방향으로 랜덤 발사
+
+        //보스일 때 확률적으로 아이템 드랍
+        if ((int)myMonsterCode >= (int)MonsterCode.BOSS_1)
+        {
+            if (Random.Range(0, 101)/*0~100*/ >= myMonsterInfo.monsterDropRate)
+            {
+                DropItem();
+            }
+        }
+    }
+
+    protected void DropItem()
+    {
+        //어떤 식으로든 아이템에게 아이템 달라고 요청. 그 후 생성 및 뿌림.
+        //아이템 클래스에게 MonsterCode를 넘김 
+        //아이템 클래스에서 그 MonsterCode에 맞는 아이템을 뿌림. (아이템이 MonsterCode 소지하고 있음.)
+    }
+
+    protected void DeadCheck()
+    {
+        if (myMonsterInfo.monsterHp <= 0)
+        {
+            //죽는 애니메이션과 동시에 아이템 드롭. 그 후 사라짐
+            DropGoldAndItems();
+        }
+    }
+
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Player의 무기/스킬/함정에 접촉 처리.
+        //데미지 만큼 myMonsterInfo.monsterHp 깎음
+        //자폭 몬스터 있나?..
+        DeadCheck();
     }
 }
