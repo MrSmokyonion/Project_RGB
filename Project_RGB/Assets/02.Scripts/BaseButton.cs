@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class BaseButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public abstract class BaseButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [HideInInspector]
     public bool isPushed;
-    public UnityEvent Action;
 
     private void Start()
     {
@@ -24,4 +23,6 @@ public class BaseButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         Debug.Log(gameObject.name + " is Released!");
         isPushed = false;
     }
+
+    public abstract void Execute(GameObject obj);
 }

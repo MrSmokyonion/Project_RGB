@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,7 +8,7 @@ public class ControlManager : MonoBehaviour
 {
     [Header("Controllers")]
     public VariableJoystick joystick;
-    public BaseButton jumpButton;
+    public JumpButton jumpButton;
 
     [Header("Values")]
     public float maxSpeed;
@@ -22,8 +23,15 @@ public class ControlManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move_Horizontal();
         InputCheck();
+        Move_Horizontal();
+        LandingPlatform();
+    }
+
+    private void InputCheck()
+    {
+        if (jumpButton.isPushed && !jumpButton.isJumping)
+            jumpButton.Execute(gameObject);
     }
 
     private void Move_Horizontal()
@@ -37,14 +45,21 @@ public class ControlManager : MonoBehaviour
         else if (rigid.velocity.x < maxSpeed * (-1))
             rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
     }
-
-    private void InputCheck()
+    public void Move_Jump()
     {
-        if (jumpButton.isPushed)
-            jumpButton.Action.Invoke();
+        rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
     }
-    private void Move_Jump()
+    private void LandingPlatform()
     {
-        Debug.Log("Jump!");
+        if(rigid.velocity.y < 0)
+        {
+            Debug.DrawRay(rigid.position, Vector2.down, new Color(0.0f, 1.0f, 0.0f));
+            RaycastHit2D raycast = Physics2D.Raycast(rigid.position, Vector2.down, 1.0f, LayerMask.GetMask("Platform"));
+            if(raycast.collider != null)
+            {
+                if (raycast.distance < 0.5f)
+                    jumpButton.isJumping = false;
+            }
+        }
     }
 }
