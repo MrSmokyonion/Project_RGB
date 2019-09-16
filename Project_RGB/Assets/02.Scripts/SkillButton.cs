@@ -1,63 +1,90 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SkillButton : MonoBehaviour
+public class SkillButton : BaseButton
 {
     private VariableJoystick stick;
     private Image handle;
+    private SkillState ss;
+
+    private bool isActive;
+
+    //여기에 스킬 3개 박혀있을꺼임 ====
+    //===============================
 
     private void Start()
     {
         stick = GetComponent<VariableJoystick>();
         handle = transform.GetChild(0).GetChild(0).GetComponent<Image>();
-        Debug.LogWarning(handle.gameObject.name);
+        ss = SkillState.Idle;
+        isActive = false;
     }
 
     private void Update()
     {
-        float h = Mathf.Abs(stick.Horizontal);
-        float v = Mathf.Abs(stick.Vertical);
-        SkillState ss = SkillState.Idle;
-
-        if(v <= 0.2f && h <= 0.2f)
+        if(isActive)
         {
-            ss = SkillState.Idle;
-            goto result;
-        }
+            float h = Mathf.Abs(stick.Horizontal);
+            float v = Mathf.Abs(stick.Vertical);
 
-        if(stick.Horizontal < stick.Vertical)
-        {
-            if (h < v)
+            if (v <= 0.2f && h <= 0.2f)
             {
-                ss = SkillState.Idle;
+                ChangeStickColor();
+                return;
             }
-            else if (h > v)
-            {
-                ss = SkillState.Red;
-            }
-        }
-        else if(stick.Horizontal > stick.Vertical)
-        {
-            if (h < v)
-            {
-                ss = SkillState.Green;
-            }
-            else if (h > v)
-            {
-                ss = SkillState.Blue;
-            }
-        }
 
-    result:
+            if (stick.Horizontal < stick.Vertical)
+            {
+                if (h < v)
+                {
+                    ss = SkillState.Idle;
+                }
+                else if (h > v)
+                {
+                    ss = SkillState.Red;
+                }
+            }
+            else if (stick.Horizontal > stick.Vertical)
+            {
+                if (h < v)
+                {
+                    ss = SkillState.Green;
+                }
+                else if (h > v)
+                {
+                    ss = SkillState.Blue;
+                }
+            }
+            ChangeStickColor();
+        }
+    }
+    private void ChangeStickColor()
+    {
         switch (ss)
         {
-            case SkillState.Idle:  handle.color = Color.white; break;
-            case SkillState.Red:   handle.color = Color.red;   break;
+            case SkillState.Idle: handle.color = Color.white; break;
+            case SkillState.Red: handle.color = Color.red; break;
             case SkillState.Green: handle.color = Color.green; break;
-            case SkillState.Blue:  handle.color = Color.blue;  break;
+            case SkillState.Blue: handle.color = Color.blue; break;
         }
+    }
+
+    public override void Execute(GameObject obj)
+    {
+        isPushed = false;
+        isActive = true;
+        Debug.Log("슬로ㅗ오오오ㅗ옹ㅇ오오오ㅗ오우");
+    }
+
+    public override void OnPointerUp(PointerEventData eventData)
+    {
+        isActive = false;
+        Debug.Log(ss.ToString() + " 스킬 온!"); 
+        ss = SkillState.Idle;
+        ChangeStickColor();
     }
 
     enum SkillState { Idle = 0, Red, Green, Blue }

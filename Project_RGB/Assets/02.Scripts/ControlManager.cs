@@ -7,8 +7,9 @@ using UnityEngine.EventSystems;
 public class ControlManager : MonoBehaviour
 {
     [Header("Controllers")]
-    public VariableJoystick joystick;
+    public VariableJoystick MoveStick;
     public JumpButton jumpButton;
+    public SkillButton skillButton;
 
     [Header("Values")]
     public float maxSpeed;
@@ -21,9 +22,13 @@ public class ControlManager : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         InputCheck();
+    }
+
+    private void FixedUpdate()
+    {
         Move_Horizontal();
         LandingPlatform();
     }
@@ -32,13 +37,15 @@ public class ControlManager : MonoBehaviour
     {
         if (jumpButton.isPushed && !jumpButton.isJumping)
             jumpButton.Execute(gameObject);
+        if (skillButton.isPushed)
+            skillButton.Execute(gameObject);
     }
 
     private void Move_Horizontal()
     {
-        if (joystick.Horizontal < 0.2 && joystick.Horizontal > -0.2) return;
+        if (MoveStick.Horizontal < 0.2 && MoveStick.Horizontal > -0.2) return;
 
-        rigid.AddForce(Vector2.right * joystick.Horizontal, ForceMode2D.Impulse);
+        rigid.AddForce(Vector2.right * MoveStick.Horizontal, ForceMode2D.Impulse);
 
         if (rigid.velocity.x > maxSpeed)
             rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);

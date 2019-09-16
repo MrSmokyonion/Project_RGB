@@ -1890,8 +1890,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c6cbbb4d3ad1849b5a66d716e79baf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joystick: {fileID: 3881087803343247794}
+  MoveStick: {fileID: 3881087803343247794}
   jumpButton: {fileID: 1856736651}
+  skillButton: {fileID: 1304458065}
   maxSpeed: 4
   jumpPower: 10
 --- !u!1 &1304458060
@@ -2004,6 +2005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd079cdb2523794683a5efa0b9dfc18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPushed: 0
 --- !u!1 &1492753542
 GameObject:
   m_ObjectHideFlags: 0
