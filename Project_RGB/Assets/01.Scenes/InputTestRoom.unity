@@ -1906,6 +1906,7 @@ GameObject:
   - component: {fileID: 1304458063}
   - component: {fileID: 1304458062}
   - component: {fileID: 1304458064}
+  - component: {fileID: 1304458065}
   m_Layer: 5
   m_Name: Skill
   m_TagString: Untagged
@@ -1991,6 +1992,18 @@ MonoBehaviour:
   handle: {fileID: 736671989}
   moveThreshold: 1
   joystickType: 0
+--- !u!114 &1304458065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304458060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cd079cdb2523794683a5efa0b9dfc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1492753542
 GameObject:
   m_ObjectHideFlags: 0
