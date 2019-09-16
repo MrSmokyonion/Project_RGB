@@ -6,13 +6,14 @@ public class MonsterFly : MonsterParent
 {
     private void Start()
     {
-        GetComponent<Rigidbody2D>().gravityScale = 0f;
+        myMonsterRigid.gravityScale = 0f;
     }
 
     void Update()
     {
-        if (myMonsterCode == MonsterCode.FLY_MONSTER_1)    //과일 박쥐, 범위에 들어오면 따라다님.
+        if (myMonsterCode == MonsterCode.FLY_MONSTER_1)    //과일 박쥐. 범위에 들어오면 따라다님.
         {
+
         }
     }
 }
