@@ -10,6 +10,7 @@ public class ControlManager : MonoBehaviour
     public VariableJoystick MoveStick;
     public JumpButton jumpButton;
     public SkillButton skillButton;
+    public AttackButton attackButton;
 
     [Header("Values")]
     public float maxSpeed;
@@ -39,6 +40,8 @@ public class ControlManager : MonoBehaviour
             jumpButton.Execute(gameObject);
         if (skillButton.isPushed)
             skillButton.Execute(gameObject);
+        if (attackButton.isPushed)
+            attackButton.Execute(gameObject);
     }
 
     private void Move_Horizontal()
