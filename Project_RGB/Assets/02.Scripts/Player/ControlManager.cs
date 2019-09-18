@@ -54,6 +54,8 @@ public class ControlManager : MonoBehaviour
             rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
         else if (rigid.velocity.x < maxSpeed * (-1))
             rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
+
+        Debug.Log("움직이는 중 " + rigid.velocity + " @@ " + MoveStick.Horizontal);
     }
     public void Move_Jump()
     {

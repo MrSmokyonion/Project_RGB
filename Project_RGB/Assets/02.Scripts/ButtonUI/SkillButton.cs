@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SkillButton : BaseButton
 {
+    private GameObject player;
     private VariableJoystick stick;
     private Image handle;
     private SkillState ss;
@@ -76,16 +77,20 @@ public class SkillButton : BaseButton
     {
         isPushed = false;
         isActive = true;
+        player = obj;
         Debug.Log("슬로ㅗ오오오ㅗ옹ㅇ오오오ㅗ오우");
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
         isActive = false;
-        Debug.Log(ss.ToString() + " 스킬 온!"); 
+        Debug.Log(ss.ToString() + " 스킬 온!");
+        PlayerStatus ps = player.GetComponent<PlayerStatus>();
+        ps.ActiveSkill(ss);
+
+        player = null;
         ss = SkillState.Idle;
         ChangeStickColor();
     }
-
-    enum SkillState { Idle = 0, Red, Green, Blue }
 }
+public enum SkillState { Idle = 0, Red, Green, Blue }
