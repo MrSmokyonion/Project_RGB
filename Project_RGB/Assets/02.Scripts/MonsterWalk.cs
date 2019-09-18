@@ -7,30 +7,33 @@ public class MonsterWalk : MonsterParent
 {
     private void Start()
     {
-        Invoke("RangeCheckSystem", 0.2f);
+        Invoke("AttackRangeCheckSystem", 0.2f);
+        Invoke("PosAndMoveSystem", 0.1f);
     }
 
-    void Update()
+    public void PosAndMoveSystem()
     {
-        //플레이어와 몬스터 각각의 x,y값
-        float pPosX = PlayerObject.transform.position.x;
-        float pPosY = PlayerObject.transform.position.y;
-        float mPosX = this.transform.position.x;
-        float mPosY = this.transform.position.y;
+        if (myMonsterInfo.monsterState != MonsterState.DEAD)
+        {
+            //플레이어와 몬스터 각각의 x,y값
+            pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
+            mPosXY = new Vector2(this.transform.position.x, this.transform.position.y);
 
-        int isLRM = (pPosX < this.transform.position.x) ? 1 :
-            ((pPosX > this.transform.position.x) ? 2 : 3);                          //Left 1, Right 2, Midle 3
+            isLRM = (pPosXY.x < mPosXY.x) ? 1 :
+               ((pPosXY.x > mPosXY.x) ? 2 : 3);                                    //Player가 Left 1, Right 2, Midle 3 에 있음
 
-        MoveSystem(isLRM);
-        AttackSystem(isLRM);
+            MoveSystem();
 
+            Invoke("PosAndMoveSystem", 0.1f);
+        }
     }
 
-    public void MoveSystem(int isLRM)
+    public void MoveSystem()
     {
         //----------------------------이동----------------------------
         if (!isAttacking)                                                           //공격 중에는 move,rotate하면 안됨
         {
+            //----------------------------좌우----------------------------
             if (isLRM == 1)                                                         //왼쪽에 플레이어가 있음
             {
                 transform.localScale = new Vector3(1f, 1f, 1f);
@@ -49,7 +52,7 @@ public class MonsterWalk : MonsterParent
         }
     }
 
-    public void AttackSystem(int isLRM)
+    public void AttackSystem()
     {
 
         //----------------------------공격----------------------------
@@ -81,37 +84,56 @@ public class MonsterWalk : MonsterParent
                         string name2 = (myMonsterCode.ToString() + "_AttackAnimation").ToUpper();
 
                         if (name1.Equals(name2))
-                            attackingRunTime = ac.animationClips[i].length - 0.2f;
+                        {
+                            attackingRunTime = ac.animationClips[i].length;
+                        }
                     }
-                    myMonsterAnimator.SetBool("isAttacking", isAttacking);          //공격 애니메이션 실행
+                    myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
                     Invoke("ResetIsAttacking", attackingRunTime);
                 }
             }
         }
     }
 
-    public void RangeCheckSystem()
+    public void AttackRangeCheckSystem()
     {
-        //--------------------------범위 체크--------------------------
-        RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, Vector2.left, myMonsterInfo.monsterAttackRange);
-        Debug.DrawRay(transform.position, Vector2.left * myMonsterInfo.monsterAttackRange, Color.red, 5f);
-        
-        //if(hideFlags)
-        foreach (RaycastHit2D h in hit)
+        if (myMonsterInfo.monsterState != MonsterState.DEAD)
         {
-            Debug.Log(h.transform.name);
-            if (h.transform.tag == "Player")    //상의★Player tag가 필요해오
+            if (!isAttacking)
             {
-                attackOrder = true;
+                //--------------------------범위 체크--------------------------
+                List<RaycastHit2D> hitList = new List<RaycastHit2D>();
+                if (isLRM == 1)
+                {
+                    hitList.AddRange(Physics2D.RaycastAll(transform.position, Vector2.left, myMonsterInfo.monsterAttackRange));
+                    Debug.DrawRay(transform.position, Vector2.left * myMonsterInfo.monsterAttackRange, Color.red, 0.2f);
+                }
+                else if (isLRM == 2 || isLRM == 3)
+                {
+                    //Debug.Log("isLRM" + isLRM);
+                    hitList.AddRange(Physics2D.RaycastAll(transform.position, Vector2.right, myMonsterInfo.monsterAttackRange));
+                    Debug.DrawRay(transform.position, Vector2.right * myMonsterInfo.monsterAttackRange, Color.red, 0.2f);
+                }
+
+                //if(hideFlags)
+                foreach (RaycastHit2D h in hitList)
+                {
+                    //Debug.Log("RayCast 리스트!" + h.transform.tag);
+                    if (h.transform.tag == "Player")
+                    {
+                        attackOrder = true;
+                    }
+                }
+                AttackSystem();
             }
+            Invoke("AttackRangeCheckSystem", 0.2f);                                                 //계속 체크
         }
-        Invoke("RangeCheckSystem", 0.2f);                                                 //계속 체크
     }
 
     public void ResetIsAttacking()
     {
         isAttacking = false;                                                        //공격 애니메이션 끝남
-        myMonsterAnimator.SetBool("isAttacking", isAttacking);
-        Debug.Log("공격 끝남");
+        myMonsterAnimator.SetBool("IsAttacking", isAttacking);
+        //Debug.Log("공격 끝남");
     }
 }

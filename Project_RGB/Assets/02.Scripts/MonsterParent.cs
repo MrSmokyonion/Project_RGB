@@ -98,7 +98,7 @@ public class MonsterInfoList
 
         //Fly Monsters
         monsterInfoList.Add(new MonsterInfo(MonsterCode.FLY_MONSTER_1, false, "과일 박쥐", MonsterState.IDLE,
-            10, 10, 100, 4, 0,
+            10, 10, 100, 7, 0,
             100, 0, null));
 
         //Boss Monsters
@@ -135,9 +135,14 @@ public class MonsterParent : MonoBehaviour
 
     public GameObject PlayerObject;     //현재 이 맵의 Player 오브젝트 (Find)
 
-    public bool attackOrder;                 //공격해라 (명령)
+    public Vector2 pPosXY;
+    public Vector2 mPosXY;
+    public int isLRM;
+    public int isUDM;
+
+    public bool attackOrder;            //공격해라 (명령)
     public bool isAttacking;            //공격중인가? (판단)
-    public float attackingRunTime;        //공격 애니메이션 실행 시간
+    public float attackingRunTime;      //공격 애니메이션 실행 시간
     public bool isDameged;              //데미지 입었는가? (피격 상태 판단)
 
     public void Awake()
@@ -152,7 +157,7 @@ public class MonsterParent : MonoBehaviour
             myMonsterInfo = monsterInfoDataBase.MonsterDataLoadWithCode(myMonsterCode);
 
 
-            Debug.Log(myMonsterInfo.monsterHp + "HP" + myMonsterInfo.monsterName);          //Debug log 몬스터확인.
+            //Debug.Log(myMonsterInfo.monsterHp + "HP" + myMonsterInfo.monsterName);          //Debug log 몬스터확인.
         }
     }
 
