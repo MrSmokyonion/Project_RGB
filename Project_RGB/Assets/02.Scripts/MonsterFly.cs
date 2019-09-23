@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class MonsterFly : MonsterParent
 {
-    private void Start()
+    public override void MyStart()
     {
-        myMonsterRigid.gravityScale = 0f;
         Invoke("AttackRangeCheckSystem", 0.2f);
         Invoke("PosAndMoveSystem", 0.1f);
     }

@@ -140,8 +140,6 @@ public class MonsterParent : MonoBehaviour
     public int isLRM;
     public int isUDM;
 
-    public bool isAction = false;       //행동 실행
-
     public bool attackOrder;            //공격해라 (명령)
     public bool isAttacking;            //공격중인가? (판단)
     public float attackingRunTime;      //공격 애니메이션 실행 시간
@@ -150,7 +148,10 @@ public class MonsterParent : MonoBehaviour
     public void Awake()
     {
         PlayerObject = GameObject.Find("MonsterPlayer_Sample");
-
+        if (((int)MonsterCode.FLY_MONSTER_1 < (int)myMonsterCode) && ((int)myMonsterCode < (int)MonsterCode.FLY_MONSTER_1))
+        {
+            myMonsterRigid.gravityScale = 0f;
+        }
         if (myMonsterCode != MonsterCode.PARENT)                                            //부모 일 경우 정보 불러오지 않음
         {
             MonsterInfoList monsterInfoDataBase = new MonsterInfoList();                    //메모리 절약을 위해 전역변수가 아닌 1회성 지역변수로 사용.
@@ -162,6 +163,12 @@ public class MonsterParent : MonoBehaviour
 
             //Debug.Log(myMonsterInfo.monsterHp + "HP" + myMonsterInfo.monsterName);          //Debug log 몬스터확인.
         }
+
+    }
+
+    public virtual void MyStart()
+    {
+        //Start에 있어야하는 것을 조건하에 직접 실행시킴.
     }
 
     public void PlayerCloserCheck()
@@ -170,14 +177,13 @@ public class MonsterParent : MonoBehaviour
         pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
         mPosXY = new Vector2(this.transform.position.x, this.transform.position.y);
 
-        isLRM = (pPosXY.x < mPosXY.x) ? 1 :
-           ((pPosXY.x > mPosXY.x) ? 2 : 3);                                    //Player가 Left 1, Right 2, Midle 3 에 있음
+        if (Mathf.Sqrt(((pPosXY.x - mPosXY.x) * (pPosXY.x - mPosXY.x)) + ((pPosXY.y - mPosXY.y) * (pPosXY.y - mPosXY.y))) < 5f)
+        {
+            Invoke("MyStart", 0.001f);
+            return;
+        }
 
-        isUDM = (pPosXY.y > mPosXY.y) ? 1 :
-           ((pPosXY.y < mPosXY.y) ? 2 : 3);                                    //Player가 Up 1, Down 2, Midle 3 에 있음
-
-        //if ()
-        //isAction = true;
+        Invoke("PlayerCloserCheck", 0.4f);
     }
 
     public void DropGoldAndItems()

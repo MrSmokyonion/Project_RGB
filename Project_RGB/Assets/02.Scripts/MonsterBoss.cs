@@ -8,7 +8,7 @@ public class MonsterBoss : MonsterParent
     public GameObject bossSummonAttackPrefab;
     public GameObject bossSummonMonsterPrefab;
 
-    private void Start()
+    public override void MyStart()
     {
         Invoke("AttackRangeCheckSystem", 0.5f); //0.5초에 한번씩 범위 및 공격 체크.
         Invoke("PosAndMoveSystem", 0.1f);

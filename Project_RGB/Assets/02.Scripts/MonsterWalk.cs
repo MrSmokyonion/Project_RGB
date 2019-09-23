@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MonsterWalk : MonsterParent
 {
-    private void Start()
+    public override void MyStart()
     {
         Invoke("AttackRangeCheckSystem", 0.2f);
         Invoke("PosAndMoveSystem", 0.1f);
