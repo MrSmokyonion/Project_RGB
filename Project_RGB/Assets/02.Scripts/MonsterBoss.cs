@@ -99,8 +99,8 @@ public class MonsterBoss : MonsterParent
             string name1 = ac.animationClips[i].name.ToUpper();
             string name2 = (myMonsterCode.ToString() + "_AttackAnimation" + aniType).ToUpper();
 
-            Debug.Log("name1:" + name1);
-            Debug.Log("name2:" + name2);
+            //Debug.Log("name1:" + name1);
+            //Debug.Log("name2:" + name2);
             if (name1.Equals(name2))
             {
                 attackingRunTime = ac.animationClips[i].length;
