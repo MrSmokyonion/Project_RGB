@@ -1968,7 +1968,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1192355606}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 5.08, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1770732900}
@@ -2040,7 +2040,6 @@ MonoBehaviour:
   attackButton: {fileID: 298554075}
   maxSpeed: 4
   jumpPower: 10
-  attack_pos: {fileID: 1770732900}
 --- !u!114 &1192355612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2056,6 +2055,10 @@ MonoBehaviour:
   Interactive: {fileID: 0}
   attack_pos: {fileID: 1770732900}
   attack_range: {x: 1, y: 1}
+  power: 0
+  defence: 0
+  hp: 0
+  range: 0
 --- !u!1 &1304458060
 GameObject:
   m_ObjectHideFlags: 0
