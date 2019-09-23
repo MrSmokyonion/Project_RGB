@@ -44,6 +44,7 @@ public class ControlManager : MonoBehaviour
             attackButton.Execute(gameObject);
     }
 
+    #region Movements
     private void Move_Horizontal()
     {
         if (MoveStick.Horizontal < 0.2 && MoveStick.Horizontal > -0.2) return;
@@ -63,15 +64,36 @@ public class ControlManager : MonoBehaviour
     }
     private void LandingPlatform()
     {
-        if(rigid.velocity.y < 0)
+        if (rigid.velocity.y < 0)
         {
             Debug.DrawRay(rigid.position, Vector2.down, new Color(0.0f, 1.0f, 0.0f));
             RaycastHit2D raycast = Physics2D.Raycast(rigid.position, Vector2.down, 1.0f, LayerMask.GetMask("Platform"));
-            if(raycast.collider != null)
+            if (raycast.collider != null)
             {
                 if (raycast.distance < 0.5f)
                     jumpButton.isJumping = false;
             }
         }
     }
+
+    #endregion
+
+    #region Interactive
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Interactive")
+        {
+            attackButton.IsInteract = true;
+            GetComponent<PlayerStatus>().Interactive = collision.gameObject;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Interactive")
+        {
+            attackButton.IsInteract = false;
+            GetComponent<PlayerStatus>().Interactive = null;
+        }
+    }
+    #endregion
 }

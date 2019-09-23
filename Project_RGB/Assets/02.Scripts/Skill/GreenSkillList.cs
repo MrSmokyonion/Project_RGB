@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class G_HighJump : GreenSkill //201
 {
+    public G_HighJump()
+    {
+        power = 20;
+    }
+
     public override void ExecuteSkill(GameObject obj)
     {
         Debug.Log("Green Skill -> HighJump!");
         Rigidbody2D rigid = obj.GetComponent<Rigidbody2D>();
-        rigid.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
+        rigid.AddForce(Vector2.up * power, ForceMode2D.Impulse);
     }
 }

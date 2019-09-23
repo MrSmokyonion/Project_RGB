@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerStatus : MonoBehaviour
 {
     public GameObject test;
+    public GameObject Interactive;
 
     private RedSkill red;
     private GreenSkill green;
@@ -17,18 +18,29 @@ public class PlayerStatus : MonoBehaviour
     //무기변수
     //방어구변수
 
+
     private void Start()
     {
         hp = 3;
         ChangeSkill(201);
     }
 
+    #region Attack <==> Interact
     public void Attack()
     {
         GameObject tmp = Instantiate(test, gameObject.transform);
         tmp.transform.position += new Vector3(0.5f, 0.0f, 0.0f);
     }
 
+    public void Interact()
+    {
+        Debug.Log(Interactive.name + " Interact!");
+    }
+
+    #endregion
+
+
+    #region Skill
     public void ActiveSkill(SkillState ss)
     {
         switch (ss)
@@ -43,8 +55,8 @@ public class PlayerStatus : MonoBehaviour
     public void ChangeSkill(int skillcode)
     {
         int what = skillcode / 100;
-        
-        switch(what)
+
+        switch (what)
         {
             case 1: red = SkillList.GetSkill_Red(skillcode); break;
             case 2: green = SkillList.GetSkill_Green(skillcode); break;
@@ -53,6 +65,9 @@ public class PlayerStatus : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region WhenPlayerGetHit
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Monster")
@@ -76,4 +91,6 @@ public class PlayerStatus : MonoBehaviour
         gameObject.layer = 11;
         GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
     }
+
+    #endregion
 }
