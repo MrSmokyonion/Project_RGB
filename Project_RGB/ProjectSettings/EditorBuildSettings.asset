@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/01.Scenes/DungeonSelectionUITestRoom.unity
+    guid: 2fa0cc6a595fc084286dc73ff6075122
   m_configObjects: {}
