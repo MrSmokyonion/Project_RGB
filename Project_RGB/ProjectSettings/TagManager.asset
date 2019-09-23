@@ -5,12 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - QuestPNameText
-  - 'QuestPDescriptionText '
+  - QuestPDescriptionText
   - QuestCNameText
   - QuestCDescriptionText
   - Monster
   - Interactive
   - NPC
+  - TeleportDoor
   layers:
   - Default
   - TransparentFX
