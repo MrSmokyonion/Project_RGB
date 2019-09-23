@@ -23,10 +23,10 @@ TagManager:
   - 
   - Monster
   - DropGold
-  - 
+  - Platform
   - Player
-  - 
-  - 
+  - PlayerDameged
+  - Weapon
   - 
   - 
   - 
@@ -48,4 +48,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 1070425191
     locked: 0
