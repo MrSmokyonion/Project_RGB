@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - QuestPNameText
+  - 'QuestPDescriptionText '
+  - QuestCNameText
+  - QuestCDescriptionText
+  - Monster
+  - Interactive
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -13,12 +20,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Monster
+  - DropGold
+  - Platform
+  - Player
+  - PlayerDameged
+  - Weapon
   - 
   - 
   - 
@@ -40,4 +47,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 1070425191
     locked: 0
