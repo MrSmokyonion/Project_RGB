@@ -2059,6 +2059,7 @@ MonoBehaviour:
   defence: 0
   hp: 0
   range: 0
+  arrow: {fileID: 4024599580926813142, guid: f493d0c137e87fc48b1599a1a66dc249, type: 3}
 --- !u!1 &1304458060
 GameObject:
   m_ObjectHideFlags: 0

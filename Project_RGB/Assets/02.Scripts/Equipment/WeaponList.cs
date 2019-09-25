@@ -26,7 +26,7 @@ public static class WeaponList
     {
         switch (weaponCode)
         {
-            case 601: return null;
+            case 601: return new DefaultBow();
         }
         return null;
     }

@@ -7,6 +7,7 @@ public class G_HighJump : GreenSkill //201
     public G_HighJump()
     {
         power = 20;
+        delay = 2f;
     }
 
     public override void ExecuteSkill(GameObject obj)
