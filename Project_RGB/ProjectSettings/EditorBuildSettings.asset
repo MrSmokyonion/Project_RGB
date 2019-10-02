@@ -5,7 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
+    path: Assets/01.Scenes/VillageUITestRoom.unity
+    guid: 0a176b97f5f7bb144b3781267c79d537
+  - enabled: 0
     path: Assets/01.Scenes/DungeonSelectionUITestRoom.unity
     guid: 2fa0cc6a595fc084286dc73ff6075122
+  - enabled: 1
+    path: Assets/01.Scenes/AmorTestRoom.unity
+    guid: f764f239bfc6de14db6bbf0251bef150
   m_configObjects: {}

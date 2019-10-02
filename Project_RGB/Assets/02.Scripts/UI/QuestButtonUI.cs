@@ -22,11 +22,11 @@ public class QuestButtonUI : MonoBehaviour
 
     public void QuestCompleteButtonClick()
     {
-      
+
         quest.isProgressQuest = false;
         quest.progressQuestList.SetActive(false);
         quest.completeQuestList.SetActive(true);
-        quest.QuestBoardCompleteSetting();
+        quest.QuestSetting();
         cancleButton.SetActive(false);
     }
 
@@ -35,8 +35,15 @@ public class QuestButtonUI : MonoBehaviour
         quest.isProgressQuest = true;
         quest.progressQuestList.SetActive(true);
         quest.completeQuestList.SetActive(false);
-        quest.QuestBoardProgressSetting();
+        quest.QuestSetting();
         cancleButton.SetActive(true);
+    }
+
+    public void QuestMonsterCheckTest()
+    {
+        Debug.Log("!");
+        QuestUI.GetComponent<Quest>().QuestMonsterCheck(MonsterCode.FLY_MONSTER_1);
+
     }
 
     public void QuestCancleButtonClick()
