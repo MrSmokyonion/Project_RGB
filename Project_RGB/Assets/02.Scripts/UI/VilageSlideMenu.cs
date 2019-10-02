@@ -10,7 +10,7 @@ public class VilageSlideMenu : MonoBehaviour
 
     Animator SlideMenuAnimator;
     bool isClick;
-    AnimatorStateInfo currentBaseState;
+
 
 
 

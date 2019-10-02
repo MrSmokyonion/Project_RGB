@@ -12,6 +12,7 @@ TagManager:
   - Interactive
   - NPC
   - TeleportDoor
+  - QuestSuccessImage
   layers:
   - Default
   - TransparentFX
