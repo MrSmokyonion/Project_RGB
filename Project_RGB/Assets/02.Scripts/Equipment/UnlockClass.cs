@@ -29,32 +29,50 @@ public static class UnlockClass
 
 
         amulet = new bool[] { true };
-        stone = new bool[] { true };
+        stone = new bool[] { true, true };
 
         food = new bool[] { true };
     }
 
-    public static bool IsUnlockCode(SpawnCode code)
+    public static bool CheckCode(SpawnCode code)
+    {
+        bool[] arr = GetCodeToArray(code);
+        if (arr == null) return false;
+
+        int num = int.Parse(code.ToString().Substring(2));
+        return arr[num];
+    }
+
+    public static void UnlockCode(SpawnCode code)
+    {
+        bool[] arr = GetCodeToArray(code);
+        if (arr == null) return;
+
+        int num = int.Parse(code.ToString().Substring(2));
+        arr[num] = true;
+    }
+
+    private static bool[] GetCodeToArray(SpawnCode code)
     {
         string str = code.ToString();
         string section = str.Substring(0, 1);
         int num1 = int.Parse(str.Substring(1, 1));
         int num2 = int.Parse(str.Substring(2));
 
-        switch(section)
+        switch (section)
         {
-            case "R": return red[num2-1];
-            case "G": return green[num2 - 1];
-            case "B": return blue[num2 - 1];
+            case "R": return red;
+            case "G": return green;
+            case "B": return blue;
 
-            case "W": return weapon[num1][num2 - 1];
+            case "W": return weapon[num1];
 
-            case "A": return amulet[num2 - 1];
-            case "S": return amulet[num2 - 1];
+            case "A": return amulet;
+            case "S": return stone;
 
-            case "F": return food[num2 - 1];
+            case "F": return food;
 
-            default: return false;
+            default: return null;
         }
     }
 }

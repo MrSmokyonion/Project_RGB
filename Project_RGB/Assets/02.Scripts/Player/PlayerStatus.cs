@@ -26,9 +26,9 @@ public class PlayerStatus : MonoBehaviour
     public GameObject arrow;
 
     //스킬 변수
-    private Skill_Red red;
-    private Skill_Green green;
-    private Skill_Blue blue;
+    public Skill_Red red;
+    public Skill_Green green;
+    public Skill_Blue blue;
 
     //장비 변수
     private Base_Weapon weapon;
@@ -49,26 +49,8 @@ public class PlayerStatus : MonoBehaviour
         ChangeSkill(SpawnCode.G001);
         ChangeWeapon(SpawnCode.W201);
         ChangeArmor(SpawnCode.A001);
-        ChangeArmor(SpawnCode.S001);
+        ChangeArmor(SpawnCode.S002);
         ChangeFood(SpawnCode.F001);
-
-        Init();
-    }
-
-    private void Init()
-    {
-        //초기화 앞서 장착한 장비, 스킬들 확인 작업
-        //1. 무기 종류에 따른 사거리 지정
-        Init_Weapon();
-
-        //2. 장비 종류의 효과를 플레이어 스탯에 적용
-        Init_HpDefence();
-
-        //3. 음식 시너지 적용
-        Init_Food();
-
-        //초기화 부분
-        d_weapon = d_red = d_green = d_blue = 0.0f;
     }
 
     private void Init_Weapon()
@@ -99,16 +81,8 @@ public class PlayerStatus : MonoBehaviour
     private void Init_HpDefence()
     {
         maxHp = 100;
-        maxHp += amulet.hp;
         curHp = maxHp;
-        foodBonusHp = 0;
         defence = 1;
-        defence = stone.defence;
-    }
-    private void Init_Food()
-    {
-        if (food == null) return;
-        foodBonusHp = food.foodBonusHp;
     }
     #endregion
 
@@ -209,6 +183,7 @@ public class PlayerStatus : MonoBehaviour
             case "B": blue = SpawnClass.GetSkill_Blue(code); break;
             default: return;
         }
+        d_weapon = d_red = d_green = d_blue = 0.0f;
     }
 
     public void ChangeWeapon(SpawnCode code)
@@ -222,16 +197,18 @@ public class PlayerStatus : MonoBehaviour
             case "W2": weapon = SpawnClass.GetWeapon_Bow(code); break;
             default: return;
         }
+        Init_Weapon();
     }
 
     public void ChangeArmor(SpawnCode code)
     {
         string what = (code.ToString().Substring(0, 1));
 
+        Init_HpDefence();
         switch (what)
         {
-            case "A": amulet = SpawnClass.GetArmor_Amulet(code); break;
-            case "S": stone = SpawnClass.GetArmor_Stone(code); break;
+            case "A": amulet = SpawnClass.GetArmor_Amulet(code); amulet.Execute(this); break;
+            case "S": stone = SpawnClass.GetArmor_Stone(code); stone.Execute(this); break;
             default: return;
         }
     }
@@ -245,6 +222,7 @@ public class PlayerStatus : MonoBehaviour
             case "F": food = SpawnClass.GetFood(code); break;
             default: return;
         }
+        foodBonusHp = food.foodBonusHp;
     }
     #endregion
 

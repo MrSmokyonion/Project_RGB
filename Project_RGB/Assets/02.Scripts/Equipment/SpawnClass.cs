@@ -7,7 +7,7 @@ public static class SpawnClass
     #region Weapon
     public static Weapon_Sword GetWeapon_Sword(SpawnCode weaponCode)
     {
-        if (!UnlockClass.IsUnlockCode(weaponCode)) return null;
+        if (!UnlockClass.CheckCode(weaponCode)) return null;
 
         switch (weaponCode)
         {
@@ -18,7 +18,7 @@ public static class SpawnClass
 
     public static Weapon_Spear GetWeapon_Spear(SpawnCode weaponCode)
     {
-        if (!UnlockClass.IsUnlockCode(weaponCode)) return null;
+        if (!UnlockClass.CheckCode(weaponCode)) return null;
 
         switch (weaponCode)
         {
@@ -29,7 +29,7 @@ public static class SpawnClass
 
     public static Weapon_Bow GetWeapon_Bow(SpawnCode weaponCode)
     {
-        if (!UnlockClass.IsUnlockCode(weaponCode)) return null;
+        if (!UnlockClass.CheckCode(weaponCode)) return null;
 
         switch (weaponCode)
         {
@@ -42,7 +42,7 @@ public static class SpawnClass
     #region Equitment
     public static Armor_Amulet GetArmor_Amulet(SpawnCode armorCode)
     {
-        if (!UnlockClass.IsUnlockCode(armorCode)) return null;
+        if (!UnlockClass.CheckCode(armorCode)) return null;
 
         switch (armorCode)
         {
@@ -53,11 +53,12 @@ public static class SpawnClass
 
     public static Armor_Stone GetArmor_Stone(SpawnCode armorCode)
     {
-        if (!UnlockClass.IsUnlockCode(armorCode)) return null;
+        if (!UnlockClass.CheckCode(armorCode)) return null;
 
         switch (armorCode)
         {
             case SpawnCode.S001: return new Stone_Default();
+            case SpawnCode.S002: return new Stone_ImproveSkill();
         }
         return null;
     }
@@ -66,7 +67,7 @@ public static class SpawnClass
     #region Skill
     public static Skill_Red GetSkill_Red(SpawnCode skillcode)
     {
-        if (!UnlockClass.IsUnlockCode(skillcode)) return null;
+        if (!UnlockClass.CheckCode(skillcode)) return null;
 
         switch (skillcode)
         {
@@ -76,7 +77,7 @@ public static class SpawnClass
     }
     public static Skill_Green GetSkill_Green(SpawnCode skillcode)
     {
-        if (!UnlockClass.IsUnlockCode(skillcode)) return null;
+        if (!UnlockClass.CheckCode(skillcode)) return null;
 
         switch (skillcode)
         {
@@ -86,7 +87,7 @@ public static class SpawnClass
     }
     public static Skill_Blue GetSkill_Blue(SpawnCode skillcode)
     {
-        if (!UnlockClass.IsUnlockCode(skillcode)) return null;
+        if (!UnlockClass.CheckCode(skillcode)) return null;
 
         switch (skillcode)
         {
@@ -99,7 +100,7 @@ public static class SpawnClass
     #region Food
     public static BaseFood GetFood(SpawnCode foodcode)
     {
-        if (!UnlockClass.IsUnlockCode(foodcode)) return null;
+        if (!UnlockClass.CheckCode(foodcode)) return null;
 
         switch (foodcode)
         {
@@ -124,6 +125,7 @@ public enum SpawnCode
     //Equitment
     A001, //Default Amulet
     S001, //Default Stone
+    S002, //ImproveSkill Stone
 
     //Food
     F001 //Hamburger

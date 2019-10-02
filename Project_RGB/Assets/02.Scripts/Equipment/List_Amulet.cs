@@ -8,6 +8,5 @@ public class Amulet_Default : Armor_Amulet
     {
         armorName = "기본 아뮬렛";
         dualbility = 100;
-        hp = 10;
     }
 }

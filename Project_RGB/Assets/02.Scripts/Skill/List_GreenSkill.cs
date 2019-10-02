@@ -9,7 +9,7 @@ public class Skill_Green_HighJump : Skill_Green //201
         power = 20;
         delay = 2f;
     }
-
+    
     public override void ExecuteSkill(GameObject obj)
     {
         Debug.Log("Green Skill -> HighJump!");
