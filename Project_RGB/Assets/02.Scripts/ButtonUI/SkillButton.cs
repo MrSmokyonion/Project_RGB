@@ -13,8 +13,6 @@ public class SkillButton : BaseButton
 
     private bool isActive;
 
-    //여기에 스킬 3개 박혀있을꺼임 ====
-    //===============================
 
     private void Start()
     {

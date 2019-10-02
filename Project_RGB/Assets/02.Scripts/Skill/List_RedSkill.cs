@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class R_Fire : RedSkill //101
+public class Skill_Red_Fire : Skill_Red //101
 {
     public override void ExecuteSkill(GameObject obj)
     {

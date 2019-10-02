@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackButton : BaseButton
+public class MeleeAttackButton : AttackButton
 {
-    public bool IsInteract { get; set; }
-
     private void Start()
     {
         IsInteract = false;

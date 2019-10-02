@@ -26,3 +26,5 @@ public abstract class BaseButton : MonoBehaviour, IPointerDownHandler, IPointerU
 
     public abstract void Execute(GameObject obj);
 }
+
+public abstract class AttackButton : BaseButton { [HideInInspector] public bool IsInteract; }

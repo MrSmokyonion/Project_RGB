@@ -17,10 +17,14 @@ public class ControlManager : MonoBehaviour
     public float jumpPower;
 
     private Rigidbody2D rigid;
+    private SpriteRenderer sr;
+    private PlayerStatus ps;
 
     private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
+        ps = GetComponent<PlayerStatus>();
     }
 
     private void Update()
@@ -44,19 +48,25 @@ public class ControlManager : MonoBehaviour
             attackButton.Execute(gameObject);
     }
 
+
     #region Movements
     private void Move_Horizontal()
     {
         if (MoveStick.Horizontal < 0.2 && MoveStick.Horizontal > -0.2) return;
 
+        //Sprite, Melee Direction
+        bool b = MoveStick.Horizontal < 0;
+        sr.flipX = b;
+        ps.attack_pos.localPosition = new Vector2(ps.range * (b ? -1 : 1), ps.attack_pos.localPosition.y);
+        
+
+        //Movement
         rigid.AddForce(Vector2.right * MoveStick.Horizontal, ForceMode2D.Impulse);
 
         if (rigid.velocity.x > maxSpeed)
             rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
         else if (rigid.velocity.x < maxSpeed * (-1))
             rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
-
-        Debug.Log("움직이는 중 " + rigid.velocity + " @@ " + MoveStick.Horizontal);
     }
     public void Move_Jump()
     {
@@ -84,7 +94,7 @@ public class ControlManager : MonoBehaviour
         if (collision.gameObject.tag == "Interactive")
         {
             attackButton.IsInteract = true;
-            GetComponent<PlayerStatus>().Interactive = collision.gameObject;
+            ps.Interactive = collision.gameObject;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -92,7 +102,7 @@ public class ControlManager : MonoBehaviour
         if (collision.gameObject.tag == "Interactive")
         {
             attackButton.IsInteract = false;
-            GetComponent<PlayerStatus>().Interactive = null;
+            ps.Interactive = null;
         }
     }
     #endregion

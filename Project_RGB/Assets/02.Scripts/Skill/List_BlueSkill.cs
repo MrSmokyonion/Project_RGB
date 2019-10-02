@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class B_Shild : BlueSkill //301
+public class Skill_Blue_Shild : Skill_Blue //301
 {
     public override void ExecuteSkill(GameObject obj)
     {
