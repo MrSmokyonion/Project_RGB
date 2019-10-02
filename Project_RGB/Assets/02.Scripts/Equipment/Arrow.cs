@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    public float speed = 0f;
     public int power = 0;
-
+    public Transform arrow;
     private void Start()
     {
         Invoke("DestroyBullet", 2f);
     }
     private void Update()
     {
-        RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, transform.right, 0.5f);
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(arrow.position, arrow.right, 0.5f);
         if(raycastHit2D.collider != null)
         {
             if (raycastHit2D.collider.tag == "Monster")
@@ -22,13 +21,14 @@ public class Arrow : MonoBehaviour
                 DestroyBullet();
             }
         }
-        transform.Translate(transform.right * speed * Time.deltaTime);
+        arrow.right = GetComponent<Rigidbody2D>().velocity;
+        //arrow.Translate(arrow.right * speed * Time.deltaTime, Space.World);
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, transform.position + (transform.right * 0.5f));
+        Gizmos.DrawLine(arrow.position, arrow.position + (arrow.right * 0.5f));
     }
 
     private void DestroyBullet()

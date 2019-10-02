@@ -48,6 +48,7 @@ public class ControlManager : MonoBehaviour
             attackButton.Execute(gameObject);
     }
 
+
     #region Movements
     private void Move_Horizontal()
     {

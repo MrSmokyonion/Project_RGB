@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseWeapon
+public abstract class Base_Weapon
 {
     public float delay;
     public int power;
@@ -10,6 +10,6 @@ public abstract class BaseWeapon
     public int dualbility;
 }
 
-public abstract class Weapon_Sword : BaseWeapon { }
-public abstract class Weapon_Spear : BaseWeapon { }
-public abstract class Weapon_Bow : BaseWeapon { public int speed; }
+public abstract class Weapon_Sword : Base_Weapon { }
+public abstract class Weapon_Spear : Base_Weapon { }
+public abstract class Weapon_Bow : Base_Weapon { public int speed; }

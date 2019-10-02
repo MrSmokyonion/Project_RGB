@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DiamondSowrd : Weapon_Sword
+public class Bow_Default : Weapon_Bow
 {
-    public DiamondSowrd()
+    public Bow_Default()
     {
-        power = 5;
+        power = 3;
         delay = 0.5f;
-        weaponName = "다이아몬드 검";
+        weaponName = "그냥 활";
         dualbility = 100;
+        speed = 10;
     }
 }
