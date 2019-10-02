@@ -8,7 +8,15 @@ public class MonsterWalk : MonsterParent
     public override void MyStart()
     {
         Invoke("AttackRangeCheckSystem", 0.2f);
-        Invoke("PosAndMoveSystem", 0.1f);
+
+        if (false)  //목 없는 기사만 따로 시작 애니메이션.
+        {
+            //범위 안에 들어오면 자식개체(목)에게 떨어지라고(스프라이트 변경) 명령하고, 떨어지는 시간 만큼 기다렸다가 움직이기 시작함.
+        }
+        else
+        {
+            Invoke("PosAndMoveSystem", 0.1f);
+        }
     }
 
     public void PosAndMoveSystem()

@@ -74,8 +74,8 @@ public class MonsterBoss : MonsterParent
                     }
                     else if (attackType == 2)                                       //타겟팅 공격 (적당한 프리팹이 없어서 플레이어 위치에 꽃 소환.)
                     {
-                        bossSummonAttackPrefab.transform.position = pPosXY;
-                        Destroy(Instantiate(bossSummonAttackPrefab), 2f);           //이 자체에서 소환 되고나서 2초 뒤 AddComponent로 Trigger 콜라이더 On해서 공격 후 혼자 Destory.
+                        bossSummonAttackPrefab.transform.position = pPosXY;         //소환 되고나서 AddComponent로 Trigger 콜라이더 On해서 공격 후 혼자 Destory.
+
                     }
                     else if (attackType == 3)                                       //Boss위치에 몬스터 소환(걷는 꽃)
                     {

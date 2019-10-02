@@ -39,11 +39,11 @@ public class MonsterInfo
 {
 
     //생성자
-    public MonsterInfo(MonsterCode code, bool isb, string name, MonsterState state,
+    public MonsterInfo(MonsterCode monstercode, bool isb, string name, MonsterState state,
                            int damege, int defense, int hp, int speed, int range,
                            int goldamount, int droprate, GameObject dropitem)
     {
-        monsterCode = code;
+        monsterCode = monstercode;
         isBoss = isb;
         monsterName = name;
         monsterState = state;
@@ -59,7 +59,7 @@ public class MonsterInfo
         monsterDropItem = dropitem;
     }
 
-    public MonsterCode monsterCode;     //고유코드
+    public MonsterCode monsterCode;     //몬스터 코드
     public bool isBoss;                 //등급 (보스인지 판단)
     public string monsterName;          //이름
     public MonsterState monsterState;   //상태
@@ -125,6 +125,7 @@ public class MonsterInfoList
 
 public class MonsterParent : MonoBehaviour
 {
+    public Quest quest;                 //퀘스트 (Inspector)
 
     public MonsterCode myMonsterCode;   //고유코드 (Inspector)
     public MonsterInfo myMonsterInfo;   //이 몬스터의 정보
@@ -145,8 +146,10 @@ public class MonsterParent : MonoBehaviour
     public float attackingRunTime;      //공격 애니메이션 실행 시간
     public bool isDameged;              //데미지 입었는가? (피격 상태 판단)
 
+
     public void Awake()
     {
+
         PlayerObject = GameObject.Find("MonsterPlayer_Sample");
         if (((int)MonsterCode.FLY_MONSTER_1 < (int)myMonsterCode) && ((int)myMonsterCode < (int)MonsterCode.FLY_MONSTER_1))
         {
@@ -165,6 +168,7 @@ public class MonsterParent : MonoBehaviour
         }
 
     }
+
 
     public virtual void MyStart()
     {
@@ -224,14 +228,17 @@ public class MonsterParent : MonoBehaviour
         {
             //죽는 애니메이션과 동시에 아이템 드롭. 그 후 사라짐
             DropGoldAndItems();
+            //퀘스트에 해당하는 몬스터 일 시
+            //quest.QuestMonsterCheck(myMonsterCode);
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Player의 무기/스킬/함정에 접촉 처리.
-        //데미지 만큼 myMonsterInfo.monsterHp 깎음
-        //자폭 몬스터 있나?..
-        DeadCheck();
+        if (collision.gameObject.tag == "Weapon")
+            //Player의 무기/스킬/함정에 접촉 처리.
+            //데미지 만큼 myMonsterInfo.monsterHp 깎음
+            //자폭 몬스터 있나?..
+            DeadCheck();
     }
 }

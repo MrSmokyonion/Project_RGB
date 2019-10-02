@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1914425088494309765}
   - component: {fileID: 1914425088494309764}
   - component: {fileID: 5925273953331242461}
+  - component: {fileID: 1701004126}
+  - component: {fileID: 1701004130}
   m_Layer: 8
   m_Name: Boss1_Attack2Effect
   m_TagString: Monster
@@ -71,7 +73,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1b84e783a401d8f438149489ecbfb271, type: 3}
-  m_Color: {r: 0, g: 0.5660378, b: 0.041439354, a: 0.5882353}
+  m_Color: {r: 0, g: 0.5660378, b: 0.041439354, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,6 +102,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &1701004126
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914425088494309762}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 17.64
+--- !u!114 &1701004130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914425088494309762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0fb1d616ea9a384f836c44ca641975d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myDamege: 0
 --- !u!1001 &3217169494470762045
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -194,33 +225,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3905968764696210706, guid: e14b2067191134345ad0639a7a90d187,
         type: 3}
-      propertyPath: startDelay.minMaxState
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3905968764696210706, guid: e14b2067191134345ad0639a7a90d187,
-        type: 3}
-      propertyPath: CollisionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3905968764696210706, guid: e14b2067191134345ad0639a7a90d187,
-        type: 3}
-      propertyPath: TriggerModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3905968764696210706, guid: e14b2067191134345ad0639a7a90d187,
-        type: 3}
       propertyPath: InitialModule.startSpeed.scalar
       value: 6.97
       objectReference: {fileID: 0}
     - target: {fileID: 3905968764696210706, guid: e14b2067191134345ad0639a7a90d187,
         type: 3}
-      propertyPath: looping
-      value: 1
+      propertyPath: InitialModule.startSize.minScalar
+      value: 2.92
       objectReference: {fileID: 0}
     - target: {fileID: 3905968764696210706, guid: e14b2067191134345ad0639a7a90d187,
         type: 3}
-      propertyPath: InitialModule.startSize.minScalar
-      value: 2.92
+      propertyPath: TriggerModule.inside
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3905968764696210706, guid: e14b2067191134345ad0639a7a90d187,
+        type: 3}
+      propertyPath: TriggerModule.outside
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e14b2067191134345ad0639a7a90d187, type: 3}
