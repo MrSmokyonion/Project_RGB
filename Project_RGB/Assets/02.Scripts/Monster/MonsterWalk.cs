@@ -7,6 +7,8 @@ public class MonsterWalk : MonsterParent
 {
     public override void MyStart()
     {
+        Debug.Log("MyStart");
+
         Invoke("AttackRangeCheckSystem", 0.2f);
 
         if (false)  //목 없는 기사만 따로 시작 애니메이션.
