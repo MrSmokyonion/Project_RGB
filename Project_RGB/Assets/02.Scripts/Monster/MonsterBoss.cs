@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class MonsterWalk : MonsterParent
+public class MonsterBoss : MonsterParent
 {
-    private void Start()
+    int attackType = 0; //공격아님0, 기본 1, 특수 2, 특수 3 ... 
+    public GameObject bossSummonAttackPrefab;
+    public GameObject bossSummonMonsterPrefab;
+
+    public override void MyStart()
     {
-        Invoke("AttackRangeCheckSystem", 0.2f);
+        Invoke("AttackRangeCheckSystem", 0.5f); //0.5초에 한번씩 범위 및 공격 체크.
         Invoke("PosAndMoveSystem", 0.1f);
     }
 
@@ -56,11 +59,7 @@ public class MonsterWalk : MonsterParent
     {
 
         //----------------------------공격----------------------------
-        if (myMonsterCode == MonsterCode.WALK_MONSTER_1)                            //걷는 꽃. 플레이어에게 그냥 걸어감
-        {
-        }
-        else if (myMonsterCode == MonsterCode.WALK_MONSTER_2 ||                     //뛰는 돌. 걸어오다가 일정거리 이하일 때 돌진
-                myMonsterCode == MonsterCode.WALK_MONSTER_3)                        //서있는 나무. 범위에 들어오면 공격.
+        if (myMonsterCode == MonsterCode.BOSS_1)                                    //숲의 여왕. 다가왔을 때 일반공격, 타겟팅 공격, 몬스터 소환
         {
             if (attackOrder == true)                                                //공격 명령을 받음
             {
@@ -69,30 +68,46 @@ public class MonsterWalk : MonsterParent
                 {
                     isAttacking = true;
                     myMonsterRigid.velocity = new Vector2(0, myMonsterRigid.velocity.y);
-                    if (myMonsterCode == MonsterCode.WALK_MONSTER_2)                //돌진 공격
-                    {
-                        if (isLRM == 1)
-                            myMonsterRigid.velocity = new Vector2(-myMonsterInfo.monsterSpeed - 8, myMonsterRigid.velocity.y);
-                        if (isLRM == 2 || isLRM == 3)
-                            myMonsterRigid.velocity = new Vector2(myMonsterInfo.monsterSpeed + 8, myMonsterRigid.velocity.y);
-                    }
 
-                    RuntimeAnimatorController ac = myMonsterAnimator.runtimeAnimatorController;
-                    for (int i = 0; i < ac.animationClips.Length; i++)
+                    if (attackType == 1)                                            //일반공격
                     {
-                        string name1 = ac.animationClips[i].name.ToUpper();
-                        string name2 = (myMonsterCode.ToString() + "_AttackAnimation").ToUpper();
-
-                        if (name1.Equals(name2))
-                        {
-                            attackingRunTime = ac.animationClips[i].length;
-                        }
                     }
-                    myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
+                    else if (attackType == 2)                                       //타겟팅 공격 (적당한 프리팹이 없어서 플레이어 위치에 꽃 소환.)
+                    {
+                        bossSummonAttackPrefab.transform.position = pPosXY;         //소환 되고나서 AddComponent로 Trigger 콜라이더 On해서 공격 후 혼자 Destory.
+
+                    }
+                    else if (attackType == 3)                                       //Boss위치에 몬스터 소환(걷는 꽃)
+                    {
+                        bossSummonMonsterPrefab.transform.position = mPosXY;
+                        Instantiate(bossSummonMonsterPrefab);
+                    }
+                    AttackAnimation(attackType);
+
                     Invoke("ResetIsAttacking", attackingRunTime);
                 }
             }
         }
+    }
+
+    public void AttackAnimation(int aniType)
+    {
+
+        RuntimeAnimatorController ac = myMonsterAnimator.runtimeAnimatorController;
+        for (int i = 0; i < ac.animationClips.Length; i++)
+        {
+            string name1 = ac.animationClips[i].name.ToUpper();
+            string name2 = (myMonsterCode.ToString() + "_AttackAnimation" + aniType).ToUpper();
+
+            //Debug.Log("name1:" + name1);
+            //Debug.Log("name2:" + name2);
+            if (name1.Equals(name2))
+            {
+                attackingRunTime = ac.animationClips[i].length;
+            }
+        }
+        myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
+        myMonsterAnimator.SetInteger("AttackType", attackType);          //공격 애니메이션 타입 설정
     }
 
     public void AttackRangeCheckSystem()
@@ -121,19 +136,24 @@ public class MonsterWalk : MonsterParent
                     //Debug.Log("RayCast 리스트!" + h.transform.tag);
                     if (h.transform.tag == "Player")
                     {
-                        attackOrder = true;
+                        attackType = 1; //일반공격1
+                        break;
                     }
+                    attackType = Random.Range(2, 4); //특수공격2,3
                 }
+                attackOrder = true;
                 AttackSystem();
             }
-            Invoke("AttackRangeCheckSystem", 0.2f);                                                 //계속 체크
+            Invoke("AttackRangeCheckSystem", 0.5f);                                                 //계속 체크
         }
     }
 
     public void ResetIsAttacking()
     {
         isAttacking = false;                                                        //공격 애니메이션 끝남
+        attackType = 0;
         myMonsterAnimator.SetBool("IsAttacking", isAttacking);
+        myMonsterAnimator.SetInteger("AttackType", attackType);
         //Debug.Log("공격 끝남");
     }
 }
