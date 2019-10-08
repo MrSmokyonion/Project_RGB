@@ -23,7 +23,7 @@ public static class UnlockClass
 
         weapon = new bool[][] {
             new bool[] {true },
-            new bool[] {false },
+            new bool[] {true },
             new bool[] {true }
             };
 
@@ -40,7 +40,7 @@ public static class UnlockClass
         if (arr == null) return false;
 
         int num = int.Parse(code.ToString().Substring(2));
-        return arr[num];
+        return arr[num-1];
     }
 
     public static void UnlockCode(SpawnCode code)

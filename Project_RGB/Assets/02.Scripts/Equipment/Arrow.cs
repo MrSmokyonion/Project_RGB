@@ -5,10 +5,13 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     public int power = 0;
+    public float destroyDelay = 2f;
+    public string spritePath;
     public Transform arrow;
     private void Start()
     {
-        Invoke("DestroyBullet", 2f);
+        //Invoke("KineticToDynamic", 0.25f);
+        Invoke("DestroyBullet", destroyDelay);
     }
     private void Update()
     {

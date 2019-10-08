@@ -6,10 +6,11 @@ public class Bow_Default : Weapon_Bow
 {
     public Bow_Default()
     {
-        power = 3;
         delay = 0.5f;
-        weaponName = "그냥 활";
-        dualbility = 100;
+        power = 3;
         speed = 10;
+        dualbility = 100;
+        weaponName = "그냥 활";
+        spritePath = "Unity_Total_25";
     }
 }

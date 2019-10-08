@@ -22,7 +22,7 @@ public static class SpawnClass
 
         switch (weaponCode)
         {
-            case SpawnCode.W101: return null;
+            case SpawnCode.W101: return new Spear_Default();
         }
         return null;
     }
