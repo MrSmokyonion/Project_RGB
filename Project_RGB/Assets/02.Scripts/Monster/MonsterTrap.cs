@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterFly : MonsterParent
+public class MonsterTrap : MonsterParent
 {
     public override void MyStart()
     {
         Invoke("AttackRangeCheckSystem", 0.2f);
+
         Invoke("PosAndMoveSystem", 0.1f);
+
     }
 
     public void PosAndMoveSystem()
@@ -21,9 +23,6 @@ public class MonsterFly : MonsterParent
             isLRM = (pPosXY.x < mPosXY.x) ? 1 :
                ((pPosXY.x > mPosXY.x) ? 2 : 3);                                    //Player가 Left 1, Right 2, Midle 3 에 있음
 
-            isUDM = (pPosXY.y > mPosXY.y) ? 1 :
-               ((pPosXY.y < mPosXY.y) ? 2 : 3);                                    //Player가 Up 1, Down 2, Midle 3 에 있음
-
             MoveSystem();
 
             Invoke("PosAndMoveSystem", 0.1f);
@@ -32,57 +31,23 @@ public class MonsterFly : MonsterParent
 
     public void MoveSystem()
     {
-        //----------------------------이동----------------------------
+        //----------------------------이동 안함----------------------------
         if (!isAttacking)                                                           //공격 중에는 move,rotate하면 안됨
         {
-            //몬스터와 플레이어 위치 차이를 통해 x:y비율(a:b)을 구한다.
-            //비율과 Speed를 통해 Vector2을 계산 한다. (Speed^2는 sX^2+sY^2이다.)(sX:sY = a:b)
-            //velocity에 각각 sX,sY를 넣어준다.
-
-
-            float a = mPosXY.x - pPosXY.x;
-            if (a < 0) a *= -1;
-            float b = mPosXY.y - pPosXY.y;
-            if (b < 0) b *= -1;
-
-            float sX;
-            float sY;
-            if (a == 0)
-            {
-                sX = 0;
-                sY = myMonsterInfo.monsterSpeed;
-            }
-            else if (b == 0)
-            {
-                sX = myMonsterInfo.monsterSpeed;
-                sY = 0;
-            }
-            else
-            {
-                sX = Mathf.Sqrt((myMonsterInfo.monsterSpeed * myMonsterInfo.monsterSpeed) / (1 + ((b * b) / (a * a))));
-                sY = sX * (b / a);
-            }
-
             //----------------------------좌우----------------------------
             if (isLRM == 1)                                                         //왼쪽에 플레이어가 있음
             {
                 transform.localScale = new Vector3(1f, 1f, 1f);
-                myMonsterRigid.velocity = new Vector2(-sX, myMonsterRigid.velocity.y);
+                myMonsterRigid.velocity = new Vector2(-myMonsterInfo.monsterSpeed, myMonsterRigid.velocity.y);
             }
             else if (isLRM == 2)                                                    //오른쪽에 플레이어가 있음
             {
                 transform.localScale = new Vector3(-1f, 1f, 1f);
-                myMonsterRigid.velocity = new Vector2(sX, myMonsterRigid.velocity.y);
+                myMonsterRigid.velocity = new Vector2(myMonsterInfo.monsterSpeed, myMonsterRigid.velocity.y);
             }
-
-            //----------------------------상하----------------------------
-            if (isUDM == 1)                                                         //위쪽에 플레이어가 있음
+            else
             {
-                myMonsterRigid.velocity = new Vector2(myMonsterRigid.velocity.x, sY);
-            }
-            else if (isUDM == 2)                                                    //아래쪽에 플레이어가 있음
-            {
-                myMonsterRigid.velocity = new Vector2(myMonsterRigid.velocity.x, -sY);
+                myMonsterRigid.velocity = new Vector2(0, myMonsterRigid.velocity.y);
             }
 
         }
@@ -99,10 +64,10 @@ public class MonsterFly : MonsterParent
             AttackAnimation();
 
             //----------------------------각각 공격 작용----------------------------
-            if (myMonsterCode == MonsterCode.WM101)
+            if (myMonsterCode == MonsterCode.TM501)
             {
             }
-            else if (myMonsterCode == MonsterCode.WM102)                    //뛰는 돌. 걸어오다가 일정거리 이하일 때 돌진
+            else if (myMonsterCode == MonsterCode.TM502)                    //뛰는 돌. 걸어오다가 일정거리 이하일 때 돌진
             {
                 //돌진 공격
                 if (isLRM == 1)
@@ -111,7 +76,7 @@ public class MonsterFly : MonsterParent
                     myMonsterRigid.velocity = new Vector2(myMonsterInfo.monsterSpeed + 8, myMonsterRigid.velocity.y);
 
             }
-            else if (myMonsterCode == MonsterCode.WM103)                        //서있는 나무. 범위에 들어오면 공격.
+            else if (myMonsterCode == MonsterCode.TM503)                        //서있는 나무. 범위에 들어오면 공격.
             {
             }
         }
@@ -145,9 +110,33 @@ public class MonsterFly : MonsterParent
                 {
                     AttackSystem();
                 }
+                #region RaycastHit으로 했던 것.(폐기)
+                //List<RaycastHit2D> hitList = new List<RaycastHit2D>();
+                //if (isLRM == 1)
+                //{
+                //    hitList.AddRange(Physics2D.RaycastAll(transform.position, Vector2.left, myMonsterInfo.monsterAttackRange));
+                //    Debug.DrawRay(transform.position, Vector2.left * myMonsterInfo.monsterAttackRange, Color.red, 0.2f);
+                //}
+                //else if (isLRM == 2 || isLRM == 3)
+                //{
+                //    //Debug.Log("isLRM" + isLRM);
+                //    hitList.AddRange(Physics2D.RaycastAll(transform.position, Vector2.right, myMonsterInfo.monsterAttackRange));
+                //    Debug.DrawRay(transform.position, Vector2.right * myMonsterInfo.monsterAttackRange, Color.red, 0.2f);
+                //}
+
+                //if(hideFlags)
+                //foreach (RaycastHit2D h in hitList)
+                //{
+                //    //Debug.Log("RayCast 리스트!" + h.transform.tag);
+                //    if (h.transform.tag == "Player")
+                //    {
+                //        attackOrder = true;
+                //    }
+                //}
+                #endregion
             }
-            Invoke("AttackRangeCheckSystem", 0.2f);
-        }                                             //계속 체크
+            Invoke("AttackRangeCheckSystem", 0.2f);                                                 //계속 체크
+        }
     }
 
     public void ResetIsAttacking()
