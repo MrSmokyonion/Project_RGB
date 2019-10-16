@@ -6,9 +6,12 @@ public class MonsterTrap : MonsterParent
 {
     public override void MyStart()
     {
-        Invoke("AttackRangeCheckSystem", 0.2f);
+        if (myMonsterCode != MonsterCode.TM503)
+        {
+            Invoke("AttackRangeCheckSystem", 0.2f);
 
-        Invoke("PosAndMoveSystem", 0.1f);
+            Invoke("PosAndMoveSystem", 0.1f);
+        }
 
     }
 
@@ -21,7 +24,7 @@ public class MonsterTrap : MonsterParent
             mPosXY = new Vector2(this.transform.position.x, this.transform.position.y);
 
             isLRM = (pPosXY.x < mPosXY.x) ? 1 :
-               ((pPosXY.x > mPosXY.x) ? 2 : 3);                                    //Player가 Left 1, Right 2, Midle 3 에 있음
+               ((pPosXY.x > mPosXY.x) ? 2 : 3);                                     //Player가 Left 1, Right 2, Midle 3 에 있음
 
             MoveSystem();
 
@@ -35,14 +38,16 @@ public class MonsterTrap : MonsterParent
         if (!isAttacking)                                                           //공격 중에는 move,rotate하면 안됨
         {
             //----------------------------좌우----------------------------
+            Vector3 myLS = transform.localScale;
+
             if (isLRM == 1)                                                         //왼쪽에 플레이어가 있음
             {
-                transform.localScale = new Vector3(1f, 1f, 1f);
+                transform.localScale = new Vector3(myLS.x > 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
                 myMonsterRigid.velocity = new Vector2(-myMonsterInfo.monsterSpeed, myMonsterRigid.velocity.y);
             }
             else if (isLRM == 2)                                                    //오른쪽에 플레이어가 있음
             {
-                transform.localScale = new Vector3(-1f, 1f, 1f);
+                transform.localScale = new Vector3(myLS.x < 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
                 myMonsterRigid.velocity = new Vector2(myMonsterInfo.monsterSpeed, myMonsterRigid.velocity.y);
             }
             else
@@ -55,7 +60,7 @@ public class MonsterTrap : MonsterParent
 
     public void AttackSystem()
     {
-        if (!isAttacking)                                                   //이미 공격 중이 아닐 때 공격
+        if (!isAttacking)                                                           //이미 공격 중이 아닐 때 공격
         {
             //----------------------------각각 공격 애니메이션 실행----------------------------
             isAttacking = true;
@@ -67,16 +72,10 @@ public class MonsterTrap : MonsterParent
             if (myMonsterCode == MonsterCode.TM501)
             {
             }
-            else if (myMonsterCode == MonsterCode.TM502)                    //뛰는 돌. 걸어오다가 일정거리 이하일 때 돌진
+            else if (myMonsterCode == MonsterCode.TM502)
             {
-                //돌진 공격
-                if (isLRM == 1)
-                    myMonsterRigid.velocity = new Vector2(-myMonsterInfo.monsterSpeed - 8, myMonsterRigid.velocity.y);
-                if (isLRM == 2 || isLRM == 3)
-                    myMonsterRigid.velocity = new Vector2(myMonsterInfo.monsterSpeed + 8, myMonsterRigid.velocity.y);
-
             }
-            else if (myMonsterCode == MonsterCode.TM503)                        //서있는 나무. 범위에 들어오면 공격.
+            else if (myMonsterCode == MonsterCode.TM503)
             {
             }
         }
@@ -95,7 +94,7 @@ public class MonsterTrap : MonsterParent
                 attackingRunTime = ac.animationClips[i].length;
             }
         }
-        myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
+        myMonsterAnimator.SetBool("IsAttacking", isAttacking);                      //공격 애니메이션 실행
         Invoke("ResetIsAttacking", attackingRunTime);
     }
 
@@ -135,7 +134,7 @@ public class MonsterTrap : MonsterParent
                 //}
                 #endregion
             }
-            Invoke("AttackRangeCheckSystem", 0.2f);                                                 //계속 체크
+            Invoke("AttackRangeCheckSystem", 0.2f);                                 //계속 체크
         }
     }
 
@@ -144,5 +143,15 @@ public class MonsterTrap : MonsterParent
         isAttacking = false;                                                        //공격 애니메이션 끝남
         myMonsterAnimator.SetBool("IsAttacking", isAttacking);
         //Debug.Log("공격 끝남");
+    }
+
+
+    public override void MyOnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Weapon")
+        {
+            //Trap은 DeadCheck를 해줄 필요가 없습니다.
+            quest.QuestMonsterCheck(myMonsterCode);                                 //Trap을 때리면 무기를 확인해서 신호를 보내줌!
+        }
     }
 }

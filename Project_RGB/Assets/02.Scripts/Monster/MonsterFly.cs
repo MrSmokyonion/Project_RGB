@@ -7,7 +7,8 @@ public class MonsterFly : MonsterParent
     public override void MyStart()
     {
         Invoke("AttackRangeCheckSystem", 0.2f);
-        Invoke("PosAndMoveSystem", 0.1f);
+        if ((myMonsterCode != MonsterCode.FM201) && (myMonsterCode != MonsterCode.FM202)) //참치와 날치는 Player를 쫓아가지 않음.
+            Invoke("PosAndMoveSystem", 0.1f);
     }
 
     public void PosAndMoveSystem()
@@ -64,14 +65,16 @@ public class MonsterFly : MonsterParent
             }
 
             //----------------------------좌우----------------------------
+            Vector3 myLS = transform.localScale;
+
             if (isLRM == 1)                                                         //왼쪽에 플레이어가 있음
             {
-                transform.localScale = new Vector3(1f, 1f, 1f);
+                transform.localScale = new Vector3(myLS.x > 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
                 myMonsterRigid.velocity = new Vector2(-sX, myMonsterRigid.velocity.y);
             }
             else if (isLRM == 2)                                                    //오른쪽에 플레이어가 있음
             {
-                transform.localScale = new Vector3(-1f, 1f, 1f);
+                transform.localScale = new Vector3(myLS.x < 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
                 myMonsterRigid.velocity = new Vector2(sX, myMonsterRigid.velocity.y);
             }
 
@@ -99,19 +102,13 @@ public class MonsterFly : MonsterParent
             AttackAnimation();
 
             //----------------------------각각 공격 작용----------------------------
-            if (myMonsterCode == MonsterCode.WM101)
+            if (myMonsterCode == MonsterCode.FM201)                         //불타는 참치.
             {
             }
-            else if (myMonsterCode == MonsterCode.WM102)                    //뛰는 돌. 걸어오다가 일정거리 이하일 때 돌진
+            else if (myMonsterCode == MonsterCode.FM202)                    //얼음 날치.
             {
-                //돌진 공격
-                if (isLRM == 1)
-                    myMonsterRigid.velocity = new Vector2(-myMonsterInfo.monsterSpeed - 8, myMonsterRigid.velocity.y);
-                if (isLRM == 2 || isLRM == 3)
-                    myMonsterRigid.velocity = new Vector2(myMonsterInfo.monsterSpeed + 8, myMonsterRigid.velocity.y);
-
             }
-            else if (myMonsterCode == MonsterCode.WM103)                        //서있는 나무. 범위에 들어오면 공격.
+            else if (myMonsterCode == MonsterCode.FM203)                    //
             {
             }
         }
@@ -141,6 +138,9 @@ public class MonsterFly : MonsterParent
             if (!isAttacking)
             {
                 //--------------------------범위 체크--------------------------
+                pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
+                mPosXY = new Vector2(this.transform.position.x, this.transform.position.y);
+
                 if (Mathf.Sqrt(((pPosXY.x - mPosXY.x) * (pPosXY.x - mPosXY.x)) + ((pPosXY.y - mPosXY.y) * (pPosXY.y - mPosXY.y))) < myMonsterInfo.monsterAttackRange)
                 {
                     AttackSystem();

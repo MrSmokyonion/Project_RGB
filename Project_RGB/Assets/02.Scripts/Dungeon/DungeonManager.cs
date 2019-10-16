@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
-    public int nowChapterNumber = -1;               //0번째는 튜토리얼, -1는 아직 로딩 안됨...
+    int nowChapterNumber = -1;              //0번째는 튜토리얼, -1는 아직 로딩 안됨...
+    int nowStageNumber = 1;                 //스테이지 1, 2, 3...
 
     public GameObject[] chapter012345_Prefab;
+
+    public void GoToNextStage()
+    {
+        nowStageNumber++;
+    }
 
     //private void Awake()
     //{

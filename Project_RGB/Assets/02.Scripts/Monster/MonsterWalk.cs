@@ -44,14 +44,16 @@ public class MonsterWalk : MonsterParent
         if (!isAttacking)                                                           //공격 중에는 move,rotate하면 안됨
         {
             //----------------------------좌우----------------------------
+            Vector3 myLS = transform.localScale;
+
             if (isLRM == 1)                                                         //왼쪽에 플레이어가 있음
             {
-                transform.localScale = new Vector3(1f, 1f, 1f);
+                transform.localScale = new Vector3(myLS.x > 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
                 myMonsterRigid.velocity = new Vector2(-myMonsterInfo.monsterSpeed, myMonsterRigid.velocity.y);
             }
             else if (isLRM == 2)                                                    //오른쪽에 플레이어가 있음
             {
-                transform.localScale = new Vector3(-1f, 1f, 1f);
+                transform.localScale = new Vector3(myLS.x < 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
                 myMonsterRigid.velocity = new Vector2(myMonsterInfo.monsterSpeed, myMonsterRigid.velocity.y);
             }
             else
@@ -76,7 +78,7 @@ public class MonsterWalk : MonsterParent
             if (myMonsterCode == MonsterCode.WM101)
             {
             }
-            else if (myMonsterCode == MonsterCode.WM102)                    //뛰는 돌. 걸어오다가 일정거리 이하일 때 돌진
+            else if (myMonsterCode == MonsterCode.WM102 || myMonsterCode == MonsterCode.WM104)                    //뛰는 돌, 불타는 돌. 걸어오다가 일정거리 이하일 때 돌진
             {
                 //돌진 공격
                 if (isLRM == 1)
@@ -87,6 +89,15 @@ public class MonsterWalk : MonsterParent
             }
             else if (myMonsterCode == MonsterCode.WM103)                        //서있는 나무. 범위에 들어오면 공격.
             {
+            }
+            else if (myMonsterCode == MonsterCode.WM106 || myMonsterCode == MonsterCode.WM108)
+            {
+                GameObject throwthing = transform.GetChild(0).gameObject;
+                GameObject summonedThrowWeapon = Instantiate(throwthing);
+                summonedThrowWeapon.transform.position = this.transform.position;
+                MonstersThrowWeapon throwWeapon = summonedThrowWeapon.GetComponent<MonstersThrowWeapon>();
+                throwWeapon.gameObject.SetActive(true);
+                throwWeapon.StartGoToPlayer(myMonsterCode);
             }
         }
     }

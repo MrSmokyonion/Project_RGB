@@ -5,8 +5,7 @@ using UnityEngine;
 public class MonsterBoss : MonsterParent
 {
     int attackType = 0; //공격아님0, 기본 1, 특수 2, 특수 3 ... 
-    public GameObject bossSummonAttackPrefab;
-    public GameObject bossSummonMonsterPrefab;
+    public List<GameObject> boosAttackPrefabList;
 
     public override void MyStart()
     {
@@ -37,14 +36,16 @@ public class MonsterBoss : MonsterParent
         if (!isAttacking)                                                           //공격 중에는 move,rotate하면 안됨
         {
             //----------------------------좌우----------------------------
+            Vector3 myLS = transform.localScale;
+
             if (isLRM == 1)                                                         //왼쪽에 플레이어가 있음
             {
-                transform.localScale = new Vector3(1f, 1f, 1f);
+                transform.localScale = new Vector3(myLS.x > 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
                 myMonsterRigid.velocity = new Vector2(-myMonsterInfo.monsterSpeed, myMonsterRigid.velocity.y);
             }
             else if (isLRM == 2)                                                    //오른쪽에 플레이어가 있음
             {
-                transform.localScale = new Vector3(-1f, 1f, 1f);
+                transform.localScale = new Vector3(myLS.x < 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
                 myMonsterRigid.velocity = new Vector2(myMonsterInfo.monsterSpeed, myMonsterRigid.velocity.y);
             }
             else
@@ -66,26 +67,44 @@ public class MonsterBoss : MonsterParent
             AttackAnimation(attackType);
 
             //----------------------------각각 공격 작용----------------------------
-            if (myMonsterCode == MonsterCode.BM301)
+            if (myMonsterCode == MonsterCode.BM301)                             //습지의 여왕.
             {
-                if (attackType == 1)                                            //일반공격
+                if (attackType == 1)                                            //일반공격 : 채찍 휘두르기
                 {
                 }
-                else if (attackType == 2)                                       //타겟팅 공격 (적당한 프리팹이 없어서 플레이어 위치에 꽃 소환.)
+                else if (attackType == 2)                                       //타겟팅 공격 (적당한 프리팹이 없음..)
                 {
-                    bossSummonAttackPrefab.transform.position = pPosXY;         //소환 되고나서 AddComponent로 Trigger 콜라이더 On해서 공격 후 혼자 Destory.
+                    boosAttackPrefabList[0].transform.position = pPosXY;
+                    Instantiate(boosAttackPrefabList[0]);
 
                 }
                 else if (attackType == 3)                                       //Boss위치에 몬스터 소환(걷는 꽃)
                 {
-                    bossSummonMonsterPrefab.transform.position = mPosXY;
-                    Instantiate(bossSummonMonsterPrefab);
+                    boosAttackPrefabList[1].transform.position = mPosXY;
+                    Instantiate(boosAttackPrefabList[1]);
                 }
             }
-            else if (myMonsterCode == MonsterCode.BM302)                    //
+            else if (myMonsterCode == MonsterCode.BM302)                        //타오르는 피닉스
             {
+                if (attackType == 1)                                            //일반공격 : 부리찍기!!!(애니메이션)
+                {
+                }
+                else if (attackType == 2)                                       //깃털을 던져서 공격!
+                {
+                    boosAttackPrefabList[0].transform.position = pPosXY;
+                    GameObject summonedThrowWeapon = Instantiate(boosAttackPrefabList[0]);
+                    summonedThrowWeapon.transform.position = this.transform.position;
+                    MonstersThrowWeapon throwWeapon = summonedThrowWeapon.GetComponent<MonstersThrowWeapon>();
+                    throwWeapon.gameObject.SetActive(true);
+                    throwWeapon.StartGoToPlayer(myMonsterCode);
+                }
+                else if (attackType == 3)                                       //타겟팅 공격 (적당한 프리팹이 없음..)
+                {
+                    boosAttackPrefabList[1].transform.position = pPosXY;
+                    Instantiate(boosAttackPrefabList[1]);
+                }
             }
-            else if (myMonsterCode == MonsterCode.BM303)                        //
+            else if (myMonsterCode == MonsterCode.BM303)
             {
             }
         }
@@ -93,20 +112,23 @@ public class MonsterBoss : MonsterParent
 
     public void AttackAnimation(int aniType)
     {
-        RuntimeAnimatorController ac = myMonsterAnimator.runtimeAnimatorController;
-        for (int i = 0; i < ac.animationClips.Length; i++)
+        if (aniType != 0)  //공격 안함.
         {
-            string name1 = ac.animationClips[i].name.ToUpper();
-            string name2 = (myMonsterCode.ToString() + "_AttackAnimation" + aniType).ToUpper();
-
-            if (name1.Equals(name2))
+            RuntimeAnimatorController ac = myMonsterAnimator.runtimeAnimatorController;
+            for (int i = 0; i < ac.animationClips.Length; i++)
             {
-                attackingRunTime = ac.animationClips[i].length;
+                string name1 = ac.animationClips[i].name.ToUpper();
+                string name2 = (myMonsterCode.ToString() + "_AttackAnimation" + aniType).ToUpper();
+
+                if (name1.Equals(name2))
+                {
+                    attackingRunTime = ac.animationClips[i].length;
+                }
             }
+            myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
+            myMonsterAnimator.SetInteger("AttackType", aniType);          //공격 애니메이션 타입 설정
+            Invoke("ResetIsAttacking", attackingRunTime);
         }
-        myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
-        myMonsterAnimator.SetInteger("AttackType", aniType);          //공격 애니메이션 타입 설정
-        Invoke("ResetIsAttacking", attackingRunTime);
     }
 
     public void AttackRangeCheckSystem()

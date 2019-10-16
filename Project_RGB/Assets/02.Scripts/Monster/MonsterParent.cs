@@ -49,7 +49,7 @@ public class MonsterInfo
 
     //생성자
     public MonsterInfo(MonsterCode monstercode, bool isb, string name, MonsterState state,
-                           int damege, int defense, int hp, int speed, int range,
+                           int damage, int defense, int hp, int speed, int range,
                            int goldamount, int droprate, GameObject dropitem)
     {
         monsterCode = monstercode;
@@ -57,7 +57,7 @@ public class MonsterInfo
         monsterName = name;
         monsterState = state;           //상의★얘가 있어야하나??
 
-        monsterDamege = damege;
+        monsterDamage = damage;
         monsterDefense = defense;
         monsterHp = hp;
         monsterSpeed = speed;
@@ -73,7 +73,7 @@ public class MonsterInfo
     public string monsterName;          //이름
     public MonsterState monsterState;   //상태
 
-    public int monsterDamege;           //공격력
+    public int monsterDamage;           //공격력
     public int monsterDefense;          //방어력
     public int monsterHp;               //체력
     public int monsterSpeed;            //이동속도
@@ -105,54 +105,54 @@ public class MonsterInfoList
             10, 10, 200, 0, 5,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM104, false, "불타는 돌", MonsterState.IDLE,
-            10, 10, 200, 0, 10,
+            10, 10, 200, 6, 10,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM105, false, "불타는 전사", MonsterState.IDLE,
-            10, 10, 200, 0, 5,
+            10, 10, 200, 5, 5,
             50, 0, null));
         //-------------------------------105
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM106, false, "불타는 주술사", MonsterState.IDLE,
-            10, 10, 200, 0, 3,
+            10, 10, 200, 5, 20,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM107, false, "하얀 곰", MonsterState.IDLE,
-            10, 10, 200, 0, 3,
+            10, 10, 200, 7, 3,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM108, false, "얼음 펭귄", MonsterState.IDLE,
-            10, 10, 200, 0, 3,
+            10, 10, 200, 5, 35,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM109, false, "하얀 눈사람", MonsterState.IDLE,
             10, 10, 200, 0, 3,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM110, false, "무지개 장미", MonsterState.IDLE,
-            10, 10, 200, 0, 3,
+            10, 10, 200, 5, 3,
             50, 0, null));
         //-------------------------------110
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM111, false, "꽃 원예가", MonsterState.IDLE,
-            10, 10, 200, 0, 3,
+            10, 10, 200, 5, 3,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM112, false, "신전 기사", MonsterState.IDLE,
-            10, 10, 200, 0, 3,
+            10, 10, 200, 5, 3,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM113, false, "신전 케로베로스", MonsterState.IDLE,
-            10, 10, 200, 0, 3,
+            10, 10, 200, 7, 3,
             50, 0, null));
 
 
         //Fly Monsters
         monsterInfoList.Add(new MonsterInfo(MonsterCode.FM201, false, "불타는 참치", MonsterState.IDLE,
-            10, 10, 100, 7, 0,
+            10, 10, 100, 0, 10,
             100, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.FM202, false, "얼음 날치", MonsterState.IDLE,
-            10, 10, 100, 7, 0,
+            10, 10, 100, 0, 10,
             100, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.FM203, false, "무지개 새", MonsterState.IDLE,
-            10, 10, 100, 7, 0,
+            10, 10, 100, 7, 10,
             100, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.FM204, false, "꽃 구름", MonsterState.IDLE,
-            10, 10, 100, 7, 0,
+            10, 10, 100, 7, 10,
             100, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.FM205, false, "신전 순찰자", MonsterState.IDLE,
-            10, 10, 100, 7, 0,
+            10, 10, 100, 7, 10,
             100, 0, null));
         //-------------------------------205
 
@@ -162,13 +162,13 @@ public class MonsterInfoList
             10, 10, 100, 0, 10,
             500, 80, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM302, true, "타오르는 피닉스", MonsterState.IDLE,
-            10, 10, 100, 0, 10,
+            10, 10, 100, 5, 10,
             500, 80, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM303, true, "설녀", MonsterState.IDLE,
-            10, 10, 100, 0, 10,
+            10, 10, 100, 7, 10,
             500, 80, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM304, true, "사자 해바리기", MonsterState.IDLE,
-            10, 10, 100, 0, 10,
+            10, 10, 100, 7, 10,
             500, 80, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM305, true, "빛의 정령", MonsterState.IDLE,
             10, 10, 100, 0, 10,
@@ -178,19 +178,19 @@ public class MonsterInfoList
 
         //Object Monster
         monsterInfoList.Add(new MonsterInfo(MonsterCode.OM401, true, "자연의 열매", MonsterState.IDLE,
-            10, 10, 100, 0, 10,
+            10, 10, 100, 0, 0,
             500, 80, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.OM402, true, "불타는 꽃", MonsterState.IDLE,
-            10, 10, 100, 0, 10,
+            10, 10, 100, 0, 0,
             500, 80, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.OM403, true, "얼음덩어리", MonsterState.IDLE,
-            10, 10, 100, 0, 10,
+            10, 10, 100, 0, 0,
             500, 80, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.OM404, true, "구름초", MonsterState.IDLE,
-            10, 10, 100, 0, 10,
+            10, 10, 100, 0, 0,
             500, 80, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.OM405, true, "색의 정수", MonsterState.IDLE,
-            10, 10, 100, 0, 10,
+            10, 10, 100, 0, 0,
             500, 80, null));
         //-------------------------------405
         monsterInfoList.Add(new MonsterInfo(MonsterCode.OM406, true, "부서지는 기둥", MonsterState.IDLE,
@@ -200,10 +200,10 @@ public class MonsterInfoList
 
         //Trap Monster
         monsterInfoList.Add(new MonsterInfo(MonsterCode.TM501, false, "무는 악어", MonsterState.IDLE,
-            10, 10, 100, 4, 0,
+            10, 10, 100, 0, 10,
             101, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.TM502, false, "불타는 화염 토템", MonsterState.IDLE,
-            10, 10, 100, 5, 5,
+            10, 10, 100, 0, 5,
             150, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.TM503, false, "불타는 폭포 미끄럼틀", MonsterState.IDLE,
             10, 10, 200, 0, 3,
@@ -251,7 +251,7 @@ public class MonsterInfoList
 
 public class MonsterParent : MonoBehaviour
 {
-    public Quest quest;                 //퀘스트 (Inspector)
+    public Quest quest;                 //퀘스트 (Inspector)                               //Awake에서 quest 찾아서 넣어두기. (모든 코드에서 실행되도록...)
 
     public MonsterCode myMonsterCode;   //고유코드 (Inspector)
     public MonsterInfo myMonsterInfo;   //이 몬스터의 정보
@@ -270,15 +270,16 @@ public class MonsterParent : MonoBehaviour
     public bool attackOrder;            //공격해라 (명령)
     public bool isAttacking;            //공격중인가? (판단)
     public float attackingRunTime;      //공격 애니메이션 실행 시간
-    public bool isDameged;              //데미지 입었는가? (피격 상태 판단)
+    public bool isDamaged;              //데미지 입었는가? (피격 상태 판단)
 
 
     public void Awake()
     {
+                                                                                            //Awake에서 quest 찾아서 넣어두기. (모든 코드에서 실행되도록...)
         PlayerObject = GameObject.Find("MonsterPlayer_Sample");
-        if (((int)MonsterCode.FM201 < (int)myMonsterCode) && ((int)myMonsterCode < (int)MonsterCode.FM201))
+        if (((int)MonsterCode.FM201 < (int)myMonsterCode) && ((int)myMonsterCode < (int)MonsterCode.FM205))
         {
-            myMonsterRigid.gravityScale = 0f;
+            myMonsterRigid.gravityScale = 0f;                                               //FlyMonster는 전부 중력0
         }
         if (myMonsterCode != MonsterCode.PARENT)                                            //부모 일 경우 정보 불러오지 않음
         {
@@ -305,7 +306,7 @@ public class MonsterParent : MonoBehaviour
         pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
         mPosXY = new Vector2(this.transform.position.x, this.transform.position.y);
 
-        if (Mathf.Sqrt(((pPosXY.x - mPosXY.x) * (pPosXY.x - mPosXY.x)) + ((pPosXY.y - mPosXY.y) * (pPosXY.y - mPosXY.y))) < 15f)
+        if (Mathf.Sqrt(((pPosXY.x - mPosXY.x) * (pPosXY.x - mPosXY.x)) + ((pPosXY.y - mPosXY.y) * (pPosXY.y - mPosXY.y))) < 30f)
         {
             Invoke("MyStart", 0.001f);
             return;
@@ -368,6 +369,7 @@ public class MonsterParent : MonoBehaviour
     {
         //몬스터가 다 죽었을 때 문이 열리도록 하는 친구에게 보고하기.
         //Quest 쪽에도 알려주기.
+        //펑!하고 사라져야함.(Effect)
 
         quest.QuestMonsterCheck(myMonsterCode);
         Destroy(this.gameObject);
@@ -375,10 +377,17 @@ public class MonsterParent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Weapon")
+        MyOnTriggerEnter2D(collision);
+    }
+
+    public virtual void MyOnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Weapon")
+        {
             //Player의 무기/스킬/함정에 접촉 처리.
             //데미지 만큼 myMonsterInfo.monsterHp 깎음
             //자폭 몬스터 있나?..
             DeadCheck();
+        }
     }
 }
