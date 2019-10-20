@@ -13,7 +13,8 @@ public class MonstersThrowWeapon : MonoBehaviour
      * 끝
      */
 
-    public int Speed = 10;
+    public int throwThingSpeed = 10;
+    public float lifeTime = 100f;
     bool goToPlayer = false;
     GameObject PlayerObject;
     Vector2 pPosXY;
@@ -24,21 +25,22 @@ public class MonstersThrowWeapon : MonoBehaviour
     {
         PlayerObject = GameObject.Find("MonsterPlayer_Sample");
         myRigid = GetComponent<Rigidbody2D>();
-        Invoke("Dead", 2f);
         goToPlayer = true;
 
         switch (monsterCode)
         {
             case MonsterCode.WM106: //불타는 주술사
-                Speed = 12; ChaseThePlayer();
+                throwThingSpeed = 12; ChaseThePlayer(); lifeTime = 2.0f;
                 break;
             case MonsterCode.WM108: //얼음 펭귄
-                Speed = 20; ParabolicExerciseToPlayer();
+                StartCoroutine(ParabolicExerciseToPlayer()); lifeTime = 7.0f;
                 break;
             case MonsterCode.BM302: //타오르는 피닉스
-                Speed = 30; FireToPlayer();
+                throwThingSpeed = 30; FireToPlayer(); lifeTime = 3.0f;
                 break;
         }
+
+        Invoke("Dead", lifeTime);
     }
 
     private void ChaseThePlayer()
@@ -68,16 +70,16 @@ public class MonstersThrowWeapon : MonoBehaviour
             if (a == 0)
             {
                 sX = 0;
-                sY = Speed;
+                sY = throwThingSpeed;
             }
             else if (b == 0)
             {
-                sX = Speed;
+                sX = throwThingSpeed;
                 sY = 0;
             }
             else
             {
-                sX = Mathf.Sqrt((Speed * Speed) / (1 + ((b * b) / (a * a))));
+                sX = Mathf.Sqrt((throwThingSpeed * throwThingSpeed) / (1 + ((b * b) / (a * a))));
                 sY = sX * (b / a);
             }
 
@@ -109,18 +111,26 @@ public class MonstersThrowWeapon : MonoBehaviour
         }
     }
 
-    private void ParabolicExerciseToPlayer()
+    private IEnumerator ParabolicExerciseToPlayer()
     {
         if (goToPlayer == true)
         {
+            //스프라이트 투명했다가 발사할 때 돌아옴.
+            SpriteRenderer spRen = GetComponent<SpriteRenderer>();
+            Color myColor = spRen.color;
+            myColor.a = 0f;
+            spRen.color = myColor;
+            yield return new WaitForSeconds(1.1f);
+            myColor.a = 1f;
+            spRen.color = myColor;
+
+            //여기부터 계산 시작
             float firingAngle = 45.0f;
             float gravity = 9.8f;
 
             Transform target = PlayerObject.transform;
-            Transform myTransform = this.transform;
-            //으악 여기 고쳐야함 아직 안고침 앍ㄹ아흐ㅏㄱㄷ미ㅓ훌ㄷ미ㅏㅡㅍ딜ㅈㅁㅍ
-            Transform projectile = gameObject.transform.parent.gameObject.transform;
-            projectile.position = myTransform.position + new Vector3(0, 0.0f, 0);
+            Transform projectile = transform;
+            projectile.position = transform.position + new Vector3(0, 0.0f, 0); //??? 이게 대체 뭐하는거지
 
             // Calculate distance to target
             float target_Distance = Vector3.Distance(projectile.position, target.position);
@@ -129,22 +139,27 @@ public class MonstersThrowWeapon : MonoBehaviour
             float projectile_Velocity = target_Distance / (Mathf.Sin(2 * firingAngle * Mathf.Deg2Rad) / gravity);
 
             // Extract the X  Y componenent of the velocity
-            float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(firingAngle * Mathf.Deg2Rad);
+            float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(firingAngle * Mathf.Deg2Rad) /* (target.position.x < projectile.position.x ? -1f : 1f)*/;
             float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(firingAngle * Mathf.Deg2Rad);
 
             // Calculate flight time.
             float flightDuration = target_Distance / Vx;
 
-            // Rotate projectile to face the target.
+            // Rotate projectile to face the target. (We are 2D. So, Sprite little Crush...)
             projectile.rotation = Quaternion.LookRotation(target.position - projectile.position);
+
+            //projectile.rotation = Quaternion.LookRotation(-(target.position - projectile.position));
 
             float elapse_time = 0;
 
-            while (elapse_time < flightDuration)
+            while (true)
             {
+                //좀 더 생각해봅시다.
                 projectile.Translate(0, (Vy - (gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
 
                 elapse_time += Time.deltaTime;
+
+                yield return null;
             }
         }
     }
@@ -176,16 +191,16 @@ public class MonstersThrowWeapon : MonoBehaviour
             if (a == 0)
             {
                 sX = 0;
-                sY = Speed;
+                sY = throwThingSpeed;
             }
             else if (b == 0)
             {
-                sX = Speed;
+                sX = throwThingSpeed;
                 sY = 0;
             }
             else
             {
-                sX = Mathf.Sqrt((Speed * Speed) / (1 + ((b * b) / (a * a))));
+                sX = Mathf.Sqrt((throwThingSpeed * throwThingSpeed) / (1 + ((b * b) / (a * a))));
                 sY = sX * (b / a);
             }
 

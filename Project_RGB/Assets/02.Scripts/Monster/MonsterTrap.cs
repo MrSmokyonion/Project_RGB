@@ -78,6 +78,10 @@ public class MonsterTrap : MonsterParent
             else if (myMonsterCode == MonsterCode.TM503)
             {
             }
+            else if (myMonsterCode == MonsterCode.TM506)//고드름 낙하!
+            {
+                //그냥 애니메이션으로 만들기로 함.
+            }
         }
     }
 

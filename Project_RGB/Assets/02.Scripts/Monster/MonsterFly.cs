@@ -122,6 +122,8 @@ public class MonsterFly : MonsterParent
             string name1 = ac.animationClips[i].name.ToUpper();
             string name2 = (myMonsterCode.ToString() + "_AttackAnimation").ToUpper();
 
+            Debug.Log("Whyyyyy!"+name2);
+
             if (name1.Equals(name2))
             {
                 attackingRunTime = ac.animationClips[i].length;

@@ -11,8 +11,9 @@ public class MonsterWalk : MonsterParent
 
         Invoke("AttackRangeCheckSystem", 0.2f);
 
-        if (myMonsterCode == MonsterCode.WM112)  //목 없는 기사만 따로 시작 애니메이션.
+        if (myMonsterCode == MonsterCode.WM112)  //따로 대기 애니메이션. (배경인척 테두리가 없지만 뭔가 흔들리고 있음.)
         {
+            //눈사람, 꽃 구름, 신전 기사는 Animator의 대기 했다가 따로 시작 애니메이션 존재.
             //범위 안에 들어오면 자식개체(목)에게 떨어지라고(스프라이트 변경) 명령하고, 떨어지는 시간 만큼 기다렸다가 움직이기 시작함.
         }
         else
@@ -94,7 +95,7 @@ public class MonsterWalk : MonsterParent
             {
                 GameObject throwthing = transform.GetChild(0).gameObject;
                 GameObject summonedThrowWeapon = Instantiate(throwthing);
-                summonedThrowWeapon.transform.position = this.transform.position;
+                summonedThrowWeapon.transform.position = new Vector3(transform.position.x + 4, transform.position.y + 2, 0f);
                 MonstersThrowWeapon throwWeapon = summonedThrowWeapon.GetComponent<MonstersThrowWeapon>();
                 throwWeapon.gameObject.SetActive(true);
                 throwWeapon.StartGoToPlayer(myMonsterCode);

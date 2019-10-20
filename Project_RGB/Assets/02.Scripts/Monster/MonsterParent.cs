@@ -115,26 +115,26 @@ public class MonsterInfoList
             10, 10, 200, 5, 20,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM107, false, "하얀 곰", MonsterState.IDLE,
-            10, 10, 200, 7, 3,
+            10, 10, 200, 7, 10,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM108, false, "얼음 펭귄", MonsterState.IDLE,
             10, 10, 200, 5, 35,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM109, false, "하얀 눈사람", MonsterState.IDLE,
-            10, 10, 200, 0, 3,
+            10, 10, 200, 0, 10,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM110, false, "무지개 장미", MonsterState.IDLE,
-            10, 10, 200, 5, 3,
+            10, 10, 200, 5, 10,
             50, 0, null));
         //-------------------------------110
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM111, false, "꽃 원예가", MonsterState.IDLE,
-            10, 10, 200, 5, 3,
+            10, 10, 200, 5, 10,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM112, false, "신전 기사", MonsterState.IDLE,
-            10, 10, 200, 5, 3,
+            10, 10, 200, 5, 10,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM113, false, "신전 케로베로스", MonsterState.IDLE,
-            10, 10, 200, 7, 3,
+            10, 10, 200, 7, 10,
             50, 0, null));
 
 
@@ -216,7 +216,7 @@ public class MonsterInfoList
             50, 0, null));
         //-------------------------------505
         monsterInfoList.Add(new MonsterInfo(MonsterCode.TM506, false, "고드름", MonsterState.IDLE,
-            10, 10, 200, 0, 3,
+            10, 10, 200, 0, 14,
             50, 0, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.TM507, false, "호수(대부분 즉사)", MonsterState.IDLE,
             10, 10, 200, 0, 3,
@@ -277,10 +277,7 @@ public class MonsterParent : MonoBehaviour
     {
                                                                                             //Awake에서 quest 찾아서 넣어두기. (모든 코드에서 실행되도록...)
         PlayerObject = GameObject.Find("MonsterPlayer_Sample");
-        if (((int)MonsterCode.FM201 < (int)myMonsterCode) && ((int)myMonsterCode < (int)MonsterCode.FM205))
-        {
-            myMonsterRigid.gravityScale = 0f;                                               //FlyMonster는 전부 중력0
-        }
+
         if (myMonsterCode != MonsterCode.PARENT)                                            //부모 일 경우 정보 불러오지 않음
         {
             MonsterInfoList monsterInfoDataBase = new MonsterInfoList();                    //메모리 절약을 위해 전역변수가 아닌 1회성 지역변수로 사용.
@@ -292,6 +289,12 @@ public class MonsterParent : MonoBehaviour
 
             //Debug.Log(myMonsterInfo.monsterHp + "HP" + myMonsterInfo.monsterName);          //Debug log 몬스터확인.
         }
+
+        if (((int)MonsterCode.FM201 <= (int)myMonsterCode) && ((int)myMonsterCode <= (int)MonsterCode.FM205))
+        {
+            myMonsterRigid.gravityScale = 0f;                                               //FlyMonster는 전부 중력0
+        }
+
 
     }
 
