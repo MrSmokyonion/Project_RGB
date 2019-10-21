@@ -91,8 +91,9 @@ GameObject:
   - component: {fileID: 1871824164531716392}
   - component: {fileID: 5206549397493557644}
   - component: {fileID: 2765888602372706914}
+  - component: {fileID: 1058158804350729058}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: CancelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,8 +196,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Store_Buy_Button
+      - m_Target: {fileID: 1058158804350729058}
+        m_MethodName: StoreBuyCheckSlotCancelClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -208,6 +209,25 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1058158804350729058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3895376777086447870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0bd2777cce68b4189c88f87ac34b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StoreBuyCheckSlot: {fileID: 8296193639856195626}
+  StoreBuyPanel: {fileID: 2818968149650433977, guid: 5cf98c39cbe804e4eb98ac0d74c5e82a,
+    type: 3}
+  itemStoreCanvas: {fileID: 0}
+  isfood: 1
+  eventSystem: {fileID: 0}
+  dragThresholdCM: 0.5
 --- !u!1 &4178119729570786200
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,8 +240,9 @@ GameObject:
   - component: {fileID: 2717081133612314400}
   - component: {fileID: 7738571730780989422}
   - component: {fileID: 521061187590621195}
+  - component: {fileID: 5718342578030911938}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BuyButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -324,8 +345,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Store_Buy_Button
+      - m_Target: {fileID: 5718342578030911938}
+        m_MethodName: StoreBuyCheckSlotBuyClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -337,6 +358,25 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &5718342578030911938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4178119729570786200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0bd2777cce68b4189c88f87ac34b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StoreBuyCheckSlot: {fileID: 8296193639856195626}
+  StoreBuyPanel: {fileID: 2818968149650433977, guid: 5cf98c39cbe804e4eb98ac0d74c5e82a,
+    type: 3}
+  itemStoreCanvas: {fileID: 0}
+  isfood: 1
+  eventSystem: {fileID: 0}
+  dragThresholdCM: 0.5
 --- !u!1 &6030479036998102920
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +473,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &104311879065500837
 RectTransform:
   m_ObjectHideFlags: 0

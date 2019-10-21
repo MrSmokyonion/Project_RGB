@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3108915123111008100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.4064, y: -1.7670391, z: 0}
+  m_LocalPosition: {x: 20.415424, y: -1.7838339, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -151,6 +151,7 @@ MonoBehaviour:
   mPosXY: {x: 0, y: 0}
   isLRM: 0
   isUDM: 0
+  isAction: 0
   attackOrder: 0
   isAttacking: 0
   attackingRunTime: 0

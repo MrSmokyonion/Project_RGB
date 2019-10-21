@@ -278,7 +278,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7725178405846363132}
-        m_MethodName: ButtonClick
+        m_MethodName: QuestButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a359904d4c3a84d95a164e12936d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QuestUI: {fileID: 0}
+  OpenUI: {fileID: 0}
 --- !u!1 &7725178405865593719
 GameObject:
   m_ObjectHideFlags: 0

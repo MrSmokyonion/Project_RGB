@@ -21,7 +21,8 @@ public class NPCMenuButtonUI : MonoBehaviour
 
     public void StoreCanvasOpen()
     {
-
         npcQuestUI.StoreCanvasOpen();
     }
+
+
 }

@@ -6,9 +6,10 @@ public class SkillCheckSlotClick : MonoBehaviour
 {
     // Start is called before the first frame update
     public Canvas SkillDetailsCanvas;
-
+    public int skillType;
     public void Skill_Check_Slot_Click()
     {
+        SkillDetailsCanvas.GetComponent<SkillDetailUI>().skillType = skillType;
         SkillDetailsCanvas.enabled = true;
     }
 }
