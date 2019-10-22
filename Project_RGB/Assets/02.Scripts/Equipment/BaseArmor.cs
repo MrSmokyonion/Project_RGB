@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Base_Armor
+public abstract class Base_Armor : BaseValues
 {
-    public string armorName;
     public int dualbility;
 
     public virtual void Execute(PlayerStatus status) { Debug.Log("***STONE***"); }

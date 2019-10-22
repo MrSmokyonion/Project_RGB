@@ -121,7 +121,7 @@ public class PlayerStatus : MonoBehaviour
     public void Attack() //근접 공격 함수
     {
         if (IsAttackDelay() == false) return;
-        Debug.Log(weapon.weaponName + " 공격!");
+        Debug.Log(weapon.title + " 공격!");
         d_weapon = weapon.delay;
 
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(attack_pos.position, attack_range, 0);
@@ -141,7 +141,7 @@ public class PlayerStatus : MonoBehaviour
     public void Attack(float angle, Vector2 dir) //원거리 공격 함수
     {
         if (IsAttackDelay() == false) return;
-        Debug.Log(weapon.weaponName + " 공격!");
+        Debug.Log(weapon.title + " 공격!");
         d_weapon = weapon.delay;
 
         GameObject obj = Instantiate(projectile, attack_pos.position, Quaternion.Euler(0f, 0f, angle));

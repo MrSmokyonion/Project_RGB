@@ -6,11 +6,13 @@ public class Bow_Default : Weapon_Bow
 {
     public Bow_Default()
     {
-        delay = 0.5f;
+        title = "그냥 활";
+        code = SpawnCode.W201;
+        dualbility = 100;
+        spritePath = "Unity_Total_25";
+        isUnlock = false;
         power = 3;
         speed = 10;
-        dualbility = 100;
-        weaponName = "그냥 활";
-        spritePath = "Unity_Total_25";
+        delay = 0.5f;
     }
 }

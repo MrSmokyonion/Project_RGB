@@ -91,7 +91,7 @@ public static class SpawnClass
 
         switch (skillcode)
         {
-            case SpawnCode.B001: return new Skill_Blue_Shild();
+            case SpawnCode.B001: return new Skill_Blue_Shield();
         }
         return null;
     }
