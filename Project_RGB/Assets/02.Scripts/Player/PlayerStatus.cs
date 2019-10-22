@@ -298,19 +298,4 @@ public class PlayerStatus : MonoBehaviour
         Gizmos.DrawWireCube(attack_pos.position, attack_range);
     }
     #endregion
-
-    #region Test Method
-    public void test_weapon_sword_spawn()
-    {
-        ChangeWeapon(SpawnCode.W001);
-    }
-    public void test_weapon_spear_spawn()
-    {
-        ChangeWeapon(SpawnCode.W101);
-    }
-    public void test_weapon_bow_spawn()
-    {
-        ChangeWeapon(SpawnCode.W201);
-    }
-    #endregion
 }
