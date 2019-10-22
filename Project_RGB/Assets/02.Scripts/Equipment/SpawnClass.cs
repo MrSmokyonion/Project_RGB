@@ -22,7 +22,7 @@ public static class SpawnClass
 
         switch (weaponCode)
         {
-            case SpawnCode.W101: return null;
+            case SpawnCode.W101: return new Spear_Default();
         }
         return null;
     }
@@ -91,7 +91,7 @@ public static class SpawnClass
 
         switch (skillcode)
         {
-            case SpawnCode.B001: return new Skill_Blue_Shild();
+            case SpawnCode.B001: return new Skill_Blue_Shield();
         }
         return null;
     }

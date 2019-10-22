@@ -6,7 +6,12 @@ public class Amulet_Default : Armor_Amulet
 {
     public Amulet_Default()
     {
-        armorName = "기본 아뮬렛";
+        title = "기본 부적";
+        description = "기본 부적입니다. 기본 장비에 뭔 설명을 더 바랍니까.";
+        code = SpawnCode.A001;
+        spritePath = "";
+        isUnlock = false;
+
         dualbility = 100;
     }
 }

@@ -6,9 +6,12 @@ public class Sword_Default : Weapon_Sword
 {
     public Sword_Default()
     {
+        title = "기본 검";
+        code = SpawnCode.W001;
+        dualbility = 100;
+        spritePath = "";
+        isUnlock = false;
         power = 5;
         delay = 0.5f;
-        weaponName = "다이아몬드 검";
-        dualbility = 100;
     }
 }
