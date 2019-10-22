@@ -26,7 +26,7 @@ public class QuestButtonUI : MonoBehaviour
         quest.isProgressQuest = false;
         quest.progressQuestList.SetActive(false);
         quest.completeQuestList.SetActive(true);
-        quest.QuestSetting();
+        quest.QuestBoardSetting();
         cancleButton.SetActive(false);
     }
 
@@ -35,7 +35,7 @@ public class QuestButtonUI : MonoBehaviour
         quest.isProgressQuest = true;
         quest.progressQuestList.SetActive(true);
         quest.completeQuestList.SetActive(false);
-        quest.QuestSetting();
+        quest.QuestBoardSetting();
         cancleButton.SetActive(true);
     }
 

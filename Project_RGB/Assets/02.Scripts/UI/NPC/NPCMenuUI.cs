@@ -7,6 +7,8 @@ public class NPCMenuUI : MonoBehaviour
 {
     public Canvas npcquestCanvas;
     public Canvas storeCanvas;
+    public GameObject storeButton;
+    public int npcCode;
 
     Animator slideNPCMenuAnimator;
 
@@ -16,8 +18,10 @@ public class NPCMenuUI : MonoBehaviour
     {
         //npcQuestScript.SetActive(false);
         if (npcquestCanvas.enabled == true)
-            slideNPCMenuAnimator = gameObject.transform.GetComponent<Animator>();
-       
+            slideNPCMenuAnimator = transform.GetChild(0).GetComponent<Animator>();
+        Debug.Log("npccode : " + npcCode);
+       // Debug.Log("storeAvailable" + GetComponent<NPCParent>().npcInfoList[npcCode].storeAvailable);
+        StoreAvailableCheck(transform.GetComponent<NPCParent>().npcInfoList[npcCode].storeAvailable);
     }
 
 
@@ -45,6 +49,10 @@ public class NPCMenuUI : MonoBehaviour
         storeCanvas.enabled = true;
     }
 
-   
+   public void StoreAvailableCheck(bool storeavailable)
+    {
+        storeButton.SetActive(storeavailable);
+
+    }
 
 }

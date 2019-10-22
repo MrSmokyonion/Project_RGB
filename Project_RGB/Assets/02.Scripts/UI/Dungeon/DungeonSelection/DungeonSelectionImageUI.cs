@@ -70,4 +70,10 @@ public class DungeonSelectionImageUI : MonoBehaviour
 
     }
 
+    public void DungeonTransform()
+    {
+        //index 저장
+        //씬매니저에게 해당 index 씬 바꿔달라 요청
+    }
+
 }

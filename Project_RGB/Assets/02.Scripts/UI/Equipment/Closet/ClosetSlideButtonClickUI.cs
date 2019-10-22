@@ -19,6 +19,11 @@ public class ClosetSlideButtonClickUI : MonoBehaviour
 
         Debug.Log("lastClickSlot = " + closetSlideSlotClick_Script.lastClickSlot);
     }
+
+    public void SortButtonClick()
+    {
+        //공격력 순, 획득 순, 내구도 순 등등
+    }
 }
     
 

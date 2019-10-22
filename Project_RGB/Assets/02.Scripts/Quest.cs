@@ -50,7 +50,6 @@ public class QuestInfo
     //생성자
     //퀘스트 고유 번호, npc 고유 번호,  챕터,  퀘스트 상태,  퀘스트 유형, 몬스터 코드, 퀘스트 대상 완료 개수, 퀘스트 보상 유형, 퀘스트 진행개수, 퀘스트 이름,  퀘스트 내용, 퀘스트 요약, 퀘스트 대사
     public QuestInfo(int _quest_code, int _quest_npc_code, int _quest_chapter, QuestState _quest_state, QuestType _quest_type, MonsterCode _quest_monstercode, int _quest_complete_count, QuestRewardCode _quest_reward_type, int _questdetails, string _quest_name, string _content, string _summary, string _script, int _gold)
-
     {
         quest_code = _quest_code;
         quest_npc_code = _quest_npc_code;
@@ -67,71 +66,106 @@ public class QuestInfo
         script = _script;
         gold = _gold;
     }
-
-
-
 }
-
-
 
 
 public class Quest : MonoBehaviour
 {
     List<QuestInfo> questInfoList = new List<QuestInfo>();
     public List<QuestInfo> playerQuestList = new List<QuestInfo>();
-    //public int sucesscount = 2;
-    //public int acesscount = 2;
     public List<QuestInfo> questAcessList = new List<QuestInfo>();
     public List<QuestInfo> questSuccessList = new List<QuestInfo>();
 
-    public void QuestList()
+    // Start is called before the first frame update
+    void Awake()
     {
-        //퀘스트 고유 번호, npc 고유 번호,  챕터,  퀘스트 상태,  퀘스트 유형, 몬스터 코드, 퀘스트 대상 완료 개수, 퀘스트 보상 유형, 퀘스트 진행개수, 퀘스트 이름,  퀘스트 내용, 퀘스트 요약, 퀘스트 대사
-        questInfoList.Add(new QuestInfo(0, 1, 1, QuestState.Access, QuestType.Type_Kill, 0, 5, QuestRewardCode.Equipment, 3, "열매 요리가 하고 싶어요~1", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!",0));
-        questInfoList.Add(new QuestInfo(1, 1, 1, QuestState.Success, QuestType.Type_Kill, MonsterCode.FLY_MONSTER_1, 5, QuestRewardCode.Equipment, 5, "열매 요리가 하고 싶어요~2", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!",0));
-        questInfoList.Add(new QuestInfo(2, 1, 2, QuestState.Success, QuestType.Type_Kill, MonsterCode.FLY_MONSTER_1, 5, QuestRewardCode.Equipment, 5, "열매 요리가 하고 싶어요~3", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!",0));
-        questInfoList.Add(new QuestInfo(3, 1, 3, QuestState.Access, QuestType.Type_Kill, MonsterCode.FLY_MONSTER_1, 5, QuestRewardCode.Equipment, 5, "열매 요리가 하고 싶어요~4", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!",0));
-        questInfoList.Add(new QuestInfo(4, 1, 1, QuestState.Enable, QuestType.Type_Kill, MonsterCode.FLY_MONSTER_1, 5, QuestRewardCode.Equipment, 5, "열매 요리가 하고 싶어요~5", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!",0));
-        questInfoList.Add(new QuestInfo(5, 1, 1, QuestState.Able, QuestType.Type_Kill, MonsterCode.FLY_MONSTER_1, 5, QuestRewardCode.Equipment, 5, "열매 요리가 하고 싶어요~6", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!",0));
-        questInfoList.Add(new QuestInfo(6, 1, 2, QuestState.Able, QuestType.Type_Kill, MonsterCode.FLY_MONSTER_1, 5, QuestRewardCode.Equipment, 5, "열매 요리가 하고 싶어요~7", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!",0));
-        questInfoList.Add(new QuestInfo(7, 1, 3, QuestState.Enable, QuestType.Type_Kill, MonsterCode.FLY_MONSTER_1, 5, QuestRewardCode.Equipment, 5, "열매 요리가 하고 싶어요~8", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!",0));
+        Screen.SetResolution(1920, 1080, false);
+        QuestList();
+        PlayerQuestList();
+        UIQuestList();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
     }
 
-    //QuestCompleteList
-    public void PlayerQuestList()
+    #region 퀘스트 Setting
+
+    public void QuestList()                                     //퀘스트의 정보
     {
         //퀘스트 고유 번호, npc 고유 번호,  챕터,  퀘스트 상태,  퀘스트 유형, 몬스터 코드, 퀘스트 대상 완료 개수, 퀘스트 보상 유형, 퀘스트 진행개수, 퀘스트 이름,  퀘스트 내용, 퀘스트 요약, 퀘스트 대사
-        //진행중 인 것, 완료된 것만 찾아서 리스트에 넣기
+        questInfoList.Add(new QuestInfo(0, 1, 1, QuestState.Access, QuestType.Type_Kill, 0, 5, QuestRewardCode.Equipment, 3, "열매 요리가 하고 싶어요~1", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!", 0));
+        questInfoList.Add(new QuestInfo(1, 1, 1, QuestState.Success, QuestType.Type_Kill, MonsterCode.FLY_MONSTER_1, 5, QuestRewardCode.Equipment, 5, "열매 요리가 하고 싶어요2", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!", 0));
+        questInfoList.Add(new QuestInfo(2, 2, 2, QuestState.Enable, QuestType.Type_Kill, MonsterCode.FLY_MONSTER_1, 5, QuestRewardCode.Equipment, 5, "열매 요리가 하고 싶어요~3", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!", 0));
+        questInfoList.Add(new QuestInfo(3, 1, 3, QuestState.Access, QuestType.Type_Kill, MonsterCode.FLY_MONSTER_1, 5, QuestRewardCode.Equipment, 5, "열매 요리가 하고 싶어요~4", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!", 0));
+        questInfoList.Add(new QuestInfo(4, 2, 1, QuestState.Able, QuestType.Type_Kill, MonsterCode.FLY_MONSTER_1, 5, QuestRewardCode.Equipment, 5, "열매 요리가 하고 싶어요~5", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!", 0));
+        questInfoList.Add(new QuestInfo(5, 2, 1, QuestState.Success, QuestType.Type_Kill, MonsterCode.FLY_MONSTER_1, 5, QuestRewardCode.Equipment, 5, "열매 요리가 하고 싶어요~6", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!", 0));
+        questInfoList.Add(new QuestInfo(6, 1, 2, QuestState.Enable, QuestType.Type_Kill, MonsterCode.FLY_MONSTER_1, 5, QuestRewardCode.Equipment, 5, "열매 요리가 하고 싶어요~7", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!", 0));
+        questInfoList.Add(new QuestInfo(7, 1, 3, QuestState.Enable, QuestType.Type_Kill, MonsterCode.FLY_MONSTER_1, 5, QuestRewardCode.Equipment, 5, "열매 요리가 하고 싶어요~8", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 구해다 주자.", "7000Gold 기부", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 철을 가져오면 내 하나 만들어줌세!!", 0));
+
+    }
+
+    public void PlayerQuestList()                               //현재 플레이어의 퀘스트 목록
+    {
         playerQuestList = questInfoList;
-        Debug.Log("PlayerQuestList : " + playerQuestList.Count);
     }
 
-    public void UIQuestList()
+    public void UIQuestList()                                   //UI작업을 최소화 하기 위해 진행중, 완료 퀘스트 나눔. 
     {
         for (int i = 0; i < playerQuestList.Count; i++)
         {
             if (playerQuestList[i].quest_state == QuestState.Access)
             {
+                Debug.Log(playerQuestList[i].quest_name);
                 questAcessList.Add(playerQuestList[i]);
             }
             else if (playerQuestList[i].quest_state == QuestState.Success)
             {
+                Debug.Log(playerQuestList[i].quest_name);
                 questSuccessList.Add(playerQuestList[i]);
             }
         }
     }
+    
+    #endregion
 
-    public void AddQuest()
+
+    #region 퀘스트 처리
+
+    public void AddQuest(QuestInfo addquest)                    //퀘스트 수락 able -> access
     {
-        if (playerQuestList.Count <= 3)
+        if (questAcessList.Count <= 3)
         {
-            //Add
+            questAcessList.Add(addquest);
+            playerQuestList[addquest.quest_code].quest_state = QuestState.Access;
+            Debug.Log("addquest : " + addquest.quest_name);
+
         }
+        else
+        {
+            //NPC UI에 퀘스트가 다 찼다는 신호보냄.
+        }
+        return;
 
     }
 
-    public void QuestMonsterCheck(MonsterCode monsterCode)
+    public void RemoveQuest(QuestInfo index)
+    {
+        if (questAcessList.Count >= 0)
+        {
+            playerQuestList[index.quest_code].quest_state = QuestState.Able;
+           playerQuestList[index.quest_code].questdetails = 0;
+            questAcessList.Remove(index);
+
+
+        }
+        return;
+
+    }
+
+    public void QuestMonsterCheck(MonsterCode monsterCode)      //퀘스트 진행 상황 체크
     {
 
         for (int i = 0; i < questAcessList.Count; i++)
@@ -156,24 +190,26 @@ public class Quest : MonoBehaviour
                 //if(questAcessList[i].questEquipment == 지금 장착한 장비 && )
                 playerQuestList[FindNameToQuestCode(questAcessList[i].quest_name).quest_code].questdetails++;
             }
-            gameObject.transform.GetComponent<QuestUI>().QuestSetting();
+            gameObject.transform.GetComponent<QuestUI>().QuestBoardSetting();
         }
     }
 
-
-    public void SuccessquestComplete()
+    public void SuccessquestComplete()                          //NPC에게 말 걸었을 때 퀘스트 완료
     {
-        for (int i = 0; i < playerQuestList.Count; i++)
+        for (int i = 0; i < questAcessList.Count; i++)
         {
-            if (playerQuestList[i].questcompletecount == playerQuestList[i].questdetails && playerQuestList[i].quest_state == QuestState.Access)
+            if (questAcessList[i].questcompletecount == questAcessList[i].questdetails)
             {
-                //퀘스트 UI 바꾸는 작업
+                //보상 처리
+
+                questSuccessList.Add(questAcessList[i]);
+                questAcessList.Remove(questAcessList[i]);
             }
         }
 
     }
 
-    public QuestInfo FindNameToQuestCode(string name)
+    public QuestInfo FindNameToQuestCode(string name)           //퀘스트 이름으로 퀘스트 코드 찾기
     {
         foreach (QuestInfo str in playerQuestList)
         {
@@ -185,20 +221,53 @@ public class Quest : MonoBehaviour
         return null;
     }
 
-    // Start is called before the first frame update
-    void Awake()
+    public void QuestUnlock(int clearChapterNumber)             //퀘스트 해금
     {
-        Screen.SetResolution(1920, 1080, false);
-        QuestList();
-        PlayerQuestList();
-        UIQuestList();
+        for (int i = 0; i < playerQuestList.Count; i++)
+        {
+            if(playerQuestList[i].quest_chapter == clearChapterNumber)
+            {
+                playerQuestList[i].quest_state = QuestState.Able;
+
+                //npcUI 다시 세팅
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public List<QuestInfo> GetnpcQuestList(int questNpcCode)    //NPC에게 해당 퀘스트 전달
     {
+        List<QuestInfo> npcquestlist = new List<QuestInfo>();
 
+        for (int i = 0; i < playerQuestList.Count; i++)
+        {
+           
+            if (playerQuestList[i].quest_state == QuestState.Able && playerQuestList[i].quest_npc_code == questNpcCode) //NPC가 가진 able 리스트 리턴.
+            {
+                npcquestlist.Add(playerQuestList[i]);
+            }
+        }
+        return npcquestlist;
     }
+
+
+    public List<QuestInfo> GetDungeonQuestList(int dungeonType)        //던전에 해당 퀘스트 전달.
+    {
+        List<QuestInfo> dungeonQuestList = new List<QuestInfo>();
+
+        for(int i = 0; i <playerQuestList.Count; i++)
+        {
+            if(playerQuestList[i].quest_chapter == dungeonType)
+            {
+                dungeonQuestList.Add(playerQuestList[i]);
+            }
+        }
+
+        return dungeonQuestList;
+    }
+    #endregion
+
+
+
 
 }
 
