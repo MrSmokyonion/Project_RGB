@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterBoss : MonsterParent
 {
-    int attackType = 0; //공격아님0, 기본 1, 특수 2, 특수 3 ... 
+    int attackType = 0; //공격아님0, 기본 1, 특수 2, 특수 3 ...
     public List<GameObject> boosAttackPrefabList;
 
     public override void MyStart()
@@ -91,7 +91,6 @@ public class MonsterBoss : MonsterParent
                 }
                 else if (attackType == 2)                                       //깃털을 던져서 공격!
                 {
-                    boosAttackPrefabList[0].transform.position = pPosXY;
                     GameObject summonedThrowWeapon = Instantiate(boosAttackPrefabList[0]);
                     summonedThrowWeapon.transform.position = this.transform.position;
                     MonstersThrowWeapon throwWeapon = summonedThrowWeapon.GetComponent<MonstersThrowWeapon>();
@@ -106,6 +105,36 @@ public class MonsterBoss : MonsterParent
             }
             else if (myMonsterCode == MonsterCode.BM303)
             {
+                if (attackType == 1)                                            //파도 공격!
+                {
+                    GameObject summonedThrowWeapon = Instantiate(boosAttackPrefabList[0]);
+                    summonedThrowWeapon.transform.position = this.transform.position;
+                    MonstersThrowWeapon throwWeapon = summonedThrowWeapon.GetComponent<MonstersThrowWeapon>();
+                    throwWeapon.gameObject.SetActive(true);
+                    throwWeapon.StartGoToPlayer(myMonsterCode, attackType, isLRM);
+                }
+                else if (attackType == 2)                                       //눈송이 쫓아가기 공격!
+                {
+                    GameObject summonedThrowWeapon = Instantiate(boosAttackPrefabList[1]);
+                    summonedThrowWeapon.transform.position = this.transform.position;
+                    MonstersThrowWeapon throwWeapon = summonedThrowWeapon.GetComponent<MonstersThrowWeapon>();
+                    throwWeapon.gameObject.SetActive(true);
+                    throwWeapon.StartGoToPlayer(myMonsterCode, attackType);
+                }
+                else if (attackType == 3)                                       //아이스 스피어 소환 공격!
+                {
+                    int count = 5;
+                    List<GameObject> summonedThrowWeaponList = new List<GameObject>();
+                    for (int i = 0; i < count; i++) //0,1,2,3,4
+                    {
+                        summonedThrowWeaponList.Add(Instantiate(boosAttackPrefabList[2]));
+                        summonedThrowWeaponList[i].transform.position = new Vector3(transform.position.x, transform.position.y + (i * 8f), transform.position.z);
+                        MonstersThrowWeapon throwWeapon = summonedThrowWeaponList[i].GetComponent<MonstersThrowWeapon>();
+                        throwWeapon.gameObject.SetActive(true);
+                        throwWeapon.StartGoToPlayer(myMonsterCode, attackType);
+                    }
+
+                }
             }
         }
     }

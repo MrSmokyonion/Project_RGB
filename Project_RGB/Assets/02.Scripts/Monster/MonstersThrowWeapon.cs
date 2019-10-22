@@ -21,7 +21,7 @@ public class MonstersThrowWeapon : MonoBehaviour
     Vector2 mPosXY;
     Rigidbody2D myRigid;
 
-    public void StartGoToPlayer(MonsterCode monsterCode)
+    public void StartGoToPlayer(MonsterCode monsterCode, int attackType = -1, int isLRM = 0)
     {
         PlayerObject = GameObject.Find("MonsterPlayer_Sample");
         myRigid = GetComponent<Rigidbody2D>();
@@ -37,6 +37,27 @@ public class MonstersThrowWeapon : MonoBehaviour
                 break;
             case MonsterCode.BM302: //타오르는 피닉스
                 throwThingSpeed = 30; FireToPlayer(); lifeTime = 3.0f;
+                break;
+            case MonsterCode.BM303:
+                if (attackType == 1)
+                {
+                    throwThingSpeed = 5; lifeTime = 3.0f;
+                    JustGoToFront(isLRM);
+                    //파도 공격!!!
+                }
+                else if (attackType == 2)
+                {
+                    throwThingSpeed = 10; lifeTime = 8.0f;
+                    ChaseThePlayer();
+                    //쫓아가랏 눈송이!!!!
+                }
+                else if (attackType == 3)
+                {
+                    throwThingSpeed = 40; lifeTime = 5.0f;
+                    //타켓팅 아이스 스피어 5개가 각자 다른 곳에서 생성 되었습니다!!!
+                    //발싸!!!!
+                    FireToPlayer();
+                }
                 break;
         }
 
@@ -225,6 +246,18 @@ public class MonstersThrowWeapon : MonoBehaviour
             {
                 myRigid.velocity = new Vector2(myRigid.velocity.x, -sY);
             }
+        }
+    }
+
+    private void JustGoToFront(int isLRM)   //Player가 Left 1, Right 2, Midle 3 에 있음
+    {
+        if (isLRM == 1)                                                         //왼쪽에 플레이어가 있음
+        {
+            myRigid.velocity = new Vector2(-throwThingSpeed, myRigid.velocity.y);
+        }
+        else if (isLRM == 2)                                                    //오른쪽에 플레이어가 있음
+        {
+            myRigid.velocity = new Vector2(throwThingSpeed, myRigid.velocity.y);
         }
     }
 

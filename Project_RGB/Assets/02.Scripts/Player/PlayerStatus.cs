@@ -153,9 +153,11 @@ public class PlayerStatus : MonoBehaviour
     public void Interact()
     {
         Debug.Log(Interactive.name + " Interact!");
-        if (Interactive.tag == "door")
+
+        if (Interactive.tag == "TeleportDoor")
         {
-            //여기서 알아서 상호작용??
+            TeleportDoor terpoDoor = Interactive.GetComponent<TeleportDoor>();
+            terpoDoor.PlayerGoToNextDoor(this.gameObject);
         }
     }
     #endregion
@@ -272,7 +274,7 @@ public class PlayerStatus : MonoBehaviour
         int dirt = (transform.position.x - targetpos.x > 0) ? 1 : -1;
         GetComponent<Rigidbody2D>().AddForce(new Vector2(dirt, 1) * 7, ForceMode2D.Impulse);
     }
-    
+
     public void Dead()
     {
         //다시 시작할 수 있도록 처리 해줘야함.

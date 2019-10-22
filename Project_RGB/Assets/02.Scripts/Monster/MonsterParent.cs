@@ -164,8 +164,8 @@ public class MonsterInfoList
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM302, true, "타오르는 피닉스", MonsterState.IDLE,
             10, 10, 100, 5, 10,
             500, 80, null));
-        monsterInfoList.Add(new MonsterInfo(MonsterCode.BM303, true, "설녀", MonsterState.IDLE,
-            10, 10, 100, 7, 10,
+        monsterInfoList.Add(new MonsterInfo(MonsterCode.BM303, true, "얼음 네시", MonsterState.IDLE,
+            10, 10, 100, 7, 30,
             500, 80, null));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM304, true, "사자 해바리기", MonsterState.IDLE,
             10, 10, 100, 7, 10,
