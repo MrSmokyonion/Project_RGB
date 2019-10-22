@@ -104,7 +104,7 @@ public class ControlManager : MonoBehaviour
     #region Interactive
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Interactive")
+        if (collision.gameObject.tag == "NPC"|| collision.gameObject.tag == "TeleportDoor")
         {
             attackButton.IsInteract = true;
             ps.Interactive = collision.gameObject;
@@ -112,7 +112,7 @@ public class ControlManager : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Interactive")
+        if (collision.gameObject.tag == "NPC" || collision.gameObject.tag == "TeleportDoor")
         {
             attackButton.IsInteract = false;
             ps.Interactive = null;

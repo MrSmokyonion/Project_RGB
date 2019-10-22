@@ -6,8 +6,9 @@ public class TeleportDoor : MonoBehaviour
 {
     public bool teleport = false;
     public GameObject partnerDoor;                                      //이 문과 연결 되어있는 문.
+    public DungeonManager dungeonManager;
 
-    public void PlayerGoToNextStage(GameObject player)                  //제대로 될지 모르겠다..
+    public void PlayerGoToNextDoor(GameObject player)                  //제대로 될지 모르겠다..
     {
         //Player가 상호작용 버튼을 눌러서 문의 이 함수에 넣어줄 시 데려왔을 시.
 
@@ -16,8 +17,10 @@ public class TeleportDoor : MonoBehaviour
             //화면 페이드 아웃
 
             player.transform.position = partnerDoor.transform.position;
-
+            
             //화면 페이드 인
+            //if(여기가 던전이면) 추가작용.
+            dungeonManager.GoToNextStage();
         }
         else                                                            //아직 몬스터가 남아있을 시 (false)
         {

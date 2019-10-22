@@ -11,8 +11,9 @@ public class MonsterWalk : MonsterParent
 
         Invoke("AttackRangeCheckSystem", 0.2f);
 
-        if (false)  //목 없는 기사만 따로 시작 애니메이션.
+        if (myMonsterCode == MonsterCode.WM112)  //따로 대기 애니메이션. (배경인척 테두리가 없지만 뭔가 흔들리고 있음.)
         {
+            //눈사람, 꽃 구름, 신전 기사는 Animator의 대기 했다가 따로 시작 애니메이션 존재.
             //범위 안에 들어오면 자식개체(목)에게 떨어지라고(스프라이트 변경) 명령하고, 떨어지는 시간 만큼 기다렸다가 움직이기 시작함.
         }
         else
@@ -44,14 +45,16 @@ public class MonsterWalk : MonsterParent
         if (!isAttacking)                                                           //공격 중에는 move,rotate하면 안됨
         {
             //----------------------------좌우----------------------------
+            Vector3 myLS = transform.localScale;
+
             if (isLRM == 1)                                                         //왼쪽에 플레이어가 있음
             {
-                transform.localScale = new Vector3(1f, 1f, 1f);
+                transform.localScale = new Vector3(myLS.x > 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
                 myMonsterRigid.velocity = new Vector2(-myMonsterInfo.monsterSpeed, myMonsterRigid.velocity.y);
             }
             else if (isLRM == 2)                                                    //오른쪽에 플레이어가 있음
             {
-                transform.localScale = new Vector3(-1f, 1f, 1f);
+                transform.localScale = new Vector3(myLS.x < 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
                 myMonsterRigid.velocity = new Vector2(myMonsterInfo.monsterSpeed, myMonsterRigid.velocity.y);
             }
             else
@@ -64,45 +67,57 @@ public class MonsterWalk : MonsterParent
 
     public void AttackSystem()
     {
+        if (!isAttacking)                                                   //이미 공격 중이 아닐 때 공격
+        {
+            //----------------------------각각 공격 애니메이션 실행----------------------------
+            isAttacking = true;
+            myMonsterRigid.velocity = new Vector2(0, myMonsterRigid.velocity.y);
 
-        //----------------------------공격----------------------------
-        if (myMonsterCode == MonsterCode.WALK_MONSTER_1)                            //걷는 꽃. 플레이어에게 그냥 걸어감
-        {
-        }
-        else if (myMonsterCode == MonsterCode.WALK_MONSTER_2 ||                     //뛰는 돌. 걸어오다가 일정거리 이하일 때 돌진
-                myMonsterCode == MonsterCode.WALK_MONSTER_3)                        //서있는 나무. 범위에 들어오면 공격.
-        {
-            if (attackOrder == true)                                                //공격 명령을 받음
+            AttackAnimation();
+
+            //----------------------------각각 공격 작용----------------------------
+            if (myMonsterCode == MonsterCode.WM101)
             {
-                attackOrder = false;
-                if (!isAttacking)                                                   //이미 공격 중이 아닐 때 공격
-                {
-                    isAttacking = true;
-                    myMonsterRigid.velocity = new Vector2(0, myMonsterRigid.velocity.y);
-                    if (myMonsterCode == MonsterCode.WALK_MONSTER_2)                //돌진 공격
-                    {
-                        if (isLRM == 1)
-                            myMonsterRigid.velocity = new Vector2(-myMonsterInfo.monsterSpeed - 8, myMonsterRigid.velocity.y);
-                        if (isLRM == 2 || isLRM == 3)
-                            myMonsterRigid.velocity = new Vector2(myMonsterInfo.monsterSpeed + 8, myMonsterRigid.velocity.y);
-                    }
+            }
+            else if (myMonsterCode == MonsterCode.WM102 || myMonsterCode == MonsterCode.WM104)                    //뛰는 돌, 불타는 돌. 걸어오다가 일정거리 이하일 때 돌진
+            {
+                //돌진 공격
+                if (isLRM == 1)
+                    myMonsterRigid.velocity = new Vector2(-myMonsterInfo.monsterSpeed - 8, myMonsterRigid.velocity.y);
+                if (isLRM == 2 || isLRM == 3)
+                    myMonsterRigid.velocity = new Vector2(myMonsterInfo.monsterSpeed + 8, myMonsterRigid.velocity.y);
 
-                    RuntimeAnimatorController ac = myMonsterAnimator.runtimeAnimatorController;
-                    for (int i = 0; i < ac.animationClips.Length; i++)
-                    {
-                        string name1 = ac.animationClips[i].name.ToUpper();
-                        string name2 = (myMonsterCode.ToString() + "_AttackAnimation").ToUpper();
-
-                        if (name1.Equals(name2))
-                        {
-                            attackingRunTime = ac.animationClips[i].length;
-                        }
-                    }
-                    myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
-                    Invoke("ResetIsAttacking", attackingRunTime);
-                }
+            }
+            else if (myMonsterCode == MonsterCode.WM103)                        //서있는 나무. 범위에 들어오면 공격.
+            {
+            }
+            else if (myMonsterCode == MonsterCode.WM106 || myMonsterCode == MonsterCode.WM108)
+            {
+                GameObject throwthing = transform.GetChild(0).gameObject;
+                GameObject summonedThrowWeapon = Instantiate(throwthing);
+                summonedThrowWeapon.transform.position = new Vector3(transform.position.x + 4, transform.position.y + 2, 0f);
+                MonstersThrowWeapon throwWeapon = summonedThrowWeapon.GetComponent<MonstersThrowWeapon>();
+                throwWeapon.gameObject.SetActive(true);
+                throwWeapon.StartGoToPlayer(myMonsterCode);
             }
         }
+    }
+
+    public void AttackAnimation()
+    {
+        RuntimeAnimatorController ac = myMonsterAnimator.runtimeAnimatorController;
+        for (int i = 0; i < ac.animationClips.Length; i++)
+        {
+            string name1 = ac.animationClips[i].name.ToUpper();
+            string name2 = (myMonsterCode.ToString() + "_AttackAnimation").ToUpper();
+
+            if (name1.Equals(name2))
+            {
+                attackingRunTime = ac.animationClips[i].length;
+            }
+        }
+        myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
+        Invoke("ResetIsAttacking", attackingRunTime);
     }
 
     public void AttackRangeCheckSystem()
@@ -112,29 +127,34 @@ public class MonsterWalk : MonsterParent
             if (!isAttacking)
             {
                 //--------------------------범위 체크--------------------------
-                List<RaycastHit2D> hitList = new List<RaycastHit2D>();
-                if (isLRM == 1)
+                if (Mathf.Sqrt(((pPosXY.x - mPosXY.x) * (pPosXY.x - mPosXY.x)) + ((pPosXY.y - mPosXY.y) * (pPosXY.y - mPosXY.y))) < myMonsterInfo.monsterAttackRange)
                 {
-                    hitList.AddRange(Physics2D.RaycastAll(transform.position, Vector2.left, myMonsterInfo.monsterAttackRange));
-                    Debug.DrawRay(transform.position, Vector2.left * myMonsterInfo.monsterAttackRange, Color.red, 0.2f);
+                    AttackSystem();
                 }
-                else if (isLRM == 2 || isLRM == 3)
-                {
-                    //Debug.Log("isLRM" + isLRM);
-                    hitList.AddRange(Physics2D.RaycastAll(transform.position, Vector2.right, myMonsterInfo.monsterAttackRange));
-                    Debug.DrawRay(transform.position, Vector2.right * myMonsterInfo.monsterAttackRange, Color.red, 0.2f);
-                }
+                #region RaycastHit으로 했던 것.(폐기)
+                //List<RaycastHit2D> hitList = new List<RaycastHit2D>();
+                //if (isLRM == 1)
+                //{
+                //    hitList.AddRange(Physics2D.RaycastAll(transform.position, Vector2.left, myMonsterInfo.monsterAttackRange));
+                //    Debug.DrawRay(transform.position, Vector2.left * myMonsterInfo.monsterAttackRange, Color.red, 0.2f);
+                //}
+                //else if (isLRM == 2 || isLRM == 3)
+                //{
+                //    //Debug.Log("isLRM" + isLRM);
+                //    hitList.AddRange(Physics2D.RaycastAll(transform.position, Vector2.right, myMonsterInfo.monsterAttackRange));
+                //    Debug.DrawRay(transform.position, Vector2.right * myMonsterInfo.monsterAttackRange, Color.red, 0.2f);
+                //}
 
                 //if(hideFlags)
-                foreach (RaycastHit2D h in hitList)
-                {
-                    //Debug.Log("RayCast 리스트!" + h.transform.tag);
-                    if (h.transform.tag == "Player")
-                    {
-                        attackOrder = true;
-                    }
-                }
-                AttackSystem();
+                //foreach (RaycastHit2D h in hitList)
+                //{
+                //    //Debug.Log("RayCast 리스트!" + h.transform.tag);
+                //    if (h.transform.tag == "Player")
+                //    {
+                //        attackOrder = true;
+                //    }
+                //}
+                #endregion
             }
             Invoke("AttackRangeCheckSystem", 0.2f);                                                 //계속 체크
         }

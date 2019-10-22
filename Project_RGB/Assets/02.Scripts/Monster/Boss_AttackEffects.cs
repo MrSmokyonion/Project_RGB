@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Boss_AttackEffects : MonoBehaviour
 {
-    public int myDamege;        //Boss가 소환할 때 설정함
+    public int myDamage;        //Boss가 소환할 때 설정함
 
     void Start()
     {

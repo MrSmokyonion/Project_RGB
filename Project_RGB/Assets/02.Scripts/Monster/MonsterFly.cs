@@ -7,7 +7,8 @@ public class MonsterFly : MonsterParent
     public override void MyStart()
     {
         Invoke("AttackRangeCheckSystem", 0.2f);
-        Invoke("PosAndMoveSystem", 0.1f);
+        if ((myMonsterCode != MonsterCode.FM201) && (myMonsterCode != MonsterCode.FM202)) //참치와 날치는 Player를 쫓아가지 않음.
+            Invoke("PosAndMoveSystem", 0.1f);
     }
 
     public void PosAndMoveSystem()
@@ -64,14 +65,16 @@ public class MonsterFly : MonsterParent
             }
 
             //----------------------------좌우----------------------------
+            Vector3 myLS = transform.localScale;
+
             if (isLRM == 1)                                                         //왼쪽에 플레이어가 있음
             {
-                transform.localScale = new Vector3(1f, 1f, 1f);
+                transform.localScale = new Vector3(myLS.x > 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
                 myMonsterRigid.velocity = new Vector2(-sX, myMonsterRigid.velocity.y);
             }
             else if (isLRM == 2)                                                    //오른쪽에 플레이어가 있음
             {
-                transform.localScale = new Vector3(-1f, 1f, 1f);
+                transform.localScale = new Vector3(myLS.x < 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
                 myMonsterRigid.velocity = new Vector2(sX, myMonsterRigid.velocity.y);
             }
 
@@ -90,43 +93,44 @@ public class MonsterFly : MonsterParent
 
     public void AttackSystem()
     {
-
-        //----------------------------공격----------------------------
-        if (myMonsterCode == MonsterCode.FLY_MONSTER_1)                             //나는 박쥐. 그저 날라올 뿐.
+        if (!isAttacking)                                                   //이미 공격 중이 아닐 때 공격
         {
+            //----------------------------각각 공격 애니메이션 실행----------------------------
+            isAttacking = true;
+            myMonsterRigid.velocity = new Vector2(0, myMonsterRigid.velocity.y);
+
+            AttackAnimation();
+
+            //----------------------------각각 공격 작용----------------------------
+            if (myMonsterCode == MonsterCode.FM201)                         //불타는 참치.
+            {
+            }
+            else if (myMonsterCode == MonsterCode.FM202)                    //얼음 날치.
+            {
+            }
+            else if (myMonsterCode == MonsterCode.FM203)                    //
+            {
+            }
         }
-        //else if (myMonsterCode == MonsterCode.WALK_MONSTER_2 ||                     //뛰는 돌. 걸어오다가 일정거리 이하일 때 돌진
-        //        myMonsterCode == MonsterCode.WALK_MONSTER_3)                        //서있는 나무. 범위에 들어오면 공격.
-        //{
-        //    if (attackOrder == true)                                                //공격 명령을 받음
-        //    {
-        //        attackOrder = false;
-        //        if (!isAttacking)                                                   //이미 공격 중이 아닐 때 공격
-        //        {
-        //            isAttacking = true;
-        //            myMonsterRigid.velocity = new Vector2(0, myMonsterRigid.velocity.y);
-        //            if (myMonsterCode == MonsterCode.WALK_MONSTER_2)                //돌진 공격
-        //            {
-        //                if (isLRM == 1)
-        //                    myMonsterRigid.velocity = new Vector2(-myMonsterInfo.monsterSpeed - 8, myMonsterRigid.velocity.y);
-        //                if (isLRM == 2 || isLRM == 3)
-        //                    myMonsterRigid.velocity = new Vector2(myMonsterInfo.monsterSpeed + 8, myMonsterRigid.velocity.y);
-        //            }
+    }
 
-        //            RuntimeAnimatorController ac = myMonsterAnimator.runtimeAnimatorController;
-        //            for (int i = 0; i < ac.animationClips.Length; i++)
-        //            {
-        //                string name1 = ac.animationClips[i].name.ToUpper();
-        //                string name2 = (myMonsterCode.ToString() + "_AttackAnimation").ToUpper();
+    public void AttackAnimation()
+    {
+        RuntimeAnimatorController ac = myMonsterAnimator.runtimeAnimatorController;
+        for (int i = 0; i < ac.animationClips.Length; i++)
+        {
+            string name1 = ac.animationClips[i].name.ToUpper();
+            string name2 = (myMonsterCode.ToString() + "_AttackAnimation").ToUpper();
 
-        //                if (name1.Equals(name2))
-        //                    attackingRunTime = ac.animationClips[i].length - 0.2f;
-        //            }
-        //            myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
-        //            Invoke("ResetIsAttacking", attackingRunTime);
-        //        }
-        //    }
-        //}
+            Debug.Log("Whyyyyy!"+name2);
+
+            if (name1.Equals(name2))
+            {
+                attackingRunTime = ac.animationClips[i].length;
+            }
+        }
+        myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
+        Invoke("ResetIsAttacking", attackingRunTime);
     }
 
     public void AttackRangeCheckSystem()
@@ -136,19 +140,13 @@ public class MonsterFly : MonsterParent
             if (!isAttacking)
             {
                 //--------------------------범위 체크--------------------------
-                RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, Vector2.left, myMonsterInfo.monsterAttackRange);
-                Debug.DrawRay(transform.position, Vector2.left * myMonsterInfo.monsterAttackRange, Color.red, 5f);
+                pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
+                mPosXY = new Vector2(this.transform.position.x, this.transform.position.y);
 
-                //if(hideFlags)
-                foreach (RaycastHit2D h in hit)
+                if (Mathf.Sqrt(((pPosXY.x - mPosXY.x) * (pPosXY.x - mPosXY.x)) + ((pPosXY.y - mPosXY.y) * (pPosXY.y - mPosXY.y))) < myMonsterInfo.monsterAttackRange)
                 {
-                    //Debug.Log(h.transform.name);
-                    if (h.transform.tag == "Player")
-                    {
-                        attackOrder = true;
-                    }
+                    AttackSystem();
                 }
-                AttackSystem();
             }
             Invoke("AttackRangeCheckSystem", 0.2f);
         }                                             //계속 체크
