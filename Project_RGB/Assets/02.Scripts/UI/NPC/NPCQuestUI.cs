@@ -87,18 +87,18 @@ public class NPCQuestUI : MonoBehaviour
     public void QuestAceeptButtonClick()        //npc에서 퀘스트 수락 버튼
     {
         questScript.AddQuest(npcquestlist[clickslotindex]);
-      
+
 
         for (int i = 0; i < questslotlist.Count; i++)
             Destroy(questslotlist[i].questSlot);
 
         npcquestlist.Clear();
-        questslotlist.Clear();  
+        questslotlist.Clear();
 
         questScript.GetComponent<QuestUI>().completeQuestList.SetActive(true);
         questScript.GetComponent<QuestUI>().progressQuestList.SetActive(true);
         questScript.GetComponent<QuestUI>().RemovequestSlot();
-     
+
         NpcQuestListSetting();
 
         questScript.GetComponent<QuestUI>().QuestCanvasSetting();
@@ -110,5 +110,13 @@ public class NPCQuestUI : MonoBehaviour
     {
         //NpcQuestListSetting();
         npcQuestBoard.SetActive(false);
+    }
+
+    public void QuestClear()
+    {
+        for (int i = 0; i < questslotlist.Count; i++)
+            Destroy(questslotlist[i].questSlot);
+        npcquestlist.Clear();
+        npcquestlist.Clear();
     }
 }

@@ -151,6 +151,20 @@ public class Quest : MonoBehaviour
 
     }
 
+    public void RemoveQuest(QuestInfo index)
+    {
+        if (questAcessList.Count >= 0)
+        {
+            playerQuestList[index.quest_code].quest_state = QuestState.Able;
+           playerQuestList[index.quest_code].questdetails = 0;
+            questAcessList.Remove(index);
+
+
+        }
+        return;
+
+    }
+
     public void QuestMonsterCheck(MonsterCode monsterCode)      //퀘스트 진행 상황 체크
     {
 
@@ -234,6 +248,7 @@ public class Quest : MonoBehaviour
         }
         return npcquestlist;
     }
+
 
     public List<QuestInfo> GetDungeonQuestList(int dungeonType)        //던전에 해당 퀘스트 전달.
     {

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class QuestUI : MonoBehaviour
 {
     public Quest questScript;
+    public NPCQuestUI npcQuestUIScript;
 
     public Text questnameText;
     public Text questDescriptionText;
@@ -104,7 +105,7 @@ public class QuestUI : MonoBehaviour
     {
         //======================퀘스트 목록 ==============================
         int i = 0;
-    
+
         for (i = 0; i < questScript.questAcessList.Count; i++)
         {
             questlist[i].questName.text = questScript.questAcessList[i].quest_name;
@@ -120,14 +121,14 @@ public class QuestUI : MonoBehaviour
         for (i = 0; i < questScript.questSuccessList.Count; i++)
         {
 
-            questlist[i+ questScript.questAcessList.Count].questName.text = questScript.questSuccessList[i].quest_name;
-            Debug.Log("questlist i :"  + questlist[i+questScript.questAcessList.Count].questSlot.name);
+            questlist[i + questScript.questAcessList.Count].questName.text = questScript.questSuccessList[i].quest_name;
+            Debug.Log("questlist i :" + questlist[i + questScript.questAcessList.Count].questSlot.name);
             Debug.Log(questScript.questSuccessList[i].quest_name);
 
-            questlist[i+ questScript.questAcessList.Count].questSummary.text = questScript.questSuccessList[i].summary + "(" + questScript.questSuccessList[i].questdetails + "/" + questScript.questSuccessList[i].questcompletecount + ")";
-           // Debug.Log("i + aceesslist count : " + (i + questScript.questAcessList.Count));
-           // Debug.Log("slot name :" + (i + questScript.questAcessList.Count) + " " + questlist[i + questScript.questAcessList.Count].questSlot.name);
-           // Debug.Log("quest name" + (i + questScript.questAcessList.Count) + " " + questlist[i + questScript.questAcessList.Count].questName.text);
+            questlist[i + questScript.questAcessList.Count].questSummary.text = questScript.questSuccessList[i].summary + "(" + questScript.questSuccessList[i].questdetails + "/" + questScript.questSuccessList[i].questcompletecount + ")";
+            // Debug.Log("i + aceesslist count : " + (i + questScript.questAcessList.Count));
+            // Debug.Log("slot name :" + (i + questScript.questAcessList.Count) + " " + questlist[i + questScript.questAcessList.Count].questSlot.name);
+            // Debug.Log("quest name" + (i + questScript.questAcessList.Count) + " " + questlist[i + questScript.questAcessList.Count].questName.text);
         }
 
         Debug.Log(questlist[2].questName.text);
@@ -244,8 +245,7 @@ public class QuestUI : MonoBehaviour
         QuestInfo index = questScript.FindNameToQuestCode(name);
         if (index == null)
             return;
-        questScript.playerQuestList[index.quest_code].quest_state = QuestState.Able;
-        questScript.playerQuestList[index.quest_code].questdetails = 0;
+        questScript.RemoveQuest(index);
         Removequestlist(name);
 
     }
@@ -258,8 +258,12 @@ public class QuestUI : MonoBehaviour
             if (questlist[i].questName.text == name)
             {
                 Destroy(questlist[i].questSlot.gameObject);
+
                 questlist.Remove(str);
                 QuestBoardSetting();
+                npcQuestUIScript.QuestClear();
+                npcQuestUIScript.NpcQuestListSetting();
+   
                 return;
             }
             i++;
@@ -270,7 +274,7 @@ public class QuestUI : MonoBehaviour
     {
         for (int i = 0; i < questlist.Count; i++)
         {
-            DestroyImmediate(questlist[i].questSlot.gameObject,true);  
+            DestroyImmediate(questlist[i].questSlot.gameObject, true);
         }
         questlist.Clear();
 
