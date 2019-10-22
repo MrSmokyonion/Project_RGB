@@ -9,10 +9,14 @@ public abstract class BaseButton : MonoBehaviour, IPointerDownHandler, IPointerU
     [HideInInspector]
     public bool isPushed;
 
+    protected float charging = 0f;
+
     private void Start()
     {
         isPushed = false;
     }
+
+
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log(gameObject.name + " is Pushed!");

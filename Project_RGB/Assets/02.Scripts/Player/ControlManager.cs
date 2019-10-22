@@ -12,6 +12,9 @@ public class ControlManager : MonoBehaviour
     public SkillButton skillButton;
     public AttackButton attackButton;
 
+    [Space(10)]
+    public UI_Controller uicon;
+
     [Header("Values")]
     public float maxSpeed;
     public float jumpPower;
@@ -48,6 +51,16 @@ public class ControlManager : MonoBehaviour
             attackButton.Execute(gameObject);
     }
 
+    public void SetAttackUI(int code)
+    {
+        uicon.UIOnOff(code);
+        switch(code)
+        {
+            case 0: attackButton = uicon.UI_Melee.GetComponent<AttackButton>(); ((MeleeAttackButton)attackButton).isSpear = false; break;
+            case 1: attackButton = uicon.UI_Melee.GetComponent<AttackButton>(); ((MeleeAttackButton)attackButton).isSpear = true; break;
+            case 2: attackButton = uicon.UI_Distance.GetComponent<AttackButton>(); break;
+        }
+    }
 
     #region Movements
     private void Move_Horizontal()

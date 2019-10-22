@@ -23,7 +23,7 @@ public class PlayerStatus : MonoBehaviour
     public float range;
 
     [Header("etc")]
-    public GameObject arrow;
+    public GameObject projectile;
 
     //스킬 변수
     public Skill_Red red;
@@ -43,11 +43,17 @@ public class PlayerStatus : MonoBehaviour
     private float d_green;
     private float d_blue;
 
+    private ControlManager cm;
+
     #region Init
+    private void Awake()
+    {
+        cm = GetComponent<ControlManager>();
+    }
     private void Start()
     {
         ChangeSkill(SpawnCode.G001);
-        ChangeWeapon(SpawnCode.W201);
+        ChangeWeapon(SpawnCode.W101);
         ChangeArmor(SpawnCode.A001);
         ChangeArmor(SpawnCode.S002);
         ChangeFood(SpawnCode.F001);
@@ -55,28 +61,26 @@ public class PlayerStatus : MonoBehaviour
 
     private void Init_Weapon()
     {
-        power = 1;
         if (weapon is Weapon_Sword)
         {
             range = 0.5f;
             attack_range = new Vector2(1f, 1f);
-            Weapon_Sword w = (Weapon_Sword)weapon;
-            power = w.power;
+            cm.SetAttackUI(0);
         }
         if (weapon is Weapon_Spear)
         {
             range = 0.3f;
             attack_range = new Vector2(2f, 0.5f);
-            Weapon_Spear w = (Weapon_Spear)weapon;
-            power = w.power;
+            cm.SetAttackUI(1);
+            projectile.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load(weapon.spritePath, typeof(Sprite)) as Sprite;
         }
         if (weapon is Weapon_Bow)
         {
             range = 0.1f;
             attack_range = new Vector2(1f, 1f);
-            Weapon_Bow w = (Weapon_Bow)weapon;
-            power = w.power;
+            cm.SetAttackUI(2);
         }
+        power = weapon.power;
     }
     private void Init_HpDefence()
     {
@@ -117,7 +121,7 @@ public class PlayerStatus : MonoBehaviour
     public void Attack() //근접 공격 함수
     {
         if (IsAttackDelay() == false) return;
-        Debug.Log(weapon.weaponName + " 공격!");
+        Debug.Log(weapon.title + " 공격!");
         d_weapon = weapon.delay;
 
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(attack_pos.position, attack_range, 0);
@@ -137,17 +141,28 @@ public class PlayerStatus : MonoBehaviour
     public void Attack(float angle, Vector2 dir) //원거리 공격 함수
     {
         if (IsAttackDelay() == false) return;
-        Debug.Log(weapon.weaponName + " 공격!");
+        Debug.Log(weapon.title + " 공격!");
         d_weapon = weapon.delay;
 
-        Weapon_Bow bow = (Weapon_Bow)weapon;
-
-        dir += new Vector2(0f, 0.25f);
-        GameObject obj = Instantiate(arrow, attack_pos.position, Quaternion.Euler(0f, 0f, angle));
-        obj.GetComponent<Rigidbody2D>().velocity = dir * bow.speed;
+        GameObject obj = Instantiate(projectile, attack_pos.position, Quaternion.Euler(0f, 0f, angle));
 
         Arrow ar = obj.GetComponent<Arrow>();
-        ar.power = bow.power;
+        ar.power = weapon.power;
+        ar.spritePath = weapon.spritePath;
+
+        Rigidbody2D rid = obj.GetComponent<Rigidbody2D>();
+        if (weapon is Weapon_Spear)
+        {
+            rid.bodyType = RigidbodyType2D.Kinematic;
+            rid.velocity = dir * ((Weapon_Spear)weapon).speed;
+            ar.destroyDelay = ((Weapon_Spear)weapon).destroyDelay;
+        }
+        else if (weapon is Weapon_Bow)
+        {
+            dir += new Vector2(0f, 0.2f);
+            rid.bodyType = RigidbodyType2D.Dynamic;
+            rid.velocity = dir * ((Weapon_Bow)weapon).speed;
+        }
     }
 
     public void Interact()
@@ -197,7 +212,7 @@ public class PlayerStatus : MonoBehaviour
             case "W2": weapon = SpawnClass.GetWeapon_Bow(code); break;
             default: return;
         }
-        Init_Weapon();
+        if (weapon != null) Init_Weapon();
     }
 
     public void ChangeArmor(SpawnCode code)
@@ -281,6 +296,21 @@ public class PlayerStatus : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(attack_pos.position, attack_range);
+    }
+    #endregion
+
+    #region Test Method
+    public void test_weapon_sword_spawn()
+    {
+        ChangeWeapon(SpawnCode.W001);
+    }
+    public void test_weapon_spear_spawn()
+    {
+        ChangeWeapon(SpawnCode.W101);
+    }
+    public void test_weapon_bow_spawn()
+    {
+        ChangeWeapon(SpawnCode.W201);
     }
     #endregion
 }
