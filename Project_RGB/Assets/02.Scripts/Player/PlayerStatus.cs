@@ -283,4 +283,34 @@ public class PlayerStatus : MonoBehaviour
         Gizmos.DrawWireCube(attack_pos.position, attack_range);
     }
     #endregion
+
+    #region Network
+    private void CreateStatusData()
+    {
+        try
+        {
+            if (PlayerPrefs.GetString("UserCode") == null)
+            {
+                NetworkRouter router = GameObject.FindObjectOfType<NetworkRouter>();
+                router.PostRouter(this, PostType.PLAYER_CHARACTER_CREATE);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning("플레이어 캐릭터 생성 오류 : " + ex);
+        }
+    }
+    private void GetStatusData()
+    {
+        try
+        {
+            NetworkRouter router = GameObject.FindObjectOfType<NetworkRouter>();
+            router.PostRouter(this, PostType.PLAYER_CHARACTER_GET_ALLDATA);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning("플레이어 데이터 획득 오류 : " + ex);
+        }
+    }
+    #endregion
 }
