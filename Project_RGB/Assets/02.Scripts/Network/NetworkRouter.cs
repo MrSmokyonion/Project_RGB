@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+// 주석입니다.
+
 /**************************************************************************************************   
  *      1.  캐릭터 생성 ---> 유저코드 발급
  *      2.  캐릭터 불러오기
