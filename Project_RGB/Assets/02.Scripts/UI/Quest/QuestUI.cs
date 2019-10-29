@@ -62,6 +62,7 @@ public class QuestUI : MonoBehaviour
     public void QuestCanvasSetting()
     {
 
+
         questlist = new List<QuestClear>();
 
         QuestPListCreate();
@@ -69,17 +70,19 @@ public class QuestUI : MonoBehaviour
 
         Debug.Log("questlist.Count : " + questlist.Count);
         int i = 0;
-        for (i = 0; i < questScript.questAcessList.Count; i++) //태그로 오브젝트 찾아옴.
-        {
-            Debug.Log("questAcessList.i : " + i);
-            Debug.Log(GameObject.FindGameObjectsWithTag("QuestPNameText").Length);
-            questlist[i].questName = GameObject.FindGameObjectsWithTag("QuestPNameText")[i].GetComponent<Text>();
-            questlist[i].questSummary = GameObject.FindGameObjectsWithTag("QuestPDescriptionText")[i].GetComponent<Text>();
-            questlist[i].questSuccessImage = GameObject.FindGameObjectsWithTag("QuestSuccessImage")[i].GetComponent<Image>();
-            questlist[i].questSuccessImage.enabled = false;
-            questlist[i].isClear = false;
+ 
+            for (i = 0; i < questScript.questAcessList.Count; i++) //태그로 오브젝트 찾아옴.
+            {
+                Debug.Log("questAcessList.i : " + i);
+                Debug.Log(GameObject.FindGameObjectsWithTag("QuestPNameText").Length);
+                questlist[i].questName = GameObject.FindGameObjectsWithTag("QuestPNameText")[i].GetComponent<Text>();
+                questlist[i].questSummary = GameObject.FindGameObjectsWithTag("QuestPDescriptionText")[i].GetComponent<Text>();
+                questlist[i].questSuccessImage = GameObject.FindGameObjectsWithTag("QuestSuccessImage")[i].GetComponent<Image>();
+                questlist[i].questSuccessImage.enabled = false;
+                questlist[i].isClear = false;
 
-        }
+            }
+      
 
         for (i = 0; i < questScript.questSuccessList.Count; i++) //태그로 오브젝트 찾아옴.
         {
@@ -109,10 +112,10 @@ public class QuestUI : MonoBehaviour
         for (i = 0; i < questScript.questAcessList.Count; i++)
         {
             questlist[i].questName.text = questScript.questAcessList[i].quest_name;
-            questlist[i].questSummary.text = questScript.questAcessList[i].summary + "(" + questScript.questAcessList[i].questdetails + "/" + questScript.questAcessList[i].questcompletecount + ")";
+            questlist[i].questSummary.text = questScript.questAcessList[i].summary + "(" + questScript.questAcessList[i].questItemCur + "/" + questScript.questAcessList[i].questItemMax + ")";
             Debug.Log("questlist i :" + i + " " + questlist[i].questSlot.name);
             Debug.Log("questlist i :" + i + " " + questlist[i].questName.text);
-            if (questScript.questAcessList[i].questdetails == questScript.questAcessList[i].questcompletecount)
+            if (questScript.questAcessList[i].questItemCur == questScript.questAcessList[i].questItemMax)
             {
                 questlist[i].questSuccessImage.enabled = true;
             }
@@ -125,13 +128,12 @@ public class QuestUI : MonoBehaviour
             Debug.Log("questlist i :" + questlist[i + questScript.questAcessList.Count].questSlot.name);
             Debug.Log(questScript.questSuccessList[i].quest_name);
 
-            questlist[i + questScript.questAcessList.Count].questSummary.text = questScript.questSuccessList[i].summary + "(" + questScript.questSuccessList[i].questdetails + "/" + questScript.questSuccessList[i].questcompletecount + ")";
+            questlist[i + questScript.questAcessList.Count].questSummary.text = questScript.questSuccessList[i].summary + "(" + questScript.questSuccessList[i].questItemCur + "/" + questScript.questSuccessList[i].questItemMax + ")";
             // Debug.Log("i + aceesslist count : " + (i + questScript.questAcessList.Count));
             // Debug.Log("slot name :" + (i + questScript.questAcessList.Count) + " " + questlist[i + questScript.questAcessList.Count].questSlot.name);
             // Debug.Log("quest name" + (i + questScript.questAcessList.Count) + " " + questlist[i + questScript.questAcessList.Count].questName.text);
         }
 
-        Debug.Log(questlist[2].questName.text);
         //======================첫 번째 항목의 세부정보 ==============================
         if (i == 0)
         {
@@ -148,14 +150,14 @@ public class QuestUI : MonoBehaviour
         {
             questnameText.text = questScript.questAcessList[0].quest_name;
             questDescriptionText.text = questScript.questAcessList[0].content;
-            questSummary.text = questScript.questAcessList[0].summary + "(" + questScript.questAcessList[0].questdetails + "/" + questScript.questAcessList[0].questcompletecount + ")";
+            questSummary.text = questScript.questAcessList[0].summary + "(" + questScript.questAcessList[0].questItemCur + "/" + questScript.questAcessList[0].questItemMax + ")";
             clickQuestName = questnameText.text;
         }
         else
         {
             questnameText.text = questScript.questSuccessList[0].quest_name;
             questDescriptionText.text = questScript.questSuccessList[0].content;
-            questSummary.text = questScript.questSuccessList[0].summary + "(" + questScript.questSuccessList[0].questdetails + "/" + questScript.questSuccessList[0].questcompletecount + ")";
+            questSummary.text = questScript.questSuccessList[0].summary + "(" + questScript.questSuccessList[0].questItemCur + "/" + questScript.questSuccessList[0].questItemMax + ")";
             clickQuestName = questnameText.text;
         }
 
@@ -232,7 +234,7 @@ public class QuestUI : MonoBehaviour
         //======================선택된 항목의 세부정보 ==============================
         questnameText.text = choicequest.quest_name;
         questDescriptionText.text = choicequest.content;
-        questSummary.text = choicequest.summary + "(" + choicequest.questdetails + "/" + choicequest.questcompletecount + ")";
+        questSummary.text = choicequest.summary + "(" + choicequest.questItemCur + "/" + choicequest.questItemMax + ")";
         //questNPCImage = choicequest.
         // questItemImage = choicequest.;
         //questrewardsImage;
