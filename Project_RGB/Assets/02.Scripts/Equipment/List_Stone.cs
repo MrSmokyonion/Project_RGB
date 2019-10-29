@@ -8,7 +8,7 @@ public class Stone_Default : Armor_Stone
     public Stone_Default()
     {
         title = "기본 돌";
-        description = "기본 돌입니다. 기본 장비에 뭔 설명을 더 바랍니까.";
+        description = "기본 돌입니다. 방어력을 10만큼 상승 시킵니다.";
         code = SpawnCode.S001;
         spritePath = "";
         isUnlock = false;
