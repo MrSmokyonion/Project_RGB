@@ -112,21 +112,67 @@ public static class SpawnClass
 }
 public enum SpawnCode
 {
-    //Skill R
-    R001,
-    G001, //HighJump
-    B001,
+    #region Skill
 
-    //Weapon
-    W001, //Default Sword
-    W101, //Default Spear
-    W201, //Default Bow
+    R001, //Skill_Red_PiercingSpear
+    R002, //Skill_Red_ArrowRain
+    R003, //Skill_Red_SwordTrap
+    R004, //Skill_Red_Turret
+    R005, //Skill_Red_PowerBuff
 
-    //Equitment
-    A001, //Default Amulet
-    S001, //Default Stone
-    S002, //ImproveSkill Stone
+    G001, //Skill_Green_HighJump
+    G002, //Skill_Green_Dash
+    G003, //Skill_Green_BackStep
+    G004, //Skill_Green_Charger
+    G005, //Skill_Green_MoveBuff
 
-    //Food
-    F001 //Hamburger
+    B001, //Skill_Blue_Barrier
+    B002, //Skill_Blue_Wall
+    B003, //Skill_Blue_Invisible
+    B004, //Skill_Blue_Shield
+    B005, //Skill_Blue_DefenceBuff
+
+    #endregion
+
+    #region Weapon
+    W001, //Sword_Default
+    W002, //Sword_HotTuna
+    W003, //Sword_BBQStick
+    W004, //Sword_Broad
+    W005, //Sword_MoonLight
+          //
+    W101, //Spear_Default
+    W102, //Spear_IceNalchi
+    W103, //Spear_Nyan
+    W104, //Spear_DangPa
+    W105, //Spear_PolarStar
+
+    W201, //Bow_Default
+    W202, //Bow_NoMoney
+    W203, //Bow_Dryed
+    W204, //Bow_Long
+    W205, //Bow_Apollo
+    #endregion
+
+    #region Equitment
+    A001, //Amulet_Default
+    A002, //Amulet_Richness
+    A003, //Amulet_Drain
+    A004, //Amulet_ImproveSkill
+    A005, //Amulet_PainPatch
+
+    S001, //Stone_Default
+    S002, //Stone_Magnetic
+    S003, //Stone_Guardian
+    S004, //Stone_Minor
+    S005, //Stone_Major
+    #endregion
+
+    #region Food
+    F001, //Food_Hamburger
+    F002, //Food_Pizza
+    F003, //Food_Noodle
+    F004, //Food_RiceBall
+    F005  //Food_Steak
+    #endregion
 }
