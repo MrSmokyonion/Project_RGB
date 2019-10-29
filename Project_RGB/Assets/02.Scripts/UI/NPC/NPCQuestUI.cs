@@ -46,10 +46,12 @@ public class NPCQuestUI : MonoBehaviour
 
     public void NpcQuestListSetting()   //해당 NPC 퀘스트 받아오기
     {
+        Debug.Log("NpcQuestListSetting");
 
         int questNpcCode = transform.parent.GetComponent<NPCMenuUI>().npcCode;
 
         npcquestlist = questScript.GetnpcQuestList(questNpcCode);
+        Debug.Log("npcqusetlist.Count : " + npcquestlist.Count);
 
         for (int i = 0; i < npcquestlist.Count; i++)
         {

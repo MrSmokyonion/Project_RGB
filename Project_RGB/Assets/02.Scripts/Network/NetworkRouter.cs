@@ -22,8 +22,8 @@ using UnityEngine.Networking;
  *      13. 캐릭터 스킬 해금
  *      14. 캐릭터 골드 변경 및 조회
  *      15. 캐릭터 쿠폰 변경 및 조회
- *      16. 퀘스트 상태 변경
- *      17. 퀘스트 아이템 수집
+ *      16. 퀘스트 상태 변경 *
+ *      17. 퀘스트 아이템 수집 *
  *      18. 던전 상태 변경
  **************************************************************************************************/
 
@@ -54,8 +54,14 @@ public enum PostType
 /// </summary>
 public class NetworkRouter : MonoBehaviour
 {
+    // Scripts
+    public Quest quest = null;                      // 퀘스트 참조
 
-    private const string ip = "61.81.99.35";      // IP : 61.81.99.35 (외부)
+    private const int questAmount = 3;              // 퀘스트 개수
+
+
+
+    private const string ip = "172.16.19.207";      // IP : 61.81.99.35 (외부)
     private const int port = 3000;                // Port
     private string url;                           // Uniform Resource Locator
                                                   // uri : Uniform Resource Identifier
@@ -72,7 +78,7 @@ public class NetworkRouter : MonoBehaviour
      * Parameters:                                                                                    *
      * Returns: boolean                                                                               *
      **************************************************************************************************/
-    public bool PostRouter(object target, PostType type)
+    public bool PostRouter(PostType type, object target = null)
     {
         try
         {
@@ -124,7 +130,9 @@ public class NetworkRouter : MonoBehaviour
                     StartCoroutine(WWWUpdateAndGetCoupon(1000));
                     break;
                 case PostType.PLAYER_QUEST_STATE_UPDATE:
-                    StartCoroutine(WWWUpdateQuestState("q001", "success"));
+                    QuestInfo info = (QuestInfo)target;
+                    StartCoroutine(WWWUpdateQuestState(info.quest_code_str, info.quest_state.ToString()));
+                    Debug.LogWarning("t1");
                     break;
                 case PostType.PLAYER_QUEST_ITEM_UPDATE:
                     StartCoroutine(WWWUpdateQuestItem("q001", 7));
@@ -182,8 +190,6 @@ public class NetworkRouter : MonoBehaviour
         }
     }
 
-
-
     /**************************************************************************************************
      * Purpose: 2. 캐릭터 불러오기                                                                     *
      * Parameters:                                                                                    *
@@ -191,6 +197,9 @@ public class NetworkRouter : MonoBehaviour
      **************************************************************************************************/
     private IEnumerator WWWGetCharacterAllData()
     {
+        string[] questData = new string[questAmount];
+
+
         // 0. 요청 주소 생성
         string sUrl = url + "character/login";
 
@@ -219,8 +228,15 @@ public class NetworkRouter : MonoBehaviour
                 {
                     case "Attack": /*player.power = int.Parse(doc[1]);*/ break;
                     case "Health": /*player.health = int.Parse(doc[1]);*/ break;
+
+                    case "quest001": questData[0] = doc[1]; break;
+                    case "quest002": questData[1] = doc[1]; break;
+                    case "quest003": questData[2] = doc[1]; break;
+
                 }
             }
+
+            quest.LoadQuestData(questData);                                 // Quest Information
             Debug.Log("[라우터] 캐릭터 불러오기 완료!\n" + datas);
         }
     }

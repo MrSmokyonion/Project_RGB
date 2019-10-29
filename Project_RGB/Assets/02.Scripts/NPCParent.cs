@@ -43,7 +43,7 @@ public class NPCParent : MonoBehaviour
         NPCInfoListSetting();
     }
 
-    private void NPCInfoListSetting()
+    public void NPCInfoListSetting()
     {
         npcInfoList.Add(new NpcInfo(0, npcSpriteList[0], false, StoreType.Food, "아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ"));
         npcInfoList.Add(new NpcInfo(1, npcSpriteList[1], true, StoreType.Weapon, "아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ"));
