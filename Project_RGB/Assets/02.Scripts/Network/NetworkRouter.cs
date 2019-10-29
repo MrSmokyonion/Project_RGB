@@ -47,19 +47,13 @@ public enum PostType
     PLAYER_DUNGEON_STATE_UPDATE
 }
 
-
-
-/* TODO : 로컬스크립트 만들어서 캐릭터 이동좌표 및 옵션 저장할 것. */
-
-
-
 /// <summary>
 /// HTTP 웹서버에 통신하는 클래스입니다.
 /// </summary>
 public class NetworkRouter : MonoBehaviour
 {
 
-    private const string ip = "61.81.99.35";      // IP
+    private const string ip = "61.81.99.35";      // IP : 61.81.99.35 (외부)
     private const int port = 3000;                // Port
     private string url;                           // Uniform Resource Locator
                                                   // uri : Uniform Resource Identifier
@@ -181,8 +175,8 @@ public class NetworkRouter : MonoBehaviour
         else
         {
             /* 유저코드 생성(획득) */
-            PlayerPrefs.SetString("UserCode", www.downloadHandler.text); // #000000
-            Debug.Log(www.downloadHandler.text + "캐릭터 생성 완료!" + www.responseCode);
+            PlayerPrefs.SetString("UserCode", www.downloadHandler.text); // #00000000
+            Debug.Log("[라우터] 캐릭터 생성 완료!\n" + www.downloadHandler.text + "\n" + www.responseCode);
         }
     }
 
@@ -225,6 +219,7 @@ public class NetworkRouter : MonoBehaviour
                     case "Health": /*player.health = int.Parse(doc[1]);*/ break;
                 }
             }
+            Debug.Log("[라우터] 캐릭터 불러오기 완료!\n" + datas);
         }
     }
 
@@ -258,7 +253,7 @@ public class NetworkRouter : MonoBehaviour
         else if (www.isHttpError) Debug.Log("isHttpError : " + www.error);
         else
         {
-
+            Debug.Log("[라우터] 캐릭터 무기 변경 완료!\n" + weaponModel);
         }
     }
 
@@ -292,7 +287,7 @@ public class NetworkRouter : MonoBehaviour
         else if (www.isHttpError) Debug.Log("isHttpError : " + www.error);
         else
         {
-
+            Debug.Log("[라우터] 캐릭터 무기 내구도 변경 완료!\n" + weaponModel + "(" + duration + "/100)");
         }
     }
 
@@ -326,7 +321,7 @@ public class NetworkRouter : MonoBehaviour
         else if (www.isHttpError) Debug.Log("isHttpError : " + www.error);
         else
         {
-
+            Debug.Log("[라우터] 캐릭터 무기 해금 완료!\n" + weaponModel);
         }
     }
 
@@ -360,7 +355,7 @@ public class NetworkRouter : MonoBehaviour
         else if (www.isHttpError) Debug.Log("isHttpError : " + www.error);
         else
         {
-
+            Debug.Log("[라우터] 캐릭터 부적 변경 완료!\n" + amuletModel);
         }
     }
 
@@ -395,7 +390,7 @@ public class NetworkRouter : MonoBehaviour
         else if (www.isHttpError) Debug.Log("isHttpError : " + www.error);
         else
         {
-
+            Debug.Log("[라우터] 캐릭터 부적 내구도 변경 완료!\n" + amuletModel + "(" + duration + "/100)");
         }
     }
 
@@ -429,7 +424,7 @@ public class NetworkRouter : MonoBehaviour
         else if (www.isHttpError) Debug.Log("isHttpError : " + www.error);
         else
         {
-
+            Debug.Log("[라우터] 캐릭터 부적 해금 완료!\n" + amuletModel);
         }
     }
 
