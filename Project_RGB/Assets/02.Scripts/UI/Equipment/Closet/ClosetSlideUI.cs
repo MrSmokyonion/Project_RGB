@@ -66,6 +66,7 @@ public class ClosetSlideUI : MonoBehaviour
         closetSlotImageArray[index + 2].sizeDelta = Vector2.Lerp(closetSlotImageArray[index + 2].sizeDelta, new Vector2(200.0f, 200.0f), 0.2f); // 스크롤 바의 value 값에 따라 해당 이미지를 키움.
         closetSlotImageArray[index + 2].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(closetSlotImageArray[index + 2].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta, new Vector2(200.0f, 200.0f), 0.2f); // 스크롤 바의 value 값에 따라 해당 이미지를 키움.
         closetSlotImageArray[index + 2].transform.GetChild(1).GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(closetSlotImageArray[index + 2].transform.GetChild(1).GetComponent<RectTransform>().sizeDelta, new Vector2(200.0f, 200.0f), 0.2f); // 스크롤 바의 value 값에 따라 해당 이미지를 키움.
+        closetSlotImageArray[index + 2].transform.GetChild(2).GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(closetSlotImageArray[index + 2].transform.GetChild(2).GetComponent<RectTransform>().sizeDelta, new Vector2(200.0f, 200.0f), 0.2f); // 스크롤 바의 value 값에 따라 해당 이미지를 키움.
     }
 
     public void ClosetSlotSetting()
@@ -148,7 +149,7 @@ public class ClosetSlideUI : MonoBehaviour
     //            //itemValueText4.text =
     //            //itemSlider.value =
     //            //itemDurability;
-                  //itemdescription;
+    //itemdescription;
     //        }
     //    }
     //    else
@@ -179,6 +180,7 @@ public class ClosetSlideUI : MonoBehaviour
                 closetSlotImageArray[i].sizeDelta = new Vector3(150.0f, 150.0f, 1.0f);
                 closetSlotImageArray[i].GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector3(150.0f, 150.0f, 1.0f);
                 closetSlotImageArray[i].GetChild(1).GetComponent<RectTransform>().sizeDelta = new Vector3(150.0f, 150.0f, 1.0f);
+                closetSlotImageArray[i].GetChild(2).GetComponent<RectTransform>().sizeDelta = new Vector3(150.0f, 150.0f, 1.0f);
                 count = 0;
             }
 
@@ -216,10 +218,10 @@ public class ClosetSlideUI : MonoBehaviour
         //}
     }
 
-    public void ItemUnLock()    //해금된 아이템 이미지 안보이게
+    public void ItemUnLock()    //해금된 아이템 이미지 안보이게 & 새로얻은 아이템 이미지 false로 만들기
     {
         //for(int i = 0; i = closetSlotImageArray.Length;i++)
-        //{
+        //{closetSlotImageArray[i].GetChild(2).GetComponent<Image>().enabled = false;
         //    if(itemList[i].unlock == true)
         //    {
         //        closetSlotImageArray[i].GetChild(0).GetComponent<Image>().enabled = false;
@@ -227,6 +229,14 @@ public class ClosetSlideUI : MonoBehaviour
         //}
     }
 
+    public void NewItemImage()  //새로 얻은 아이템 표시
+    {
+        //    for (int i = 0; itemList.Count; i++)
+        //    {
+        //        if(//새로 얻은 아이템이면)
+        //        closetSlotImageArray[i].GetChild(2).GetComponent<Image>().enabled = true;
+        //    }
+    }
 
     public void ClosetSlotClickReset()
     {
