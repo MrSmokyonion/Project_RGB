@@ -5,7 +5,6 @@ using UnityEngine;
 public class SlotButtonChoiceUI : MonoBehaviour     //슬롯에서 항목 선택시
 {
     public int index;
-    public bool isClick;
     public SkillDetailUI skilldetailScript;
     public RepairSlotUI repairScript;
 
@@ -32,9 +31,8 @@ public class SlotButtonChoiceUI : MonoBehaviour     //슬롯에서 항목 선택
     #region 수리창
     public void SlotCheck() //수리할 목록 선택시
     {
-        isClick = !isClick;
-        if(isClick == true)
-        repairScript.SlotClick(isClick, index);
+        
+        repairScript.SlotClick(index);
     }
 
 

@@ -13,7 +13,7 @@ using UnityEngine.UI;
 
 public class RepairSlotUI : MonoBehaviour
 {
-    // List<> repairItem = new List<>();
+   // public Item clickItem;
     public int slotNumber;
     public Image[] RepairSlotArray; //아이템 배열
     //플레이어 쪽에서 쿠폰 가져오기
@@ -53,20 +53,14 @@ public class RepairSlotUI : MonoBehaviour
         }
     }
 
-    public void SlotClick(bool isClick, int index)
+    public void SlotClick(int index)
     {
-        if (isClick == true)
-        {
-            //repairItem.Add(ItemArray[index]);
-        }
-        else
-        {
-            //repairItem.remove(ItemArray[index]);
-        }
+       // clickItem = ItemArray[index]
     }
 
     public void RepairButtonClick()
     {
+        //clickitem
         //수리 비용 계산
         //Ui띄우기
 
