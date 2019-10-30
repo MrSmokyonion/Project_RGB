@@ -49,7 +49,7 @@ public class NPCQuestUI : MonoBehaviour
         Debug.Log("NpcQuestListSetting");
 
         int questNpcCode = transform.parent.GetComponent<NPCMenuUI>().npcCode;
-
+        Debug.Log("transform.parent.GetComponent<NPCMenuUI>().gameObject : " + transform.parent.GetComponent<NPCMenuUI>().gameObject);
         npcquestlist = questScript.GetnpcQuestList(questNpcCode);
         Debug.Log("npcqusetlist.Count : " + npcquestlist.Count);
 

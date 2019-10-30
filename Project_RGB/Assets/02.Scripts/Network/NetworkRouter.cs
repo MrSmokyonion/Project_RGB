@@ -61,7 +61,7 @@ public class NetworkRouter : MonoBehaviour
 
 
 
-    private const string ip = "172.16.19.207";      // IP : 61.81.99.35 (외부)
+    private const string ip = "172.16.20.187";      // IP : 61.81.99.35 (외부)
     private const int port = 3000;                // Port
     private string url;                           // Uniform Resource Locator
                                                   // uri : Uniform Resource Identifier
@@ -130,12 +130,12 @@ public class NetworkRouter : MonoBehaviour
                     StartCoroutine(WWWUpdateAndGetCoupon(1000));
                     break;
                 case PostType.PLAYER_QUEST_STATE_UPDATE:
-                    QuestInfo info = (QuestInfo)target;
-                    StartCoroutine(WWWUpdateQuestState(info.quest_code_str, info.quest_state.ToString()));
-                    Debug.LogWarning("t1");
+                    QuestInfo info16 = (QuestInfo)target;
+                    StartCoroutine(WWWUpdateQuestState(info16.quest_code_str, info16.quest_state.ToString()));
                     break;
                 case PostType.PLAYER_QUEST_ITEM_UPDATE:
-                    StartCoroutine(WWWUpdateQuestItem("q001", 7));
+                    QuestInfo info17 = (QuestInfo)target;
+                    StartCoroutine(WWWUpdateQuestItem(info17.quest_code_str, info17.questItemCur));
                     break;
                 case PostType.PLAYER_DUNGEON_STATE_UPDATE:
                     StartCoroutine(WWWUpdateChapterState("chapter001"));
