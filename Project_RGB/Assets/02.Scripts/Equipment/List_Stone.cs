@@ -11,7 +11,7 @@ public class Stone_Default : Armor_Stone
         description = "기본 돌입니다. 방어력을 10만큼 상승 시킵니다.";
         code = SpawnCode.S001;
         spritePath = "";
-        isUnlock = false;
+
 
         dualbility = 100;
         defence = 10;
@@ -31,7 +31,7 @@ public class Stone_ImproveSkill : Armor_Stone
         description = "스킬의 쿨타임을 줄여주는 돌입니다.";
         code = SpawnCode.S002;
         spritePath = "";
-        isUnlock = false;
+
 
         dualbility = 100;
     }

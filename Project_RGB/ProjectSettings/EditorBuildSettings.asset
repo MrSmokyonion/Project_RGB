@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01.Scenes/AmorTestRoom.unity
     guid: f764f239bfc6de14db6bbf0251bef150
+  - enabled: 1
+    path: Assets/01.Scenes/LoadToInput.unity
+    guid: dbbf4486c0c003041810c5ccd0bcc693
+  - enabled: 1
+    path: Assets/01.Scenes/InputTestRoom.unity
+    guid: aa64e67404fac364084ee63cefaa2fce
   m_configObjects: {}

@@ -8,5 +8,4 @@ public abstract class BaseValues
     public string description;
     public SpawnCode code;
     public string spritePath;
-    public bool isUnlock;
 }

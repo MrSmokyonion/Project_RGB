@@ -9,7 +9,7 @@ public class Skill_Green_HighJump : Skill_Green //201
         title = "하이 점프";
         code = SpawnCode.G001;
         spritePath = "";
-        isUnlock = false;
+
 
         power = 20;
         delay = 2f;

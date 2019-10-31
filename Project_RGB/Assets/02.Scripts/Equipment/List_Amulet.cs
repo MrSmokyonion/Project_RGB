@@ -10,7 +10,7 @@ public class Amulet_Default : Armor_Amulet
         description = "기본 부적입니다. 기본 장비에 뭔 설명을 더 바랍니까.";
         code = SpawnCode.A001;
         spritePath = "";
-        isUnlock = false;
+
 
         dualbility = 100;
     }

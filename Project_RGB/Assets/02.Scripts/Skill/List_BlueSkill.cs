@@ -9,7 +9,7 @@ public class Skill_Blue_Shield : Skill_Blue //301
         title = "실드";
         code = SpawnCode.B001;
         spritePath = "";
-        isUnlock = false;
+
 
         power = 0;
         delay = 1.0f;

@@ -10,7 +10,7 @@ public class Bow_Default : Weapon_Bow
         code = SpawnCode.W201;
         dualbility = 100;
         spritePath = "Unity_Total_25";
-        isUnlock = false;
+
         power = 3;
         speed = 10;
         delay = 0.5f;
