@@ -30,18 +30,24 @@ public class MonstersThrowWeapon : MonoBehaviour
         switch (monsterCode)
         {
             case MonsterCode.WM106: //불타는 주술사
-                throwThingSpeed = 12; ChaseThePlayer(); lifeTime = 2.0f;
+                throwThingSpeed = 8; ChaseThePlayer(); lifeTime = 2.0f;
                 break;
             case MonsterCode.WM108: //얼음 펭귄
                 StartCoroutine(ParabolicExerciseToPlayer()); lifeTime = 7.0f;
                 break;
+            case MonsterCode.WM110: //무지개 장미
+                throwThingSpeed = 30; FireToPlayer(); lifeTime = 3.0f;
+                break;
+            case MonsterCode.FM203: //무지개 새
+                throwThingSpeed = 7; ChaseThePlayer(); lifeTime = 2.5f;
+                break;
             case MonsterCode.BM302: //타오르는 피닉스
                 throwThingSpeed = 30; FireToPlayer(); lifeTime = 3.0f;
                 break;
-            case MonsterCode.BM303:
+            case MonsterCode.BM303: //얼음네시
                 if (attackType == 1)
                 {
-                    throwThingSpeed = 5; lifeTime = 3.0f;
+                    throwThingSpeed = 12; lifeTime = 3.0f;
                     JustGoToFront(isLRM);
                     //파도 공격!!!
                 }
@@ -57,6 +63,27 @@ public class MonstersThrowWeapon : MonoBehaviour
                     //타켓팅 아이스 스피어 5개가 각자 다른 곳에서 생성 되었습니다!!!
                     //발싸!!!!
                     FireToPlayer();
+                }
+                break;
+            case MonsterCode.BM304: //해바라기 사자
+                if (attackType == 1)
+                {
+                    //throwThingSpeed = 12; lifeTime = 3.0f;
+                    //JustGoToFront(isLRM);
+                    //파도 공격!!!
+                }
+                else if (attackType == 2)
+                {
+                    //throwThingSpeed = 10; lifeTime = 8.0f;
+                    //ChaseThePlayer();
+                    //쫓아가랏 눈송이!!!!
+                }
+                else if (attackType == 3)
+                {
+                    //throwThingSpeed = 40; lifeTime = 5.0f;
+                    //타켓팅 아이스 스피어 5개가 각자 다른 곳에서 생성 되었습니다!!!
+                    //발싸!!!!
+                    //FireToPlayer();
                 }
                 break;
         }

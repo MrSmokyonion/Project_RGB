@@ -22,6 +22,8 @@ public class MonsterWalk : MonsterParent
         }
     }
 
+    #region MoveSystem
+
     public void PosAndMoveSystem()
     {
         if (myMonsterInfo.monsterState != MonsterState.DEAD)
@@ -65,6 +67,29 @@ public class MonsterWalk : MonsterParent
         }
     }
 
+    #endregion
+
+    #region AttackSystem
+
+    public void AttackRangeCheckSystem()
+    {
+        if (myMonsterInfo.monsterState != MonsterState.DEAD)
+        {
+            if (!isAttacking)
+            {
+                //--------------------------범위 체크--------------------------
+                pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
+                mPosXY = new Vector2(this.transform.position.x, this.transform.position.y);
+
+                if (Mathf.Sqrt(((pPosXY.x - mPosXY.x) * (pPosXY.x - mPosXY.x)) + ((pPosXY.y - mPosXY.y) * (pPosXY.y - mPosXY.y))) < myMonsterInfo.monsterAttackRange)
+                {
+                    AttackSystem();
+                }
+            }
+            Invoke("AttackRangeCheckSystem", 0.2f);                                                 //계속 체크
+        }
+    }
+
     public void AttackSystem()
     {
         if (!isAttacking)                                                   //이미 공격 중이 아닐 때 공격
@@ -91,9 +116,11 @@ public class MonsterWalk : MonsterParent
             else if (myMonsterCode == MonsterCode.WM103)                        //서있는 나무. 범위에 들어오면 공격.
             {
             }
-            else if (myMonsterCode == MonsterCode.WM106 || myMonsterCode == MonsterCode.WM108)
+            else if (myMonsterCode == MonsterCode.WM106 || myMonsterCode == MonsterCode.WM108)    //원거리 공격. 불타는 주술사, 얼음 펭귄, 무지개 장미, 무지개 새
             {
-                GameObject throwthing = transform.GetChild(0).gameObject;
+                int childNum = 0;
+
+                GameObject throwthing = transform.GetChild(childNum).gameObject;
                 GameObject summonedThrowWeapon = Instantiate(throwthing);
                 summonedThrowWeapon.transform.position = new Vector3(transform.position.x + 4, transform.position.y + 2, 0f);
                 MonstersThrowWeapon throwWeapon = summonedThrowWeapon.GetComponent<MonstersThrowWeapon>();
@@ -120,50 +147,12 @@ public class MonsterWalk : MonsterParent
         Invoke("ResetIsAttacking", attackingRunTime);
     }
 
-    public void AttackRangeCheckSystem()
-    {
-        if (myMonsterInfo.monsterState != MonsterState.DEAD)
-        {
-            if (!isAttacking)
-            {
-                //--------------------------범위 체크--------------------------
-                if (Mathf.Sqrt(((pPosXY.x - mPosXY.x) * (pPosXY.x - mPosXY.x)) + ((pPosXY.y - mPosXY.y) * (pPosXY.y - mPosXY.y))) < myMonsterInfo.monsterAttackRange)
-                {
-                    AttackSystem();
-                }
-                #region RaycastHit으로 했던 것.(폐기)
-                //List<RaycastHit2D> hitList = new List<RaycastHit2D>();
-                //if (isLRM == 1)
-                //{
-                //    hitList.AddRange(Physics2D.RaycastAll(transform.position, Vector2.left, myMonsterInfo.monsterAttackRange));
-                //    Debug.DrawRay(transform.position, Vector2.left * myMonsterInfo.monsterAttackRange, Color.red, 0.2f);
-                //}
-                //else if (isLRM == 2 || isLRM == 3)
-                //{
-                //    //Debug.Log("isLRM" + isLRM);
-                //    hitList.AddRange(Physics2D.RaycastAll(transform.position, Vector2.right, myMonsterInfo.monsterAttackRange));
-                //    Debug.DrawRay(transform.position, Vector2.right * myMonsterInfo.monsterAttackRange, Color.red, 0.2f);
-                //}
-
-                //if(hideFlags)
-                //foreach (RaycastHit2D h in hitList)
-                //{
-                //    //Debug.Log("RayCast 리스트!" + h.transform.tag);
-                //    if (h.transform.tag == "Player")
-                //    {
-                //        attackOrder = true;
-                //    }
-                //}
-                #endregion
-            }
-            Invoke("AttackRangeCheckSystem", 0.2f);                                                 //계속 체크
-        }
-    }
-
     public void ResetIsAttacking()
     {
         isAttacking = false;                                                        //공격 애니메이션 끝남
         myMonsterAnimator.SetBool("IsAttacking", isAttacking);
         //Debug.Log("공격 끝남");
     }
+
+    #endregion
 }

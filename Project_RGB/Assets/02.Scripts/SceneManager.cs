@@ -35,8 +35,6 @@ public class SceneManager : MonoBehaviour
 
         //1.신규유저 로그인 및 시작 -> SceneType.TUTORIAL로 이동;
         //2.튜토리얼을 클리어한 경우/ 스킵한 경우/ '튜토리얼 완료' 기존유저가 Start를 누르는 경우 -> nowScene = SceneType.TOWN로 이동;
-
-        //
     }
 
     // 씬 전환

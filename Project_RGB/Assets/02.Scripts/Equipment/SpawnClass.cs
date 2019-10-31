@@ -112,6 +112,9 @@ public static class SpawnClass
 }
 public enum SpawnCode
 {
+    //None
+    NONE,
+
     //Skill R
     R001,
     G001, //HighJump
