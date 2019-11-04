@@ -109,7 +109,7 @@ public class SpawnClass : MonoBehaviour
 
         switch (skillcode)
         {
-            case SpawnCode.R001: return new Skill_Red_Fire(); 
+            case SpawnCode.R001: return new Skill_Red_PiercingSpear(); 
             default: return null;
         }
     }
@@ -134,7 +134,7 @@ public class SpawnClass : MonoBehaviour
         Skill_Blue tmp;
         switch (skillcode)
         {
-            case SpawnCode.B001: tmp = new Skill_Blue_Shield(); break;
+            case SpawnCode.B001: tmp = new Skill_Blue_Barrier(); break;
             default: return null;
         }
 

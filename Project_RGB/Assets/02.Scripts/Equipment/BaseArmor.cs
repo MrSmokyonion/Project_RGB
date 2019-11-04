@@ -4,9 +4,10 @@ using UnityEngine;
 
 public abstract class Base_Armor : BaseValues
 {
+    public int value;
     public int dualbility;
 
-    public virtual void Execute(PlayerStatus status) { Debug.Log("***STONE***"); }
+    public virtual void Execute(PlayerStatus status) { Debug.Log("***ARMOR***"); }
 }
 
 public abstract class Armor_Stone : Base_Armor { }

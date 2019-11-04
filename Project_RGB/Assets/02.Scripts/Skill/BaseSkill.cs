@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class Base_Skill : BaseValues
 {
-    public int power;
+    public float value1;
+    public float value2;
     public float delay;
 
     public abstract void ExecuteSkill(GameObject obj);

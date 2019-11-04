@@ -11,5 +11,5 @@ public abstract class Base_Weapon : BaseValues
 }
 
 public abstract class Weapon_Sword : Base_Weapon { }
-public abstract class Weapon_Spear : Base_Weapon { public int speed; public float destroyDelay; }
+public abstract class Weapon_Spear : Base_Weapon { public int speed; }
 public abstract class Weapon_Bow : Base_Weapon { public int speed; }
