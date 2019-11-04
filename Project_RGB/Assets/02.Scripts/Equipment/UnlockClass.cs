@@ -2,164 +2,68 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class UnlockClass
+public class UnlockClass : MonoBehaviour
 {
-    public static BaseValues[] red;
-    public static BaseValues[] green;
-    public static BaseValues[] blue;
+    public NetworkRouter router;           //라우터 참조
 
-    public static BaseValues[][] weapon;
+    private List<SpawnCode> list;           //언락 정보를 담고있는 리스트
 
-    public static BaseValues[] amulet;
-    public static BaseValues[] stone;
-
-    public static BaseValues[] food;
-
-    static UnlockClass()
+    private void Start()
     {
-        red = new BaseValues[] { new Skill_Red_Fire() };
-        green = new BaseValues[] { new Skill_Green_HighJump() };
-        blue = new BaseValues[] { new Skill_Blue_Shield() };
+        list = new List<SpawnCode>();
 
-        weapon = new BaseValues[][] {
-            new BaseValues[] {new Sword_Default() },
-            new BaseValues[] {new Spear_Default() },
-            new BaseValues[] {new Bow_Default() }
-            };
+        list.Add(SpawnCode.R001);
+        list.Add(SpawnCode.G001);
+        list.Add(SpawnCode.B001);
 
+        list.Add(SpawnCode.W001);
+        list.Add(SpawnCode.W101);
+        list.Add(SpawnCode.W201);
 
-        amulet = new BaseValues[] { new Amulet_Default() };
-        stone = new BaseValues[] { new Stone_Default(), new Stone_ImproveSkill() };
+        list.Add(SpawnCode.A001);
+        list.Add(SpawnCode.S001);
 
-        food = new BaseValues[] { new Food_Hamburger() };
+        list.Add(SpawnCode.F001);
     }
 
-    public static bool CheckCode(SpawnCode code)
+    //해당 코드의 아이템이 언락이 되어있는지 확인함
+    public bool CheckCode(SpawnCode code)
     {
-        BaseValues[] arr = GetCodeToArray(code);
-        if (arr == null) return false;
-
-        int num = int.Parse(code.ToString().Substring(2));
-        return arr[num-1].isUnlock;
+        bool b = list.Contains(code);
+        return b;
     }
 
-    public static void UnlockCode(SpawnCode code)
+    //해당 코드를 언락함.
+    public void UnlockCode(SpawnCode code)
     {
-        BaseValues[] arr = GetCodeToArray(code);
-        if (arr == null) return;
+        //이미 언락이 되어 있다면 막기
+        if (list.Contains(code)) return;
 
-        int num = int.Parse(code.ToString().Substring(2));
-        arr[num].isUnlock = true;
-    }
+        //리스트 올리고 서버에 통신
+        list.Add(code);
 
-    private static BaseValues[] GetCodeToArray(SpawnCode code)
-    {
-        string str = code.ToString();
-        string section = str.Substring(0, 1);
-        int num1 = int.Parse(str.Substring(1, 1));
-        int num2 = int.Parse(str.Substring(2));
-
-        switch (section)
+        string str = code.ToString().Substring(0, 1);
+        switch(str)
         {
-            case "R": return red;
-            case "G": return green;
-            case "B": return blue;
+            case "R":
+            case "G":
+            case "B":
+                router.PostRouter(PostType.PLAYER_SKILL_UNLOCK, code); break;
 
-            case "W": return weapon[num1];
+            case "W":
+                router.PostRouter(PostType.PLAYER_WEAPON_UNLOCK, code); break;
 
-            case "A": return amulet;
-            case "S": return stone;
-
-            case "F": return food;
-
-            default: return null;
+            case "A":
+                router.PostRouter(PostType.PLAYER_AMULET_UNLOCK, code); break;
+            case "S":
+                router.PostRouter(PostType.PLAYER_STONE_UNLOCK, code); break;
         }
     }
 
-    #region Durability Sort
-
-    public static BaseValues[][] GetWeaponSort()
+    //테스트용 코드
+    public void test()
     {
-        BaseValues[][] result = new BaseValues[weapon.Length][];
-
-        for(int idx = 0; idx < weapon.Length; idx++)
-        {
-            result[idx] = new BaseValues[weapon[idx].Length];
-            for (int i = 0; i < weapon[idx].Length; i++)
-            {
-                result[idx][i] = weapon[idx][i];
-            }
-
-            for(int i = 0; i < result[idx].Length - 1; i++)
-            {
-                for(int j = i; j < result[idx].Length - 1; j++)
-                {
-                    Base_Weapon a = (Base_Weapon)result[idx][j];
-                    Base_Weapon b = (Base_Weapon)result[idx][j+1];
-                    if (a.dualbility < b.dualbility)
-                    {
-                        BaseValues tmp = result[idx][j + 1];
-                        result[idx][j + 1] = result[idx][j];
-                        result[idx][j] = tmp;
-                    }
-                }
-            }
-        }
-
-        return result;
+        
+        router.PostRouter(PostType.PLAYER_CHARACTER_GET_CHARDATA);
     }
-    public static BaseValues[] GetAmuletSort()
-    {
-        BaseValues[] result = new BaseValues[amulet.Length];
-
-        for (int i = 0; i < amulet.Length; i++)
-        {
-            result[i] = amulet[i];
-        }
-
-        for (int i = 0; i < result.Length - 1; i++)
-        {
-            for (int j = i; j < result.Length - 1; j++)
-            {
-                Base_Armor a = (Base_Armor)result[j];
-                Base_Armor b = (Base_Armor)result[j + 1];
-                if (a.dualbility < b.dualbility)
-                {
-                    BaseValues tmp = result[j + 1];
-                    result[j + 1] = result[j];
-                    result[j] = tmp;
-                }
-            }
-        }
-
-        return result;
-    }
-    public static BaseValues[] GetStoneSort()
-    {
-        BaseValues[] result = new BaseValues[stone.Length];
-
-        for (int i = 0; i < stone.Length; i++)
-        {
-            result[i] = stone[i];
-        }
-
-        for (int i = 0; i < result.Length - 1; i++)
-        {
-            for (int j = i; j < result.Length - 1; j++)
-            {
-                Base_Armor a = (Base_Armor)result[j];
-                Base_Armor b = (Base_Armor)result[j + 1];
-                if (a.dualbility < b.dualbility)
-                {
-                    BaseValues tmp = result[j + 1];
-                    result[j + 1] = result[j];
-                    result[j] = tmp;
-                }
-            }
-        }
-
-        return result;
-    }
-
-    #endregion
 }

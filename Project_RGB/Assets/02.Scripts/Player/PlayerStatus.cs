@@ -24,6 +24,8 @@ public class PlayerStatus : MonoBehaviour
 
     [Header("etc")]
     public GameObject projectile;
+    public ControlManager cm;
+    public StatusChanger changer;
 
     //스킬 변수
     public Skill_Red red;
@@ -31,11 +33,11 @@ public class PlayerStatus : MonoBehaviour
     public Skill_Blue blue;
 
     //장비 변수
-    private Base_Weapon weapon;
-    private Armor_Amulet amulet;
-    private Armor_Stone stone;
+    public Base_Weapon weapon;
+    public Armor_Amulet amulet;
+    public Armor_Stone stone;
 
-    private BaseFood food;
+    public BaseFood food;
 
     //쿨타임 변수들
     private float d_weapon;
@@ -43,23 +45,21 @@ public class PlayerStatus : MonoBehaviour
     private float d_green;
     private float d_blue;
 
-    private ControlManager cm;
 
     #region Init
-    private void Awake()
-    {
-        cm = GetComponent<ControlManager>();
-    }
     private void Start()
     {
-        ChangeSkill(SpawnCode.G001);
-        ChangeWeapon(SpawnCode.W101);
-        ChangeArmor(SpawnCode.A001);
-        ChangeArmor(SpawnCode.S002);
-        ChangeFood(SpawnCode.F001);
+        PlayerPrefs.SetString("UserCode", "#9a1d002a");
+
+        changer.ChangeSkill(SpawnCode.R001, this);
+        changer.ChangeSkill(SpawnCode.G001, this);
+        changer.ChangeSkill(SpawnCode.B001, this);
+        changer.ChangeWeapon(SpawnCode.W201, this);
+        changer.ChangeArmor(SpawnCode.A001, this);
+        changer.ChangeArmor(SpawnCode.S001, this);
     }
 
-    private void Init_Weapon()
+    public void Init_Weapon()
     {
         if (weapon is Weapon_Sword)
         {
@@ -82,11 +82,112 @@ public class PlayerStatus : MonoBehaviour
         }
         power = weapon.power;
     }
-    private void Init_HpDefence()
+    public void Init_Skill()
+    {
+        d_weapon = d_red = d_green = d_blue = 0.0f;
+    }
+    public void Init_HpDefence()
     {
         maxHp = 100;
         curHp = maxHp;
         defence = 1;
+    }
+    public void Init_Food()
+    {
+        foodBonusHp = food.foodBonusHp;
+    }
+
+    public void Init_AllData(string[] data)
+    {
+        for(int i = 0; i<data.Length; i++)
+        {
+            string[] str = data[i].Split('&');
+            string[] str2 = str[0].Split('!');
+
+            switch(i)
+            {
+                case 0: maxHp = int.Parse(str[0]); break;
+                case 1: power = int.Parse(str[0]); break;
+                case 2: defence = int.Parse(str[0]); break;
+                        
+                case 3:
+                    for (int j = 1; j < str2.Length; j++)
+                    {
+                        if (str2[j] == "false") continue;
+
+                        string tmp = "R" + "00" + j.ToString();
+                        changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
+                    }
+
+                    if (str2[0] == "none") red = null;
+                    else changer.ChangeSkill((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
+                        break;
+                case 4:
+                    for (int j = 1; j < str2.Length; j++)
+                    {
+                        if (str2[j] == "false") continue;
+
+                        string tmp = "G" + "00" + j.ToString();
+                        changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
+                    }
+
+                    if (str2[0] == "none") green = null;
+                    else changer.ChangeSkill((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
+                    break;
+                case 5:
+                    for (int j = 1; j < str2.Length; j++)
+                    {
+                        if (str2[j] == "false") continue;
+
+                        string tmp = "B" + "00" + j.ToString();
+                        changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
+                    }
+
+                    if (str2[0] == "none") blue = null;
+                    else changer.ChangeSkill((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
+                    break;
+
+                case 6:
+                    //이부분은 다시 상의할 필요가 있어보임
+                    for (int j = 1; j < str.Length; j++)
+                    {
+                        str2 = str[j].Split('!');
+                        for(int k = 0; k < str2.Length; k = k + 2)
+                        {
+                            if (str2[k] == "false") continue;
+
+                            string tmp = "W" + (j - 1).ToString() + "0" + (k + 1).ToString();
+                            changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
+                        }
+                    }
+                    changer.ChangeWeapon((SpawnCode)Enum.Parse(typeof(SpawnCode), str[0].ToUpper()), this);
+                    break;
+                case 7:
+                    for (int j = 1; j < str2.Length; j++)
+                    {
+                        if (str2[j] == "false") continue;
+
+                        string tmp = "A" + "00" + j.ToString();
+                        changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
+                    }
+
+                    if (str2[0] == "none") amulet = null;
+                    else changer.ChangeArmor((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
+                    break;
+                case 8:
+                    for (int j = 1; j < str2.Length; j++)
+                    {
+                        if (str2[j] == "false") continue;
+
+                        string tmp = "S" + "00" + j.ToString();
+                        changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
+                    }
+
+                    if (str2[0] == "none") stone = null;
+                    else changer.ChangeArmor((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
+                    break;
+            }
+        }
     }
     #endregion
 
@@ -192,60 +293,6 @@ public class PlayerStatus : MonoBehaviour
 
     #endregion
 
-    #region Change Method
-    public void ChangeSkill(SpawnCode code)
-    {
-        string what = (code.ToString().Substring(0, 1));
-
-        switch (what)
-        {
-            case "R": red = SpawnClass.GetSkill_Red(code); break;
-            case "G": green = SpawnClass.GetSkill_Green(code); break;
-            case "B": blue = SpawnClass.GetSkill_Blue(code); break;
-            default: return;
-        }
-        d_weapon = d_red = d_green = d_blue = 0.0f;
-    }
-
-    public void ChangeWeapon(SpawnCode code)
-    {
-        string what = (code.ToString().Substring(0, 2));
-
-        switch (what)
-        {
-            case "W0": weapon = SpawnClass.GetWeapon_Sword(code); break;
-            case "W1": weapon = SpawnClass.GetWeapon_Spear(code); break;
-            case "W2": weapon = SpawnClass.GetWeapon_Bow(code); break;
-            default: return;
-        }
-        if (weapon != null) Init_Weapon();
-    }
-
-    public void ChangeArmor(SpawnCode code)
-    {
-        string what = (code.ToString().Substring(0, 1));
-
-        Init_HpDefence();
-        switch (what)
-        {
-            case "A": amulet = SpawnClass.GetArmor_Amulet(code); amulet.Execute(this); break;
-            case "S": stone = SpawnClass.GetArmor_Stone(code); stone.Execute(this); break;
-            default: return;
-        }
-    }
-
-    public void ChangeFood(SpawnCode code)
-    {
-        string what = (code.ToString().Substring(0, 1));
-
-        switch (what)
-        {
-            case "F": food = SpawnClass.GetFood(code); break;
-            default: return;
-        }
-        foodBonusHp = food.foodBonusHp;
-    }
-    #endregion
 
     #region WhenPlayerGetHit
     private void OnCollisionEnter2D(Collision2D collision)

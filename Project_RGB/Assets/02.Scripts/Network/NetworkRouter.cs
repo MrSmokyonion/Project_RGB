@@ -10,15 +10,15 @@ using UnityEngine.Networking;
  *      2-2. 캐릭터 퀘스트 데이터 불러오기
  *      3.  캐릭터 무기 변경
  *      4.  캐릭터 무기 내구도 변경
- *      5.  캐릭터 무기 해금
- *      6.  캐릭터 부적 변경
+ *      5.  캐릭터 무기 해금 *
+ *      6.  캐릭터 부적 변경 *
  *      7.  캐릭터 부적 내구도 변경
- *      8.  캐릭터 부적 해금
- *      9.  캐릭터 스톤 변경
+ *      8.  캐릭터 부적 해금 *
+ *      9.  캐릭터 스톤 변경 *
  *      10. 캐릭터 스톤 내구도 변경
- *      11. 캐릭터 스톤 해금
- *      12. 캐릭터 스킬 변경
- *      13. 캐릭터 스킬 해금
+ *      11. 캐릭터 스톤 해금 *
+ *      12. 캐릭터 스킬 변경 *
+ *      13. 캐릭터 스킬 해금 *
  *      14. 캐릭터 골드 변경 및 조회
  *      15. 캐릭터 쿠폰 변경 및 조회
  *      16. 퀘스트 상태 변경 *
@@ -58,13 +58,16 @@ public class NetworkRouter : MonoBehaviour
 {
     // Scripts
     public Quest quest = null;                      // 퀘스트 참조
+    public UnlockClass unlock = null;               // 언락클래스 참조
+    public PlayerStatus player = null;              // 플레이어 참조
 
 
     private const int questAmount = 3;              // 퀘스트 개수
+    private const int playerAmount = 9;             // 플레이어 데이터 개수
 
 
 
-    private const string ip = "172.16.20.187";      // IP : 61.81.99.35 (외부)
+    private const string ip = "172.16.39.121";      // IP : 61.81.99.35 (외부)
     private const int port = 3000;                // Port
     private string url;                           // Uniform Resource Locator
                                                   // uri : Uniform Resource Identifier
@@ -97,38 +100,44 @@ public class NetworkRouter : MonoBehaviour
                     StartCoroutine(WWWGetCharacterQuestData());
                     break;
                 case PostType.PLAYER_WEAPON_CHANGE:
-                    StartCoroutine(WWWChangeWeapon("w101"));
+                    StartCoroutine(WWWChangeWeapon(((SpawnCode)target).ToString()));
                     break;
                 case PostType.PLAYER_WEAPON_DURATION:
                     StartCoroutine(WWWUpdateWeaponDuration("w101", 66));
                     break;
                 case PostType.PLAYER_WEAPON_UNLOCK:
-                    StartCoroutine(WWWUnlockWeapon("w102"));
+                    StartCoroutine(WWWUnlockWeapon(((SpawnCode)target).ToString()));
                     break;
                 case PostType.PLAYER_AMULET_CHANGE:
-                    StartCoroutine(WWWChangeAmulet("a003"));
+                    StartCoroutine(WWWChangeAmulet(((SpawnCode)target).ToString()));
                     break;
                 case PostType.PLAYER_AMULET_DURATION:
                     StartCoroutine(WWWUpdateAmuletDuration("a003", 56));
                     break;
                 case PostType.PLAYER_AMULET_UNLOCK:
-                    StartCoroutine(WWWUnlockAmulet("a004"));
+                    StartCoroutine(WWWUnlockAmulet(((SpawnCode)target).ToString()));
                     break;
                 case PostType.PLAYER_STONE_CHANGE:
-                    StartCoroutine(WWWChangeStone("s001"));
+                    StartCoroutine(WWWChangeStone(((SpawnCode)target).ToString()));
                     break;
                 case PostType.PLAYER_STONE_DURATION:
                     StartCoroutine(WWWUpdateStoneDuration("s001", 100));
                     break;
                 case PostType.PLAYER_STONE_UNLOCK:
-                    StartCoroutine(WWWUnlockStone("s002"));
+                    StartCoroutine(WWWUnlockStone(((SpawnCode)target).ToString()));
                     break;
                 case PostType.PLAYER_SKILL_CHANGE:
-                    StartCoroutine(WWWChangeSkill("r", "002"));
-                    break;
+                    {
+                        string str = ((SpawnCode)target).ToString();
+                        StartCoroutine(WWWChangeSkill(str.Substring(0, 1).ToLower(), str));
+                        break;
+                    }
                 case PostType.PLAYER_SKILL_UNLOCK:
-                    StartCoroutine(WWWUnlockSkill("r", "003"));
-                    break;
+                    {
+                        string str = ((SpawnCode)target).ToString();
+                        StartCoroutine(WWWUnlockSkill(str.Substring(0, 1).ToLower(), str));
+                        break;
+                    }
                 case PostType.PLAYER_GOLD_UPDATE:
                     StartCoroutine(WWWUpdateAndGetGold(1000));
                     break;
@@ -206,6 +215,7 @@ public class NetworkRouter : MonoBehaviour
     private IEnumerator WWWGetCharacterData()
     {
         string[] questData = new string[questAmount];
+        string[] playerData = new string[playerAmount];
 
 
         // 0. 요청 주소 생성
@@ -234,13 +244,22 @@ public class NetworkRouter : MonoBehaviour
 
                 switch (doc[0])
                 {
-                    case "Attack": /*player.power = int.Parse(doc[1]);*/ break;
-                    case "Health": /*player.health = int.Parse(doc[1]);*/ break;
+                    case "Health":  playerData[0] = doc[1]; break;
+                    case "Power":   playerData[1] = doc[1]; break;
+                    case "Defense": playerData[2] = doc[1]; break;
+
+                    case "Skill_R": playerData[3] = doc[1]; break;
+                    case "Skill_G": playerData[4] = doc[1]; break;
+                    case "Skill_B": playerData[5] = doc[1]; break;
+
+                    case "Weapon":  playerData[6] = doc[1]; break;
+                    case "Amulet":  playerData[7] = doc[1]; break;
+                    case "Stone":   playerData[8] = doc[1]; break;
                 }
             }
-
-            quest.LoadQuestData(questData);                                 // Quest Information
-            Debug.Log("[라우터] 캐릭터 데이터 불러오기 완료!\n" + datas);
+            
+            player.Init_AllData(playerData);
+            Debug.Log("[라우터] 캐릭터 불러오기 완료!\n" + datas);
         }
     }
 
