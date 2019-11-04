@@ -106,7 +106,7 @@ public class Quest : MonoBehaviour
 
     public void RequestQuestData()
     {
-        networkRouter.PostRouter(PostType.PLAYER_CHARACTER_GET_ALLDATA);
+        networkRouter.PostRouter(PostType.PLAYER_CHARACTER_GET_QUESTDATA);
     }
 
     // Get Quest Datas from Server or Database.
