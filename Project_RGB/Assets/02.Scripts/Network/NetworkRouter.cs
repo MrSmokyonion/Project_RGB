@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-// 주석입니다.
-
 /**************************************************************************************************   
  *      1.  캐릭터 생성 ---> 유저코드 발급
- *      2.  캐릭터 불러오기
- *      3.  캐릭터 무기 변경 *
+ *      2-1. 캐릭터 데이터 불러오기
+ *      2-2. 캐릭터 퀘스트 데이터 불러오기
+ *      3.  캐릭터 무기 변경
  *      4.  캐릭터 무기 내구도 변경
  *      5.  캐릭터 무기 해금 *
  *      6.  캐릭터 부적 변경 *
@@ -25,6 +24,7 @@ using UnityEngine.Networking;
  *      16. 퀘스트 상태 변경 *
  *      17. 퀘스트 아이템 수집 *
  *      18. 던전 상태 변경
+ *      19. 캐릭터 삭제 요청
  **************************************************************************************************/
 
 public enum PostType
@@ -47,7 +47,8 @@ public enum PostType
     PLAYER_COUPON_UPDATE,
     PLAYER_QUEST_STATE_UPDATE,
     PLAYER_QUEST_ITEM_UPDATE,
-    PLAYER_DUNGEON_STATE_UPDATE
+    PLAYER_DUNGEON_STATE_UPDATE,
+    PLAYER_CHARACTER_REMOVE
 }
 
 /// <summary>
@@ -59,6 +60,7 @@ public class NetworkRouter : MonoBehaviour
     public Quest quest = null;                      // 퀘스트 참조
     public UnlockClass unlock = null;               // 언락클래스 참조
     public PlayerStatus player = null;              // 플레이어 참조
+
 
     private const int questAmount = 3;              // 퀘스트 개수
     private const int playerAmount = 9;             // 플레이어 데이터 개수
@@ -92,10 +94,10 @@ public class NetworkRouter : MonoBehaviour
                     StartCoroutine(WWWCreateCharacter(100, 10, 5, 100, 1));
                     break;
                 case PostType.PLAYER_CHARACTER_GET_CHARDATA:
-                    StartCoroutine(WWWGetCharacterAllData());
+                    StartCoroutine(WWWGetCharacterData());
                     break;
                 case PostType.PLAYER_CHARACTER_GET_QUESTDATA:
-                    StartCoroutine(WWWGetCharacterAllData());
+                    StartCoroutine(WWWGetCharacterQuestData());
                     break;
                 case PostType.PLAYER_WEAPON_CHANGE:
                     StartCoroutine(WWWChangeWeapon(((SpawnCode)target).ToString()));
@@ -153,6 +155,9 @@ public class NetworkRouter : MonoBehaviour
                 case PostType.PLAYER_DUNGEON_STATE_UPDATE:
                     StartCoroutine(WWWUpdateChapterState("chapter001"));
                     break;
+                case PostType.PLAYER_CHARACTER_REMOVE:
+                    StartCoroutine(WWWRemoveCaharacter("#9a1f002b"));
+                    break;
             }
             return true;
         }
@@ -162,7 +167,6 @@ public class NetworkRouter : MonoBehaviour
             return false;
         }
     }
-
 
 
     /**************************************************************************************************
@@ -197,18 +201,18 @@ public class NetworkRouter : MonoBehaviour
         else if (www.isHttpError) Debug.Log("isHttpError : " + www.error);
         else
         {
-            /* 유저코드 생성(획득) */
-            PlayerPrefs.SetString("UserCode", www.downloadHandler.text); // #00000000
+            // 유저코드 생성(획득)
+            GameObject.FindObjectOfType<LocalDataStorage>().InitPlayerLocalData(www.downloadHandler.text);
             Debug.Log("[라우터] 캐릭터 생성 완료!\n" + www.downloadHandler.text + "\n" + www.responseCode);
         }
     }
 
     /**************************************************************************************************
-     * Purpose: 2. 캐릭터 불러오기                                                                     *
+     * Purpose: 2-1. 캐릭터 데이터 불러오기                                                             *
      * Parameters:                                                                                    *
      * Returns: an IEnumerator                                                                        *
      **************************************************************************************************/
-    private IEnumerator WWWGetCharacterAllData()
+    private IEnumerator WWWGetCharacterData()
     {
         string[] questData = new string[questAmount];
         string[] playerData = new string[playerAmount];
@@ -219,7 +223,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
 
         // 2. 연결
         UnityWebRequest www = UnityWebRequest.Post(sUrl, form);
@@ -251,25 +255,61 @@ public class NetworkRouter : MonoBehaviour
                     case "Weapon":  playerData[6] = doc[1]; break;
                     case "Amulet":  playerData[7] = doc[1]; break;
                     case "Stone":   playerData[8] = doc[1]; break;
-
-                    //테스트를 위해 잠시 바꿔놓음.
-                    //case "quest001": questData[0] = doc[1]; break;
-                    //case "quest002": questData[1] = doc[1]; break;
-                    //case "quest003": questData[2] = doc[1]; break;
-
-                    case "quest001": break;
-                    case "quest002": break;
-                    case "quest003": break;
-
                 }
             }
-
-            //quest.LoadQuestData(questData);                                 // Quest Information
+            
             player.Init_AllData(playerData);
             Debug.Log("[라우터] 캐릭터 불러오기 완료!\n" + datas);
         }
     }
 
+
+    /**************************************************************************************************
+     * Purpose: 2-2. 캐릭터 퀘스트 데이터 불러오기                                                      *
+     * Parameters:                                                                                    *
+     * Returns: an IEnumerator                                                                        *
+     **************************************************************************************************/
+    private IEnumerator WWWGetCharacterQuestData()
+    {
+        string[] questData = new string[questAmount];
+
+
+        // 0. 요청 주소 생성
+        string sUrl = url + "character/questdata";
+
+        // 1. 요청 데이터 구성
+        WWWForm form = new WWWForm();
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
+
+        // 2. 연결
+        UnityWebRequest www = UnityWebRequest.Post(sUrl, form);
+        www.chunkedTransfer = false;
+
+        // 3. 요청
+        yield return www.SendWebRequest();
+
+        // 4. 응답
+        if (www.isNetworkError) Debug.Log("isNetworkError : " + www.error);
+        else if (www.isHttpError) Debug.Log("isHttpError : " + www.error);
+        else
+        {
+            string[] datas = www.downloadHandler.text.Split('@');
+            foreach (string document in datas)
+            {
+                string[] doc = document.Split(':'); // Certainly 2-size
+
+                switch (doc[0])
+                {
+                    case "quest001": questData[0] = doc[1]; break;
+                    case "quest002": questData[1] = doc[1]; break;
+                    case "quest003": questData[2] = doc[1]; break;
+                }
+            }
+
+            quest.LoadQuestData(questData);                                 // Quest Information
+            Debug.Log("[라우터] 캐릭터 퀘스트 데이터 불러오기 완료!\n" + datas);
+        }
+    }
 
 
     /**************************************************************************************************
@@ -285,7 +325,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userWeaponModel", weaponModel);
 
         // 2. 연결
@@ -318,7 +358,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userWeaponModel", weaponModel);
         form.AddField("userDuration", duration);
 
@@ -353,7 +393,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userWeaponModel", weaponModel);
 
         // 2. 연결
@@ -387,7 +427,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userAmuletModel", amuletModel);
 
         // 2. 연결
@@ -421,7 +461,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userAmuletModel", amuletModel);
         form.AddField("userDuration", duration);
 
@@ -456,7 +496,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userAmuletModel", amuletModel);
 
         // 2. 연결
@@ -490,7 +530,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userStoneModel", stoneModel);
 
         // 2. 연결
@@ -523,7 +563,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userStoneModel", stoneModel);
         form.AddField("userDuration", duration);
 
@@ -558,7 +598,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userStoneModel", stoneModel);
 
         // 2. 연결
@@ -592,7 +632,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userSkillType", skillType);
         form.AddField("userSkillModel", skillModel);
 
@@ -627,7 +667,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userSkillType", skillType);
         form.AddField("userSkillModel", skillModel);
 
@@ -661,7 +701,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userGold", gold);
 
         // 2. 연결
@@ -694,7 +734,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userGold", coupon);
 
         // 2. 연결
@@ -728,7 +768,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userQuestModel", questModel);
         form.AddField("userQuestState", state);
 
@@ -762,7 +802,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userQuestModel", questModel);
         form.AddField("userQuestItemAmount", questItemAmount);
 
@@ -796,7 +836,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userCode", PlayerPrefs.GetString("UserCode"));
+        form.AddField("userCode", PlayerPrefs.GetString("USERCODE"));
         form.AddField("userChapterName", chapterName);
 
         // 2. 연결
@@ -812,6 +852,38 @@ public class NetworkRouter : MonoBehaviour
         else
         {
 
+        }
+    }
+
+    /**************************************************************************************************
+     * Purpose: 19. 캐릭터 삭제 요경                                                                   *
+     * Parameters:                                                                                    *
+     * Returns: an IEnumerator                                                                        *
+     **************************************************************************************************/
+    private IEnumerator WWWRemoveCaharacter(string removeUserCode)
+    {
+        // 0. 요청 주소 생성
+        string sUrl = url + "character/remove";
+
+        // 1. 요청 데이터 구성
+        WWWForm form = new WWWForm();
+        form.AddField("userCode", removeUserCode);
+
+        // 2. 연결
+        UnityWebRequest www = UnityWebRequest.Post(sUrl, form);
+        www.chunkedTransfer = false;
+
+        // 3. 요청
+        yield return www.SendWebRequest();
+
+        // 4. 응답
+        if (www.isNetworkError) Debug.Log("isNetworkError : " + www.error);
+        else if (www.isHttpError) Debug.Log("isHttpError : " + www.error);
+        else
+        {
+            GameObject.FindObjectOfType<LocalDataStorage>().RemovePlayerCharacter(removeUserCode);
+
+            // TODO: 재접속 요청
         }
     }
 }
