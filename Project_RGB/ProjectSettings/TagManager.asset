@@ -13,6 +13,7 @@ TagManager:
   - NPC
   - TeleportDoor
   - QuestSuccessImage
+  - DropGold
   layers:
   - Default
   - TransparentFX

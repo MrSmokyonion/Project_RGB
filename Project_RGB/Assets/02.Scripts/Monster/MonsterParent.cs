@@ -149,7 +149,7 @@ public class MonsterInfoList
             10, 10, 100, 7, 15,
             100, 0, SpawnCode.NONE));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.FM204, false, "꽃 구름", MonsterState.IDLE,
-            10, 10, 100, 7, 10,
+            10, 10, 100, 3, 10,
             100, 0, SpawnCode.NONE));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.FM205, false, "신전 순찰자", MonsterState.IDLE,
             10, 10, 100, 7, 10,

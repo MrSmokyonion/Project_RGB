@@ -133,7 +133,7 @@ public class MonsterBoss : MonsterParent
                     Instantiate(boosAttackPrefabList[1]);
                 }
             }
-            else if (myMonsterCode == MonsterCode.BM303)
+            else if (myMonsterCode == MonsterCode.BM303)                        //얼음 내시
             {
                 if (attackType == 1)                                            //파도 공격!
                 {
@@ -158,14 +158,14 @@ public class MonsterBoss : MonsterParent
                     for (int i = 0; i < count; i++) //0,1,2,3,4
                     {
                         summonedThrowWeaponList.Add(Instantiate(boosAttackPrefabList[2]));
-                        summonedThrowWeaponList[i].transform.position = new Vector3(transform.position.x, transform.position.y + i*3, transform.position.z);
+                        summonedThrowWeaponList[i].transform.position = new Vector3(transform.position.x, transform.position.y + i * 3, transform.position.z);
                         MonstersThrowWeapon throwWeapon = summonedThrowWeaponList[i].GetComponent<MonstersThrowWeapon>();
                         throwWeapon.gameObject.SetActive(true);
                         throwWeapon.StartGoToPlayer(myMonsterCode, attackType);
                     }
                 }
             }
-            else if (myMonsterCode == MonsterCode.BM304)                             //습지의 여왕.
+            else if (myMonsterCode == MonsterCode.BM304)                             //해바라기 사자
             {
                 if (attackType == 1)                                            //일반공격 : 할퀴기
                 {
@@ -174,15 +174,12 @@ public class MonsterBoss : MonsterParent
                 {
                     GameObject summonedThrowWeapon;
                     Vector3 flowerPos = transform.GetChild(0).position;  //꽃의 중앙 위치를 가져옴.
-                                                                         //for (int i = 0; i < count; i++) //0,1,2,3, 4,5,6,7
-                                                                         //{
-                    //이 부분에서 막힘. >> 애 자체를 애니메이션으로 시작시킬까??? 구래야게따. 1개의 오브젝트에 애니메이션으로 자식으로 다다닥 붙여서.. ㅇ ㅓ.. 그렇게 할까? 
+
                     summonedThrowWeapon = (Instantiate(boosAttackPrefabList[0]));
                     summonedThrowWeapon.transform.position = new Vector3(flowerPos.x, flowerPos.y + (Random.Range(-3, 4)/*-3~3*/), flowerPos.z);
                     MonstersThrowWeapon throwWeapon = summonedThrowWeapon.GetComponent<MonstersThrowWeapon>();
                     throwWeapon.gameObject.SetActive(true);
-                    throwWeapon.StartGoToPlayer(myMonsterCode, attackType);
-                    //}
+                    throwWeapon.StartGoToPlayer(myMonsterCode, attackType, isLRM);
                 }
                 else if (attackType == 3)                                       //울부짖기 (디버프)
                 {

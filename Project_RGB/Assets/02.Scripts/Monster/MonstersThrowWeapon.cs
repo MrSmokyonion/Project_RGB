@@ -66,24 +66,12 @@ public class MonstersThrowWeapon : MonoBehaviour
                 }
                 break;
             case MonsterCode.BM304: //해바라기 사자
-                if (attackType == 1)
+                if (attackType == 2)   //꽃잎 발싸! (랜덤위치, 랜덤속도, 수평으로 날아감.)
                 {
-                    //throwThingSpeed = 12; lifeTime = 3.0f;
-                    //JustGoToFront(isLRM);
-                    //파도 공격!!!
-                }
-                else if (attackType == 2)
-                {
-                    //throwThingSpeed = 10; lifeTime = 8.0f;
+                    throwThingSpeed = 10; lifeTime = 1.5f;
                     //ChaseThePlayer();
+                    StartCoroutine(irregularStraightThrowToPlayer(isLRM));
                     //쫓아가랏 눈송이!!!!
-                }
-                else if (attackType == 3)
-                {
-                    //throwThingSpeed = 40; lifeTime = 5.0f;
-                    //타켓팅 아이스 스피어 5개가 각자 다른 곳에서 생성 되었습니다!!!
-                    //발싸!!!!
-                    //FireToPlayer();
                 }
                 break;
         }
@@ -285,6 +273,29 @@ public class MonstersThrowWeapon : MonoBehaviour
         else if (isLRM == 2)                                                    //오른쪽에 플레이어가 있음
         {
             myRigid.velocity = new Vector2(throwThingSpeed, myRigid.velocity.y);
+        }
+    }
+
+    private IEnumerator irregularStraightThrowToPlayer(int isLRM)
+    {
+        int objectCount = Random.Range(5, 11);   //5~10개 발싸!
+
+        for (int i = 0; i < objectCount; i++)
+        {
+            GameObject myClone = Instantiate(this.gameObject, transform.parent);
+
+            myClone.transform.position = this.transform.position + new Vector3(0, Random.Range(-5.0f, 5.0f));
+
+            if (isLRM == 1)                                                         //왼쪽에 플레이어가 있음
+            {
+                myRigid.velocity = new Vector2(-throwThingSpeed, myClone.GetComponent<Rigidbody2D>().velocity.y);
+            }
+            else if (isLRM == 2)                                                    //오른쪽에 플레이어가 있음
+            {
+                myRigid.velocity = new Vector2(throwThingSpeed, myClone.GetComponent<Rigidbody2D>().velocity.y);
+            }
+
+            yield return new WaitForSeconds(Random.Range(0.35f, 0.85f));
         }
     }
 

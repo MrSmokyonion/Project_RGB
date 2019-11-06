@@ -147,6 +147,25 @@ public class MonsterFly : MonsterParent
                 throwWeapon.gameObject.SetActive(true);
                 throwWeapon.StartGoToPlayer(myMonsterCode);
             }
+            else if (myMonsterCode == MonsterCode.FM204)
+            {
+                if (transform.parent.childCount < 30)   //몬스터의 총 갯수가 30마리 이상이면 소환 안함.
+                {
+                    //Clone 소환.
+                    GameObject myClone = Instantiate(this.gameObject, transform.parent);
+                    myClone.transform.position = transform.position;
+
+
+                    MonsterFly myCloneInfos = myClone.GetComponent<MonsterFly>();
+                    myCloneInfos.myMonsterInfo.monsterDropGoldAmount = 0;   //돈 무한 생성 방지용!
+                    myCloneInfos.Awake();
+                    myCloneInfos.AttackAnimation();
+
+                    //분신 생성 후 분신도 자신도 텔레포트
+                    myClone.transform.position = PlayerObject.transform.position + new Vector3(Random.Range(-10f, 10f), Random.Range(10f, 15f));
+                    this.transform.position = PlayerObject.transform.position + new Vector3(Random.Range(-10f, 10f), Random.Range(10f, 15f));
+                }
+            }
         }
     }
 
