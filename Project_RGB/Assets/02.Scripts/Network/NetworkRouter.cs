@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -8,14 +9,14 @@ using UnityEngine.Networking;
  *      1.  캐릭터 생성 ---> 유저코드 발급
  *      2-1. 캐릭터 데이터 불러오기
  *      2-2. 캐릭터 퀘스트 데이터 불러오기
- *      3.  캐릭터 무기 변경
- *      4.  캐릭터 무기 내구도 변경
+ *      3.  캐릭터 무기 변경 *
+ *      4.  캐릭터 무기 내구도 변경 *
  *      5.  캐릭터 무기 해금 *
  *      6.  캐릭터 부적 변경 *
- *      7.  캐릭터 부적 내구도 변경
+ *      7.  캐릭터 부적 내구도 변경 *
  *      8.  캐릭터 부적 해금 *
  *      9.  캐릭터 스톤 변경 *
- *      10. 캐릭터 스톤 내구도 변경
+ *      10. 캐릭터 스톤 내구도 변경 *
  *      11. 캐릭터 스톤 해금 *
  *      12. 캐릭터 스킬 변경 *
  *      13. 캐릭터 스킬 해금 *
@@ -61,16 +62,16 @@ public class NetworkRouter : MonoBehaviour
     public UnlockClass unlock = null;               // 언락클래스 참조
     public PlayerStatus player = null;              // 플레이어 참조
 
-
-    private const int questAmount = 3;              // 퀘스트 개수
+ 
+    private const int questAmount = 22;             // 퀘스트 개수(22개)
     private const int playerAmount = 9;             // 플레이어 데이터 개수
 
 
 
-    private const string ip = "172.16.39.121";      // IP : 61.81.99.35 (외부)
-    private const int port = 3000;                // Port
-    private string url;                           // Uniform Resource Locator
-                                                  // uri : Uniform Resource Identifier
+    private const string ip = "172.16.33.176";      // IP : 61.81.99.35 (외부)
+    private const int port = 3000;                  // Port
+    private string url;                             // Uniform Resource Locator
+                                                    // uri : Uniform Resource Identifier
 
 
     private void Awake()
@@ -169,6 +170,7 @@ public class NetworkRouter : MonoBehaviour
     }
 
 
+
     /**************************************************************************************************
      * Purpose: 1. 캐릭터 생성 ---> 유저코드 발급                                                     *
      * Parameters:                                                                                    *
@@ -182,7 +184,7 @@ public class NetworkRouter : MonoBehaviour
 
         // 1. 요청 데이터 구성
         WWWForm form = new WWWForm();
-        form.AddField("userDeviceMacID", "F8:E6:1A:BE:CF:10");
+        form.AddField("userDeviceMacID", GetMacAddress()); // ex : "F8:E6:1A:BE:CF:10"
         form.AddField("userHealth", health);
         form.AddField("userPower", power);
         form.AddField("userDefense", defense);
@@ -206,6 +208,37 @@ public class NetworkRouter : MonoBehaviour
             Debug.Log("[라우터] 캐릭터 생성 완료!\n" + www.downloadHandler.text + "\n" + www.responseCode);
         }
     }
+
+
+
+    public string myMacAddress = string.Empty;
+    public string GetMacAddress()
+    {
+        try
+        {
+            string macAddress = "";
+            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+
+            foreach (NetworkInterface adapter in nics)
+            {
+                PhysicalAddress address = adapter.GetPhysicalAddress();
+                if (address.ToString() != "")
+                {
+                    macAddress = address.ToString();
+                    myMacAddress = macAddress;
+
+                    return macAddress;
+                }
+            }
+            return "error lectura mac address";
+        }
+        catch (Exception ex)
+        {
+            return "" + ex;
+        }
+    }
+
+
 
     /**************************************************************************************************
      * Purpose: 2-1. 캐릭터 데이터 불러오기                                                             *
@@ -264,6 +297,7 @@ public class NetworkRouter : MonoBehaviour
     }
 
 
+
     /**************************************************************************************************
      * Purpose: 2-2. 캐릭터 퀘스트 데이터 불러오기                                                      *
      * Parameters:                                                                                    *
@@ -303,6 +337,25 @@ public class NetworkRouter : MonoBehaviour
                     case "quest001": questData[0] = doc[1]; break;
                     case "quest002": questData[1] = doc[1]; break;
                     case "quest003": questData[2] = doc[1]; break;
+                    case "quest004": questData[3] = doc[1]; break;
+                    case "quest005": questData[4] = doc[1]; break;
+                    case "quest006": questData[5] = doc[1]; break;
+                    case "quest007": questData[6] = doc[1]; break;
+                    case "quest008": questData[7] = doc[1]; break;
+                    case "quest009": questData[8] = doc[1]; break;
+                    case "quest010": questData[9] = doc[1]; break;
+                    case "quest011": questData[10] = doc[1]; break;
+                    case "quest012": questData[11] = doc[1]; break;
+                    case "quest013": questData[12] = doc[1]; break;
+                    case "quest014": questData[13] = doc[1]; break;
+                    case "quest015": questData[14] = doc[1]; break;
+                    case "quest016": questData[15] = doc[1]; break;
+                    case "quest017": questData[16] = doc[1]; break;
+                    case "quest018": questData[17] = doc[1]; break;
+                    case "quest019": questData[18] = doc[1]; break;
+                    case "quest020": questData[19] = doc[1]; break;
+                    case "quest021": questData[20] = doc[1]; break;
+                    case "quest022": questData[21] = doc[1]; break;
                 }
             }
 
@@ -310,6 +363,7 @@ public class NetworkRouter : MonoBehaviour
             Debug.Log("[라우터] 캐릭터 퀘스트 데이터 불러오기 완료!\n" + datas);
         }
     }
+
 
 
     /**************************************************************************************************
@@ -348,8 +402,8 @@ public class NetworkRouter : MonoBehaviour
 
     /**************************************************************************************************
      * Purpose: 4. 캐릭터 무기 내구도 변경                                                              *
-     * Parameters:                                                                                     *
-     * Returns: an IEnumerator                                                                         *
+     * Parameters:                                                                                    *
+     * Returns: an IEnumerator                                                                        *
      **************************************************************************************************/
     private IEnumerator WWWUpdateWeaponDuration(string weaponModel /* 무기 모델 */, int duration /* 지정 내구도 */)
     {
@@ -381,9 +435,9 @@ public class NetworkRouter : MonoBehaviour
 
 
     /**************************************************************************************************
-     * Purpose: 5. 캐릭터 무기 해금                                                             *
-     * Parameters:                                                                                     *
-     * Returns: an IEnumerator                                                                         *
+     * Purpose: 5. 캐릭터 무기 해금                                                                    *
+     * Parameters:                                                                                    *
+     * Returns: an IEnumerator                                                                        *
      **************************************************************************************************/
     private IEnumerator WWWUnlockWeapon(string weaponModel /* 무기 모델 */)
     {
@@ -415,9 +469,9 @@ public class NetworkRouter : MonoBehaviour
 
 
     /**************************************************************************************************
-     * Purpose: 6. 캐릭터 부적 변경                                                              *
-     * Parameters:                                                                                     *
-     * Returns: an IEnumerator                                                                         *
+     * Purpose: 6. 캐릭터 부적 변경                                                                    *
+     * Parameters:                                                                                    *
+     * Returns: an IEnumerator                                                                        *
      **************************************************************************************************/
     private IEnumerator WWWChangeAmulet(string amuletModel /* 부적 모델 */)
     {
@@ -450,8 +504,8 @@ public class NetworkRouter : MonoBehaviour
 
     /**************************************************************************************************
      * Purpose: 7. 캐릭터 부적 내구도 변경                                                              *
-     * Parameters:                                                                                     *
-     * Returns: an IEnumerator                                                                         *
+     * Parameters:                                                                                    *
+     * Returns: an IEnumerator                                                                        *
      **************************************************************************************************/
     private IEnumerator WWWUpdateAmuletDuration(string amuletModel /* 부적 모델 */, int duration /* 지정 내구도 */)
     {
@@ -484,9 +538,9 @@ public class NetworkRouter : MonoBehaviour
 
 
     /**************************************************************************************************
-     * Purpose: 8. 캐릭터 부적 해금                                                                     *
-     * Parameters:                                                                                     *
-     * Returns: an IEnumerator                                                                         *
+     * Purpose: 8. 캐릭터 부적 해금                                                                    *
+     * Parameters:                                                                                    *
+     * Returns: an IEnumerator                                                                        *
      **************************************************************************************************/
     private IEnumerator WWWUnlockAmulet(string amuletModel /* 부적 모델 */)
     {
@@ -518,7 +572,7 @@ public class NetworkRouter : MonoBehaviour
 
 
     /**************************************************************************************************
-     * Purpose: 9. 캐릭터 스톤 변경                                                                     *
+     * Purpose: 9. 캐릭터 스톤 변경                                                                    *
      * Parameters:                                                                                    *
      * Returns: an IEnumerator                                                                        *
      **************************************************************************************************/
@@ -586,7 +640,7 @@ public class NetworkRouter : MonoBehaviour
 
 
     /**************************************************************************************************
-     * Purpose: 11. 캐릭터 스톤 해금                                                                    *
+     * Purpose: 11. 캐릭터 스톤 해금                                                                   *
      * Parameters:                                                                                    *
      * Returns: an IEnumerator                                                                        *
      **************************************************************************************************/
@@ -620,9 +674,9 @@ public class NetworkRouter : MonoBehaviour
 
 
     /**************************************************************************************************
-     * Purpose: 12. 캐릭터 스킬 변경                                                              *
-     * Parameters:                                                                                     *
-     * Returns: an IEnumerator                                                                         *
+     * Purpose: 12. 캐릭터 스킬 변경                                                                   *
+     * Parameters:                                                                                    *
+     * Returns: an IEnumerator                                                                        *
      **************************************************************************************************/
     private IEnumerator WWWChangeSkill(string skillType /* 스킬 타입 rgb */, string skillModel /* 스킬 모델 */)
     {
@@ -655,7 +709,7 @@ public class NetworkRouter : MonoBehaviour
 
 
     /**************************************************************************************************
-     * Purpose: 13. 캐릭터 스킬 해금                                                                    *
+     * Purpose: 13. 캐릭터 스킬 해금                                                                   *
      * Parameters:                                                                                    *
      * Returns: an IEnumerator                                                                        *
      **************************************************************************************************/
@@ -791,7 +845,7 @@ public class NetworkRouter : MonoBehaviour
 
 
     /**************************************************************************************************
-     * Purpose: 17. 퀘스트 아이템 수집                                                                  *
+     * Purpose: 17. 퀘스트 아이템 수집                                                                 *
      * Parameters:                                                                                    *
      * Returns: an IEnumerator                                                                        *
      **************************************************************************************************/
@@ -854,6 +908,8 @@ public class NetworkRouter : MonoBehaviour
 
         }
     }
+
+
 
     /**************************************************************************************************
      * Purpose: 19. 캐릭터 삭제 요경                                                                   *

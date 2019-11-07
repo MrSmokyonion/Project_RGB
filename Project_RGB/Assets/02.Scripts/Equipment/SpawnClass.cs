@@ -93,7 +93,6 @@ public class SpawnClass : MonoBehaviour
         switch (armorCode)
         {
             case SpawnCode.S001: tmp = new Stone_Default(); break;
-            case SpawnCode.S002: tmp = new Stone_ImproveSkill(); break;
             default: return null;
         }
 
