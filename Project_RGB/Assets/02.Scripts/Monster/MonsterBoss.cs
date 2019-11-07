@@ -10,7 +10,7 @@ public class MonsterBoss : MonsterParent
     public override void MyStart()
     {
         Invoke("AttackRangeCheckSystem", 0.5f); //0.5초에 한번씩 범위 및 공격 체크.
-        Invoke("PosAndMoveSystem", 0.1f);
+        Invoke("PosAndMoveSystem", 0.2f);
     }
 
     #region MoveSystem
@@ -28,7 +28,7 @@ public class MonsterBoss : MonsterParent
 
             MoveSystem();
 
-            Invoke("PosAndMoveSystem", 0.1f);
+            Invoke("PosAndMoveSystem", 0.5f);
         }
     }
 
@@ -172,14 +172,9 @@ public class MonsterBoss : MonsterParent
                 }
                 else if (attackType == 2)                                       //꽃잎들 발사!
                 {
-                    GameObject summonedThrowWeapon;
-                    Vector3 flowerPos = transform.GetChild(0).position;  //꽃의 중앙 위치를 가져옴.
-
-                    summonedThrowWeapon = (Instantiate(boosAttackPrefabList[0]));
-                    summonedThrowWeapon.transform.position = new Vector3(flowerPos.x, flowerPos.y + (Random.Range(-3, 4)/*-3~3*/), flowerPos.z);
-                    MonstersThrowWeapon throwWeapon = summonedThrowWeapon.GetComponent<MonstersThrowWeapon>();
-                    throwWeapon.gameObject.SetActive(true);
-                    throwWeapon.StartGoToPlayer(myMonsterCode, attackType, isLRM);
+                    MonstersThrowWeapon throwWeaponScript = Instantiate(transform.GetChild(0).gameObject).GetComponent<MonstersThrowWeapon>(); //꽃을 가져옴.
+                    throwWeaponScript.gameObject.SetActive(true);
+                    throwWeaponScript.StartGoToPlayer(myMonsterCode, attackType, isLRM);
                 }
                 else if (attackType == 3)                                       //울부짖기 (디버프)
                 {

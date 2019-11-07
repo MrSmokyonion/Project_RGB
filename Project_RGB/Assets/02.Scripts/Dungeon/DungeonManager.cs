@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
-    int nowChapterNumber = -2;              //0번째는 마을, -1는 튜토리얼, -2는 로딩이 안된 것.
-    int nowStageNumber = -2;                //0번째는 마을, 스테이지 1, 2, 3... , -2는 로딩이 안된 것.
-    int maxClearStageNumber = 0;            //기본 0, 1챕터 클리어 후 -> 1로 변경.
+    int nowChapterNumber = -2;              // 0는 튜토리얼, -2는 로딩이 안된 것.
+    int nowStageNumber = -2;                // 스테이지 1, 2, 3... , -2는 로딩이 안된 것.
+    int maxClearStageNumber = -1;            // 기본 -1, 튜토리얼 클리어 후 0, 1챕터 클리어 후 -> 1로 변경.
 
     public Dictionary<string/*"stage"+number*/, int> stageMonsterCount = new Dictionary<string, int>(); //(Inspecter)
 

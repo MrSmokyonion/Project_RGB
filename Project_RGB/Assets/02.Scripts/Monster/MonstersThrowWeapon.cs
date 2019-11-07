@@ -68,15 +68,17 @@ public class MonstersThrowWeapon : MonoBehaviour
             case MonsterCode.BM304: //해바라기 사자
                 if (attackType == 2)   //꽃잎 발싸! (랜덤위치, 랜덤속도, 수평으로 날아감.)
                 {
-                    throwThingSpeed = 10; lifeTime = 1.5f;
+                    throwThingSpeed = 10; lifeTime = 4f;
                     //ChaseThePlayer();
                     StartCoroutine(irregularStraightThrowToPlayer(isLRM));
                     //쫓아가랏 눈송이!!!!
                 }
                 break;
         }
-
-        Invoke("Dead", lifeTime);
+        if (goToPlayer)
+        {
+            Invoke("Dead", lifeTime);
+        }
     }
 
     private void ChaseThePlayer()
@@ -278,25 +280,33 @@ public class MonstersThrowWeapon : MonoBehaviour
 
     private IEnumerator irregularStraightThrowToPlayer(int isLRM)
     {
+
+        List<GameObject> myClones = new List<GameObject>();
         int objectCount = Random.Range(5, 11);   //5~10개 발싸!
-
         for (int i = 0; i < objectCount; i++)
-        {
-            GameObject myClone = Instantiate(this.gameObject, transform.parent);
+            myClones.Add(Instantiate(this.gameObject, transform.parent));
 
-            myClone.transform.position = this.transform.position + new Vector3(0, Random.Range(-5.0f, 5.0f));
+        foreach (GameObject clone in myClones)
+        {
+            clone.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + Random.Range(-5.0f, 5.0f));
 
             if (isLRM == 1)                                                         //왼쪽에 플레이어가 있음
             {
-                myRigid.velocity = new Vector2(-throwThingSpeed, myClone.GetComponent<Rigidbody2D>().velocity.y);
+                clone.GetComponent<Rigidbody2D>().velocity = new Vector2(-throwThingSpeed, clone.GetComponent<Rigidbody2D>().velocity.y);
             }
             else if (isLRM == 2)                                                    //오른쪽에 플레이어가 있음
             {
-                myRigid.velocity = new Vector2(throwThingSpeed, myClone.GetComponent<Rigidbody2D>().velocity.y);
+                clone.GetComponent<Rigidbody2D>().velocity = new Vector2(throwThingSpeed, clone.GetComponent<Rigidbody2D>().velocity.y);
             }
 
-            yield return new WaitForSeconds(Random.Range(0.35f, 0.85f));
+            Destroy(clone, lifeTime);
+            yield return new WaitForSeconds(Random.Range(0.1f, 0.2f));
         }
+
+        //foreach (GameObject c in myClones)
+        //{
+        //    Destroy(c, lifeTime);
+        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
