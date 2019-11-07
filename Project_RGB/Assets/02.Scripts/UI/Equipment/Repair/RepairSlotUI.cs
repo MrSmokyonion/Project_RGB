@@ -13,9 +13,14 @@ using UnityEngine.UI;
 
 public class RepairSlotUI : MonoBehaviour
 {
-   // public Item clickItem;
+    // public Item clickItem;
     public int slotNumber;
     public Image[] RepairSlotArray; //아이템 배열
+
+    public RepairPanelUI repairPanelUIScript;
+    //=============== UI 변수들 ======================
+    public GameObject repairCheckPanel;
+    //=================================================
     //플레이어 쪽에서 쿠폰 가져오기
 
     // Start is called before the first frame update
@@ -55,14 +60,17 @@ public class RepairSlotUI : MonoBehaviour
 
     public void SlotClick(int index)
     {
-       // clickItem = ItemArray[index]
+        // clickItem = ItemArray[index]
+        RepairButtonClick(index);
     }
 
-    public void RepairButtonClick()
+    public void RepairButtonClick(int index)
     {
         //clickitem
         //수리 비용 계산
         //Ui띄우기
+        repairPanelUIScript.RepairPanelUISetting(index);
+        repairCheckPanel.SetActive(true);
 
     }
     public void AllRepairButtonClick()

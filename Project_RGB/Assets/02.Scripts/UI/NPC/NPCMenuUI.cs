@@ -22,6 +22,7 @@ public class NPCMenuUI : MonoBehaviour
         Debug.Log("npccode : " + npcCode);
        // Debug.Log("storeAvailable" + GetComponent<NPCParent>().npcInfoList[npcCode].storeAvailable);
         StoreAvailableCheck(transform.GetComponent<NPCParent>().npcInfoList[npcCode].storeAvailable);
+        npcquestCanvas.enabled = false;
     }
 
 
@@ -41,6 +42,8 @@ public class NPCMenuUI : MonoBehaviour
 
     public void QuestCanvasOpen()
     {
+        npcquestCanvas.GetComponent<NPCQuestUI>().QuestClear();
+        //npcquestCanvas.GetComponent<NPCQuestUI>().NpcQuestListSetting();
         npcquestCanvas.enabled = true;
     }
 
