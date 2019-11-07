@@ -1601,7 +1601,7 @@ GameObject:
   - component: {fileID: 1571477396}
   - component: {fileID: 1571477397}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: DungeonSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
