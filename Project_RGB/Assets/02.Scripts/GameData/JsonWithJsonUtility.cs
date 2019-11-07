@@ -52,13 +52,13 @@ public class JsonWithJsonUtility : JsonConverter
         #endregion
     }
 
-    /* Object ---> JSON 문자열 */
+    // Object ---> JSON 문자열
     public string ObjectToJsonWithJsonUtility(object obj)
     {
         return JsonUtility.ToJson(obj);
     }
 
-    /* 문자열 JSON ---> 템플릿 객체 */
+    // 문자열 JSON ---> 템플릿 객체
     public T JsonToOjectWithJsonUtility<T>(string jsonData)
     {
         return JsonUtility.FromJson<T>(jsonData);

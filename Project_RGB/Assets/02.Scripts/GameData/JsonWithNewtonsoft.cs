@@ -32,13 +32,13 @@ public class JsonWithNewtonsoft : JsonConverter
         #endregion
     }
 
-    /* 오브젝트를 문자열로 된 JSON 데이터로 변환처리 */
+    // 오브젝트를 문자열로 된 JSON 데이터로 변환처리
     public string ObjectToJsonWithNewtonsoft(object obj)
     {
         return JsonConvert.SerializeObject(obj);
     }
 
-    /* 문자열로 된 JSON 데이터를 받아서 원하는 타입의 객체(템플릿)으로 반환처리 */
+    // 문자열로 된 JSON 데이터를 받아서 원하는 타입의 객체(템플릿)으로 반환처리
     public T JsonToOjectWithNewtonsoft<T>(string jsonData)
     {
         return JsonConvert.DeserializeObject<T>(jsonData);

@@ -256,7 +256,7 @@ public class PlayerStatus : MonoBehaviour
         {
             rid.bodyType = RigidbodyType2D.Kinematic;
             rid.velocity = dir * ((Weapon_Spear)weapon).speed;
-            ar.destroyDelay = ((Weapon_Spear)weapon).destroyDelay;
+            ar.destroyDelay = 1.0f;
         }
         else if (weapon is Weapon_Bow)
         {

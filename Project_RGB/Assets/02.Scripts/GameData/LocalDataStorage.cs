@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 /**************************************************************************************************
- *      데이터 저장 항목
+ *      로컬 데이터 저장 항목
  *      
  *      - 유저코드 (string) - init
  *      - 소리 음소거 여부 (int) - init, option
@@ -22,18 +21,18 @@ public class LocalDataStorage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SavePlayerLocalData", 1.0f, 1.0f);
-        PrintLocalData();
+        InvokeRepeating("SavePlayerLocalData", 1.0f, 1.0f); // TEST
+        PrintLocalData();                                   // TEST
     }
 
     // 주기적인 저장
-    private void SavePlayerLocalData()
+    private void SavePlayerLocalData(Vector3 pos) // 플레이어에서 해당 스크립트로 요청하기로 함. (동현-태현)
     {
         PlayerPrefs.SetString("RECENT_TIME", System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss"));
         PlayerPrefs.SetString("POSITION", "No Data");
-        PlayerPrefs.SetFloat("X", 100.0f);
-        PlayerPrefs.SetFloat("Y", 100.0f);
-        PlayerPrefs.SetFloat("Z", 100.0f);
+        PlayerPrefs.SetFloat("X", pos.x);
+        PlayerPrefs.SetFloat("Y", pos.y);
+        PlayerPrefs.SetFloat("Z", pos.z);
     }
 
     // 캐릭터 생성
@@ -41,7 +40,7 @@ public class LocalDataStorage : MonoBehaviour
     {
         PlayerPrefs.SetString("USERCODE", userCode); // #00000000
         PlayerPrefs.SetString("START_TIME", System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss"));
-        PlayerPrefs.SetInt("MUTE", 1); // true
+        PlayerPrefs.SetInt("MUTE", 1); // true : 1
         PlayerPrefs.SetInt("VOLUME", 50); // 1 ~ 100
     }
 
@@ -67,6 +66,12 @@ public class LocalDataStorage : MonoBehaviour
         PlayerPrefs.SetInt("VOLUME", volume);
     }
 
+    // 던전 선택 데이터 저장
+    public void SaveSelectedDungeonNum(int dungeonNum /* 0:Tutorial, 1:Chapter1, 2:Chapter2 ... */ )
+    {
+        PlayerPrefs.SetInt("DUNGEON_NUM", dungeonNum);
+    }
+
     // 로컬 데이터 출력
     public void PrintLocalData()
     {
@@ -77,7 +82,8 @@ public class LocalDataStorage : MonoBehaviour
             + "최종위치: " + PlayerPrefs.GetString("POSITION") + "\n"
             + "최종좌표: " + PlayerPrefs.GetFloat("X") + "," + PlayerPrefs.GetFloat("Y") + "," + PlayerPrefs.GetFloat("Z") + "\n"
             + "최초시간: " + PlayerPrefs.GetString("START_TIME") + "\n"
-            + "최근시간: " + PlayerPrefs.GetString("RECENT_TIME")
+            + "최근시간: " + PlayerPrefs.GetString("RECENT_TIME") + "\n"
+            + "선택던전번호: " + PlayerPrefs.GetInt("DUNGEON_NUM")
             );
     }
 }
