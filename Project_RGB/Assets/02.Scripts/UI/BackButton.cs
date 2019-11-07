@@ -21,4 +21,10 @@ public class BackButton : MonoBehaviour
     {
         BackButtonCanvas.enabled = false;
     }
+
+    public void NPCQuestCanvas_BackButtonScript()
+    {
+        BackButtonCanvas.enabled = false;
+        transform.parent.GetChild(2).gameObject.SetActive(false);  
+    }
 }

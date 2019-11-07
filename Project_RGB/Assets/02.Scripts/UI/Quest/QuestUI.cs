@@ -61,6 +61,8 @@ public class QuestUI : MonoBehaviour
 
     public void QuestCanvasSetting()
     {
+        progressQuestList.SetActive(true);
+        completeQuestList.SetActive(true);
 
 
         questlist = new List<QuestClear>();
@@ -70,24 +72,25 @@ public class QuestUI : MonoBehaviour
 
         Debug.Log("questlist.Count : " + questlist.Count);
         int i = 0;
- 
-            for (i = 0; i < questScript.questAcessList.Count; i++) //태그로 오브젝트 찾아옴.
-            {
-                Debug.Log("questAcessList.i : " + i);
-                Debug.Log(GameObject.FindGameObjectsWithTag("QuestPNameText").Length);
-                questlist[i].questName = GameObject.FindGameObjectsWithTag("QuestPNameText")[i].GetComponent<Text>();
-                questlist[i].questSummary = GameObject.FindGameObjectsWithTag("QuestPDescriptionText")[i].GetComponent<Text>();
-                questlist[i].questSuccessImage = GameObject.FindGameObjectsWithTag("QuestSuccessImage")[i].GetComponent<Image>();
-                questlist[i].questSuccessImage.enabled = false;
-                questlist[i].isClear = false;
 
-            }
-      
+        for (i = 0; i < questScript.questAcessList.Count; i++) //태그로 오브젝트 찾아옴.
+        {
+            Debug.Log("questAcessList.i : " + i);
+            Debug.Log(GameObject.FindGameObjectsWithTag("QuestPNameText").Length);
+            questlist[i].questName = GameObject.FindGameObjectsWithTag("QuestPNameText")[i].GetComponent<Text>();
+            questlist[i].questSummary = GameObject.FindGameObjectsWithTag("QuestPDescriptionText")[i].GetComponent<Text>();
+            questlist[i].questSuccessImage = GameObject.FindGameObjectsWithTag("QuestSuccessImage")[i].GetComponent<Image>();
+            questlist[i].questSuccessImage.enabled = false;
+            questlist[i].isClear = false;
+
+        }
+
 
         for (i = 0; i < questScript.questSuccessList.Count; i++) //태그로 오브젝트 찾아옴.
         {
             Debug.Log("SuccessList.i : " + (i + questScript.questAcessList.Count));
             Debug.Log(GameObject.FindGameObjectsWithTag("QuestCNameText").Length);
+
             questlist[i + questScript.questAcessList.Count].questName = GameObject.FindGameObjectsWithTag("QuestCNameText")[i].GetComponent<Text>();
             questlist[i + questScript.questAcessList.Count].questSummary = GameObject.FindGameObjectsWithTag("QuestCDescriptionText")[i].GetComponent<Text>();
 
@@ -132,22 +135,22 @@ public class QuestUI : MonoBehaviour
             // Debug.Log("i + aceesslist count : " + (i + questScript.questAcessList.Count));
             // Debug.Log("slot name :" + (i + questScript.questAcessList.Count) + " " + questlist[i + questScript.questAcessList.Count].questSlot.name);
             // Debug.Log("quest name" + (i + questScript.questAcessList.Count) + " " + questlist[i + questScript.questAcessList.Count].questName.text);
+
         }
 
         //======================첫 번째 항목의 세부정보 ==============================
-        if (i == 0)
-        {
-            questnameText.text = "퀘스트가 없습니다.";
-            questDescriptionText.text = "퀘스트가 없습니다.";
-            questSummary.text = "퀘스트가 없습니다.";
-            return;
-        }
+
         //questnameText.text = "퀘스트를 클릭해 주세요.";
         //questDescriptionText.text = "";
         //questSummary.text = "";
 
         if (isProgressQuest)
         {
+            if(questScript.questAcessList.Count == 0)
+            {
+                QuestBoradNullSetting();
+                return;
+            }
             questnameText.text = questScript.questAcessList[0].quest_name;
             questDescriptionText.text = questScript.questAcessList[0].content;
             questSummary.text = questScript.questAcessList[0].summary + "(" + questScript.questAcessList[0].questItemCur + "/" + questScript.questAcessList[0].questItemMax + ")";
@@ -155,11 +158,17 @@ public class QuestUI : MonoBehaviour
         }
         else
         {
+            if (questScript.questSuccessList.Count == 0)
+            {
+                QuestBoradNullSetting();
+                return;
+            }
             questnameText.text = questScript.questSuccessList[0].quest_name;
             questDescriptionText.text = questScript.questSuccessList[0].content;
             questSummary.text = questScript.questSuccessList[0].summary + "(" + questScript.questSuccessList[0].questItemCur + "/" + questScript.questSuccessList[0].questItemMax + ")";
             clickQuestName = questnameText.text;
         }
+
 
         //Debug.Log("isProgressQuest : " + isProgressQuest);
 
@@ -167,6 +176,14 @@ public class QuestUI : MonoBehaviour
         //questItemImage
         //questrewardsImage
 
+
+    }
+
+    public void QuestBoradNullSetting()
+    {
+        questnameText.text = "퀘스트가 없습니다.";
+        questDescriptionText.text = "퀘스트가 없습니다.";
+        questSummary.text = "퀘스트가 없습니다.";
 
     }
 
@@ -252,25 +269,45 @@ public class QuestUI : MonoBehaviour
 
     }
 
-    public void Removequestlist(string name)    //questCancel시
+
+    public void QuestSuccess(int npccode)
+    {
+        string str = questScript.SuccessquestComplete(npccode);
+        if (str == null)
+        {
+            Debug.Log("완료X");
+            return;
+        }
+   
+        Debug.Log("끝");
+        RemovequestSlot();
+        QuestCanvasSetting();
+
+    }
+
+    public void Removequestlist(string name)    //questCancel & questSucess
     {
         int i = 0;
         foreach (QuestClear str in questlist)
         {
+
             if (questlist[i].questName.text == name)
             {
                 Destroy(questlist[i].questSlot.gameObject);
 
-                questlist.Remove(str);
+
                 QuestBoardSetting();
                 npcQuestUIScript.QuestClear();
+                questlist.Remove(str);
+
                 npcQuestUIScript.NpcQuestListSetting();
-   
+
                 return;
             }
             i++;
         }
     }
+
 
     public void RemovequestSlot()       //슬롯 삭제
     {

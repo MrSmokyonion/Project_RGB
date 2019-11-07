@@ -11,13 +11,13 @@ public class SlotButtonChoiceUI : MonoBehaviour     //슬롯에서 항목 선택
     // Start is called before the first frame update
     void Start()
     {
-      
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     #region 스킬 세부사항
@@ -31,7 +31,6 @@ public class SlotButtonChoiceUI : MonoBehaviour     //슬롯에서 항목 선택
     #region 수리창
     public void SlotCheck() //수리할 목록 선택시
     {
-        
         repairScript.SlotClick(index);
     }
 

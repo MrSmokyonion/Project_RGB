@@ -26,6 +26,9 @@ public class NPCQuestUI : MonoBehaviour
     public List<QuestInfo> npcquestlist;
     public List<NpcQuestSlot> questslotlist;
 
+    private IEnumerator coroutine;
+
+
     public class NpcQuestSlot
     {
         public Text questName;
@@ -46,6 +49,8 @@ public class NPCQuestUI : MonoBehaviour
 
     public void NpcQuestListSetting()   //해당 NPC 퀘스트 받아오기
     {
+        //if(npcquestlist.Count!=0)
+            
         Debug.Log("NpcQuestListSetting");
 
         int questNpcCode = transform.parent.GetComponent<NPCMenuUI>().npcCode;
@@ -74,10 +79,13 @@ public class NPCQuestUI : MonoBehaviour
 
     public void NPCQuestBoardSetting(int index)
     {
-        npcQuestDialogue.text = npcquestlist[index].script;
+        coroutine = TypeText(npcquestlist[index].script, npcQuestDialogue, true);
+        StartCoroutine(coroutine);
+        //npcQuestDialogue.text = npcquestlist[index].script;
         questName.text = npcquestlist[index].quest_name;
+        
         questDescription.text = npcquestlist[index].content;
-        questSummary.text = "퀘스트 : " + npcquestlist[index].summary;
+        questSummary.text = "퀘스트 요약 : " + npcquestlist[index].summary;
 
         //questRewardImage = npcquestlist[index].quest_rewardImage;
         //npcImage = npcquestlist[index].npcImage;
@@ -119,6 +127,38 @@ public class NPCQuestUI : MonoBehaviour
         for (int i = 0; i < questslotlist.Count; i++)
             Destroy(questslotlist[i].questSlot);
         npcquestlist.Clear();
-        npcquestlist.Clear();
+        
+    }
+
+    public void ScriptBackgroundClick()
+    {
+        StopCoroutine(coroutine);
+        npcQuestDialogue.text = npcquestlist[clickslotindex].script;
+    }
+
+    public void QuestCompeleteScript(int index)
+    {
+       
+        npcQuestDialogue.text = npcquestlist[index].complete_script;
+        questScript.SuccessquestComplete(questNpcCode);
+    }
+
+    public IEnumerator TypeText(string TEXTString, Text label, bool check)
+    {
+
+        if (check == true)
+        {
+            label.text = "";
+            foreach (char letter in TEXTString.ToCharArray())
+            {
+
+                label.text += letter;
+                yield return new WaitForSeconds(0.03f);
+            }
+        }
+       
+        yield return new WaitForSeconds(1.0f);
+      
+         yield return null;
     }
 }
