@@ -42,7 +42,7 @@ public class QuestButtonUI : MonoBehaviour
     public void QuestMonsterCheckTest()
     {
         Debug.Log("!");
-        QuestUI.GetComponent<Quest>().QuestMonsterCheck(MonsterCode.WM101);
+        QuestUI.GetComponent<Quest>().QuestMonsterCheck(MonsterCode.FM201);
 
     }
 

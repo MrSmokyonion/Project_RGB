@@ -2,134 +2,226 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class SpawnClass
+public class SpawnClass : MonoBehaviour
 {
+    public UnlockClass unlock;
+    public Dictionary<SpawnCode, int> dict;
+
+    private void Start()
+    {
+        dict = new Dictionary<SpawnCode, int>();
+    }
+
+    public bool GetIsUnlocked(SpawnCode code)
+    {
+        return unlock.CheckCode(code);
+    }
+    public void UnlockCode(SpawnCode code, int durability = 100)
+    {
+        unlock.UnlockCode(code);
+        dict.Add(code, durability);
+    }
+
     #region Weapon
-    public static Weapon_Sword GetWeapon_Sword(SpawnCode weaponCode)
+    public Weapon_Sword GetWeapon_Sword(SpawnCode weaponCode)
     {
-        if (!UnlockClass.CheckCode(weaponCode)) return null;
+        if (!unlock.CheckCode(weaponCode)) return null;
 
+        Weapon_Sword tmp;
         switch (weaponCode)
         {
-            case SpawnCode.W001: return new Sword_Default();
+            case SpawnCode.W001: tmp = new Sword_Default(); break;
+            default: return null;
         }
-        return null;
+
+        //여기에 라우터로 장비 바꿨다는 포스트 날려야함
+        return tmp;
     }
 
-    public static Weapon_Spear GetWeapon_Spear(SpawnCode weaponCode)
+    public Weapon_Spear GetWeapon_Spear(SpawnCode weaponCode)
     {
-        if (!UnlockClass.CheckCode(weaponCode)) return null;
+        if (!unlock.CheckCode(weaponCode)) return null;
 
+        Weapon_Spear tmp;
         switch (weaponCode)
         {
-            case SpawnCode.W101: return new Spear_Default();
+            case SpawnCode.W101: tmp = new Spear_Default(); break;
+            default: return null;
         }
-        return null;
+
+        //여기에 라우터로 장비 바꿨다는 포스트 날려야함
+        return tmp;
     }
 
-    public static Weapon_Bow GetWeapon_Bow(SpawnCode weaponCode)
+    public Weapon_Bow GetWeapon_Bow(SpawnCode weaponCode)
     {
-        if (!UnlockClass.CheckCode(weaponCode)) return null;
+        if (!unlock.CheckCode(weaponCode)) return null;
 
+        Weapon_Bow tmp;
         switch (weaponCode)
         {
-            case SpawnCode.W201: return new Bow_Default();
+            case SpawnCode.W201: tmp = new Bow_Default(); break;
+            default: return null;
         }
-        return null;
+
+        //여기에 라우터로 장비 바꿨다는 포스트 날려야함
+        return tmp;
     }
     #endregion
 
     #region Equitment
-    public static Armor_Amulet GetArmor_Amulet(SpawnCode armorCode)
+    public Armor_Amulet GetArmor_Amulet(SpawnCode armorCode)
     {
-        if (!UnlockClass.CheckCode(armorCode)) return null;
+        if (!unlock.CheckCode(armorCode)) return null;
 
+        Armor_Amulet tmp;
         switch (armorCode)
         {
-            case SpawnCode.A001: return new Amulet_Default();
+            case SpawnCode.A001: tmp = new Amulet_Default(); break;
+            default: return null;
         }
-        return null;
+
+        //여기에 라우터로 장비 바꿨다는 포스트 날려야함
+        return tmp;
     }
 
-    public static Armor_Stone GetArmor_Stone(SpawnCode armorCode)
+    public Armor_Stone GetArmor_Stone(SpawnCode armorCode)
     {
-        if (!UnlockClass.CheckCode(armorCode)) return null;
+        if (!unlock.CheckCode(armorCode)) return null;
 
+        Armor_Stone tmp;
         switch (armorCode)
         {
-            case SpawnCode.S001: return new Stone_Default();
-            case SpawnCode.S002: return new Stone_ImproveSkill();
+            case SpawnCode.S001: tmp = new Stone_Default(); break;
+            default: return null;
         }
-        return null;
+
+        //여기에 라우터로 장비 바꿨다는 포스트 날려야함
+        return tmp;
     }
     #endregion
 
     #region Skill
-    public static Skill_Red GetSkill_Red(SpawnCode skillcode)
+    public Skill_Red GetSkill_Red(SpawnCode skillcode)
     {
-        if (!UnlockClass.CheckCode(skillcode)) return null;
+        if (!unlock.CheckCode(skillcode)) return null;
 
         switch (skillcode)
         {
-            case SpawnCode.R001: return new Skill_Red_Fire();
+            case SpawnCode.R001: return new Skill_Red_PiercingSpear();
+            default: return null;
         }
-        return null;
     }
-    public static Skill_Green GetSkill_Green(SpawnCode skillcode)
+    public Skill_Green GetSkill_Green(SpawnCode skillcode)
     {
-        if (!UnlockClass.CheckCode(skillcode)) return null;
+        if (!unlock.CheckCode(skillcode)) return null;
 
+        Skill_Green tmp;
         switch (skillcode)
         {
-            case SpawnCode.G001: return new Skill_Green_HighJump();
+            case SpawnCode.G001: tmp = new Skill_Green_HighJump(); break;
+            default: return null;
         }
-        return null;
+
+        //여기에 라우터로 장비 바꿨다는 포스트 날려야함
+        return tmp;
     }
-    public static Skill_Blue GetSkill_Blue(SpawnCode skillcode)
+    public Skill_Blue GetSkill_Blue(SpawnCode skillcode)
     {
-        if (!UnlockClass.CheckCode(skillcode)) return null;
+        if (!unlock.CheckCode(skillcode)) return null;
 
+        Skill_Blue tmp;
         switch (skillcode)
         {
-            case SpawnCode.B001: return new Skill_Blue_Shield();
+            case SpawnCode.B001: tmp = new Skill_Blue_Barrier(); break;
+            default: return null;
         }
-        return null;
+
+        //여기에 라우터로 장비 바꿨다는 포스트 날려야함
+        return tmp;
     }
     #endregion
 
     #region Food
-    public static BaseFood GetFood(SpawnCode foodcode)
+    public BaseFood GetFood(SpawnCode foodcode)
     {
-        if (!UnlockClass.CheckCode(foodcode)) return null;
+        if (!unlock.CheckCode(foodcode)) return null;
 
+        BaseFood tmp;
         switch (foodcode)
         {
-            case SpawnCode.F001: return new Food_Hamburger();
+            case SpawnCode.F001: tmp = new Food_Hamburger(); break;
+            default: return null;
         }
-        return null;
+
+        //여기에 라우터로 장비 바꿨다는 포스트 날려야함
+        return tmp;
     }
     #endregion
 }
 public enum SpawnCode
 {
-    //None
-    NONE,
+    #region Skill
 
-    //Skill R
-    R001,
-    G001, //HighJump
-    B001,
+    R001, //Skill_Red_PiercingSpear
+    R002, //Skill_Red_ArrowRain
+    R003, //Skill_Red_SwordTrap
+    R004, //Skill_Red_Turret
+    R005, //Skill_Red_PowerBuff
 
-    //Weapon
-    W001, //Default Sword
-    W101, //Default Spear
-    W201, //Default Bow
+    G001, //Skill_Green_HighJump
+    G002, //Skill_Green_Dash
+    G003, //Skill_Green_BackStep
+    G004, //Skill_Green_Charger
+    G005, //Skill_Green_MoveBuff
 
-    //Equitment
-    A001, //Default Amulet
-    S001, //Default Stone
-    S002, //ImproveSkill Stone
+    B001, //Skill_Blue_Barrier
+    B002, //Skill_Blue_Wall
+    B003, //Skill_Blue_Invisible
+    B004, //Skill_Blue_Shield
+    B005, //Skill_Blue_DefenceBuff
 
-    //Food
-    F001 //Hamburger
+    #endregion
+
+    #region Weapon
+    W001, //Sword_Default
+    W002, //Sword_HotTuna
+    W003, //Sword_BBQStick
+    W004, //Sword_Broad
+    W005, //Sword_MoonLight
+          //
+    W101, //Spear_Default
+    W102, //Spear_IceNalchi
+    W103, //Spear_Nyan
+    W104, //Spear_DangPa
+    W105, //Spear_PolarStar
+
+    W201, //Bow_Default
+    W202, //Bow_NoMoney
+    W203, //Bow_Dryed
+    W204, //Bow_Long
+    W205, //Bow_Apollo
+    #endregion
+
+    #region Equitment
+    A001, //Amulet_Default
+    A002, //Amulet_Richness
+    A003, //Amulet_Drain
+    A004, //Amulet_ImproveSkill
+    A005, //Amulet_PainPatch
+
+    S001, //Stone_Default
+    S002, //Stone_Magnetic
+    S003, //Stone_Guardian
+    S004, //Stone_Minor
+    S005, //Stone_Major
+    #endregion
+
+    #region Food
+    F001, //Food_Hamburger
+    F002, //Food_Pizza
+    F003, //Food_Noodle
+    F004, //Food_RiceBall
+    F005  //Food_Steak
+    #endregion
 }
