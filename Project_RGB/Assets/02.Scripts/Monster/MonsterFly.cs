@@ -11,6 +11,8 @@ public class MonsterFly : MonsterParent
             Invoke("PosAndMoveSystem", 0.1f);
     }
 
+    #region MoveSystem
+
     public void PosAndMoveSystem()
     {
         if (myMonsterInfo.monsterState != MonsterState.DEAD)
@@ -91,47 +93,9 @@ public class MonsterFly : MonsterParent
         }
     }
 
-    public void AttackSystem()
-    {
-        if (!isAttacking)                                                   //이미 공격 중이 아닐 때 공격
-        {
-            //----------------------------각각 공격 애니메이션 실행----------------------------
-            isAttacking = true;
-            myMonsterRigid.velocity = new Vector2(0, myMonsterRigid.velocity.y);
+    #endregion
 
-            AttackAnimation();
-
-            //----------------------------각각 공격 작용----------------------------
-            if (myMonsterCode == MonsterCode.FM201)                         //불타는 참치.
-            {
-            }
-            else if (myMonsterCode == MonsterCode.FM202)                    //얼음 날치.
-            {
-            }
-            else if (myMonsterCode == MonsterCode.FM203)                    //
-            {
-            }
-        }
-    }
-
-    public void AttackAnimation()
-    {
-        RuntimeAnimatorController ac = myMonsterAnimator.runtimeAnimatorController;
-        for (int i = 0; i < ac.animationClips.Length; i++)
-        {
-            string name1 = ac.animationClips[i].name.ToUpper();
-            string name2 = (myMonsterCode.ToString() + "_AttackAnimation").ToUpper();
-
-            Debug.Log("Whyyyyy!"+name2);
-
-            if (name1.Equals(name2))
-            {
-                attackingRunTime = ac.animationClips[i].length;
-            }
-        }
-        myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
-        Invoke("ResetIsAttacking", attackingRunTime);
-    }
+    #region AttackSystem
 
     public void AttackRangeCheckSystem()
     {
@@ -152,10 +116,84 @@ public class MonsterFly : MonsterParent
         }                                             //계속 체크
     }
 
+    public void AttackSystem()
+    {
+        if (!isAttacking)                                                   //이미 공격 중이 아닐 때 공격
+        {
+            //----------------------------각각 공격 애니메이션 실행----------------------------
+            isAttacking = true;
+            myMonsterRigid.velocity = new Vector2(0, myMonsterRigid.velocity.y);
+
+            AttackAnimation();
+
+            //----------------------------각각 공격 작용----------------------------
+            if (myMonsterCode == MonsterCode.FM201)                         //불타는 참치.
+            {
+            }
+            else if (myMonsterCode == MonsterCode.FM202)                    //얼음 날치.
+            {
+            }
+            else if (myMonsterCode == MonsterCode.FM203 || myMonsterCode == MonsterCode.FM205)      //무지개 새, 신전 순찰자.
+            {
+                int childNum = 0;
+                if (myMonsterCode == MonsterCode.FM203)
+                {
+                    childNum = Random.Range(0, 2);  //0~1
+                }
+                GameObject throwthing = transform.GetChild(childNum).gameObject;
+                GameObject summonedThrowWeapon = Instantiate(throwthing);
+                summonedThrowWeapon.transform.position = new Vector3(transform.position.x + 4, transform.position.y + 2, 0f);
+                MonstersThrowWeapon throwWeapon = summonedThrowWeapon.GetComponent<MonstersThrowWeapon>();
+                throwWeapon.gameObject.SetActive(true);
+                throwWeapon.StartGoToPlayer(myMonsterCode);
+            }
+            else if (myMonsterCode == MonsterCode.FM204)
+            {
+                if (transform.parent.childCount < 30)   //몬스터의 총 갯수가 30마리 이상이면 소환 안함.
+                {
+                    //Clone 소환.
+                    GameObject myClone = Instantiate(this.gameObject, transform.parent);
+                    myClone.transform.position = transform.position;
+
+
+                    MonsterFly myCloneInfos = myClone.GetComponent<MonsterFly>();
+                    myCloneInfos.myMonsterInfo.monsterDropGoldAmount = 0;   //돈 무한 생성 방지용!
+                    myCloneInfos.Awake();
+                    myCloneInfos.AttackAnimation();
+
+                    //분신 생성 후 분신도 자신도 텔레포트
+                    myClone.transform.position = PlayerObject.transform.position + new Vector3(Random.Range(-10f, 10f), Random.Range(10f, 15f));
+                    this.transform.position = PlayerObject.transform.position + new Vector3(Random.Range(-10f, 10f), Random.Range(10f, 15f));
+                }
+            }
+        }
+    }
+
+    public void AttackAnimation()
+    {
+        RuntimeAnimatorController ac = myMonsterAnimator.runtimeAnimatorController;
+        for (int i = 0; i < ac.animationClips.Length; i++)
+        {
+            string name1 = ac.animationClips[i].name.ToUpper();
+            string name2 = (myMonsterCode.ToString() + "_AttackAnimation").ToUpper();
+
+            Debug.Log("Whyyyyy!" + name2);
+
+            if (name1.Equals(name2))
+            {
+                attackingRunTime = ac.animationClips[i].length;
+            }
+        }
+        myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
+        Invoke("ResetIsAttacking", attackingRunTime);
+    }
+
     public void ResetIsAttacking()
     {
         isAttacking = false;                                                        //공격 애니메이션 끝남
         myMonsterAnimator.SetBool("IsAttacking", isAttacking);
         //Debug.Log("공격 끝남");
     }
+
+    #endregion
 }

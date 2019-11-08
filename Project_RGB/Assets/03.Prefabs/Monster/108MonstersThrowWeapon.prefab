@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4458073187973022328
 Transform:
   m_ObjectHideFlags: 0
@@ -131,4 +131,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c11f1db068fae846b8f92bf773053a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 10
+  throwThingSpeed: 10
+  lifeTime: 100

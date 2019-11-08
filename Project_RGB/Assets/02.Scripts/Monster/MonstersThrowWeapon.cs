@@ -30,18 +30,24 @@ public class MonstersThrowWeapon : MonoBehaviour
         switch (monsterCode)
         {
             case MonsterCode.WM106: //불타는 주술사
-                throwThingSpeed = 12; ChaseThePlayer(); lifeTime = 2.0f;
+                throwThingSpeed = 8; ChaseThePlayer(); lifeTime = 2.0f;
                 break;
             case MonsterCode.WM108: //얼음 펭귄
                 StartCoroutine(ParabolicExerciseToPlayer()); lifeTime = 7.0f;
                 break;
+            case MonsterCode.WM110: //무지개 장미
+                throwThingSpeed = 30; FireToPlayer(); lifeTime = 3.0f;
+                break;
+            case MonsterCode.FM203: //무지개 새
+                throwThingSpeed = 7; ChaseThePlayer(); lifeTime = 2.5f;
+                break;
             case MonsterCode.BM302: //타오르는 피닉스
                 throwThingSpeed = 30; FireToPlayer(); lifeTime = 3.0f;
                 break;
-            case MonsterCode.BM303:
+            case MonsterCode.BM303: //얼음네시
                 if (attackType == 1)
                 {
-                    throwThingSpeed = 5; lifeTime = 3.0f;
+                    throwThingSpeed = 12; lifeTime = 3.0f;
                     JustGoToFront(isLRM);
                     //파도 공격!!!
                 }
@@ -59,9 +65,20 @@ public class MonstersThrowWeapon : MonoBehaviour
                     FireToPlayer();
                 }
                 break;
+            case MonsterCode.BM304: //해바라기 사자
+                if (attackType == 2)   //꽃잎 발싸! (랜덤위치, 랜덤속도, 수평으로 날아감.)
+                {
+                    throwThingSpeed = 10; lifeTime = 4f;
+                    //ChaseThePlayer();
+                    StartCoroutine(irregularStraightThrowToPlayer(isLRM));
+                    //쫓아가랏 눈송이!!!!
+                }
+                break;
         }
-
-        Invoke("Dead", lifeTime);
+        if (goToPlayer)
+        {
+            Invoke("Dead", lifeTime);
+        }
     }
 
     private void ChaseThePlayer()
@@ -259,6 +276,37 @@ public class MonstersThrowWeapon : MonoBehaviour
         {
             myRigid.velocity = new Vector2(throwThingSpeed, myRigid.velocity.y);
         }
+    }
+
+    private IEnumerator irregularStraightThrowToPlayer(int isLRM)
+    {
+
+        List<GameObject> myClones = new List<GameObject>();
+        int objectCount = Random.Range(5, 11);   //5~10개 발싸!
+        for (int i = 0; i < objectCount; i++)
+            myClones.Add(Instantiate(this.gameObject, transform.parent));
+
+        foreach (GameObject clone in myClones)
+        {
+            clone.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + Random.Range(-5.0f, 5.0f));
+
+            if (isLRM == 1)                                                         //왼쪽에 플레이어가 있음
+            {
+                clone.GetComponent<Rigidbody2D>().velocity = new Vector2(-throwThingSpeed, clone.GetComponent<Rigidbody2D>().velocity.y);
+            }
+            else if (isLRM == 2)                                                    //오른쪽에 플레이어가 있음
+            {
+                clone.GetComponent<Rigidbody2D>().velocity = new Vector2(throwThingSpeed, clone.GetComponent<Rigidbody2D>().velocity.y);
+            }
+
+            Destroy(clone, lifeTime);
+            yield return new WaitForSeconds(Random.Range(0.1f, 0.2f));
+        }
+
+        //foreach (GameObject c in myClones)
+        //{
+        //    Destroy(c, lifeTime);
+        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

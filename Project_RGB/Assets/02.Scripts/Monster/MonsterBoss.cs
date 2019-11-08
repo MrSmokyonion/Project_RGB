@@ -10,8 +10,10 @@ public class MonsterBoss : MonsterParent
     public override void MyStart()
     {
         Invoke("AttackRangeCheckSystem", 0.5f); //0.5초에 한번씩 범위 및 공격 체크.
-        Invoke("PosAndMoveSystem", 0.1f);
+        Invoke("PosAndMoveSystem", 0.2f);
     }
+
+    #region MoveSystem
 
     public void PosAndMoveSystem()
     {
@@ -26,7 +28,7 @@ public class MonsterBoss : MonsterParent
 
             MoveSystem();
 
-            Invoke("PosAndMoveSystem", 0.1f);
+            Invoke("PosAndMoveSystem", 0.5f);
         }
     }
 
@@ -53,6 +55,34 @@ public class MonsterBoss : MonsterParent
                 myMonsterRigid.velocity = new Vector2(0, myMonsterRigid.velocity.y);
             }
 
+        }
+    }
+
+    #endregion
+
+    #region AttackSystem
+
+    public void AttackRangeCheckSystem()
+    {
+        if (myMonsterInfo.monsterState != MonsterState.DEAD)
+        {
+            if (!isAttacking)
+            {
+                //--------------------------범위 체크--------------------------
+                pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
+                mPosXY = new Vector2(this.transform.position.x, this.transform.position.y);
+
+                if (Mathf.Sqrt(((pPosXY.x - mPosXY.x) * (pPosXY.x - mPosXY.x)) + ((pPosXY.y - mPosXY.y) * (pPosXY.y - mPosXY.y))) < myMonsterInfo.monsterAttackRange)
+                {
+                    attackType = 1; //일반공격1
+                }
+                else
+                {
+                    attackType = Random.Range(2, 4); //특수공격2,3
+                }
+                AttackSystem();
+            }
+            Invoke("AttackRangeCheckSystem", 0.5f);                                                 //계속 체크
         }
     }
 
@@ -103,7 +133,7 @@ public class MonsterBoss : MonsterParent
                     Instantiate(boosAttackPrefabList[1]);
                 }
             }
-            else if (myMonsterCode == MonsterCode.BM303)
+            else if (myMonsterCode == MonsterCode.BM303)                        //얼음 내시
             {
                 if (attackType == 1)                                            //파도 공격!
                 {
@@ -128,12 +158,26 @@ public class MonsterBoss : MonsterParent
                     for (int i = 0; i < count; i++) //0,1,2,3,4
                     {
                         summonedThrowWeaponList.Add(Instantiate(boosAttackPrefabList[2]));
-                        summonedThrowWeaponList[i].transform.position = new Vector3(transform.position.x, transform.position.y + (i * 8f), transform.position.z);
+                        summonedThrowWeaponList[i].transform.position = new Vector3(transform.position.x, transform.position.y + i * 3, transform.position.z);
                         MonstersThrowWeapon throwWeapon = summonedThrowWeaponList[i].GetComponent<MonstersThrowWeapon>();
                         throwWeapon.gameObject.SetActive(true);
                         throwWeapon.StartGoToPlayer(myMonsterCode, attackType);
                     }
-
+                }
+            }
+            else if (myMonsterCode == MonsterCode.BM304)                             //해바라기 사자
+            {
+                if (attackType == 1)                                            //일반공격 : 할퀴기
+                {
+                }
+                else if (attackType == 2)                                       //꽃잎들 발사!
+                {
+                    MonstersThrowWeapon throwWeaponScript = Instantiate(transform.GetChild(0).gameObject).GetComponent<MonstersThrowWeapon>(); //꽃을 가져옴.
+                    throwWeaponScript.gameObject.SetActive(true);
+                    throwWeaponScript.StartGoToPlayer(myMonsterCode, attackType, isLRM);
+                }
+                else if (attackType == 3)                                       //울부짖기 (디버프)
+                {
                 }
             }
         }
@@ -160,27 +204,6 @@ public class MonsterBoss : MonsterParent
         }
     }
 
-    public void AttackRangeCheckSystem()
-    {
-        if (myMonsterInfo.monsterState != MonsterState.DEAD)
-        {
-            if (!isAttacking)
-            {
-                //--------------------------범위 체크--------------------------
-                if (Mathf.Sqrt(((pPosXY.x - mPosXY.x) * (pPosXY.x - mPosXY.x)) + ((pPosXY.y - mPosXY.y) * (pPosXY.y - mPosXY.y))) < myMonsterInfo.monsterAttackRange)
-                {
-                    attackType = 1; //일반공격1
-                }
-                else
-                {
-                    attackType = Random.Range(2, 4); //특수공격2,3
-                }
-                AttackSystem();
-            }
-            Invoke("AttackRangeCheckSystem", 0.5f);                                                 //계속 체크
-        }
-    }
-
     public void ResetIsAttacking()
     {
         isAttacking = false;                                                        //공격 애니메이션 끝남
@@ -189,4 +212,6 @@ public class MonsterBoss : MonsterParent
         myMonsterAnimator.SetInteger("AttackType", attackType);
         //Debug.Log("공격 끝남");
     }
+
+    #endregion
 }
