@@ -13,11 +13,7 @@ public enum SceneType
     TOWN,
     CHOICE_DUNGEON,
     TUTORIAL,
-    DUNGEON_CHAPTER_1,
-    DUNGEON_CHAPTER_2,
-    DUNGEON_CHAPTER_3,
-    DUNGEON_CHAPTER_4,
-    DUNGEON_CHAPTER_5
+    DUNGEON_CHAPTER
 }
 
 public class SceneManager : MonoBehaviour
@@ -49,11 +45,9 @@ public class SceneManager : MonoBehaviour
             case SceneType.TOWN: scene = "TownScene"; break;
             case SceneType.CHOICE_DUNGEON: scene = "ChoiceDungeonScene"; break;
             case SceneType.TUTORIAL:
-            case SceneType.DUNGEON_CHAPTER_1:
-            case SceneType.DUNGEON_CHAPTER_2:
-            case SceneType.DUNGEON_CHAPTER_3:
-            case SceneType.DUNGEON_CHAPTER_4:
-            case SceneType.DUNGEON_CHAPTER_5: scene = "DungeonChapterScene"; break;
+            case SceneType.DUNGEON_CHAPTER : scene = "DungeonChapterScene"; break;
+
+                //SplashScene, TitleScene, TownScene, ChoiceDungeonScene, DungeonChapterScene
         }
         UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
     }
