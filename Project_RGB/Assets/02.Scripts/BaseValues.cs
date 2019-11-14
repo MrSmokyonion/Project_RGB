@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseValues
+public abstract class BaseValues : MonoBehaviour
 {
     public string title;
     public string description;

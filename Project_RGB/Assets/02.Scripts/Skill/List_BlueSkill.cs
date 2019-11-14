@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Skill_Blue_Barrier : Skill_Blue
@@ -84,10 +85,11 @@ public class Skill_Blue_Shield : Skill_Blue
 
 public class Skill_Blue_DefenceBuff : Skill_Blue
 {
+    GameObject target = null;
     public Skill_Blue_DefenceBuff()
     {
-        value1 = 0;
-        value2 = 15;
+        value1 = 9999;
+        value2 = 5;
         delay = 25f;
 
         title = "풀 아머";
@@ -99,5 +101,19 @@ public class Skill_Blue_DefenceBuff : Skill_Blue
     public override void ExecuteSkill(GameObject obj)
     {
         Debug.Log("Blue Skill -> " + title);
+
+        obj.GetComponent<PlayerStatus>().defence += (int)value1;
+        target = obj;
+
+        Thread thread = new Thread(new ThreadStart(CancelSkill));
+        thread.Start();
+        thread.Join();
+        Debug.Log("여기입니다 SOSOSOSOSOSOSOOSOSOSOSOOSOSOSOSOOSOSOS");
+    }
+
+    void CancelSkill()
+    {
+        Thread.Sleep((int)value2 * 1000);
+        target.GetComponent<PlayerStatus>().defence -= (int)value1;
     }
 }
