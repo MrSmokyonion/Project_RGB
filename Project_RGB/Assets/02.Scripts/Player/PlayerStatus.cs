@@ -22,22 +22,18 @@ public class PlayerStatus : MonoBehaviour
     public int defence;
     public float range;
 
+    [Header("Load Out")]
+    public GameObject skill;
+    public GameObject weapon;
+    public GameObject armor;
+    public GameObject food;
+
     [Header("etc")]
     public GameObject projectile;
     public ControlManager cm;
     public StatusChanger changer;
-
-    //스킬 변수
-    public Skill_Red red;
-    public Skill_Green green;
-    public Skill_Blue blue;
-
-    //장비 변수
-    public Base_Weapon weapon;
-    public Armor_Amulet amulet;
-    public Armor_Stone stone;
-
-    public BaseFood food;
+    public SkillEffect.SkillCollector skillCollector;
+    
 
     //쿨타임 변수들
     private float d_weapon;
@@ -45,42 +41,44 @@ public class PlayerStatus : MonoBehaviour
     private float d_green;
     private float d_blue;
 
-
     #region Init
     private void Start()
     {
-        PlayerPrefs.SetString("UserCode", "#9a1d002a");
+        //PlayerPrefs.SetString("UserCode", "#9a1d002a");
 
-        changer.ChangeSkill(SpawnCode.R001, this);
-        changer.ChangeSkill(SpawnCode.G001, this);
-        changer.ChangeSkill(SpawnCode.B001, this);
-        changer.ChangeWeapon(SpawnCode.W201, this);
-        changer.ChangeArmor(SpawnCode.A001, this);
-        changer.ChangeArmor(SpawnCode.S001, this);
+        changer.ChangeSkill(SpawnCode.R001, gameObject, skill);
+        changer.ChangeSkill(SpawnCode.G001, gameObject, skill);
+        changer.ChangeSkill(SpawnCode.B005, gameObject, skill);
+        changer.ChangeWeapon(SpawnCode.W201, gameObject, weapon);
+        changer.ChangeArmor(SpawnCode.A001, gameObject, armor);
+        changer.ChangeArmor(SpawnCode.S001, gameObject, armor);
+        Debug.Log(skill.GetComponent<Skill_Red>());
     }
 
     public void Init_Weapon()
     {
-        if (weapon is Weapon_Sword)
+        Base_Weapon _Weapon = weapon.GetComponent<Base_Weapon>();
+
+        if (_Weapon is Weapon_Sword)
         {
             range = 0.5f;
             attack_range = new Vector2(1f, 1f);
             cm.SetAttackUI(0);
         }
-        if (weapon is Weapon_Spear)
+        if (_Weapon is Weapon_Spear)
         {
             range = 0.3f;
             attack_range = new Vector2(2f, 0.5f);
             cm.SetAttackUI(1);
-            projectile.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load(weapon.spritePath, typeof(Sprite)) as Sprite;
+            //projectile.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load(weapon.spritePath, typeof(Sprite)) as Sprite;
         }
-        if (weapon is Weapon_Bow)
+        if (_Weapon is Weapon_Bow)
         {
             range = 0.1f;
             attack_range = new Vector2(1f, 1f);
             cm.SetAttackUI(2);
         }
-        power = weapon.power;
+        power = _Weapon.power;
     }
     public void Init_Skill()
     {
@@ -94,100 +92,100 @@ public class PlayerStatus : MonoBehaviour
     }
     public void Init_Food()
     {
-        foodBonusHp = food.foodBonusHp;
+        foodBonusHp = food.GetComponent<BaseFood>().foodBonusHp;
     }
 
     public void Init_AllData(string[] data)
     {
-        for(int i = 0; i<data.Length; i++)
-        {
-            string[] str = data[i].Split('&');
-            string[] str2 = str[0].Split('!');
+        //for(int i = 0; i<data.Length; i++)
+        //{
+        //    string[] str = data[i].Split('&');
+        //    string[] str2 = str[0].Split('!');
 
-            switch(i)
-            {
-                case 0: maxHp = int.Parse(str[0]); break;
-                case 1: power = int.Parse(str[0]); break;
-                case 2: defence = int.Parse(str[0]); break;
+        //    switch(i)
+        //    {
+        //        case 0: maxHp = int.Parse(str[0]); break;
+        //        case 1: power = int.Parse(str[0]); break;
+        //        case 2: defence = int.Parse(str[0]); break;
                         
-                case 3:
-                    for (int j = 1; j < str2.Length; j++)
-                    {
-                        if (str2[j] == "false") continue;
+        //        case 3:
+        //            for (int j = 1; j < str2.Length; j++)
+        //            {
+        //                if (str2[j] == "false") continue;
 
-                        string tmp = "R" + "00" + j.ToString();
-                        changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
-                    }
+        //                string tmp = "R" + "00" + j.ToString();
+        //                changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
+        //            }
 
-                    if (str2[0] == "none") red = null;
-                    else changer.ChangeSkill((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
-                        break;
-                case 4:
-                    for (int j = 1; j < str2.Length; j++)
-                    {
-                        if (str2[j] == "false") continue;
+        //            if (str2[0] == "none") red = null;
+        //            else changer.ChangeSkill((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
+        //                break;
+        //        case 4:
+        //            for (int j = 1; j < str2.Length; j++)
+        //            {
+        //                if (str2[j] == "false") continue;
 
-                        string tmp = "G" + "00" + j.ToString();
-                        changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
-                    }
+        //                string tmp = "G" + "00" + j.ToString();
+        //                changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
+        //            }
 
-                    if (str2[0] == "none") green = null;
-                    else changer.ChangeSkill((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
-                    break;
-                case 5:
-                    for (int j = 1; j < str2.Length; j++)
-                    {
-                        if (str2[j] == "false") continue;
+        //            if (str2[0] == "none") green = null;
+        //            else changer.ChangeSkill((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
+        //            break;
+        //        case 5:
+        //            for (int j = 1; j < str2.Length; j++)
+        //            {
+        //                if (str2[j] == "false") continue;
 
-                        string tmp = "B" + "00" + j.ToString();
-                        changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
-                    }
+        //                string tmp = "B" + "00" + j.ToString();
+        //                changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
+        //            }
 
-                    if (str2[0] == "none") blue = null;
-                    else changer.ChangeSkill((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
-                    break;
+        //            if (str2[0] == "none") blue = null;
+        //            else changer.ChangeSkill((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
+        //            break;
 
-                case 6:
-                    //이부분은 다시 상의할 필요가 있어보임
-                    for (int j = 1; j < str.Length; j++)
-                    {
-                        str2 = str[j].Split('!');
-                        for(int k = 0; k < str2.Length; k = k + 2)
-                        {
-                            if (str2[k] == "false") continue;
+        //        case 6:
+        //            //이부분은 다시 상의할 필요가 있어보임
+        //            for (int j = 1; j < str.Length; j++)
+        //            {
+        //                str2 = str[j].Split('!');
+        //                for(int k = 0; k < str2.Length; k = k + 2)
+        //                {
+        //                    if (str2[k] == "false") continue;
 
-                            string tmp = "W" + (j - 1).ToString() + "0" + (k + 1).ToString();
-                            changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
-                        }
-                    }
-                    changer.ChangeWeapon((SpawnCode)Enum.Parse(typeof(SpawnCode), str[0].ToUpper()), this);
-                    break;
-                case 7:
-                    for (int j = 1; j < str2.Length; j++)
-                    {
-                        if (str2[j] == "false") continue;
+        //                    string tmp = "W" + (j - 1).ToString() + "0" + (k + 1).ToString();
+        //                    changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
+        //                }
+        //            }
+        //            changer.ChangeWeapon((SpawnCode)Enum.Parse(typeof(SpawnCode), str[0].ToUpper()), this);
+        //            break;
+        //        case 7:
+        //            for (int j = 1; j < str2.Length; j++)
+        //            {
+        //                if (str2[j] == "false") continue;
 
-                        string tmp = "A" + "00" + j.ToString();
-                        changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
-                    }
+        //                string tmp = "A" + "00" + j.ToString();
+        //                changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
+        //            }
 
-                    if (str2[0] == "none") amulet = null;
-                    else changer.ChangeArmor((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
-                    break;
-                case 8:
-                    for (int j = 1; j < str2.Length; j++)
-                    {
-                        if (str2[j] == "false") continue;
+        //            if (str2[0] == "none") amulet = null;
+        //            else changer.ChangeArmor((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
+        //            break;
+        //        case 8:
+        //            for (int j = 1; j < str2.Length; j++)
+        //            {
+        //                if (str2[j] == "false") continue;
 
-                        string tmp = "S" + "00" + j.ToString();
-                        changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
-                    }
+        //                string tmp = "S" + "00" + j.ToString();
+        //                changer.UnlockCode((SpawnCode)Enum.Parse(typeof(SpawnCode), tmp));
+        //            }
 
-                    if (str2[0] == "none") stone = null;
-                    else changer.ChangeArmor((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
-                    break;
-            }
-        }
+        //            if (str2[0] == "none") stone = null;
+        //            else changer.ChangeArmor((SpawnCode)Enum.Parse(typeof(SpawnCode), str2[0].ToUpper()), this);
+        //            break;
+        //    }
+        //}
     }
     #endregion
 
@@ -221,9 +219,11 @@ public class PlayerStatus : MonoBehaviour
     #region Attack <==> Interact
     public void Attack() //근접 공격 함수
     {
+        Base_Weapon _weapon = weapon.GetComponent<Base_Weapon>();
+
         if (IsAttackDelay() == false) return;
-        Debug.Log(weapon.title + " 공격!");
-        d_weapon = weapon.delay;
+        Debug.Log(_weapon.title + " 공격!");
+        d_weapon = _weapon.delay;
 
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(attack_pos.position, attack_range, 0);
         for (int i = 0; i < collider2Ds.Length; i++)
@@ -241,28 +241,30 @@ public class PlayerStatus : MonoBehaviour
     }
     public void Attack(float angle, Vector2 dir) //원거리 공격 함수
     {
+        Base_Weapon _weapon = weapon.GetComponent<Base_Weapon>();
+
         if (IsAttackDelay() == false) return;
-        Debug.Log(weapon.title + " 공격!");
-        d_weapon = weapon.delay;
+        Debug.Log(_weapon.title + " 공격!");
+        d_weapon = _weapon.delay;
 
         GameObject obj = Instantiate(projectile, attack_pos.position, Quaternion.Euler(0f, 0f, angle));
 
         Arrow ar = obj.GetComponent<Arrow>();
-        ar.power = weapon.power;
-        ar.spritePath = weapon.spritePath;
+        ar.power = _weapon.power;
+        ar.spritePath = _weapon.spritePath;
 
         Rigidbody2D rid = obj.GetComponent<Rigidbody2D>();
-        if (weapon is Weapon_Spear)
+        if (_weapon is Weapon_Spear)
         {
             rid.bodyType = RigidbodyType2D.Kinematic;
-            rid.velocity = dir * ((Weapon_Spear)weapon).speed;
+            rid.velocity = dir * ((Weapon_Spear)_weapon).speed;
             ar.destroyDelay = 1.0f;
         }
-        else if (weapon is Weapon_Bow)
+        else if (_weapon is Weapon_Bow)
         {
             dir += new Vector2(0f, 0.2f);
             rid.bodyType = RigidbodyType2D.Dynamic;
-            rid.velocity = dir * ((Weapon_Bow)weapon).speed;
+            rid.velocity = dir * ((Weapon_Bow)_weapon).speed;
         }
     }
 
@@ -283,12 +285,27 @@ public class PlayerStatus : MonoBehaviour
     {
         if (IsSkillDelay(ss) == false) return;
 
+        Base_Skill bs;
         switch (ss)
         {
-            case SkillState.Red: red.ExecuteSkill(gameObject); d_red = red.delay; break;
-            case SkillState.Green: green.ExecuteSkill(gameObject); d_green = green.delay; break;
-            case SkillState.Blue: blue.ExecuteSkill(gameObject); d_blue = blue.delay; break;
+            case SkillState.Red:
+                bs = skill.GetComponent<Skill_Red>();
+                d_red = bs.delay;
+                break;
+
+            case SkillState.Green:
+                bs = skill.GetComponent<Skill_Green>();
+                d_green = bs.delay;
+                break;
+
+            case SkillState.Blue:
+                bs = skill.GetComponent<Skill_Blue>();
+                d_blue = bs.delay;
+                break;
+
+            default: return;
         }
+        bs.ExecuteSkill(gameObject);
     }
 
     #endregion

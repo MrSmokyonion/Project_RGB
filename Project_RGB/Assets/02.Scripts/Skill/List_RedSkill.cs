@@ -18,7 +18,16 @@ public class Skill_Red_PiercingSpear : Skill_Red //101
 
     public override void ExecuteSkill(GameObject obj)
     {
-        Debug.Log("Red Skill -> Fire!");
+        Debug.Log("Red Skill -> PiercingSpear!");
+        bool dir = obj.GetComponent<SpriteRenderer>().flipX;
+
+        GameObject go = GameObject.Instantiate(obj.GetComponent<PlayerStatus>().skillCollector.piercingSpear);
+        SkillEffect.PiercingSpear ps = go.GetComponent<SkillEffect.PiercingSpear>();
+
+        Vector3 pos = obj.transform.position;
+        go.transform.position = new Vector2(pos.x + (dir ? -1.0f : 1.0f), pos.y);
+
+        ps.speed = (dir ? -8.0f : 8.0f);
     }
 }
 

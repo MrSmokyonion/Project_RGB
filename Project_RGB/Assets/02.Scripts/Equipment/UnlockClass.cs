@@ -14,7 +14,7 @@ public class UnlockClass : MonoBehaviour
 
         list.Add(SpawnCode.R001);
         list.Add(SpawnCode.G001);
-        list.Add(SpawnCode.B001);
+        list.Add(SpawnCode.B005);
 
         list.Add(SpawnCode.W001);
         list.Add(SpawnCode.W101);
