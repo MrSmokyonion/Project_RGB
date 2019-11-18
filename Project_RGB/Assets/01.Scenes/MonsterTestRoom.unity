@@ -640,6 +640,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb487e3af84f6db4e8950673b9a98bcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nowChapterNumber: -2
+  nowStageNumber: -2
   chapter012345_Prefab: []
 --- !u!4 &129602420
 Transform:
@@ -4183,7 +4185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &482487586
 Transform:
   m_ObjectHideFlags: 0
@@ -6100,7 +6102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &750726644
 Transform:
   m_ObjectHideFlags: 0
@@ -18829,12 +18831,12 @@ PrefabInstance:
     - target: {fileID: 3108915123111008111, guid: a0ad1d0977674f14f96f11bd978e2e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -29.772346
+      value: -34.52
       objectReference: {fileID: 0}
     - target: {fileID: 3108915123111008111, guid: a0ad1d0977674f14f96f11bd978e2e9e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.972092
+      value: 9.02
       objectReference: {fileID: 0}
     - target: {fileID: 3108915123111008111, guid: a0ad1d0977674f14f96f11bd978e2e9e,
         type: 3}
@@ -19413,22 +19415,22 @@ PrefabInstance:
     - target: {fileID: 6176462571870401374, guid: 826201f268c0c9b40bd7d3c945452021,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 5.05
+      value: 5.3700004
       objectReference: {fileID: 0}
     - target: {fileID: 6176462571870401374, guid: 826201f268c0c9b40bd7d3c945452021,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 5.25
+      value: 5.1299996
       objectReference: {fileID: 0}
     - target: {fileID: 6176462571870401373, guid: 826201f268c0c9b40bd7d3c945452021,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 5.05
+      value: 5.3700004
       objectReference: {fileID: 0}
     - target: {fileID: 6176462571870401373, guid: 826201f268c0c9b40bd7d3c945452021,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 5.25
+      value: 5.1299996
       objectReference: {fileID: 0}
     - target: {fileID: 6176462571870401371, guid: 826201f268c0c9b40bd7d3c945452021,
         type: 3}
@@ -20433,15 +20435,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: BM301
       objectReference: {fileID: 0}
+    - target: {fileID: 8691980829683074631, guid: 718f7b63255cc1a428b467de05ba2510,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8691980829683074624, guid: 718f7b63255cc1a428b467de05ba2510,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -81.6
+      value: -75.96
       objectReference: {fileID: 0}
     - target: {fileID: 8691980829683074624, guid: 718f7b63255cc1a428b467de05ba2510,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1
+      value: 0.69
       objectReference: {fileID: 0}
     - target: {fileID: 8691980829683074624, guid: 718f7b63255cc1a428b467de05ba2510,
         type: 3}

@@ -68,7 +68,7 @@ public class NetworkRouter : MonoBehaviour
 
 
 
-    private const string ip = "172.16.33.176";      // IP : 61.81.99.35 (외부)
+    private const string ip = "172.16.39.248";      // IP : 61.81.99.35 (외부)
     private const int port = 3000;                  // Port
     private string url;                             // Uniform Resource Locator
                                                     // uri : Uniform Resource Identifier
@@ -154,7 +154,7 @@ public class NetworkRouter : MonoBehaviour
                     StartCoroutine(WWWUpdateQuestItem(info17.quest_code_str, info17.questItemCur));
                     break;
                 case PostType.PLAYER_DUNGEON_STATE_UPDATE:
-                    StartCoroutine(WWWUpdateChapterState("chapter001"));
+                    StartCoroutine(WWWUpdateChapterState(((SceneType)target).ToString()));
                     break;
                 case PostType.PLAYER_CHARACTER_REMOVE:
                     StartCoroutine(WWWRemoveCaharacter("#9a1f002b"));

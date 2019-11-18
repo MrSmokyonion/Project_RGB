@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/01.Scenes/VillageTestRoom.unity
     guid: 0a176b97f5f7bb144b3781267c79d537
-  - enabled: 0
+  - enabled: 1
     path: Assets/01.Scenes/DungeonSelectionTestRoom.unity
     guid: 2fa0cc6a595fc084286dc73ff6075122
   - enabled: 1
@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01.Scenes/InputTestRoom.unity
     guid: aa64e67404fac364084ee63cefaa2fce
+  - enabled: 1
+    path: Assets/01.Scenes/MonsterTestRoom.unity
+    guid: 01fa3b80400f36540b259abf1c8579da
   m_configObjects: {}

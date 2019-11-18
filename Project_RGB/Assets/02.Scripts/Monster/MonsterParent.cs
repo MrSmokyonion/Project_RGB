@@ -30,12 +30,11 @@ public enum MonsterCode
 }
 
 //몬스터 상태.
-public enum MonsterState    //상의★몬스터 현 상태를 굳이 알아야하는가?
+public enum MonsterState
 {
     IDLE,       //대기
-    MOVE,       //이동
+    WALK,       //이동
     ATTACK,     //공격
-    JUMP,       //점프
     ATTACKED,   //피격
     DEAD        //죽음
 }
@@ -320,6 +319,44 @@ public class MonsterParent : MonoBehaviour
     }
 
     #endregion
+
+    
+    public void AnimationStateSet(MonsterState nowState)
+    {
+        myMonsterInfo.monsterState = nowState;
+
+        myMonsterAnimator.SetBool(MonsterState.IDLE.ToString(), false);
+        myMonsterAnimator.SetBool(MonsterState.WALK.ToString(), false);
+        myMonsterAnimator.SetBool(MonsterState.ATTACK.ToString(), false);
+        myMonsterAnimator.SetBool(MonsterState.ATTACKED.ToString(), false);
+        myMonsterAnimator.SetBool(MonsterState.DEAD.ToString(), false);
+
+        if (nowState == MonsterState.IDLE)
+        {
+            Debug.Log(MonsterState.IDLE.ToString() + ":true");
+            myMonsterAnimator.SetBool(MonsterState.IDLE.ToString(), true);
+        }
+        if (nowState == MonsterState.WALK)
+        {
+            Debug.Log(MonsterState.WALK.ToString() + ":true");
+            myMonsterAnimator.SetBool(MonsterState.WALK.ToString(), true);
+        }
+        if (nowState == MonsterState.ATTACK)
+        {
+            Debug.Log(MonsterState.ATTACK.ToString() + ":true");
+            myMonsterAnimator.SetBool(MonsterState.ATTACK.ToString(), true);
+        }
+        if (nowState == MonsterState.ATTACKED)
+        {
+            Debug.Log(MonsterState.ATTACKED.ToString() + ":true");
+            myMonsterAnimator.SetBool(MonsterState.ATTACKED.ToString(), true);
+        }
+        if (nowState == MonsterState.DEAD)
+        {
+            Debug.Log(MonsterState.DEAD.ToString() + ":true");
+            myMonsterAnimator.SetBool(MonsterState.DEAD.ToString(), true);
+        }
+    }
 
     #region About Dead
 

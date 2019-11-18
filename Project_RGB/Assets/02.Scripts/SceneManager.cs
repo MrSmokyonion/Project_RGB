@@ -45,7 +45,7 @@ public class SceneManager : MonoBehaviour
             case SceneType.TOWN: scene = "TownScene"; break;
             case SceneType.CHOICE_DUNGEON: scene = "ChoiceDungeonScene"; break;
             case SceneType.TUTORIAL:
-            case SceneType.DUNGEON_CHAPTER : scene = "DungeonChapterScene"; break;
+            case SceneType.DUNGEON_CHAPTER : scene = "MonsterTestRoom"; break;
 
                 //SplashScene, TitleScene, TownScene, ChoiceDungeonScene, DungeonChapterScene
         }
