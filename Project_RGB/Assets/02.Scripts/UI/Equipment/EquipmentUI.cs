@@ -17,6 +17,7 @@ public class EquipmentUI : MonoBehaviour
     public Slider StatsSlider2;
     public Slider StatsSlider3;
 
+    
     // Start is called before the first frame update
     void Start()
     {

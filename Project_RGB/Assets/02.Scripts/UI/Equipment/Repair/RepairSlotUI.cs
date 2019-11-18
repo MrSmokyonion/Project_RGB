@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//public class RepairItemInfo
-//{
-//    public int durablity;
-//   // public bool isclick;
-//    public int Itemindex;
-
-//}
+public class RepairItemInfo
+{
+    public Image ItemImage;
+    public Text goldText;
+    public Text itemNameText;
+}
 
 public class RepairSlotUI : MonoBehaviour
 {
     // public Item clickItem;
     public int slotNumber;
-    public Image[] RepairSlotArray; //아이템 배열
+    public RepairItemInfo[]RepairSlotArray; //아이템 배열
+    //public  Item[][] ItemList;
 
     public RepairPanelUI repairPanelUIScript;
     //=============== UI 변수들 ======================
     public GameObject repairCheckPanel;
+    public GameObject AllRepairCheckPanel;
     //=================================================
     //플레이어 쪽에서 쿠폰 가져오기
 
@@ -37,9 +38,14 @@ public class RepairSlotUI : MonoBehaviour
 
     public void RepairSlotSetting()
     {
+
         if (slotNumber == 0)
         {
             //무기
+            //for (int i = 0; i < ItemList.GetLength(0); i++)
+            //{
+            //    RepairSlotArray[i] = ItemList[0][i].Weapon?
+            //}
         }
         else if (slotNumber == 1)
         {
@@ -77,6 +83,7 @@ public class RepairSlotUI : MonoBehaviour
     {
         //전체 수리 비용 계산
         //Ui띄우기
+        AllRepairCheckPanel.SetActive(true);
     }
 
 }

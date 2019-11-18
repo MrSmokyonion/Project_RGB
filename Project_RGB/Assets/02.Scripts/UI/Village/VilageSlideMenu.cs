@@ -44,6 +44,7 @@ public class VilageSlideMenu : MonoBehaviour
     public void QuestMenuButton()
     {
         Debug.Log("questMenuCanvas : " + questMenuCanvas.enabled);
+        questMenuCanvas.GetComponent<QuestUI>().QuestBoardSetting();
         questMenuCanvas.enabled = true;
     }
 

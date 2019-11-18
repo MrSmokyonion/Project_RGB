@@ -11,6 +11,7 @@ public class DungeonSelectionImageUI : MonoBehaviour
     public int index = 0;
     public Slider slider;
 
+    public SceneManager sceneManagerScript;
     // Start is called before the first frame update
 
 
@@ -71,7 +72,9 @@ public class DungeonSelectionImageUI : MonoBehaviour
         //index 저장
         PlayerPrefs.SetInt("DUNGEON_NUM", index + 1);
         Debug.Log(index + 1);
+
         //씬매니저에게 해당 index 씬 바꿔달라 요청
+        sceneManagerScript.ChangeScene(SceneType.DUNGEON_CHAPTER);
     }
 
 }

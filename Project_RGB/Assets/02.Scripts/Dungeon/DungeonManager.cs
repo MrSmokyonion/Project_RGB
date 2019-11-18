@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
-    int nowChapterNumber = -2;              // 0는 튜토리얼, -2는 로딩이 안된 것.
-    int nowStageNumber = -2;                // 스테이지 1, 2, 3... , -2는 로딩이 안된 것.
+    public int nowChapterNumber = -2;              // 0는 튜토리얼, -2는 로딩이 안된 것.
+    public int nowStageNumber = -2;                // 스테이지 1, 2, 3... , -2는 로딩이 안된 것.
     int maxClearStageNumber = -1;            // 기본 -1, 튜토리얼 클리어 후 0, 1챕터 클리어 후 -> 1로 변경.
 
     public Dictionary<string/*"stage"+number*/, int> stageMonsterCount = new Dictionary<string, int>(); //(Inspecter)
@@ -14,11 +14,13 @@ public class DungeonManager : MonoBehaviour
 
     private void Awake()
     {
-
+        //index 저장
+        nowChapterNumber = PlayerPrefs.GetInt("DUNGEON_NUM");
+        nowStageNumber = 1;
         //    //지금 Chapter가 어디인지 확인 ( 씬 넘겨서, 로컬에 저장했던 것 가져옴!) TARGET_SCENE?
 
         //    //지금 챕터에 따른 chapter 소환
-        //    Instantiate(chapter012345_Prefab[nowChapterNumber], this.transform/*0,0위치에 소환.(플레이어도 처음 소환 위치 0,0 맞춰줘야함.)*/);//튜토리얼은 0번째.
+        Instantiate(chapter012345_Prefab[nowChapterNumber], this.transform/*0,0위치에 소환.(플레이어도 처음 소환 위치 0,0 맞춰줘야함.)*/);//튜토리얼은 0번째.
 
     }
 

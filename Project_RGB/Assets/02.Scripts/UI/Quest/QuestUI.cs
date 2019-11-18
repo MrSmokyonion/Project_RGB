@@ -242,7 +242,7 @@ public class QuestUI : MonoBehaviour
 
         QuestInfo choicequest = null;
 
-        choicequest = questScript.FindNameToQuestCode(name);
+        choicequest = questScript.FindNameToQuestInfo(name);
 
 
         if (choicequest == null)
@@ -261,7 +261,7 @@ public class QuestUI : MonoBehaviour
 
     public void QuestCancle(string name)
     {
-        QuestInfo index = questScript.FindNameToQuestCode(name);
+        QuestInfo index = questScript.FindNameToQuestInfo(name);
         if (index == null)
             return;
         questScript.RemoveQuest(index);

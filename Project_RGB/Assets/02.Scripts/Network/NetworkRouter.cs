@@ -68,7 +68,7 @@ public class NetworkRouter : MonoBehaviour
 
 
 
-    private const string ip = "172.16.33.176";      // IP : 61.81.99.35 (외부)
+    private const string ip = "192.168.25.40";      // IP : 61.81.99.35 (외부)
     private const int port = 3000;                  // Port
     private string url;                             // Uniform Resource Locator
                                                     // uri : Uniform Resource Identifier
@@ -204,7 +204,7 @@ public class NetworkRouter : MonoBehaviour
         else
         {
             // 유저코드 생성(획득)
-            GameObject.FindObjectOfType<LocalDataStorage>().InitPlayerLocalData(www.downloadHandler.text);
+            //GameObject.FindObjectOfType<LocalDataStorage>().InitPlayerLocalData(www.downloadHandler.text);
             Debug.Log("[라우터] 캐릭터 생성 완료!\n" + www.downloadHandler.text + "\n" + www.responseCode);
         }
     }
@@ -358,7 +358,6 @@ public class NetworkRouter : MonoBehaviour
                     case "quest022": questData[21] = doc[1]; break;
                 }
             }
-
             quest.LoadQuestData(questData);                                 // Quest Information
             Debug.Log("[라우터] 캐릭터 퀘스트 데이터 불러오기 완료!\n" + datas);
         }

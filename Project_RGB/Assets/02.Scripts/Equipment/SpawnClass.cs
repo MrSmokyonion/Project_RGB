@@ -161,6 +161,8 @@ public class SpawnClass : MonoBehaviour
 }
 public enum SpawnCode
 {
+    NONE,
+
     #region Skill
 
     R001, //Skill_Red_PiercingSpear

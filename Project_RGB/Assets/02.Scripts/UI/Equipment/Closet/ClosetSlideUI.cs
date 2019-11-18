@@ -11,38 +11,13 @@ public class ClosetSlideUI : MonoBehaviour
 
     //public Image rockImage;
     public Scrollbar scrollbar;
-
-    //*****************************UI 변수들************************************
-    public Image itemImage;
-    public Text itemNameText;
-    public Text itemValueText1;
-    public Text itemValueText2;
-    public Text itemValueText3;
-    public Text itemValueText4;
-    public Slider itemSlider;
-    public Text itemDurability;
-    public Text itemdescription;
-
-    public Image useitemImage;
-    public Text useitemNameText;
-    public Text useitemValueText1;
-    public Text useitemValueText2;
-    public Text useitemValueText3;
-    public Text useitemValueText4;
-    public Slider useitemSlider;
-    public Text useitemDurability;
-    public Text useitemdescription;
-
-    public Image nowUseItemImage;
-
-    //**************************************************************************
+    public GameObject panel;
 
     public bool isSlotClick = false;
     public int index;
     public int[] useEquipment = new int[3];
     public int sortNumber;
     public int thisSlotNumber;
-    public int count;
     private void Start()
     {
         if (thisSlotNumber == 0)
@@ -87,88 +62,7 @@ public class ClosetSlideUI : MonoBehaviour
         }
     }
 
-    public void MyClosetBoardSetting()   //내가 입고있는 장비 성능확인창UI
-    {
-        //현재 클릭된 슬롯 확인
-        if (thisSlotNumber == 0)
-        {
-            //itemArray = Weapon
-        }
-        else if (thisSlotNumber == 1)
-        {
-            //itemArray = Amulet
-        }
-        else
-        {
-            //itemArray = Rock
-        }
-        //플레이어에서 장착중인 장비 가져오기
 
-        //useitemImage;
-        //useitemNameText;
-        //useitemValueText1;
-        //useitemValueText2;
-        //useitemValueText3;
-        //useitemValueText4;
-        //useitemSlider;
-        //useitemDurability;
-        //useitemdescription;
-    }
-
-    //public void ClosetBoardSetting()    // 선택된 장비
-    //{
-    //    int arrayColumn = index;  //선택 된 인덱스 >> 계산 후에 Column
-    //    //플레이어에서 선택된 장비 가져오기
-    //    //리스트에서 현재 선택된 장비의 인덱스 찾아 저장해두고 UI 출력
-
-    //    int arrayRow = 0;
-    //    if (thisSlotNumber == 0)
-    //    {
-    //        while (true)
-    //        {
-    //            if (arrayColumn >= Array.GetLength(arrayRow))
-    //            {
-    //                arrayColumn -= Array.GetLength(arrayRow);
-    //            }
-    //            else
-    //            {
-    //                break;
-    //            }
-
-    //            arrayRow++;
-    //        }
-
-    //        if (isSlotClick == true)
-    //        {
-    //            //closetSlotImageArray = new RectTransform[10];
-    //            //itemImage.sprite = 
-    //            //itemNameText.text = WeaponArray[thisSlotNumber][arrayColumn].itemNmae;
-    //            //itemValueText1.text =
-    //            //itemValueText2.text =
-    //            //itemValueText3.text =
-    //            //itemValueText4.text =
-    //            //itemSlider.value =
-    //            //itemDurability;
-    //itemdescription;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (isSlotClick == true)
-    //        {
-    //            //closetSlotImageArray = new RectTransform[10];
-    //            //itemImage.sprite = 
-    //            //itemNameText.text = WeaponArray[thisSlotNumber][arrayColumn].itemNmae;
-    //            //itemValueText1.text =
-    //            //itemValueText2.text =
-    //            //itemValueText3.text =
-    //            //itemValueText4.text =
-    //            //itemSlider.value =
-    //useitemdescription;
-    //        }
-    //    }
-
-    //}
 
     public void ClosetSlotImageSizeReset()//커진 이미지를 원상태로
     {
@@ -181,7 +75,7 @@ public class ClosetSlideUI : MonoBehaviour
                 closetSlotImageArray[i].GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector3(150.0f, 150.0f, 1.0f);
                 closetSlotImageArray[i].GetChild(1).GetComponent<RectTransform>().sizeDelta = new Vector3(150.0f, 150.0f, 1.0f);
                 closetSlotImageArray[i].GetChild(2).GetComponent<RectTransform>().sizeDelta = new Vector3(150.0f, 150.0f, 1.0f);
-                count = 0;
+                panel.SetActive(true);
             }
 
         }
@@ -197,26 +91,10 @@ public class ClosetSlideUI : MonoBehaviour
     public void ClosetSlotClick()   //리스트 클릭시 커지게, 2번 클릭시 해당 인덱스 장비 착용.
     {
         isSlotClick = true;
-        count++;
-        if (count >= 2)
-        {
-            //현재 착용 장비를 해당 인덱스의 장비로 바꾸기
-            //Player쪽 ChangeWeapon
-            //nowUseItem();
-        }
         StartCoroutine("ClosetSlotClick_Corutine");
     }
 
-    public void nowUseItem()    //현재 장착 장비 UI 기능
-    {
-        //for(int i = 0; itemList.Count;i++)
-        //{
-        //    if(itemList[i].nowUse == true)
-        //    {
-        //        closetSlotImageArray[i + 2].GetComponent<Image>().sprite = closetSlotImageArray[i + 2].GetChild(1).GetComponent<Image>().sprite;
-        //    }
-        //}
-    }
+
 
     public void ItemUnLock()    //해금된 아이템 이미지 안보이게 & 새로얻은 아이템 이미지 false로 만들기
     {
@@ -252,7 +130,7 @@ public class ClosetSlideUI : MonoBehaviour
         while (gameObject.GetComponent<RectTransform>().localScale.x <= 2.2f)
         {
             gameObject.GetComponent<RectTransform>().localScale = Vector2.Lerp(gameObject.GetComponent<RectTransform>().localScale, new Vector2(2.3f, 2.3f), 0.2f);
-
+            panel.SetActive(false);
             yield return new WaitForSeconds(0.01f);
 
 
