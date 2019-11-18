@@ -5,7 +5,7 @@ using UnityEngine;
 public class MonsterBoss : MonsterParent
 {
     int attackType = 0; //공격아님0, 기본 1, 특수 2, 특수 3 ...
-    public List<GameObject> boosAttackPrefabList;
+    public List<GameObject> bossAttackPrefabList;
 
     public override void MyStart()
     {
@@ -104,14 +104,14 @@ public class MonsterBoss : MonsterParent
                 }
                 else if (attackType == 2)                                       //타겟팅 공격 (적당한 프리팹이 없음..)
                 {
-                    boosAttackPrefabList[0].transform.position = pPosXY;
-                    Instantiate(boosAttackPrefabList[0]);
+                    bossAttackPrefabList[0].transform.position = pPosXY;
+                    Instantiate(bossAttackPrefabList[0]);
 
                 }
                 else if (attackType == 3)                                       //Boss위치에 몬스터 소환(걷는 꽃)
                 {
-                    boosAttackPrefabList[1].transform.position = mPosXY;
-                    Instantiate(boosAttackPrefabList[1]);
+                    bossAttackPrefabList[1].transform.position = mPosXY;
+                    Instantiate(bossAttackPrefabList[1]);
                 }
             }
             else if (myMonsterCode == MonsterCode.BM302)                        //타오르는 피닉스
@@ -121,7 +121,7 @@ public class MonsterBoss : MonsterParent
                 }
                 else if (attackType == 2)                                       //깃털을 던져서 공격!
                 {
-                    GameObject summonedThrowWeapon = Instantiate(boosAttackPrefabList[0]);
+                    GameObject summonedThrowWeapon = Instantiate(bossAttackPrefabList[0]);
                     summonedThrowWeapon.transform.position = this.transform.position;
                     MonstersThrowWeapon throwWeapon = summonedThrowWeapon.GetComponent<MonstersThrowWeapon>();
                     throwWeapon.gameObject.SetActive(true);
@@ -129,15 +129,15 @@ public class MonsterBoss : MonsterParent
                 }
                 else if (attackType == 3)                                       //타겟팅 공격 (적당한 프리팹이 없음..)
                 {
-                    boosAttackPrefabList[1].transform.position = pPosXY;
-                    Instantiate(boosAttackPrefabList[1]);
+                    bossAttackPrefabList[1].transform.position = pPosXY;
+                    Instantiate(bossAttackPrefabList[1]);
                 }
             }
             else if (myMonsterCode == MonsterCode.BM303)                        //얼음 내시
             {
                 if (attackType == 1)                                            //파도 공격!
                 {
-                    GameObject summonedThrowWeapon = Instantiate(boosAttackPrefabList[0]);
+                    GameObject summonedThrowWeapon = Instantiate(bossAttackPrefabList[0]);
                     summonedThrowWeapon.transform.position = this.transform.position;
                     MonstersThrowWeapon throwWeapon = summonedThrowWeapon.GetComponent<MonstersThrowWeapon>();
                     throwWeapon.gameObject.SetActive(true);
@@ -145,7 +145,7 @@ public class MonsterBoss : MonsterParent
                 }
                 else if (attackType == 2)                                       //눈송이 쫓아가기 공격!
                 {
-                    GameObject summonedThrowWeapon = Instantiate(boosAttackPrefabList[1]);
+                    GameObject summonedThrowWeapon = Instantiate(bossAttackPrefabList[1]);
                     summonedThrowWeapon.transform.position = this.transform.position;
                     MonstersThrowWeapon throwWeapon = summonedThrowWeapon.GetComponent<MonstersThrowWeapon>();
                     throwWeapon.gameObject.SetActive(true);
@@ -157,7 +157,7 @@ public class MonsterBoss : MonsterParent
                     List<GameObject> summonedThrowWeaponList = new List<GameObject>();
                     for (int i = 0; i < count; i++) //0,1,2,3,4
                     {
-                        summonedThrowWeaponList.Add(Instantiate(boosAttackPrefabList[2]));
+                        summonedThrowWeaponList.Add(Instantiate(bossAttackPrefabList[2]));
                         summonedThrowWeaponList[i].transform.position = new Vector3(transform.position.x, transform.position.y + i * 3, transform.position.z);
                         MonstersThrowWeapon throwWeapon = summonedThrowWeaponList[i].GetComponent<MonstersThrowWeapon>();
                         throwWeapon.gameObject.SetActive(true);
@@ -208,7 +208,7 @@ public class MonsterBoss : MonsterParent
     {
         isAttacking = false;                                                        //공격 애니메이션 끝남
         attackType = 0;
-        myMonsterAnimator.SetBool("IsAttacking", isAttacking);
+        AnimationStateSet(MonsterState.IDLE);
         myMonsterAnimator.SetInteger("AttackType", attackType);
         //Debug.Log("공격 끝남");
     }

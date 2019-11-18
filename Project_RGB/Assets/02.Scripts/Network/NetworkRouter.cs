@@ -154,7 +154,7 @@ public class NetworkRouter : MonoBehaviour
                     StartCoroutine(WWWUpdateQuestItem(info17.quest_code_str, info17.questItemCur));
                     break;
                 case PostType.PLAYER_DUNGEON_STATE_UPDATE:
-                    StartCoroutine(WWWUpdateChapterState("chapter001"));
+                    StartCoroutine(WWWUpdateChapterState(((SceneType)target).ToString()));
                     break;
                 case PostType.PLAYER_CHARACTER_REMOVE:
                     StartCoroutine(WWWRemoveCaharacter("#9a1f002b"));

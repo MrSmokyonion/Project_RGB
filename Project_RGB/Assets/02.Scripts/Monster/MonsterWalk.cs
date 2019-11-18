@@ -9,6 +9,8 @@ public class MonsterWalk : MonsterParent
     {
         Debug.Log("MyStart");
 
+        AnimationStateSet(MonsterState.IDLE);
+
         Invoke("AttackRangeCheckSystem", 0.2f);
 
         if (myMonsterCode == MonsterCode.WM112)  //따로 대기 애니메이션. (배경인척 테두리가 없지만 뭔가 흔들리고 있음.)
@@ -26,8 +28,10 @@ public class MonsterWalk : MonsterParent
 
     public void PosAndMoveSystem()
     {
-        if (myMonsterInfo.monsterState != MonsterState.DEAD)
+        if ((myMonsterInfo.monsterState == MonsterState.IDLE) && (myMonsterInfo.monsterState != MonsterState.DEAD))
         {
+            AnimationStateSet(MonsterState.WALK);
+
             //플레이어와 몬스터 각각의 x,y값
             pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
             mPosXY = new Vector2(this.transform.position.x, this.transform.position.y);
@@ -75,7 +79,7 @@ public class MonsterWalk : MonsterParent
     {
         if (myMonsterInfo.monsterState != MonsterState.DEAD)
         {
-            if (!isAttacking)
+            if (!isAttacking)   //공격중이 아닐 때. 공격범위 체크.
             {
                 //--------------------------범위 체크--------------------------
                 pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
@@ -96,9 +100,10 @@ public class MonsterWalk : MonsterParent
         {
             //----------------------------각각 공격 애니메이션 실행----------------------------
             isAttacking = true;
+            AnimationStateSet(MonsterState.ATTACK);
             myMonsterRigid.velocity = new Vector2(0, myMonsterRigid.velocity.y);
 
-            AttackAnimation();
+            AttackDelayTimerSet();
 
             //----------------------------각각 공격 작용----------------------------
             if (myMonsterCode == MonsterCode.WM101)
@@ -130,7 +135,7 @@ public class MonsterWalk : MonsterParent
         }
     }
 
-    public void AttackAnimation()
+    public void AttackDelayTimerSet()
     {
         RuntimeAnimatorController ac = myMonsterAnimator.runtimeAnimatorController;
         for (int i = 0; i < ac.animationClips.Length; i++)
@@ -150,8 +155,7 @@ public class MonsterWalk : MonsterParent
     public void ResetIsAttacking()
     {
         isAttacking = false;                                                        //공격 애니메이션 끝남
-        myMonsterAnimator.SetBool("IsAttacking", isAttacking);
-        //Debug.Log("공격 끝남");
+        AnimationStateSet(MonsterState.IDLE);
     }
 
     #endregion
