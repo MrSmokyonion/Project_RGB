@@ -92,7 +92,6 @@ public class Quest : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        PlayerPrefs.SetString("USERCODE", "#9b0e0001");
 
         Screen.SetResolution(1920, 1080, false);
         QuestList();
@@ -100,8 +99,8 @@ public class Quest : MonoBehaviour
         UIQuestList();
         RequestQuestData();
         // test
-        PlayerPrefs.SetString("UserCode", "#9a1d002a"); // #00000000
-        Debug.LogWarning(PlayerPrefs.GetString("UserCode"));
+        PlayerPrefs.SetString("USERCODE", "#9a1e0001"); // #00000000
+        Debug.LogWarning(PlayerPrefs.GetString("USERCODE"));
     }
 
     // Update is called once per frame

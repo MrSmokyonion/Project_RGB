@@ -276,7 +276,7 @@ public class MonsterParent : MonoBehaviour
     public void Awake()
     {
                                                                                             //Awake에서 quest 찾아서 넣어두기. (모든 코드에서 실행되도록...)
-        PlayerObject = GameObject.Find("MonsterPlayer_Sample");
+        PlayerObject = GameObject.Find("Player");
         quest = GameObject.Find("DungeonCanvas").GetComponent<Quest>();
 
         if (myMonsterCode != MonsterCode.PARENT)                                            //부모 일 경우 정보 불러오지 않음
