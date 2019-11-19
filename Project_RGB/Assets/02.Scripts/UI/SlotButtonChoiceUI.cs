@@ -7,7 +7,7 @@ public class SlotButtonChoiceUI : MonoBehaviour     //슬롯에서 항목 선택
     public int index;
     public SkillDetailUI skilldetailScript;
     public RepairSlotUI repairScript;
-
+    public ClosetSlideSlotClick closetSlideSlotClickScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +34,14 @@ public class SlotButtonChoiceUI : MonoBehaviour     //슬롯에서 항목 선택
         repairScript.SlotClick(index);
     }
 
+
+    #endregion
+
+    #region 장비(옷장)창
+    public void SlotItemClick()
+    {
+        closetSlideSlotClickScript.SlotItemClick(index);
+    }
 
     #endregion
 }

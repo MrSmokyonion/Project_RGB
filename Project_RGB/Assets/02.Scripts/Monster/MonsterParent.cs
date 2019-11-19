@@ -95,7 +95,7 @@ public class MonsterInfoList
 
         //Walk Monsters
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM101, false, "걷는 꽃", MonsterState.IDLE,
-            10, 10, 100, 4, 0,
+            10, 10, 10, 4, 0,
             101, 0, SpawnCode.NONE));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM102, false, "뛰는 돌", MonsterState.IDLE,
             10, 10, 100, 5, 10,
@@ -277,6 +277,7 @@ public class MonsterParent : MonoBehaviour
     {
                                                                                             //Awake에서 quest 찾아서 넣어두기. (모든 코드에서 실행되도록...)
         PlayerObject = GameObject.Find("MonsterPlayer_Sample");
+        quest = GameObject.Find("DungeonCanvas").GetComponent<Quest>();
 
         if (myMonsterCode != MonsterCode.PARENT)                                            //부모 일 경우 정보 불러오지 않음
         {
@@ -373,8 +374,7 @@ public class MonsterParent : MonoBehaviour
         int ranY = Random.Range(100, 201);      //min ~ max-1
         gold.transform.position = GetComponent<Transform>().position;
         gold.GetComponent<Rigidbody2D>().AddForce(new Vector3(ranX, ranY, 0));              //위 방향으로 랜덤 발사
-
-
+        
         //-------------------------보스일 때 확률적으로 아이템 드랍-------------------------
         if (myMonsterInfo.isBoss)
         {
@@ -399,9 +399,13 @@ public class MonsterParent : MonoBehaviour
             //죽는 애니메이션과 동시에 아이템 드롭. 그 후 사라짐
             myMonsterAnimator.SetTrigger("Dead");
             DropGoldAndItems();
+            Debug.Log("test111111");
             Invoke("Dead",2f);
             //퀘스트에 해당하는 몬스터 일 시
-            //quest.QuestMonsterCheck(myMonsterCode);
+            Debug.Log("222222222222");
+            quest.QuestMonsterCheck(myMonsterCode);
+            Debug.Log("5555555555555");
+
         }
         else
         {
@@ -416,7 +420,6 @@ public class MonsterParent : MonoBehaviour
         //Quest 쪽에도 알려주기.
         //펑!하고 사라져야함.(Effect)
 
-        quest.QuestMonsterCheck(myMonsterCode);
         Destroy(this.gameObject);
     }
 
@@ -436,6 +439,8 @@ public class MonsterParent : MonoBehaviour
             //Player의 무기/스킬/함정에 접촉 처리.
             //데미지 만큼 myMonsterInfo.monsterHp 깎음
             //자폭 몬스터 있나?..
+            //Base_Weapon bW = col.gameObject.GetComponent<Base_Weapon>();
+            myMonsterInfo.monsterHp -= 10;//bW.power;
             DeadCheck();
         }
     }
