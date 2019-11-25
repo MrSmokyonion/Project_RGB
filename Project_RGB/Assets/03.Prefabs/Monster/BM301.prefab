@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300044, guid: 8c7b6b3d76d53ee4da5ec21b8ec43b78, type: 3}
+  m_Sprite: {fileID: 21300084, guid: d95507af3bddad145baa31845367ad8f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,7 +123,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.97, y: 8.190001}
+    oldSize: {x: 7.3099995, y: 9.7699995}
     newSize: {x: 1.8000001, y: 2.54}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -149,7 +149,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.97, y: 8.190001}
+    oldSize: {x: 7.3099995, y: 9.7699995}
     newSize: {x: 1.8000001, y: 2.54}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -183,11 +183,8 @@ MonoBehaviour:
   attackOrder: 0
   isAttacking: 0
   attackingRunTime: 0
-  isDameged: 0
-  bossSummonAttackPrefab: {fileID: 1914425088494309762, guid: ad5a1c36030329b47a66ef41aac4a4f7,
-    type: 3}
-  bossSummonMonsterPrefab: {fileID: 3108915123111008100, guid: a0ad1d0977674f14f96f11bd978e2e9e,
-    type: 3}
+  isDamaged: 0
+  bossAttackPrefabList: []
 --- !u!95 &8691980829683074625
 Animator:
   serializedVersion: 3
