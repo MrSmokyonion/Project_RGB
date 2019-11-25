@@ -186,7 +186,7 @@ public class Quest : MonoBehaviour
         questInfoList.Add(new QuestInfo("Q007", 6, 1, 2, QuestState.enable, QuestType.Type_Kill, MonsterCode.WM104, 5, QuestRewardCode.Repair_Coupon, 3000, 0, 0,
             "전설의 검을 위하여", "대장장이가 좋은 무기를 만들어준다고 한다. 불타는 용암 폭포에서 불타는 돌을 처치하여 불의 돌 5개를 구해다 주자.", "불의 돌 수집", "허허허! 자네 더 좋은 무기가 가지고 싶지 않으가!? 좋은 돌을 가져오면 내 하나 만들어줌세!!", "으하하! 좋은 재료를 가져왔는데 망쳐버렸구만!! 미안허이! 대신 수리쿠폰을 줌세!"));
 
-        questInfoList.Add(new QuestInfo("Q008", 7, 4, 2, QuestState.enable, QuestType.Type_Kill, MonsterCode.FM201, 5, QuestRewardCode.Equipment, 3000, 0, 0,
+        questInfoList.Add(new QuestInfo("Q008", 7, 4, 2, QuestState.enable, QuestType.Type_Kill, MonsterCode.FM201, 5, QuestRewardCode.Equipment, 3000, SpawnCode.W002, 0,
             "참치가 먹고 싶은 고양이", "길고양이가 갑자기 길목을 막아서더니 바닥에 참치 그림을 그렸다. 불타는 용암 폭포에서 불타는 참치를 처치하여 뜨거운 참치 5마리를 구해다 주자.", "뜨거운 참치", "마옹.(바닥에 참치를 그린다)", "(하악질)"));
 
         questInfoList.Add(new QuestInfo("Q009", 8, 5, 2, QuestState.enable, QuestType.Gold_Collect, 0, 7000, QuestRewardCode.Equipment, 3000, SpawnCode.S002, 0,
@@ -231,7 +231,7 @@ public class Quest : MonoBehaviour
         questInfoList.Add(new QuestInfo("Q020", 19, 2, 5, QuestState.enable, QuestType.Type_Kill, MonsterCode.WM113, 10, QuestRewardCode.Equipment, 3000, SpawnCode.S005, 0,
             "재료가 필요해", "요정이 돌을 만드는데 재료가 부족하다고 한다. 정령을 모시는 신전에서 신전 케로베로스를 잡아 케로베로스의 심장을 10개 가져다 주자.", "케로베로스의 심장", "돌을 만드는데 재료가 부족해.마력이 가득 담긴 무언가를 가져다줄래?", "오오…! 정말 고마워! 덕분에 좋은 돌을 만들 수 있겠어!"));
 
-        questInfoList.Add(new QuestInfo("Q021", 20, 3, 5, QuestState.enable, QuestType.Type_Kill, MonsterCode.OM405, 1, QuestRewardCode.Equipment, 3000, SpawnCode.R003, 0,
+        questInfoList.Add(new QuestInfo("Q021", 20, 3, 5, QuestState.enable, QuestType.Type_Kill, MonsterCode.OM405, 1, QuestRewardCode.Equipment, 3000, SpawnCode.A004, 0,
             "더 강력한 힘", "정령들이 정령을 모시는 신전에 색의 정수를 숨겨두었다고 한다. 정령을 모시는 신전에서 색의 정수 1개를 찾아 가져다 주자.", "색의 정수", "우리가 예전에 비상시를 대비하여 우리의 힘을 담은 색의 정수를 정령을 모시는 신전 어딘가에 숨겨뒀어.위치는 기억나지 않지만 찾아다 줄 수 있어?", "고마워! 앞으로 더 강력한 스킬을 쓸 수 있을거야."));
 
         questInfoList.Add(new QuestInfo("Q022", 21, 5, 5, QuestState.enable, QuestType.Gold_Collect, 0, 20000, QuestRewardCode.Equipment, 20000, SpawnCode.W202, 0,
@@ -370,8 +370,10 @@ public class Quest : MonoBehaviour
             if ((questAcessList[i].quest_npc_code == npccode) && (questAcessList[i].questItemMax == questAcessList[i].questItemCur)) //퀘스트 npc 확인
             {
 
-                //보상 처리
+                //******************************************보상 처리******************************************
+             
 
+                //*********************************************************************************************
                 questSuccessList.Add(questAcessList[i]);
                 playerQuestList[questAcessList[i].quest_code].quest_state = QuestState.success;
 
@@ -450,7 +452,48 @@ public class Quest : MonoBehaviour
         return dungeonQuestList;
     }
 
+    public void QuestReward(QuestInfo quest)
+    {
+        QuestRewardCode rewardCode = quest.quest_reward_type;
+        switch (rewardCode)
+        {
+            case QuestRewardCode.Equipment:
 
+                //********************아이템 얻는 코드************************
+                //quest.quest_reward_item
+                //************************************************************
+
+                break;
+
+            case QuestRewardCode.Only_Gold:
+
+                //********************골드 얻는 코드************************
+                //quest.quest_reward_gold
+                //************************************************************
+
+                break;
+
+            case QuestRewardCode.Repair_Coupon:
+
+                //********************쿠폰 얻는 코드************************
+
+                //************************************************************
+
+                break;
+
+            case QuestRewardCode.Skill:
+
+                //********************스킬 얻는 코드************************
+                //quest.quest_reward_item
+                //************************************************************
+
+                break;
+
+
+
+        }
+
+    }
     #endregion
 
 
