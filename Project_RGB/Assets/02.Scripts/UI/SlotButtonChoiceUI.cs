@@ -25,6 +25,7 @@ public class SlotButtonChoiceUI : MonoBehaviour     //슬롯에서 항목 선택
     {
         //장비 쪽에 알리기
         //skilldetailScript.useSkillImage.sprite = skillList[index].Image;
+
     }
     #endregion
 

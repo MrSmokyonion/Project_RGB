@@ -43,13 +43,13 @@ public class DungeonUI : MonoBehaviour
 
     public void Questsetting()
     {
-        //Quest에서 해당 던전 quest 가져오기  
-        List<QuestInfo> dungeonQuestList = questScript.GetDungeonQuestList(dungeonManager.nowChapterNumber);
+        ////Quest에서 해당 던전 quest 가져오기  
+        //List<QuestInfo> dungeonQuestList = questScript.GetDungeonQuestList(dungeonManager.nowChapterNumber);
 
-        questText.text = null;
+        //questText.text = null;
 
-        for (int i = 0; i < dungeonQuestList.Count; i++)
-            questText.text += dungeonQuestList[i].summary + " : " + dungeonQuestList[i].questItemCur + Environment.NewLine;
+        //for (int i = 0; i < dungeonQuestList.Count; i++)
+        //    questText.text += dungeonQuestList[i].summary + " : " + dungeonQuestList[i].questItemCur + Environment.NewLine;
 
     }
     public void HPSliderSetting()

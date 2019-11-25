@@ -281,8 +281,8 @@ public class ClosetSlideSlotClick : MonoBehaviour
     public void SlotItemClick(int index)
     {
         clickItemIndex = index;
-       //장착 아이템 교체
-
+        //*******************************장착 아이템 교체 코드********************************************
+        //************************************************************************************************
         //nowUseItem;
     }
 

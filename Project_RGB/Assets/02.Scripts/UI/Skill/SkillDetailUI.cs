@@ -7,7 +7,7 @@ public class SkillDetailUI : MonoBehaviour
 {
 
     public int skillType;
-    public GameObject[] skillImageArray;
+    public Image[] skillImageArray;
     //public List<SkillList>();
 
     //*************************UI 변수*****************************
@@ -37,12 +37,23 @@ public class SkillDetailUI : MonoBehaviour
 
         if (skillType == 0) //Red
         {
-            //List = 
+            //SkillList = RedSkillLIst
+            //for(int i =0; i<skillImageArray.Length;i++)
+            //skillImageArray[i].sprite = SkillList[i].Image;
         }
 
-        else if (skillType == 0)
-        {
+        else if (skillType == 1)
+        {   
+            //SkillList = RedSkillLIst
+            //for(int i =0; i<skillImageArray.Length;i++)
+            //skillImageArray[i].sprite = SkillList[i].Image;
+        }
 
+        else
+        {
+            //SkillList = RedSkillLIst
+            //for(int i =0; i<skillImageArray.Length;i++)
+            //skillImageArray[i].sprite = SkillList[i].Image;
         }
 
         //for (int i = 0; i < skillList.Count; i++)
@@ -54,6 +65,15 @@ public class SkillDetailUI : MonoBehaviour
         //}
     }
 
+    public void ChangeSkill(int index)
+    {
+        //useSkillImage.sprite = skillList[index].image;
+        //skillNameText = skillList[index].name;
+        //cooldownText = skillList[index].cooldown;
+        //powerText = skillList[index].power;
+        //valueText = skillList[index].value;
+        //SkillDescriptionText = skillList[index].description;
+    }
 
 
 }
