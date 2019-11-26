@@ -28,7 +28,7 @@ public class MonsterWalk : MonsterParent
 
     public void PosAndMoveSystem()
     {
-        if ((myMonsterInfo.monsterState == MonsterState.IDLE) && (myMonsterInfo.monsterState != MonsterState.DEAD))
+        if (((myMonsterInfo.monsterState == MonsterState.IDLE) && (myMonsterInfo.monsterState != MonsterState.DEAD)) || (myMonsterInfo.monsterState == MonsterState.WALK))
         {
             AnimationStateSet(MonsterState.WALK);
 
