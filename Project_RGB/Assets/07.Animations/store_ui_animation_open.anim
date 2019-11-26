@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: npc_ui_animation_open
+  m_Name: store_ui_animation_open
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
