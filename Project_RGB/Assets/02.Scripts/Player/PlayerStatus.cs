@@ -275,7 +275,7 @@ public class PlayerStatus : MonoBehaviour
         if (Interactive.tag == "TeleportDoor")
         {
             TeleportDoor terpoDoor = Interactive.GetComponent<TeleportDoor>();
-            terpoDoor.PlayerGoToNextDoor(this.gameObject);
+            terpoDoor.PlayerInteractWithDoor();
         }
     }
     #endregion

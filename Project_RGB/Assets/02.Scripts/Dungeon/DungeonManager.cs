@@ -4,57 +4,116 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
-    public int nowChapterNumber = -2;       // 0는 튜토리얼, -2는 로딩이 안된 것. 챕터 1, 2, 3, ...
-    public int nowStageNumber = -2;         // 스테이지 1, 2, 3... , -2는 로딩이 안된 것.
-    int maxClearStageNumber = -1;           // 기본 -1, 튜토리얼 클리어 후 0, 1챕터 클리어 후 -> 1로 변경.
+    //***************Chapter & Stage 관련 변수********
+    public GameObject[] chapter012345_Prefab;   //(Inspector)
+    public int nowChapterNumber = -2;           // 0는 튜토리얼, -2는 로딩이 안된 것. 챕터 1, 2, 3, ...
+    public int nowStageNumber = -2;             // 스테이지 1, 2, 3... , -2는 로딩이 안된 것.
+    public int maxStageNumber = -2;             // -2는 로딩 안된 것.
+    int maxClearStageNumber = -1;               // 기본 -1, 튜토리얼 클리어 후 0, 1챕터 클리어 후 -> 1로 변경.
 
-    public NetworkRouter NetworkRouter;            //(inspector) 넣어줘야함
+    //**************Dungeon & UI 관련 변수************
+    public Dictionary<string/*"Stage"+number*/, int> stageMonsterCounts = new Dictionary<string, int>();
+    public GameObject PlayerObject;             //(Inspector)
+    public TeleportDoor[] teleportDoors;        //(Inspector)
+    public DungeonUI dungeonUI;                 //(Inspector)
 
-    public Dictionary<string/*"stage"+number*/, int> stageMonsterCount = new Dictionary<string, int>(); //(Inspecter)
 
-    public GameObject[] chapter012345_Prefab;   //(Inspector창에서 직접 넣어줘야함.)
+    //***************NetworkRouter 변수***************
+    public NetworkRouter NetworkRouter;         //(inspector)
 
     private void Awake()
     {
         //index 저장
         nowChapterNumber = PlayerPrefs.GetInt("DUNGEON_NUM");
         nowStageNumber = 1;
-        //    //지금 Chapter가 어디인지 확인 ( 씬 넘겨서, 로컬에 저장했던 것 가져옴!) TARGET_SCENE?
-
-        //    //지금 챕터에 따른 chapter 소환
-        //Instantiate(chapter012345_Prefab[nowChapterNumber], this.transform/*0,0위치에 소환.(플레이어도 처음 소환 위치 0,0 맞춰줘야함.)*/);//튜토리얼은 0번째.
-
+        switch (nowChapterNumber)
+        {
+            case 1: maxStageNumber = 3; break;
+            case 2: maxStageNumber = 4; break;
+            case 3: maxStageNumber = 3; break;
+            case 4: maxStageNumber = 4; break;
+            case 5: maxStageNumber = 4; break;
+        }
+        dungeonUI.ProgressSliderSetting(nowStageNumber, maxStageNumber);
+        //지금 챕터에 따른 chapter 소환
+        GameObject chapterObject = Instantiate(chapter012345_Prefab[nowChapterNumber], this.transform/*0,0위치에 소환.(플레이어도 처음 소환 위치 0,0 맞춰줘야함.)*/);//튜토리얼은 0번째.
+        //소환된 Chapter의 stage마다 MonsterCount 확인
+        for (int i = 0; i < maxStageNumber; i++)
+        {
+            Debug.Log("챕터 이름 잘 들어갔나요" + chapterObject.transform.GetChild(i).name);
+            stageMonsterCounts.Add(chapterObject.transform.GetChild(i).name, chapterObject.transform.GetChild(i)/*stage+(i+1)*/.GetChild(1)/*Monsters*/.childCount);
+        }
     }
 
-    public void GoToNextStage()
+    public void BeforeGoToNextStage()
     {
-        nowStageNumber++;
-        //UI변경도 요청.
+        //화면 천천히 페이드 아웃
+        //FadeOut();
+        //Stage 동기화
+        if (nowStageNumber < maxStageNumber)
+        {
+            nowStageNumber++;
+            if (nowStageNumber == maxStageNumber)
+            {
+                //보스 스테이지!! bgm 바꿈??
+            }
+        }
+    }
+    public void AfterGoToNextStage(Vector3 outputDoorPosition)
+    {
+        //ProgressSilder UI변경 요청, 캐릭터 위치 옮김.
+        dungeonUI.ProgressSliderSetting(nowStageNumber, maxStageNumber);
+        PlayerObject.transform.position = outputDoorPosition;
+
+        //화면 천천히 페이드 인
+        //FadeIn();
     }
 
     public void MonsterInstantiateProcessing()
     {
-        stageMonsterCount["stage" + nowStageNumber] += 1;       //죽여야할 녀석이 한 놈 늘었다.
+        stageMonsterCounts["Stage" + nowStageNumber] += 1;       //죽여야할 녀석이 한 놈 늘었다.
     }
 
     public void MonsterDestroyProcessing(MonsterCode mCode)
     {
-        if (stageMonsterCount["stage" + nowStageNumber] <= 0)
+        //이 함수를 부르는 넘은 혹시 또 다른 놈이 생성될지 모르니까 Invoke 0.5초 정도 딜레이.
+
+        stageMonsterCounts["Stage" + nowStageNumber] -= 1;   //죽여야할 녀석이 한 놈 줄었다.
+
+        if (stageMonsterCounts["Stage" + nowStageNumber] <= 0)
         {
-            //혹시 또 다른 놈이 생성될지 모르니까 0.5초 정도 딜레이.
-            //스테이지 클리어. 다음 스테이지로 넘어가는 처리해줘야함.
-            //챕터 자체가 클리어된 건지도 확인해야함.
-            ChapterClear();
-        }
-        else
-        {
-            stageMonsterCount["stage" + nowStageNumber] -= 1;   //죽여야할 녀석이 한 놈 줄었다.
+            //스테이지 클리어. 다음 스테이지로 넘어갈 수 있도록 처리해줘야함.
+            foreach (TeleportDoor td in teleportDoors)
+            {
+                Debug.Log("문 이름이에여:" + td.gameObject.name);
+                if (("TeleportDoor" + nowStageNumber * 2).Equals(td.gameObject.name))
+                {
+                    td.teleportOpen = true;
+                    if (nowStageNumber == maxStageNumber)
+                    {
+                        td.chapterClear = true;
+                    }
+                }
+            }
         }
     }
 
-    void ChapterClear()
+    public void ChapterClear()
     {
         Debug.Log("ChapterClear:" + (SceneType.DUNGEON_CHAPTER) + "_" + nowChapterNumber);
         NetworkRouter.PostRouter(PostType.PLAYER_DUNGEON_STATE_UPDATE, ((SceneType.DUNGEON_CHAPTER) + "_" + nowChapterNumber));
+
+        //페이드 아웃 후, 씬 이동
+
+    }
+
+    void GoToVillageScene()
+    {
+        //죽음
+    }
+
+    void GoToDungeonSelectScene()
+    {
+        //클리어
     }
 }
