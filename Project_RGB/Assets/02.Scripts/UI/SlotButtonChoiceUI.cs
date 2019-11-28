@@ -23,6 +23,7 @@ public class SlotButtonChoiceUI : MonoBehaviour     //슬롯에서 항목 선택
     #region 스킬 세부사항
     public void SkillSlotImageClick()   //클릭시 장착중인 스킬 교체 및 UI 처리
     {
+        skilldetailScript.ChangeSkill(index);
         //장비 쪽에 알리기
         //skilldetailScript.useSkillImage.sprite = skillList[index].Image;
 

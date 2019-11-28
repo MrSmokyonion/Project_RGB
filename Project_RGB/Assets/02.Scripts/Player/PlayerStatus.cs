@@ -92,7 +92,7 @@ public class PlayerStatus : MonoBehaviour
     }
     public void Init_Food()
     {
-        foodBonusHp = food.GetComponent<BaseFood>().foodBonusHp;
+        foodBonusHp = food.GetComponent<BaseFood>().m_foodBonusHp;
     }
 
     public void Init_AllData(string[] data)
@@ -222,7 +222,7 @@ public class PlayerStatus : MonoBehaviour
         Base_Weapon _weapon = weapon.GetComponent<Base_Weapon>();
 
         if (IsAttackDelay() == false) return;
-        Debug.Log(_weapon.title + " 공격!");
+        Debug.Log(_weapon.m_title + " 공격!");
         d_weapon = _weapon.delay;
 
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(attack_pos.position, attack_range, 0);
@@ -244,14 +244,14 @@ public class PlayerStatus : MonoBehaviour
         Base_Weapon _weapon = weapon.GetComponent<Base_Weapon>();
 
         if (IsAttackDelay() == false) return;
-        Debug.Log(_weapon.title + " 공격!");
+        Debug.Log(_weapon.m_title + " 공격!");
         d_weapon = _weapon.delay;
 
         GameObject obj = Instantiate(projectile, attack_pos.position, Quaternion.Euler(0f, 0f, angle));
 
         Arrow ar = obj.GetComponent<Arrow>();
         ar.power = _weapon.power;
-        ar.spritePath = _weapon.spritePath;
+        ar.spritePath = _weapon.m_spritePath;
 
         Rigidbody2D rid = obj.GetComponent<Rigidbody2D>();
         if (_weapon is Weapon_Spear)
@@ -277,6 +277,11 @@ public class PlayerStatus : MonoBehaviour
             TeleportDoor terpoDoor = Interactive.GetComponent<TeleportDoor>();
             terpoDoor.PlayerGoToNextDoor(this.gameObject);
         }
+        else if(Interactive.tag == "NPC")
+        {
+            NPCClick clickNPC = Interactive.GetComponent<NPCClick>();
+            clickNPC.NpcClick();
+        }
     }
     #endregion
 
@@ -290,17 +295,17 @@ public class PlayerStatus : MonoBehaviour
         {
             case SkillState.Red:
                 bs = skill.GetComponent<Skill_Red>();
-                d_red = bs.delay;
+                d_red = bs.m_delay;
                 break;
 
             case SkillState.Green:
                 bs = skill.GetComponent<Skill_Green>();
-                d_green = bs.delay;
+                d_green = bs.m_delay;
                 break;
 
             case SkillState.Blue:
                 bs = skill.GetComponent<Skill_Blue>();
-                d_blue = bs.delay;
+                d_blue = bs.m_delay;
                 break;
 
             default: return;
