@@ -136,7 +136,7 @@ public class MonsterTrap : MonsterParent
     }
 
 
-    public override void MyOnTriggerEnter2D(Collider2D col)
+    public override void MonsterHitWeapon(Collider2D col)
     {
         if (col.gameObject.tag == "Weapon")
         {
