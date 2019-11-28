@@ -275,7 +275,7 @@ public class MonsterParent : MonoBehaviour
 
     public void Awake()
     {
-                                                                                            //Awake에서 quest 찾아서 넣어두기. (모든 코드에서 실행되도록...)
+        //Awake에서 quest 찾아서 넣어두기. (모든 코드에서 실행되도록...)
         PlayerObject = GameObject.Find("Player");
         quest = GameObject.Find("DungeonCanvas").GetComponent<Quest>();
 
@@ -321,7 +321,7 @@ public class MonsterParent : MonoBehaviour
 
     #endregion
 
-    
+
     public void AnimationStateSet(MonsterState nowState)
     {
         myMonsterInfo.monsterState = nowState;
@@ -374,7 +374,7 @@ public class MonsterParent : MonoBehaviour
         int ranY = Random.Range(100, 201);      //min ~ max-1
         gold.transform.position = GetComponent<Transform>().position;
         gold.GetComponent<Rigidbody2D>().AddForce(new Vector3(ranX, ranY, 0));              //위 방향으로 랜덤 발사
-        
+
         //-------------------------보스일 때 확률적으로 아이템 드랍-------------------------
         if (myMonsterInfo.isBoss)
         {
@@ -382,6 +382,7 @@ public class MonsterParent : MonoBehaviour
             {
                 DropItem();
             }
+            //여기작업해야함
         }
     }
 
@@ -397,14 +398,12 @@ public class MonsterParent : MonoBehaviour
         if (myMonsterInfo.monsterHp <= 0)
         {
             //죽는 애니메이션과 동시에 아이템 드롭. 그 후 사라짐
-            myMonsterAnimator.SetTrigger("Dead");
+            AnimationStateSet(MonsterState.DEAD);
             DropGoldAndItems();
-            Debug.Log("test111111");
-            Invoke("Dead",2f);
+            Invoke("Dead", 2f);
             //퀘스트에 해당하는 몬스터 일 시
-            Debug.Log("222222222222");
             quest.QuestMonsterCheck(myMonsterCode);
-            Debug.Log("5555555555555");
+            Debug.Log(name + "Dead");
 
         }
         else
@@ -425,24 +424,19 @@ public class MonsterParent : MonoBehaviour
 
     #endregion
 
-    #region OnTriggerEnter2D
+    #region MonsterHitWeapon
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public virtual void MonsterHitWeapon(int power)
     {
-        MyOnTriggerEnter2D(collision);
-    }
-
-    public virtual void MyOnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.tag == "Weapon")
-        {
-            //Player의 무기/스킬/함정에 접촉 처리.
-            //데미지 만큼 myMonsterInfo.monsterHp 깎음
-            //자폭 몬스터 있나?..
-            //Base_Weapon bW = col.gameObject.GetComponent<Base_Weapon>();
-            myMonsterInfo.monsterHp -= 10;//bW.power;
-            DeadCheck();
-        }
+        //Player의 무기/스킬/함정에 접촉 처리.
+        //데미지 만큼 myMonsterInfo.monsterHp 깎음
+        //자폭 몬스터 있나?..
+        //Base_Weapon bW = col.gameObject.GetComponent<Base_Weapon>();
+        if (myMonsterInfo.monsterHp >= power)
+            myMonsterInfo.monsterHp -= power;//bW.power;
+        else
+            myMonsterInfo.monsterHp = 0;
+        DeadCheck();
     }
 
     #endregion

@@ -178,6 +178,61 @@ public class SpawnClass : MonoBehaviour
         //여기에 라우터로 장비 바꿨다는 포스트 날려야함
         return tmp;
     }
+
+    public GameObject LoadAll_Skill()
+    {
+        GameObject result = new GameObject();
+
+        result.AddComponent<Skill_Red_PiercingSpear>();
+        result.AddComponent<Skill_Red_ArrowRain>();
+        result.AddComponent<Skill_Red_SwordTrap>();
+        result.AddComponent<Skill_Red_Turret>();
+        result.AddComponent<Skill_Red_PowerBuff>();
+
+        result.AddComponent<Skill_Green_HighJump>();
+        result.AddComponent<Skill_Green_Dash>();
+        result.AddComponent<Skill_Green_BackStep>();
+        result.AddComponent<Skill_Green_Charger>();
+        result.AddComponent<Skill_Green_MoveBuff>();
+
+        result.AddComponent<Skill_Blue_Barrier>();
+        result.AddComponent<Skill_Blue_Wall>();
+        result.AddComponent<Skill_Blue_Invisible>();
+        result.AddComponent<Skill_Blue_Shield>();
+        result.AddComponent<Skill_Blue_DefenceBuff>();
+
+        return result;
+    }
+    public GameObject LoadAll_Armor()
+    {
+        GameObject result = new GameObject();
+
+        result.AddComponent<Amulet_Default>();
+        result.AddComponent<Amulet_Richness>();
+        result.AddComponent<Amulet_Drain>();
+        result.AddComponent<Amulet_ImproveSkill>();
+        result.AddComponent<Amulet_PainPatch>();
+
+        result.AddComponent<Stone_Default>();
+        result.AddComponent<Stone_Magnetic>();
+        result.AddComponent<Stone_Guardian>();
+        result.AddComponent<Stone_Minor>();
+        result.AddComponent<Stone_Major>();
+
+        return result;
+    }
+    public GameObject LoadAll_Food()
+    {
+        GameObject result = new GameObject();
+
+        result.AddComponent<Food_Hamburger>();
+        result.AddComponent<Food_Pizza>();
+        result.AddComponent<Food_Noodle>();
+        result.AddComponent<Food_RiceBall>();
+        result.AddComponent<Food_Steak>();
+
+        return result;
+    }
     #endregion
 
     #region Food

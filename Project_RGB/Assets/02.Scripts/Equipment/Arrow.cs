@@ -16,11 +16,12 @@ public class Arrow : MonoBehaviour
     private void Update()
     {
         RaycastHit2D raycastHit2D = Physics2D.Raycast(arrow.position, arrow.right, 0.5f);
-        if(raycastHit2D.collider != null)
+        if (raycastHit2D.collider != null)
         {
             if (raycastHit2D.collider.tag == "Monster")
             {
-                Debug.Log("명중");
+                raycastHit2D.transform.GetComponent<MonsterParent>().MonsterHitWeapon(power);
+                Debug.Log(raycastHit2D.transform.name + "명중");
                 DestroyBullet();
             }
         }

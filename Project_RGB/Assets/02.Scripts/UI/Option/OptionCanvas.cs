@@ -18,11 +18,11 @@ public class OptionCanvas : MonoBehaviour
 
     public Canvas optionCanvas;
     //***************************************************
-
+    public NetworkRouter networkRouter = null;
     // Start is called before the first frame update
     void Start()
     {
-        
+        OptionSetting();
     }
 
     // Update is called once per frame
@@ -33,10 +33,22 @@ public class OptionCanvas : MonoBehaviour
 
     public void OptionSetting()
     {
-        //usercodeText.text = 
-        //soundSlider.value = 값 / 100;
+        string optionUsercode = PlayerPrefs.GetString("USERCODE");
+        int volume = PlayerPrefs.GetInt("VOLUME");
+
+        usercodeText.text = optionUsercode;
+        soundSlider.value = volume / 100;
         soundSliderText.text = ((int)(soundSlider.value * 100)).ToString();
     }
+
+    public void OptionSoundSlider()
+    {
+        int volume = (int)(soundSlider.value * 100);
+        soundSliderText.text = ((int)(soundSlider.value * 100)).ToString();
+        Debug.Log("volume : " + volume);
+        PlayerPrefs.SetInt("VOLUME", volume);
+    }
+
     #region 다른계정 로그인 창 버튼 UI
     public void AnotherAccountLoginButton()
     {
@@ -45,7 +57,8 @@ public class OptionCanvas : MonoBehaviour
 
     public void AnotherAccountLoginOKButton()
     {
-        //changeUserCodeInputText.text
+        string otherAccountUserCode = changeUserCodeInputText.text;
+        networkRouter.PostRouter(PostType.PLAYER_CHARACTER_GET_CHARDATA, otherAccountUserCode);
     }
 
     public void AnotherAccountLoginCancleButton()
@@ -53,7 +66,6 @@ public class OptionCanvas : MonoBehaviour
         changeUserCodeInputText.text = "";
         anotherAccountLoginPanel.SetActive(false);
     }
-
     #endregion
 
     #region 계정 삭제 창 버튼 UI
@@ -66,7 +78,7 @@ public class OptionCanvas : MonoBehaviour
     {
         if (removeAccountInputText.text == "삭제합니다")
         {
-            //removeAccountInputText.text
+            networkRouter.PostRouter(PostType.PLAYER_CHARACTER_REMOVE, usercodeText.text);
         }
 
     }
@@ -81,6 +93,5 @@ public class OptionCanvas : MonoBehaviour
     {
         optionCanvas.enabled = true;
     }
-
     #endregion
 }

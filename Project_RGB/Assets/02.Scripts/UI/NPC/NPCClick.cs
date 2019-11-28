@@ -7,7 +7,6 @@ public class NPCClick : MonoBehaviour
     public int clicknpccode;
     public Canvas npcCanvas;
 
-    //커밋용 주석
     // Start is called before the first frame update
     private void Start()
     {
@@ -21,7 +20,7 @@ public class NPCClick : MonoBehaviour
 
     }
 
-    void NpcClick()
+    public void NpcClick()
     {
         npcCanvas.enabled = true;
         npcCanvas.GetComponent<NPCMenuUI>().npcCode = clicknpccode;
