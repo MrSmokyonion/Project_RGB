@@ -10,7 +10,7 @@ public enum SceneType
     EMPTY,
     SPLASH,
     TITLE,
-    TOWN,
+    VILLAGE,
     CHOICE_DUNGEON,
     TUTORIAL,
     DUNGEON_CHAPTER
@@ -30,7 +30,7 @@ public class SceneManager : MonoBehaviour
         //Tltle. -> 통신 설정 SceneType.TITLE
 
         //1.신규유저 로그인 및 시작 -> SceneType.TUTORIAL로 이동;
-        //2.튜토리얼을 클리어한 경우/ 스킵한 경우/ '튜토리얼 완료' 기존유저가 Start를 누르는 경우 -> nowScene = SceneType.TOWN로 이동;
+        //2.튜토리얼을 클리어한 경우/ 스킵한 경우/ '튜토리얼 완료' 기존유저가 Start를 누르는 경우 -> nowScene = SceneType.VILLAGE로 이동;
     }
 
     // 씬 전환
@@ -42,12 +42,12 @@ public class SceneManager : MonoBehaviour
         {
             case SceneType.SPLASH: scene = "SplashScene"; break;
             case SceneType.TITLE: scene = "TitleScene"; break;
-            case SceneType.TOWN: scene = "TownScene"; break;
+            case SceneType.VILLAGE: scene = "VillageScene"; break;
             case SceneType.CHOICE_DUNGEON: scene = "ChoiceDungeonScene"; break;
             case SceneType.TUTORIAL:
             case SceneType.DUNGEON_CHAPTER : scene = "DungeonChapterScene"; break;
 
-                //SplashScene, TitleScene, TownScene, ChoiceDungeonScene, DungeonChapterScene
+                //SplashScene, TitleScene, VillageScene, ChoiceDungeonScene, DungeonChapterScene
                 //DungeonSelectionTestRoom, MonsterTestRoom
         }
         UnityEngine.SceneManagement.SceneManager.LoadScene(scene);

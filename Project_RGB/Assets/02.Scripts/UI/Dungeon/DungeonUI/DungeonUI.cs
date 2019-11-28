@@ -25,7 +25,7 @@ public class DungeonUI : MonoBehaviour
     void Start()
     {
 
-       
+
     }
 
     // Update is called once per frame
@@ -56,25 +56,26 @@ public class DungeonUI : MonoBehaviour
     {
         if (isFoodEat == true)
         {
-            playerHPSlider.fillRect.parent.GetComponent<RectTransform>().offsetMax = new Vector2(200,0); // 음식 증가값에 따른 조정 필요!
+            playerHPSlider.fillRect.parent.GetComponent<RectTransform>().offsetMax = new Vector2(200, 0); // 음식 증가값에 따른 조정 필요!
             playerPlusHPSlider.enabled = true;
-          
+
         }
         else
         {
             playerHPSlider.fillRect.parent.GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
             playerPlusHPSlider.enabled = false;
-            
+
             //playerHPSlider.value = playerStatusScript.curHp / playerStatusScript.maxHp;
         }
 
-     
+
     }
 
-    public void ProgressSliderSetting()
+    public void ProgressSliderSetting(int nowStageNumber, int maxStageNumber)
     {
-
+        progressSlider.value = nowStageNumber / maxStageNumber;
     }
+
     public void DungeonUiSetting()
     {
         //playerHPSlider.value = 
@@ -82,6 +83,5 @@ public class DungeonUI : MonoBehaviour
         //playerImage.sprite = 
         Questsetting();
         HPSliderSetting();
-        ProgressSliderSetting();
     }
 }
