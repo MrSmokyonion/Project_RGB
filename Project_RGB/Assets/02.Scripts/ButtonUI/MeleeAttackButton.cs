@@ -6,11 +6,12 @@ using UnityEngine.UI;
 
 public class MeleeAttackButton : AttackButton
 {
+    public GameObject player;
+
     [HideInInspector]
     public bool isSpear;
 
     private Image img;
-    private GameObject obj;
     private SpriteRenderer sr;
 
     private void Start()
@@ -34,18 +35,17 @@ public class MeleeAttackButton : AttackButton
 
     public override void Execute(GameObject obj)
     {
-        this.obj = obj;
-        sr = obj.GetComponent<SpriteRenderer>();
+        sr = player.GetComponent<SpriteRenderer>();
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
         isPushed = false;
         if (IsInteract)
-            obj.GetComponent<PlayerStatus>().Interact();
+            player.GetComponent<PlayerStatus>().Interact();
         else if (charging >= 1f && isSpear)
-            obj.GetComponent<PlayerStatus>().Attack(sr.flipX ? 180 : 0, new Vector2(sr.flipX ? -1f : 1f, 0f));
+            player.GetComponent<PlayerStatus>().Attack(sr.flipX ? 180 : 0, new Vector2(sr.flipX ? -1f : 1f, 0f));
         else
-            obj.GetComponent<PlayerStatus>().Attack();
+            player.GetComponent<PlayerStatus>().Attack();
     }
 }
