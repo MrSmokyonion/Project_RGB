@@ -47,7 +47,7 @@ public class StatusChanger : MonoBehaviour
         }
 
         //무기 메커니즘 초기화
-        _parents.GetComponent<PlayerStatus>().Init_HpDefence();
+        _parents.GetComponent<PlayerStatus>().Init_Weapon();
 
         //서버 통신
         router.PostRouter(PostType.PLAYER_WEAPON_CHANGE, code);

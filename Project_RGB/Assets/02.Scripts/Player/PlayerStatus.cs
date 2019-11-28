@@ -49,7 +49,7 @@ public class PlayerStatus : MonoBehaviour
         changer.ChangeSkill(SpawnCode.R001, gameObject, skill);
         changer.ChangeSkill(SpawnCode.G001, gameObject, skill);
         changer.ChangeSkill(SpawnCode.B005, gameObject, skill);
-        changer.ChangeWeapon(SpawnCode.W201, gameObject, weapon);
+        changer.ChangeWeapon(SpawnCode.W001, gameObject, weapon);
         changer.ChangeArmor(SpawnCode.A001, gameObject, armor);
         changer.ChangeArmor(SpawnCode.S001, gameObject, armor);
         Debug.Log(skill.GetComponent<Skill_Red>());
@@ -67,7 +67,7 @@ public class PlayerStatus : MonoBehaviour
         }
         if (_Weapon is Weapon_Spear)
         {
-            range = 0.3f;
+            range = 0.5f;
             attack_range = new Vector2(2f, 0.5f);
             cm.SetAttackUI(1);
             //projectile.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load(weapon.spritePath, typeof(Sprite)) as Sprite;
