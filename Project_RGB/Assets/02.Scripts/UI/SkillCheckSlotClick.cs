@@ -10,6 +10,8 @@ public class SkillCheckSlotClick : MonoBehaviour
     public void Skill_Check_Slot_Click()
     {
         SkillDetailsCanvas.GetComponent<SkillDetailUI>().skillType = skillType;
+        SkillDetailsCanvas.GetComponent<SkillDetailUI>().SkillSlotSetting();
         SkillDetailsCanvas.enabled = true;
+        
     }
 }

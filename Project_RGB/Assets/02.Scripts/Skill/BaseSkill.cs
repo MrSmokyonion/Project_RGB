@@ -4,9 +4,9 @@ using UnityEngine;
 
 public abstract class Base_Skill : BaseValues
 {
-    public float value1;
-    public float value2;
-    public float delay;
+    public float m_value1;
+    public float m_value2;
+    public float m_delay;
 
     public abstract void ExecuteSkill(GameObject obj);
 }

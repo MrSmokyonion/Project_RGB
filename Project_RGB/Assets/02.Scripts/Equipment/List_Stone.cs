@@ -9,15 +9,16 @@ public class Stone_Default : Armor_Stone
         value = 10;
         dualbility = 100;
 
-        title = "기본 돌";
-        description = string.Format("기본 돌입니다. 방어력을 {0}만큼 상승 시킵니다.", value);
-        code = SpawnCode.S001;
-        spritePath = "";
+        m_title = "기본 돌";
+        m_description = string.Format("기본 돌입니다. 방어력을 {0}만큼 상승 시킵니다.", value);
+        m_code = SpawnCode.S001;
+        m_spritePath = "";
+        m_price = 100;
     }
 
     public override void Execute(PlayerStatus status)
     {
-        Debug.Log(title);
+        Debug.Log(m_title);
     }
 }
 
@@ -28,15 +29,16 @@ public class Stone_Magnetic : Armor_Stone
         value = 5;
         dualbility = 100;
 
-        title = "거지의 돌";
-        description = string.Format("주변 {0}m 거리의 골드를 끌어당깁니다.", value);
-        code = SpawnCode.S002;
-        spritePath = "";
+        m_title = "거지의 돌";
+        m_description = string.Format("주변 {0}m 거리의 골드를 끌어당깁니다.", value);
+        m_code = SpawnCode.S002;
+        m_spritePath = "";
+        m_price = -123456789;
     }
 
     public override void Execute(PlayerStatus status)
     {
-        Debug.Log(title);
+        Debug.Log(m_title);
     }
 }
 
@@ -47,15 +49,16 @@ public class Stone_Guardian : Armor_Stone
         value = 20;
         dualbility = 100;
 
-        title = "수호자의 돌";
-        description = string.Format("방어력을 {0}만큼 상승 시킵니다.", value);
-        code = SpawnCode.S003;
-        spritePath = "";
+        m_title = "수호자의 돌";
+        m_description = string.Format("방어력을 {0}만큼 상승 시킵니다.", value);
+        m_code = SpawnCode.S003;
+        m_spritePath = "";
+        m_price = 100;
     }
 
     public override void Execute(PlayerStatus status)
     {
-        Debug.Log(title);
+        Debug.Log(m_title);
     }
 }
 
@@ -66,15 +69,16 @@ public class Stone_Minor : Armor_Stone
         value = 15;
         dualbility = 100;
 
-        title = "마이너의 돌";
-        description = string.Format("일반 몬스터의 공격에 대해 {0}%만큼 피해를 덜 받습니다.", value);
-        code = SpawnCode.S004;
-        spritePath = "";
+        m_title = "마이너의 돌";
+        m_description = string.Format("일반 몬스터의 공격에 대해 {0}%만큼 피해를 덜 받습니다.", value);
+        m_code = SpawnCode.S004;
+        m_spritePath = "";
+        m_price = 100;
     }
 
     public override void Execute(PlayerStatus status)
     {
-        Debug.Log(title);
+        Debug.Log(m_title);
     }
 }
 
@@ -85,14 +89,15 @@ public class Stone_Major : Armor_Stone
         value = 20;
         dualbility = 100;
 
-        title = "메이저의 돌";
-        description = string.Format("보스 몬스터의 공격에 대해 {0}%만큼 피해를 덜 받습니다.", value);
-        code = SpawnCode.S005;
-        spritePath = "";
+        m_title = "메이저의 돌";
+        m_description = string.Format("보스 몬스터의 공격에 대해 {0}%만큼 피해를 덜 받습니다.", value);
+        m_code = SpawnCode.S005;
+        m_spritePath = "";
+        m_price = -123456789;
     }
 
     public override void Execute(PlayerStatus status)
     {
-        Debug.Log(title);
+        Debug.Log(m_title);
     }
 }
