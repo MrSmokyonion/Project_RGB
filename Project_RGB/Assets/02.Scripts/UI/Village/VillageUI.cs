@@ -64,6 +64,7 @@ public class VillageUI : MonoBehaviour
             hpSlider.transform.GetChild(0).gameObject.SetActive(false);
 
             //hpSlider.value = playerStatusScript.curHp / playerStatusScript.maxHp;
+            //
         }
 
 
