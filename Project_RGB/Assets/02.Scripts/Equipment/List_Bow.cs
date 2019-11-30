@@ -16,6 +16,7 @@ public class Bow_Default : Weapon_Bow
         m_code = SpawnCode.W201;
         m_spritePath = "";
         m_price = 100;
+        m_isSale = true;
     }
 }
 
@@ -33,6 +34,7 @@ public class Bow_NoMoney : Weapon_Bow
         m_code = SpawnCode.W202;
         m_spritePath = "";
         m_price = -123456789;
+        m_isSale = false;
     }
 }
 
@@ -50,6 +52,7 @@ public class Bow_Dryed : Weapon_Bow
         m_code = SpawnCode.W203;
         m_spritePath = "";
         m_price = -987654321;
+        m_isSale = false;
     }
 }
 
@@ -67,6 +70,7 @@ public class Bow_Long : Weapon_Bow
         m_code = SpawnCode.W201;
         m_spritePath = "";
         m_price = 100;
+        m_isSale = true;
     }
 }
 
@@ -84,5 +88,6 @@ public class Bow_Apollo : Weapon_Bow
         m_code = SpawnCode.W205;
         m_spritePath = "";
         m_price = -123456789;
+        m_isSale = false;
     }
 }

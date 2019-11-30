@@ -16,6 +16,7 @@ public class Spear_Default : Weapon_Spear
         m_code = SpawnCode.W101;
         m_spritePath = "";
         m_price = 100;
+        m_isSale = true;
     }
 }
 
@@ -33,6 +34,7 @@ public class Spear_IceNalchi : Weapon_Spear
         m_code = SpawnCode.W102;
         m_spritePath = "";
         m_price = -123456789;
+        m_isSale = false;
     }
 }
 
@@ -50,6 +52,7 @@ public class Spear_Nyan : Weapon_Spear
         m_code = SpawnCode.W103;
         m_spritePath = "";
         m_price = -123456789;
+        m_isSale = false;
     }
 }
 
@@ -67,6 +70,7 @@ public class Spear_DangPa : Weapon_Spear
         m_code = SpawnCode.W104;
         m_spritePath = "";
         m_price = 100;
+        m_isSale = true;
     }
 }
 
@@ -84,5 +88,6 @@ public class Spear_PolarStar : Weapon_Spear
         m_code = SpawnCode.W105;
         m_spritePath = "";
         m_price = -987654321;
+        m_isSale = false;
     }
 }
