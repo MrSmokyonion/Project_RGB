@@ -136,7 +136,7 @@ public class MonsterTrap : MonsterParent
     }
 
 
-    public override void MonsterHitWeapon(Collider2D col)
+    public  void MonsterHitWeapon(Collider2D col) //KTH: override 붙여져 있었는데 컴파일 에러땜시 잠깐 땜.
     {
         if (col.gameObject.tag == "Weapon")
         {

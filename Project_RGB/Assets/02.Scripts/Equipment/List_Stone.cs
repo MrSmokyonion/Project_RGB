@@ -14,6 +14,7 @@ public class Stone_Default : Armor_Stone
         m_code = SpawnCode.S001;
         m_spritePath = "";
         m_price = 100;
+        m_isSale = true;
     }
 
     public override void Execute(PlayerStatus status)
@@ -34,6 +35,7 @@ public class Stone_Magnetic : Armor_Stone
         m_code = SpawnCode.S002;
         m_spritePath = "";
         m_price = -123456789;
+        m_isSale = false;
     }
 
     public override void Execute(PlayerStatus status)
@@ -54,6 +56,7 @@ public class Stone_Guardian : Armor_Stone
         m_code = SpawnCode.S003;
         m_spritePath = "";
         m_price = 100;
+        m_isSale = true;
     }
 
     public override void Execute(PlayerStatus status)
@@ -74,6 +77,7 @@ public class Stone_Minor : Armor_Stone
         m_code = SpawnCode.S004;
         m_spritePath = "";
         m_price = 100;
+        m_isSale = true;
     }
 
     public override void Execute(PlayerStatus status)
@@ -94,6 +98,7 @@ public class Stone_Major : Armor_Stone
         m_code = SpawnCode.S005;
         m_spritePath = "";
         m_price = -123456789;
+        m_isSale = false;
     }
 
     public override void Execute(PlayerStatus status)

@@ -14,6 +14,7 @@ public class Amulet_Default : Armor_Amulet
         m_code = SpawnCode.A001;
         m_spritePath = "";
         m_price = 100;
+        m_isSale = true;
     }
 
     public override void Execute(PlayerStatus status)
@@ -34,6 +35,7 @@ public class Amulet_Richness : Armor_Amulet
         m_code = SpawnCode.A002;
         m_spritePath = "";
         m_price = -123456789;
+        m_isSale = false;
     }
 
     public override void Execute(PlayerStatus status)
@@ -54,6 +56,7 @@ public class Amulet_Drain : Armor_Amulet
         m_code = SpawnCode.A003;
         m_spritePath = "";
         m_price = -987654321;
+        m_isSale = false;
     }
 
     public override void Execute(PlayerStatus status)
@@ -74,6 +77,7 @@ public class Amulet_ImproveSkill : Armor_Amulet
         m_code = SpawnCode.A004;
         m_spritePath = "";
         m_price = -123456789;
+        m_isSale = false;
     }
 
     public override void Execute(PlayerStatus status)
@@ -94,6 +98,7 @@ public class Amulet_PainPatch : Armor_Amulet
         m_code = SpawnCode.A005;
         m_spritePath = "";
         m_price = -123456789;
+        m_isSale = false;
     }
 
     public override void Execute(PlayerStatus status)

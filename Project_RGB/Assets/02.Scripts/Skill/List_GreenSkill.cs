@@ -15,6 +15,7 @@ public class Skill_Green_HighJump : Skill_Green
         m_code = SpawnCode.G001;
         m_spritePath = "";
         m_price = 1;
+        m_isSale = true;
     }
     
     public override void ExecuteSkill(GameObject obj)
@@ -38,6 +39,7 @@ public class Skill_Green_Dash : Skill_Green
         m_code = SpawnCode.G002;
         m_spritePath = "";
         m_price = 1;
+        m_isSale = true;
     }
 
     public override void ExecuteSkill(GameObject obj)
@@ -59,6 +61,7 @@ public class Skill_Green_BackStep : Skill_Green
         m_code = SpawnCode.G003;
         m_spritePath = "";
         m_price = 1;
+        m_isSale = true;
     }
 
     public override void ExecuteSkill(GameObject obj)
@@ -80,6 +83,7 @@ public class Skill_Green_Charger : Skill_Green
         m_code = SpawnCode.G004;
         m_spritePath = "";
         m_price = -123456789;
+        m_isSale = false;
     }
 
     public override void ExecuteSkill(GameObject obj)
@@ -101,6 +105,7 @@ public class Skill_Green_MoveBuff : Skill_Green
         m_code = SpawnCode.G005;
         m_spritePath = "";
         m_price = 1;
+        m_isSale = true;
     }
 
     public override void ExecuteSkill(GameObject obj)

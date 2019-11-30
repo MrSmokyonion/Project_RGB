@@ -9,4 +9,5 @@ public abstract class BaseValues : MonoBehaviour
     public SpawnCode m_code;
     public string m_spritePath;
     public int m_price;
+    public bool m_isSale;
 }
