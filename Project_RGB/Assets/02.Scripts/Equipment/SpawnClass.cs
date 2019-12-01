@@ -35,6 +35,11 @@ public class SpawnClass : MonoBehaviour
         switch (weaponCode)
         {
             case SpawnCode.W001: tmp = _child.AddComponent<Sword_Default>(); break;
+            case SpawnCode.W002: tmp = _child.AddComponent<Sword_HotTuna>(); break;
+            case SpawnCode.W003: tmp = _child.AddComponent<Sword_BBQStick>(); break;
+            case SpawnCode.W004: tmp = _child.AddComponent<Sword_Broad>(); break;
+            case SpawnCode.W005: tmp = _child.AddComponent<Sword_MoonLight>(); break;
+
             default: return null;
         }
 
@@ -54,6 +59,10 @@ public class SpawnClass : MonoBehaviour
         switch (weaponCode)
         {
             case SpawnCode.W101: tmp = _child.AddComponent<Spear_Default>(); break;
+            case SpawnCode.W102: tmp = _child.AddComponent<Spear_IceNalchi>(); break;
+            case SpawnCode.W103: tmp = _child.AddComponent<Spear_Nyan>(); break;
+            case SpawnCode.W104: tmp = _child.AddComponent<Spear_DangPa>(); break;
+            case SpawnCode.W105: tmp = _child.AddComponent<Spear_PolarStar>(); break;
             default: return null;
         }
 
@@ -73,6 +82,10 @@ public class SpawnClass : MonoBehaviour
         switch (weaponCode)
         {
             case SpawnCode.W201: tmp = _child.AddComponent<Bow_Default>(); break;
+            case SpawnCode.W202: tmp = _child.AddComponent<Bow_NoMoney>(); break;
+            case SpawnCode.W203: tmp = _child.AddComponent<Bow_Dryed>(); break;
+            case SpawnCode.W204: tmp = _child.AddComponent<Bow_Long>(); break;
+            case SpawnCode.W205: tmp = _child.AddComponent<Bow_Apollo>(); break;
             default: return null;
         }
 
@@ -94,6 +107,10 @@ public class SpawnClass : MonoBehaviour
         switch (armorCode)
         {
             case SpawnCode.A001: tmp = _child.AddComponent<Amulet_Default>(); break;
+            case SpawnCode.A002: tmp = _child.AddComponent<Amulet_Richness>(); break;
+            case SpawnCode.A003: tmp = _child.AddComponent<Amulet_Drain>(); break;
+            case SpawnCode.A004: tmp = _child.AddComponent<Amulet_ImproveSkill>(); break;
+            case SpawnCode.A005: tmp = _child.AddComponent<Amulet_PainPatch>(); break;
             default: return null;
         }
 
@@ -113,6 +130,10 @@ public class SpawnClass : MonoBehaviour
         switch (armorCode)
         {
             case SpawnCode.S001: tmp = _child.AddComponent<Stone_Default>(); break;
+            case SpawnCode.S002: tmp = _child.AddComponent<Stone_Magnetic>(); break;
+            case SpawnCode.S003: tmp = _child.AddComponent<Stone_Guardian>(); break;
+            case SpawnCode.S004: tmp = _child.AddComponent<Stone_Minor>(); break;
+            case SpawnCode.S005: tmp = _child.AddComponent<Stone_Major>(); break;
             default: return null;
         }
 
@@ -135,6 +156,10 @@ public class SpawnClass : MonoBehaviour
         switch (skillcode)
         {
             case SpawnCode.R001: tmp = _child.AddComponent<Skill_Red_PiercingSpear>(); break;
+            case SpawnCode.R002: tmp = _child.AddComponent<Skill_Red_ArrowRain>(); break;
+            case SpawnCode.R003: tmp = _child.AddComponent<Skill_Red_SwordTrap>(); break;
+            case SpawnCode.R004: tmp = _child.AddComponent<Skill_Red_Turret>(); break;
+            case SpawnCode.R005: tmp = _child.AddComponent<Skill_Red_PowerBuff>(); break;
             default: return null;
         }
 
@@ -153,6 +178,10 @@ public class SpawnClass : MonoBehaviour
         switch (skillcode)
         {
             case SpawnCode.G001: tmp = _child.AddComponent<Skill_Green_HighJump>(); break;
+            case SpawnCode.G002: tmp = _child.AddComponent<Skill_Green_Dash>(); break;
+            case SpawnCode.G003: tmp = _child.AddComponent<Skill_Green_BackStep>(); break;
+            case SpawnCode.G004: tmp = _child.AddComponent<Skill_Green_Charger>(); break;
+            case SpawnCode.G005: tmp = _child.AddComponent<Skill_Green_MoveBuff>(); break;
             default: return null;
         }
 
@@ -171,6 +200,9 @@ public class SpawnClass : MonoBehaviour
         switch (skillcode)
         {
             case SpawnCode.B001: tmp = _child.AddComponent<Skill_Blue_Barrier>(); break;
+            case SpawnCode.B002: tmp = _child.AddComponent<Skill_Blue_Wall>(); break;
+            case SpawnCode.B003: tmp = _child.AddComponent<Skill_Blue_Invisible>(); break;
+            case SpawnCode.B004: tmp = _child.AddComponent<Skill_Blue_Shield>(); break;
             case SpawnCode.B005: tmp = _child.AddComponent<Skill_Blue_DefenceBuff>(); break;
             default: return null;
         }
@@ -248,6 +280,10 @@ public class SpawnClass : MonoBehaviour
         switch (foodcode)
         {
             case SpawnCode.F001: tmp = _child.AddComponent<Food_Hamburger>(); break;
+            case SpawnCode.F002: tmp = _child.AddComponent<Food_Pizza>(); break;
+            case SpawnCode.F003: tmp = _child.AddComponent<Food_Noodle>(); break;
+            case SpawnCode.F004: tmp = _child.AddComponent<Food_RiceBall>(); break;
+            case SpawnCode.F005: tmp = _child.AddComponent<Food_Steak>(); break;
             default: return null;
         }
 
