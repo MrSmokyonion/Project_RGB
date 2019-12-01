@@ -60,6 +60,7 @@ public class VilageSlideMenu : MonoBehaviour
     public void SkillMenuButton()
     {
         skillMenuCanvas.enabled = true;
+        skillMenuCanvas.GetComponent<SkillUI>().SkillUISetting();
 
     }
 }

@@ -11,7 +11,7 @@ public class SkillUI : MonoBehaviour
     public Text SkillText2;
     public Image SkillImage3;
     public Text SkillText3;
-
+    public PlayerStatus ps;
 
     void Start()
     {
@@ -27,7 +27,17 @@ public class SkillUI : MonoBehaviour
     public void SkillUISetting()
     {
         //플레이어의 착용중인 장비 가져오기
+        Skill_Red tmpr = ps.skill.GetComponent<Skill_Red>();
+        //SkillImage1 = tmpr.m_path
+        SkillText1.text = tmpr.m_title;
 
+        Skill_Blue tmpb = ps.skill.GetComponent<Skill_Blue>();
+        //SkillImage2 = tmpr.m_path
+        SkillText2.text = tmpb.m_title;
+
+        Skill_Green tmpg = ps.skill.GetComponent<Skill_Green>();
+        //SkillImage3 = tmpr.m_path
+        SkillText3.text = tmpg.m_title;
         //SkillImage1 = 어쩌고저쩌고.
     }
 }

@@ -136,13 +136,11 @@ public class MonsterTrap : MonsterParent
     }
 
 
+
     public  void MonsterHitWeapon(Collider2D col) //KTH: override 붙여져 있었는데 컴파일 에러땜시 잠깐 땜.
     {
-        if (col.gameObject.tag == "Weapon")
-        {
-            //Trap은 DeadCheck를 해줄 필요가 없습니다.
-            quest.QuestMonsterCheck(myMonsterCode);                                 //Trap을 때리면 무기를 확인해서 신호를 보내줌!
-        }
+        //Trap은 DeadCheck를 해줄 필요가 없습니다.
+        quest.QuestMonsterCheck(myMonsterCode);                                 //Trap을 때리면 무기를 확인해서 신호를 보내줌!
     }
 
 

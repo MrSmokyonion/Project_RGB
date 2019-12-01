@@ -8,7 +8,8 @@ public class UnlockClass : MonoBehaviour
 
     private List<SpawnCode> list;           //언락 정보를 담고있는 리스트
 
-    private void Start()
+
+    private void Awake()
     {
         list = new List<SpawnCode>();
 
@@ -24,11 +25,13 @@ public class UnlockClass : MonoBehaviour
         list.Add(SpawnCode.S001);
 
         list.Add(SpawnCode.F001);
+
     }
 
     //해당 코드의 아이템이 언락이 되어있는지 확인함
     public bool CheckCode(SpawnCode code)
     {
+        
         bool b = list.Contains(code);
         return b;
     }
