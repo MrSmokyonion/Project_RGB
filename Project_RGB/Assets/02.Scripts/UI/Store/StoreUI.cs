@@ -106,7 +106,7 @@ public class StoreUI : MonoBehaviour
         {
             for (int i = 0; i < list_food.Count; i++)
             {
-                if (list_food[i].m_price == -123456789)
+                if (list_food[i].m_isSale == false)
                     continue;
 
                 itemNameText[i].text = list_food[i].m_title;
@@ -120,8 +120,8 @@ public class StoreUI : MonoBehaviour
         {
             for (int i = 0; i < list_weapon.Count; i++)
             {
-                //if (list_food[i].m_price == -123456789)
-                //    continue;
+                if (list_weapon[i].m_isSale == false)
+                    continue;
 
                 itemNameText[i].text = list_food[i].m_title;
                 itemPriceText[i].text = list_food[i].m_price.ToString();
@@ -131,8 +131,8 @@ public class StoreUI : MonoBehaviour
 
             for(int i = list_weapon.Count-1; i<list_armor.Count;i++)
             {
-                //if (list_food[i].m_price == -123456789)
-                //    continue;
+                if (list_weapon[i].m_isSale == false)
+                    continue;
 
                 itemNameText[i].text = list_weapon[i].m_title;
                 itemPriceText[i].text = list_weapon[i].m_price.ToString();
@@ -143,16 +143,16 @@ public class StoreUI : MonoBehaviour
 
         else                    //Skill
         {
-            //for (int i = 0; i < list_skill.Count; i++)
-            //{
-            //    //if (list_skill[i].m_price == -123456789)
-            //    //    continue;
+        //    for (int i = 0; i < list_skill.Count; i++)
+        //    {
+        //        if (list_skill[i].m_isSale == false)
+        //            continue;
 
-            //    itemNameText[i].text = list_skill[i].m_title;
-            //    itemPriceText[i].text = list_skill[i].m_price.ToString();
-            //    itemDescriptionText[i].text = list_skill[i].m_description;
-            //    //itemImage[i].sprite = list_food[i].m_spritePath;
-            //}
+        //        itemNameText[i].text = list_skill[i].m_title;
+        //        itemPriceText[i].text = list_skill[i].m_price.ToString();
+        //        itemDescriptionText[i].text = list_skill[i].m_description;
+        //        //itemImage[i].sprite = list_food[i].m_spritePath;
+        //    }
         }
     }
 
