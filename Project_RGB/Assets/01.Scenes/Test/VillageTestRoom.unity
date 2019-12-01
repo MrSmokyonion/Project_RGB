@@ -955,7 +955,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 397.3, y: -538725.5}
+  m_AnchoredPosition: {x: 397.3, y: -539059.9}
   m_SizeDelta: {x: 794.6, y: 709.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &18872379
@@ -1172,7 +1172,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 3169088.2, y: -100}
+  m_AnchoredPosition: {x: 3172461.2, y: -100}
   m_SizeDelta: {x: 3000, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &24031781
@@ -1725,6 +1725,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  skill: {fileID: 0}
+  list_red: []
+  list_green: []
+  list_blue: []
+  sc: {fileID: 0}
+  ps: {fileID: 0}
   useSkillImage: {fileID: 178551094}
   skillNameText: {fileID: 617729393}
   cooldownText: {fileID: 1374332033}
@@ -1987,8 +1993,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 933c90881e4d22d46ab83e99dc90df90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleport: 0
-  partnerDoor: {fileID: 1153367644}
+  teleportOpen: 0
+  chapterClear: 0
+  outputDoor: {fileID: 0}
   dungeonManager: {fileID: 0}
 --- !u!61 &49599008
 BoxCollider2D:
@@ -3422,7 +3429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 397.3, y: -538725.5}
+  m_AnchoredPosition: {x: 397.3, y: -539059.9}
   m_SizeDelta: {x: 794.6, y: 709.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &106931915
@@ -12842,11 +12849,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc036cecdf5d5f842ad11531807371c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemType: 0
   useItem: {fileID: 0}
   itemNameText: []
   itemPriceText: []
   itemDescriptionText: []
   itemImage: []
+  sc: {fileID: 0}
+  tmp: {fileID: 0}
+  list_food: []
+  list_weapon: []
+  list_armor: []
+  list_skill: []
 --- !u!114 &393692493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21421,7 +21435,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 3169088.2, y: -100}
+  m_AnchoredPosition: {x: 3172461.2, y: -100}
   m_SizeDelta: {x: 3000, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &738044606
@@ -23796,7 +23810,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1991584.8, y: -100}
+  m_AnchoredPosition: {x: 1994078.2, y: -100}
   m_SizeDelta: {x: 4930, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &826331934
@@ -30805,6 +30819,7 @@ MonoBehaviour:
   SkillText2: {fileID: 1810554950}
   SkillImage3: {fileID: 328755246}
   SkillText3: {fileID: 1089833431}
+  ps: {fileID: 0}
 --- !u!1 &999921107
 GameObject:
   m_ObjectHideFlags: 0
@@ -34712,7 +34727,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 3169088.2, y: -100}
+  m_AnchoredPosition: {x: 3172461.2, y: -100}
   m_SizeDelta: {x: 3000, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1109973099
@@ -36430,7 +36445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00012207, y: 3661988}
+  m_AnchoredPosition: {x: -0.00012207, y: 3665854}
   m_SizeDelta: {x: 700, y: 2250}
   m_Pivot: {x: 0.49999997, y: 0.9266164}
 --- !u!114 &1143801521
@@ -36811,8 +36826,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 933c90881e4d22d46ab83e99dc90df90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleport: 0
-  partnerDoor: {fileID: 49599006}
+  teleportOpen: 0
+  chapterClear: 0
+  outputDoor: {fileID: 0}
   dungeonManager: {fileID: 0}
 --- !u!61 &1153367646
 BoxCollider2D:
@@ -40089,7 +40105,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00012207, y: 3661988}
+  m_AnchoredPosition: {x: -0.00012207, y: 3665854}
   m_SizeDelta: {x: 700, y: 2250}
   m_Pivot: {x: 0.49999997, y: 0.9266164}
 --- !u!114 &1272440928
@@ -51235,6 +51251,8 @@ MonoBehaviour:
   questMenuCanvas: {fileID: 2045882798}
   equipmentMenuCanvas: {fileID: 1548428614}
   skillMenuCanvas: {fileID: 999136719}
+  VilageSlideCloseImage: {fileID: 0}
+  VilageSlideOpenImage: {fileID: 0}
 --- !u!1 &1639448961
 GameObject:
   m_ObjectHideFlags: 0
@@ -58641,11 +58659,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc036cecdf5d5f842ad11531807371c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemType: 0
   useItem: {fileID: 0}
   itemNameText: []
   itemPriceText: []
   itemDescriptionText: []
   itemImage: []
+  sc: {fileID: 0}
+  tmp: {fileID: 0}
+  list_food: []
+  list_weapon: []
+  list_armor: []
+  list_skill: []
 --- !u!114 &1907569075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59027,7 +59052,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00012207, y: 3661988}
+  m_AnchoredPosition: {x: -0.00012207, y: 3665854}
   m_SizeDelta: {x: 700, y: 2250}
   m_Pivot: {x: 0.49999997, y: 0.9266164}
 --- !u!114 &1917833074
@@ -59662,7 +59687,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 896610.44}
+  m_AnchoredPosition: {x: 0, y: 898194}
   m_SizeDelta: {x: 640, y: 942.22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1931335652
@@ -63790,11 +63815,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc036cecdf5d5f842ad11531807371c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemType: 0
   useItem: {fileID: 0}
   itemNameText: []
   itemPriceText: []
   itemDescriptionText: []
   itemImage: []
+  sc: {fileID: 0}
+  tmp: {fileID: 0}
+  list_food: []
+  list_weapon: []
+  list_armor: []
+  list_skill: []
 --- !u!1 &2042989771
 GameObject:
   m_ObjectHideFlags: 0
