@@ -233,6 +233,30 @@ public class SpawnClass : MonoBehaviour
 
         return result;
     }
+    public GameObject LoadAll_Weapon()
+    {
+        GameObject result = new GameObject();
+
+        result.AddComponent<Sword_Default>();
+        result.AddComponent<Sword_HotTuna>();
+        result.AddComponent<Sword_BBQStick>();
+        result.AddComponent<Sword_Broad>();
+        result.AddComponent<Sword_MoonLight>();
+
+        result.AddComponent<Spear_Default>();
+        result.AddComponent<Spear_IceNalchi>();
+        result.AddComponent<Spear_Nyan>();
+        result.AddComponent<Spear_DangPa>();
+        result.AddComponent<Spear_PolarStar>();
+
+        result.AddComponent<Bow_Default>();
+        result.AddComponent<Bow_NoMoney>();
+        result.AddComponent<Bow_Dryed>();
+        result.AddComponent<Bow_Long>();
+        result.AddComponent<Bow_Apollo>();
+
+        return result;
+    }
     #endregion
 
     #region Food
