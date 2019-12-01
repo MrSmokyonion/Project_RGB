@@ -5,19 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/01.Scenes/SplashScene.unity
     guid: f4f6317f7a4a5bc4893a50d9609239b6
-  - enabled: 0
+  - enabled: 1
     path: Assets/01.Scenes/TitleScene.unity
     guid: 4c277f87b9f4e884d9bee6d3c7bfae36
-  - enabled: 1
-    path: Assets/01.Scenes/VillageScene.unity
-    guid: 05d4c53375ac04c4fbd0bd73ec3e698f
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/01.Scenes/ChoiceDungeonScene.unity
     guid: 26bf76d301c4d63409b717ca72581461
   - enabled: 1
     path: Assets/01.Scenes/DungeonChapterScene.unity
     guid: 77db25e6fe09f66499876cf2b6b3abe0
+  - enabled: 1
+    path: Assets/01.Scenes/Test/InputTestRoom.unity
+    guid: aa64e67404fac364084ee63cefaa2fce
   m_configObjects: {}

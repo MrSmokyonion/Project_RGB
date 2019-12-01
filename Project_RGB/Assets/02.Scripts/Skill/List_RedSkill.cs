@@ -15,6 +15,7 @@ public class Skill_Red_PiercingSpear : Skill_Red //101
         m_code = SpawnCode.R001;
         m_spritePath = "";
         m_price = 1;
+        m_isSale = true;
     }
 
     public override void ExecuteSkill(GameObject obj)
@@ -45,6 +46,7 @@ public class Skill_Red_ArrowRain : Skill_Red //101
         m_code = SpawnCode.R002;
         m_spritePath = "";
         m_price = 1;
+        m_isSale = true;
     }
 
     public override void ExecuteSkill(GameObject obj)
@@ -66,6 +68,7 @@ public class Skill_Red_SwordTrap : Skill_Red //101
         m_code = SpawnCode.R003;
         m_spritePath = "";
         m_price = 1;
+        m_isSale = true;
     }
 
     public override void ExecuteSkill(GameObject obj)
@@ -87,6 +90,7 @@ public class Skill_Red_Turret : Skill_Red //101
         m_code = SpawnCode.R004;
         m_spritePath = "";
         m_price = 1;
+        m_isSale = true;
     }
 
     public override void ExecuteSkill(GameObject obj)
@@ -108,6 +112,7 @@ public class Skill_Red_PowerBuff : Skill_Red //101
         m_code = SpawnCode.R005;
         m_spritePath = "";
         m_price = 1;
+        m_isSale = true;
     }
 
     public override void ExecuteSkill(GameObject obj)

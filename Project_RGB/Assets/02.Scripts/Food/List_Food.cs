@@ -18,6 +18,7 @@ public class Food_Hamburger : BaseFood
         m_description = string.Format("햄버거 입니다. {0}만큼의 체력을 임시로 높여줍니다.", m_foodBonusHp);
         m_code = SpawnCode.F001;
         m_spritePath = "";
+        m_isSale = true;
     }
 }
 
@@ -32,6 +33,7 @@ public class Food_Pizza : BaseFood
         m_description = string.Format("피자 입니다. {0}만큼의 체력을 임시로 높여줍니다.", m_foodBonusHp);
         m_code = SpawnCode.F002;
         m_spritePath = "";
+        m_isSale = true;
     }
 }
 
@@ -46,6 +48,7 @@ public class Food_Noodle : BaseFood
         m_description = string.Format("국수 입니다. {0}만큼의 체력을 임시로 높여줍니다.", m_foodBonusHp);
         m_code = SpawnCode.F003;
         m_spritePath = "";
+        m_isSale = true;
     }
 }
 
@@ -60,6 +63,7 @@ public class Food_RiceBall : BaseFood
         m_description = string.Format("주먹밥 입니다. {0}만큼의 체력을 임시로 높여줍니다.", m_foodBonusHp);
         m_code = SpawnCode.F004;
         m_spritePath = "";
+        m_isSale = true;
     }
 }
 
@@ -74,5 +78,6 @@ public class Food_Steak : BaseFood
         m_description = string.Format("스테이크 입니다. {0}만큼의 체력을 임시로 높여줍니다.", m_foodBonusHp);
         m_code = SpawnCode.F005;
         m_spritePath = "";
+        m_isSale = true;
     }
 }

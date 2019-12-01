@@ -16,6 +16,7 @@ public class Skill_Blue_Barrier : Skill_Blue
         m_code = SpawnCode.B001;
         m_spritePath = "";
         m_price = 1;
+        m_isSale = true;
     }
 
     public override void ExecuteSkill(GameObject obj)
@@ -37,6 +38,7 @@ public class Skill_Blue_Wall : Skill_Blue
         m_code = SpawnCode.B002;
         m_spritePath = "";
         m_price = 1;
+        m_isSale = true;
     }
 
     public override void ExecuteSkill(GameObject obj)
@@ -58,6 +60,7 @@ public class Skill_Blue_Invisible : Skill_Blue
         m_code = SpawnCode.B003;
         m_spritePath = "";
         m_price = 1;
+        m_isSale = true;
     }
 
     public override void ExecuteSkill(GameObject obj)
@@ -79,6 +82,7 @@ public class Skill_Blue_Shield : Skill_Blue
         m_code = SpawnCode.B004;
         m_spritePath = "";
         m_price = 1;
+        m_isSale = true;
     }
 
     public override void ExecuteSkill(GameObject obj)
@@ -101,6 +105,7 @@ public class Skill_Blue_DefenceBuff : Skill_Blue
         m_code = SpawnCode.B005;
         m_spritePath = "";
         m_price = 1;
+        m_isSale = true;
     }
 
     public override void ExecuteSkill(GameObject obj)

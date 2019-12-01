@@ -15,6 +15,7 @@ public class Sword_Default : Weapon_Sword
         m_code = SpawnCode.W001;
         m_spritePath = "";
         m_price = 100;
+        m_isSale = true;
     }
 }
 
@@ -31,6 +32,7 @@ public class Sword_HotTuna : Weapon_Sword
         m_code = SpawnCode.W002;
         m_spritePath = "";
         m_price = -123456789;
+        m_isSale = false;
     }
 }
 
@@ -47,6 +49,7 @@ public class Sword_BBQStick : Weapon_Sword
         m_code = SpawnCode.W003;
         m_spritePath = "";
         m_price = -123456789;
+        m_isSale = false;
     }
 }
 
@@ -63,6 +66,7 @@ public class Sword_Broad : Weapon_Sword
         m_code = SpawnCode.W004;
         m_spritePath = "";
         m_price = 100;
+        m_isSale = true;
     }
 }
 
@@ -79,5 +83,6 @@ public class Sword_MoonLight : Weapon_Sword
         m_code = SpawnCode.W005;
         m_spritePath = "";
         m_price = -987654321;
+        m_isSale = false;
     }
 }
