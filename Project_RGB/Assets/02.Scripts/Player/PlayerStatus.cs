@@ -366,6 +366,7 @@ public class PlayerStatus : MonoBehaviour
         if (collision.gameObject.tag == "Item")
         {
             DroppedItem dropIS = GetComponent<DroppedItem>();
+            changer.UnlockCode(dropIS.dropItemCode);
             //여기 아이템 먹는 처리 하면 됨
             //dropIS.dropItemCode //아이템 코드
         }
