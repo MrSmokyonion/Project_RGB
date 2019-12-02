@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/01.Scenes/SplashScene.unity
     guid: f4f6317f7a4a5bc4893a50d9609239b6
   - enabled: 1
-    path: Assets/01.Scenes/TitleScene.unity
+    path: Assets/01.Scenes/Test/TitleScene_onion.unity
     guid: 4c277f87b9f4e884d9bee6d3c7bfae36
   - enabled: 0
     path: 
