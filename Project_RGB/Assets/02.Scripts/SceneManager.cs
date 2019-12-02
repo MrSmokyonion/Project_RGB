@@ -10,8 +10,10 @@ public enum SceneType
     EMPTY,
     SPLASH,
     TITLE,
+    LOADING,
     VILLAGE,
     CHOICE_DUNGEON,
+    DUNGEON_LOADING,
     TUTORIAL,
     DUNGEON_CHAPTER
 }
