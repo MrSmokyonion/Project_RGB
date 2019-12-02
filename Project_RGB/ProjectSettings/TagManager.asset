@@ -15,6 +15,7 @@ TagManager:
   - QuestSuccessImage
   - DropGold
   - Weapon
+  - Item
   layers:
   - Default
   - TransparentFX

@@ -9,8 +9,6 @@ public class MonsterWalk : MonsterParent
     {
         Debug.Log("MyStart");
 
-        AnimationStateSet(MonsterState.IDLE);
-
         Invoke("AttackRangeCheckSystem", 0.2f);
 
         if (myMonsterCode == MonsterCode.WM112)  //따로 대기 애니메이션. (배경인척 테두리가 없지만 뭔가 흔들리고 있음.)

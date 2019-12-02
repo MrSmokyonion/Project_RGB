@@ -5,6 +5,7 @@ using UnityEngine;
 public class Capital : MonoBehaviour
 {
     public int money = 0;
+    public int crystal = 0;
     public int coupon = 0;
 
     public bool PlusMoney(int pMoney)
@@ -29,6 +30,32 @@ public class Capital : MonoBehaviour
         else
         {
             money -= mMoney;
+            return true;
+        }
+    }
+
+    public bool PlusCrystal(int pCrystal)
+    {
+        if (pCrystal < 0)                             //뭘 입금하려는 거야
+        {
+            return false;
+        }
+        else
+        {
+            crystal += pCrystal;
+            return true;
+        }
+    }
+
+    public bool MinusCrystal(int mCrystal)
+    {
+        if (crystal < mCrystal || mCrystal < 0)           //스킬 파편이 없어영
+        {
+            return false;
+        }
+        else
+        {
+            crystal -= mCrystal;
             return true;
         }
     }

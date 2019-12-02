@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class NoticeTextUI : MonoBehaviour
 {
-    public float delay = 0.7f;
+    public float delay = 0.1f;
     // Start is called before the first frame update
     void Start()
     {

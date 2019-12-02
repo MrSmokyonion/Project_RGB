@@ -33,7 +33,7 @@ public class PlayerStatus : MonoBehaviour
     public ControlManager cm;
     public StatusChanger changer;
     public SkillEffect.SkillCollector skillCollector;
-    
+
 
     //쿨타임 변수들
     private float d_weapon;
@@ -107,7 +107,7 @@ public class PlayerStatus : MonoBehaviour
         //        case 0: maxHp = int.Parse(str[0]); break;
         //        case 1: power = int.Parse(str[0]); break;
         //        case 2: defence = int.Parse(str[0]); break;
-                        
+
         //        case 3:
         //            for (int j = 1; j < str2.Length; j++)
         //            {
@@ -277,7 +277,7 @@ public class PlayerStatus : MonoBehaviour
             TeleportDoor terpoDoor = Interactive.GetComponent<TeleportDoor>();
             terpoDoor.PlayerInteractWithDoor();
         }
-        else if(Interactive.tag == "NPC")
+        else if (Interactive.tag == "NPC")
         {
             NPCClick clickNPC = Interactive.GetComponent<NPCClick>();
             clickNPC.NpcClick();
@@ -322,7 +322,30 @@ public class PlayerStatus : MonoBehaviour
         if (collision.gameObject.tag == "Monster")
         {
             GameObject obj = collision.gameObject;
-            OnDamaged(obj.transform.position, 10); //해당 몬스터의 파워가 여기 들어가야함.
+            OnDamaged(obj.transform.position, 10);  //해당 몬스터의 파워가 여기 들어가야함.
+        }
+        if (collision.gameObject.tag == "DropGold")  //Gold Or Crystal
+        {
+            DroppedGoldOrCrystal dropGOC = collision.gameObject.GetComponent<DroppedGoldOrCrystal>();
+            if (!dropGOC.isGet)
+            {
+                //Capital(자본을 관리하는 은행)에 돈을 넣는다.
+                dropGOC.GetMoneyOrCrystal();
+                if (!dropGOC.isCrystal)
+                {
+                    GetComponent<Capital>().PlusMoney(dropGOC.GoldAmount);
+                }
+                else
+                {
+                    GetComponent<Capital>().PlusCrystal(dropGOC.GoldAmount / 10);   //100골드 = 10크리스탈..
+                }
+            }
+        }
+        if (collision.gameObject.tag == "Item")
+        {
+            DroppedItem dropIS = GetComponent<DroppedItem>();
+            //여기 아이템 먹는 처리 하면 됨
+            //dropIS.dropItemCode
         }
     }
 
