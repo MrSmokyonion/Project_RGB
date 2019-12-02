@@ -345,7 +345,7 @@ public class PlayerStatus : MonoBehaviour
         {
             DroppedItem dropIS = GetComponent<DroppedItem>();
             //여기 아이템 먹는 처리 하면 됨
-            //dropIS.dropItemCode
+            //dropIS.dropItemCode //아이템 코드
         }
     }
 
