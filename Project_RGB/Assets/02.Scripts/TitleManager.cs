@@ -40,6 +40,7 @@ public class TitleManager : MonoBehaviour
             m_circle.rotation = Quaternion.Euler(m_circle.rotation.x, m_circle.rotation.y, nextAngle);
         }
     }
+
     private IEnumerator crt_FadePress()
     {
         yield return null;

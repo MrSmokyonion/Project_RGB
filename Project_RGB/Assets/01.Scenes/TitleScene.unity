@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 588101133}
   - component: {fileID: 588101132}
   - component: {fileID: 588101135}
+  - component: {fileID: 588101136}
   m_Layer: 5
   m_Name: PressToStart
   m_TagString: Untagged
@@ -398,6 +399,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneManagerScript: {fileID: 1119238480}
   fadeInOutScript: {fileID: 982868781}
+--- !u!95 &588101136
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588101130}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f5c50aa2542425846a973e2e17aa0a14, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &618412819
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,7 +677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:

@@ -6,6 +6,7 @@ public class MonsterBoss : MonsterParent
 {
     int attackType = 0; //공격아님0, 기본 1, 특수 2, 특수 3 ...
     public List<GameObject> bossAttackPrefabList;
+    public GameObject DropItemObject;   //드랍 아이템(장비,스킬류) 오브젝트 (Inspector)
 
     public override void MyStart()
     {
@@ -214,4 +215,20 @@ public class MonsterBoss : MonsterParent
     }
 
     #endregion
+
+    public override void DropItem() //Only Boss!
+    {
+        DropItemObject.GetComponent<DroppedItem>().dropItemCode = myMonsterInfo.monsterDropItemCode;
+
+        //-----------------------------------아이템 드랍-----------------------------------
+        DroppedItem item = Instantiate(DropItemObject).GetComponent<DroppedItem>();
+
+        SpawnCode mDropItemCode = myMonsterInfo.monsterDropItemCode;
+        item.name = myMonsterInfo.monsterName + " 드롭 아이템:" + mDropItemCode.ToString();
+
+        int ranX = Random.Range(-100, 101);     //min ~ max-1
+        int ranY = Random.Range(100, 201);      //min ~ max-1
+        item.transform.position = GetComponent<Transform>().position;
+        item.GetComponent<Rigidbody2D>().AddForce(new Vector3(ranX, ranY, 0));              //위 방향으로 랜덤 발사
+    }
 }

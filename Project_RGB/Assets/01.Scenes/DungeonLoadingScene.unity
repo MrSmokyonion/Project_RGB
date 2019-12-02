@@ -538,7 +538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -752,5 +752,9 @@ PrefabInstance:
       propertyPath: sceneManager
       value: 
       objectReference: {fileID: 1674802463}
+    - target: {fileID: 1705605527, guid: 1d2c261542a8a154a95ddb4afdb0d91d, type: 3}
+      propertyPath: fadeInOutManager
+      value: 
+      objectReference: {fileID: 787818997}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d2c261542a8a154a95ddb4afdb0d91d, type: 3}
