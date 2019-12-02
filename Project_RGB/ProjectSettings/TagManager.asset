@@ -16,6 +16,7 @@ TagManager:
   - DropGold
   - Weapon
   - Item
+  - Skill
   layers:
   - Default
   - TransparentFX
@@ -31,7 +32,7 @@ TagManager:
   - Player
   - PlayerDameged
   - Weapon
-  - 
+  - Skill
   - 
   - 
   - 

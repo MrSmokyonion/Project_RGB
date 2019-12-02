@@ -10,6 +10,7 @@ namespace SkillEffect
 
         SpriteRenderer sr;
         Rigidbody2D rigid;
+        SoundManager sound;
 
         private void Start()
         {
@@ -18,6 +19,17 @@ namespace SkillEffect
 
             rigid.velocity = new Vector2(speed, 0f);
             sr.flipX = (speed < 0f) ? true : false;
+
+            sound = FindObjectOfType<SoundManager>();
+            sound.Play("skill_piercingSpear");
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if(collision.gameObject.tag == "Monster")
+            {
+                collision.gameObject.GetComponent<MonsterParent>().MonsterHitWeapon(50);
+            }
         }
     }
 }
