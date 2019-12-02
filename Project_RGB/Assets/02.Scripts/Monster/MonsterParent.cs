@@ -250,7 +250,7 @@ public class MonsterInfoList
 
 public class MonsterParent : MonoBehaviour
 {
-    public Quest quest;                 //퀘스트 (Inspector)                               //Awake에서 quest 찾아서 넣어두기. (모든 코드에서 실행되도록...)
+    public Quest quest;                 //퀘스트   ///Awake에서 quest 찾아서 넣어두기. (Chapter 소환으로 새로 소환되는 몬스터 + 보스가 소환하는 몬스터를 위해서)
 
     public MonsterCode myMonsterCode;   //고유코드 (Inspector)
     public MonsterInfo myMonsterInfo;   //이 몬스터의 정보
@@ -288,7 +288,7 @@ public class MonsterParent : MonoBehaviour
 
             Invoke("PlayerCloserCheck", 0.4f);
 
-            //Debug.Log(myMonsterInfo.monsterHp + "HP" + myMonsterInfo.monsterName);          //Debug log 몬스터확인.
+            //Debug.Log(myMonsterInfo.monsterHp + "HP" + myMonsterInfo.monsterName);        //Debug log 몬스터확인.
         }
 
         if (((int)MonsterCode.FM201 <= (int)myMonsterCode) && ((int)myMonsterCode <= (int)MonsterCode.FM205))
@@ -296,15 +296,11 @@ public class MonsterParent : MonoBehaviour
             myMonsterRigid.gravityScale = 0f;                                               //FlyMonster는 전부 중력0
         }
 
+        AnimationStateSet(MonsterState.IDLE);
 
     }
 
-    public virtual void MyStart()
-    {
-        //Start에 있어야하는 것을 조건하에 직접 실행시킴.
-    }
-
-    public void PlayerCloserCheck()
+    public void CheckPlayerCloserEnoughToMove()
     {
         //플레이어와 몬스터 각각의 x,y값
         pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
@@ -319,8 +315,14 @@ public class MonsterParent : MonoBehaviour
         Invoke("PlayerCloserCheck", 0.4f);
     }
 
+    public virtual void MyStart()
+    {
+        //Start에 있어야하는 것을 조건하에 직접 실행시킴.
+    }
+
     #endregion
 
+    #region About Animation
 
     public void AnimationStateSet(MonsterState nowState)
     {
@@ -359,15 +361,17 @@ public class MonsterParent : MonoBehaviour
         }
     }
 
+    #endregion
+
     #region About Dead
 
     public void DropGoldAndItems()
     {
         //-----------------------------------골드 드랍-----------------------------------
-        DroppedGold gold = Instantiate(DropGoldObject).GetComponent<DroppedGold>();
+        DroppedGoldOrCrystal gold = Instantiate(DropGoldObject).GetComponent<DroppedGoldOrCrystal>();
 
         int mDropGold = myMonsterInfo.monsterDropGoldAmount;
-        gold.GoldAmount = Random.Range(mDropGold - 50, mDropGold + 1);                      // (몬스터 골드량 -50) ~ (몬스터의 골드량)을 전달 함.
+        gold.GoldAmount = Random.Range((int)(mDropGold * 0.7), (int)(mDropGold * 1.2));                      // (몬스터 골드량의 70%) ~ (몬스터의 골드량 120%)을 전달 함.
         gold.name = myMonsterInfo.monsterName + " 드롭 골드량:" + gold;
 
         int ranX = Random.Range(-100, 101);     //min ~ max-1
@@ -375,14 +379,17 @@ public class MonsterParent : MonoBehaviour
         gold.transform.position = GetComponent<Transform>().position;
         gold.GetComponent<Rigidbody2D>().AddForce(new Vector3(ranX, ranY, 0));              //위 방향으로 랜덤 발사
 
-        //-------------------------보스일 때 확률적으로 아이템 드랍-------------------------
+        //-------------------------보스일 때 확률적으로 아이템 드랍 & 크리스탈 드랍-------------------------
         if (myMonsterInfo.isBoss)
         {
             if (Random.Range(0, 101)/*0~100*/ <= myMonsterInfo.monsterDropRate)
             {
                 DropItem();
             }
-            //여기작업해야함
+            if (Random.Range(0, 101) <= 30)    //30% 확률
+            {
+                
+            }
         }
     }
 
@@ -393,24 +400,16 @@ public class MonsterParent : MonoBehaviour
         //아이템 클래스에서 그 MonsterCode에 맞는 아이템을 뿌림. (아이템이 MonsterCode 소지하고 있음.)
     }
 
-    public void DeadCheck()
+    public void DeadProcess()
     {
-        if (myMonsterInfo.monsterHp <= 0)
-        {
-            //죽는 애니메이션과 동시에 아이템 드롭. 그 후 사라짐
-            AnimationStateSet(MonsterState.DEAD);
-            DropGoldAndItems();
-            Invoke("Dead", 2f);
-            //퀘스트에 해당하는 몬스터 일 시
-            quest.QuestMonsterCheck(myMonsterCode);
-            Debug.Log(name + "Dead");
+        //죽는 애니메이션과 동시에 아이템 드롭. 그 후 사라짐
+        AnimationStateSet(MonsterState.DEAD);
+        DropGoldAndItems();
+        Invoke("Dead", 2f);
+        //퀘스트에 해당하는 몬스터 일 시
+        quest.QuestMonsterCheck(myMonsterCode);
+        Debug.Log(name + "Dead");
 
-        }
-        else
-        {
-            //myMonsterAnimator.SetBool("Attacked",true);
-            //인력이 부족해서 다치는 애니메이션 말고 그냥 뒤로 밀려나고 때리는 소리 나게하는 게 나을 수도 있음.
-        }
     }
 
     public void Dead()
@@ -428,15 +427,21 @@ public class MonsterParent : MonoBehaviour
 
     public virtual void MonsterHitWeapon(int power)
     {
+        AnimationStateSet(MonsterState.ATTACKED);
         //Player의 무기/스킬/함정에 접촉 처리.
         //데미지 만큼 myMonsterInfo.monsterHp 깎음
         //자폭 몬스터 있나?..
         //Base_Weapon bW = col.gameObject.GetComponent<Base_Weapon>();
         if (myMonsterInfo.monsterHp >= power)
+        {
             myMonsterInfo.monsterHp -= power;//bW.power;
+            //뒤로 밀려나고 때리는 소리가 남.
+        }
         else
+        {
             myMonsterInfo.monsterHp = 0;
-        DeadCheck();
+            DeadProcess();
+        }
     }
 
     #endregion
