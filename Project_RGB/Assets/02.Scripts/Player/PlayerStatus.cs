@@ -33,7 +33,7 @@ public class PlayerStatus : MonoBehaviour
     public ControlManager cm;
     public StatusChanger changer;
     public SkillEffect.SkillCollector skillCollector;
-    
+
 
     //쿨타임 변수들
     private float d_weapon;
@@ -107,7 +107,7 @@ public class PlayerStatus : MonoBehaviour
         //        case 0: maxHp = int.Parse(str[0]); break;
         //        case 1: power = int.Parse(str[0]); break;
         //        case 2: defence = int.Parse(str[0]); break;
-                        
+
         //        case 3:
         //            for (int j = 1; j < str2.Length; j++)
         //            {
@@ -225,6 +225,10 @@ public class PlayerStatus : MonoBehaviour
         Debug.Log(_weapon.m_title + " 공격!");
         d_weapon = _weapon.delay;
 
+        SoundManager soundManager = FindObjectOfType<SoundManager>();
+        string soundStr = checkWeaponSound(_weapon);
+        soundManager.Play(soundStr + "attack");
+
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(attack_pos.position, attack_range, 0);
         for (int i = 0; i < collider2Ds.Length; i++)
         {
@@ -236,6 +240,8 @@ public class PlayerStatus : MonoBehaviour
                 //Monster 넉백
                 int dirt = (obj.transform.position.x - transform.position.x > 0) ? 1 : -1;
                 obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(dirt, 1) * 7, ForceMode2D.Impulse);
+
+                soundManager.Play(soundStr + "hit");
             }
         }
     }
@@ -246,6 +252,10 @@ public class PlayerStatus : MonoBehaviour
         if (IsAttackDelay() == false) return;
         Debug.Log(_weapon.m_title + " 공격!");
         d_weapon = _weapon.delay;
+
+        SoundManager soundManager = FindObjectOfType<SoundManager>();
+        string soundStr = checkWeaponSound(_weapon);
+        soundManager.Play(soundStr + "attack");
 
         GameObject obj = Instantiate(projectile, attack_pos.position, Quaternion.Euler(0f, 0f, angle));
 
@@ -277,11 +287,23 @@ public class PlayerStatus : MonoBehaviour
             TeleportDoor terpoDoor = Interactive.GetComponent<TeleportDoor>();
             terpoDoor.PlayerInteractWithDoor();
         }
-        else if(Interactive.tag == "NPC")
+        else if (Interactive.tag == "NPC")
         {
             NPCClick clickNPC = Interactive.GetComponent<NPCClick>();
             clickNPC.NpcClick();
         }
+    }
+
+    private string checkWeaponSound(Base_Weapon weapon)
+    {
+        if (weapon is Weapon_Sword)
+            return "sword_";
+        else if (weapon is Weapon_Spear)
+            return "spear_";
+        else if (weapon is Weapon_Bow)
+            return "bow_";
+        else
+            return "error";
     }
     #endregion
 
