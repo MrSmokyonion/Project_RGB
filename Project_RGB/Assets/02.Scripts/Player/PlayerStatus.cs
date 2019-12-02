@@ -344,7 +344,30 @@ public class PlayerStatus : MonoBehaviour
         if (collision.gameObject.tag == "Monster")
         {
             GameObject obj = collision.gameObject;
-            OnDamaged(obj.transform.position, 10); //해당 몬스터의 파워가 여기 들어가야함.
+            OnDamaged(obj.transform.position, 10);  //해당 몬스터의 파워가 여기 들어가야함.
+        }
+        if (collision.gameObject.tag == "DropGold")  //Gold Or Crystal
+        {
+            DroppedGoldOrCrystal dropGOC = collision.gameObject.GetComponent<DroppedGoldOrCrystal>();
+            if (!dropGOC.isGet)
+            {
+                //Capital(자본을 관리하는 은행)에 돈을 넣는다.
+                dropGOC.GetMoneyOrCrystal();
+                if (!dropGOC.isCrystal)
+                {
+                    GetComponent<Capital>().PlusMoney(dropGOC.GoldAmount);
+                }
+                else
+                {
+                    GetComponent<Capital>().PlusCrystal(dropGOC.GoldAmount / 10);   //100골드 = 10크리스탈..
+                }
+            }
+        }
+        if (collision.gameObject.tag == "Item")
+        {
+            DroppedItem dropIS = GetComponent<DroppedItem>();
+            //여기 아이템 먹는 처리 하면 됨
+            //dropIS.dropItemCode //아이템 코드
         }
     }
 
