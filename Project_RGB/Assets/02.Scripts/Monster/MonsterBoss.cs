@@ -199,7 +199,8 @@ public class MonsterBoss : MonsterParent
                     attackingRunTime = ac.animationClips[i].length;
                 }
             }
-            myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
+            // myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
+            AnimationStateSet(MonsterState.ATTACK);
             myMonsterAnimator.SetInteger("AttackType", aniType);          //공격 애니메이션 타입 설정
             Invoke("ResetIsAttacking", attackingRunTime);
         }

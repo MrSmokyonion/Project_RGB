@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Capital : MonoBehaviour
 {
-    public int money = 0;
+    public int money = 100;
     public int crystal = 0;
-    public int coupon = 0;
+    public int coupon = 1;
 
     public bool PlusMoney(int pMoney)
     {

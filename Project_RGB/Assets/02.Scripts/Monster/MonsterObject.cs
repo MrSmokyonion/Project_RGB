@@ -8,6 +8,4 @@ public class MonsterObject : MonsterParent
     {
         myMonsterInfo.monsterHp = 1;
     }
-
-    
 }

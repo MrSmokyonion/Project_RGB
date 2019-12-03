@@ -74,7 +74,7 @@ public class DungeonSelectionImageUI : MonoBehaviour
         Debug.Log(index + 1);
 
         //씬매니저에게 해당 index 씬 바꿔달라 요청
-        sceneManagerScript.ChangeScene(SceneType.DUNGEON_CHAPTER);
+        sceneManagerScript.ChangeScene(SceneType.DUNGEON_LOADING);
     }
 
 }
