@@ -96,6 +96,7 @@ public class ClosetSlideSlotClick : MonoBehaviour
         closetSlide1Script.GetComponent<ScrollRect>().enabled = true;
         closetSlide2Script.GetComponent<ScrollRect>().enabled = false;
         closetSlide3Script.GetComponent<ScrollRect>().enabled = false;
+
         closetSlide2Script.panel.GetComponent<Image>().raycastTarget = true;
         closetSlide3Script.panel.GetComponent<Image>().raycastTarget = true;
         closetSlide1Script.panel.GetComponent<Image>().raycastTarget = false;
@@ -259,27 +260,27 @@ public class ClosetSlideSlotClick : MonoBehaviour
     void ClosetSetting()
     {
         //여기 수정중
-        //GameObject tmp = sc.LoadAll_Armor();
+        GameObject tmp = sc.LoadAll_Weapon();
 
-        //list_weapon.Add(tmp.GetComponent<Sword_Default>());
-        //list_weapon.Add(tmp.GetComponent<Sword_HotTuna>());
-        //list_weapon.Add(tmp.GetComponent<Sword_BBQStick>());
-        //list_weapon.Add(tmp.GetComponent<Sword_Broad>());
-        //list_weapon.Add(tmp.GetComponent<Sword_MoonLight>());
+        list_weapon.Add(tmp.GetComponent<Sword_Default>());
+        list_weapon.Add(tmp.GetComponent<Sword_HotTuna>());
+        list_weapon.Add(tmp.GetComponent<Sword_BBQStick>());
+        list_weapon.Add(tmp.GetComponent<Sword_Broad>());
+        list_weapon.Add(tmp.GetComponent<Sword_MoonLight>());
 
-        //list_weapon.Add(tmp.GetComponent<Spear_Default>());
-        //list_weapon.Add(tmp.GetComponent<Spear_IceNalchi>());
-        //list_weapon.Add(tmp.GetComponent<Spear_Nyan>());
-        //list_weapon.Add(tmp.GetComponent<Spear_DangPa>());
-        //list_weapon.Add(tmp.GetComponent<Spear_PolarStar>());
+        list_weapon.Add(tmp.GetComponent<Spear_Default>());
+        list_weapon.Add(tmp.GetComponent<Spear_IceNalchi>());
+        list_weapon.Add(tmp.GetComponent<Spear_Nyan>());
+        list_weapon.Add(tmp.GetComponent<Spear_DangPa>());
+        list_weapon.Add(tmp.GetComponent<Spear_PolarStar>());
 
-        //list_weapon.Add(tmp.GetComponent<Bow_Default>());
-        //list_weapon.Add(tmp.GetComponent<Bow_NoMoney>());
-        //list_weapon.Add(tmp.GetComponent<Bow_Dryed>());
-        //list_weapon.Add(tmp.GetComponent<Bow_Long>());
-        //list_weapon.Add(tmp.GetComponent<Bow_Apollo>());
+        list_weapon.Add(tmp.GetComponent<Bow_Default>());
+        list_weapon.Add(tmp.GetComponent<Bow_NoMoney>());
+        list_weapon.Add(tmp.GetComponent<Bow_Dryed>());
+        list_weapon.Add(tmp.GetComponent<Bow_Long>());
+        list_weapon.Add(tmp.GetComponent<Bow_Apollo>());
 
-        GameObject tmp = sc.LoadAll_Armor();
+        tmp = sc.LoadAll_Armor();
 
         list_amulet.Add(tmp.GetComponent<Amulet_Default>());
         list_amulet.Add(tmp.GetComponent<Amulet_Richness>());
@@ -324,25 +325,30 @@ public class ClosetSlideSlotClick : MonoBehaviour
 
         if (lastClickSlot == 0)
         {
-            //for (int i = 0; i < list_weapon.Count; i++)
-            //{
-            //    if (list_weapon[i] == ps.weapon.GetComponent<Base_Weapon>())
-            //    {
-            //        useItemIndex[0] = i;
-            //        Base_Weapon bw = list_weapon[i];
-            //        closetSlide1Script.closetSlotImageArray = new RectTransform[list_weapon.Count];
-            //        //itemImage.sprite =
-            //        itemNameText.text = bw.m_title;
-            //        itemValueText1.text = "공격력 : " + bw.power.ToString();
-            //        //itemValueText2.text =
-            //        //itemValueText3.text =
-            //        //itemValueText4.text =
-            //        itemSlider.value = bw.dualbility / 100.0f;
-            //        itemDurability.text = bw.dualbility.ToString();
-            //        itemdescription.text = bw.m_description;
-            //          closetSlide1Script.closetSlotImageArray[index + 2].GetChild(1).GetComponent<Image>().enabled = true;
-            //    }
-            //}
+            for (int i = 0; i < list_weapon.Count; i++)
+            {
+                if (list_weapon[i].m_code == ps.weapon.GetComponent<Base_Weapon>().m_code)
+                {
+                    useItemIndex[0] = i;
+                    Base_Weapon bw = list_weapon[i];
+                    //closetSlide1Script.closetSlotImageArray = new RectTransform[list_weapon.Count];
+                    //itemImage.sprite =
+                    itemNameText.text = bw.m_title;
+                    itemValueText1.text = "공격력 : " + bw.power.ToString();
+                    //itemValueText2.text =
+                    //itemValueText3.text =
+                    //itemValueText4.text =
+                    itemSlider.value = bw.dualbility / 100.0f;
+                    itemDurability.text = bw.dualbility.ToString();
+                   
+                    closetSlide1Script.closetSlotImageArray[i + 2].GetChild(1).GetComponent<Image>().enabled = true;
+                }
+                nowitemNameText.text =      list_weapon[index].m_title;
+                nowitemValueText1.text = "공격력 : " + list_weapon[index].power.ToString();
+                nowitemSlider.value =       list_weapon[index].dualbility / 100.0f;
+                nowitemDurability.text =    list_weapon[index].dualbility.ToString();
+                nowitemdescription.text =   list_weapon[index].m_description;
+            }
         }
         else if (lastClickSlot == 1)
         {
@@ -411,8 +417,8 @@ public class ClosetSlideSlotClick : MonoBehaviour
 
     public void UnlockTest()
     {
-        sc.UnlockCode(SpawnCode.A002);
-        closetSlide2Script.ItemUnLock();
+        sc.UnlockCode(SpawnCode.W003);
+        closetSlide1Script.ItemUnLock();
  
     }
 
@@ -423,19 +429,18 @@ public class ClosetSlideSlotClick : MonoBehaviour
         //*******************************장착 아이템 교체 코드*********************************************
         if (lastClickSlot == 0)
         {
-            ps.changer.ChangeArmor(list_weapon[index].m_code, ps.gameObject, ps.weapon);
-            closetSlide1Script.closetSlotImageArray[useItemIndex[0]].GetChild(1).GetComponent<Image>().enabled = false;
+            ps.changer.ChangeWeapon(list_weapon[index].m_code, ps.gameObject, ps.weapon);
+            closetSlide1Script.closetSlotImageArray[useItemIndex[0]+2].GetChild(1).GetComponent<Image>().enabled = false;
         }
         else if (lastClickSlot == 1)
         {
             ps.changer.ChangeArmor(list_amulet[index].m_code, ps.gameObject, ps.armor);
-            Debug.Log(list_amulet[index].m_title);
-            closetSlide1Script.closetSlotImageArray[useItemIndex[1]+2].GetChild(1).GetComponent<Image>().enabled = false;
+            closetSlide2Script.closetSlotImageArray[useItemIndex[1]+2].GetChild(1).GetComponent<Image>().enabled = false;
         }
         else
         {
             ps.changer.ChangeArmor(list_stone[index].m_code, ps.gameObject, ps.armor);
-            closetSlide1Script.closetSlotImageArray[useItemIndex[2]+2].GetChild(1).GetComponent<Image>().enabled = false;
+            closetSlide3Script.closetSlotImageArray[useItemIndex[2]+2].GetChild(1).GetComponent<Image>().enabled = false;
         }
         //************************************************************************************************
 

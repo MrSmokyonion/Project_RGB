@@ -31,11 +31,17 @@ public class ClosetSlideUI : MonoBehaviour
         if (thisSlotNumber == 0)
         {
             index = (int)(scrollbar.value / 0.07f);
-
-            closetSlotImageArray[index + 2].sizeDelta = Vector2.Lerp(closetSlotImageArray[index + 2].sizeDelta, new Vector2(200.0f, 200.0f), 0.2f); // 스크롤 바의 value 값에 따라 해당 이미지를 키움. 
-            closetSlotImageArray[index + 2].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(closetSlotImageArray[index + 2].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta, new Vector2(200.0f, 200.0f), 0.2f); // 스크롤 바의 value 값에 따라 해당 이미지를 키움.
-            closetSlotImageArray[index + 2].transform.GetChild(1).GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(closetSlotImageArray[index + 2].transform.GetChild(1).GetComponent<RectTransform>().sizeDelta, new Vector2(200.0f, 200.0f), 0.2f); // 스크롤 바의 value 값에 따라 해당 이미지를 키움.
-            closetSlotImageArray[index + 2].transform.GetChild(2).GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(closetSlotImageArray[index + 2].transform.GetChild(2).GetComponent<RectTransform>().sizeDelta, new Vector2(200.0f, 200.0f), 0.2f); // 스크롤 바의 value 값에 따라 해당 이미지를 키움.
+            if (index <= 14)
+            {
+                closetSlotImageArray[index + 2].sizeDelta = Vector2.Lerp(closetSlotImageArray[index + 2].sizeDelta, new Vector2(200.0f, 200.0f), 0.2f); // 스크롤 바의 value 값에 따라 해당 이미지를 키움. 
+                closetSlotImageArray[index + 2].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(closetSlotImageArray[index + 2].transform.GetChild(0).GetComponent<RectTransform>().sizeDelta, new Vector2(200.0f, 200.0f), 0.2f); // 스크롤 바의 value 값에 따라 해당 이미지를 키움.
+                closetSlotImageArray[index + 2].transform.GetChild(1).GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(closetSlotImageArray[index + 2].transform.GetChild(1).GetComponent<RectTransform>().sizeDelta, new Vector2(200.0f, 200.0f), 0.2f); // 스크롤 바의 value 값에 따라 해당 이미지를 키움.
+                closetSlotImageArray[index + 2].transform.GetChild(2).GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(closetSlotImageArray[index + 2].transform.GetChild(2).GetComponent<RectTransform>().sizeDelta, new Vector2(200.0f, 200.0f), 0.2f); // 스크롤 바의 value 값에 따라 해당 이미지를 키움.
+            }
+            else
+            {
+                index = 14;
+            }
         }
         else
         {
@@ -118,16 +124,20 @@ public class ClosetSlideUI : MonoBehaviour
         switch (thisSlotNumber)
         {
             case 0:
-                //for (int i = 0; i < closetSlideSlotClickScript.list_weapon.Count; i++)
-                //{
-                //closetSlotImageArray[i].GetChild(2).GetComponent<Image>().enabled = false;
-                //if (closetSlideSlotClickScript.sc.GetIsUnlocked(closetSlideSlotClickScript.list_weapon[i].m_code) == true)
-                //{
-                //    closetSlotImageArray[i+2].GetChild(0).GetComponent<Image>().enabled = false;
-                //}
-                //}
+                for (int i = 0; i < closetSlideSlotClickScript.list_weapon.Count; i++)
+                {
+                    closetSlotImageArray[i].GetChild(2).GetComponent<Image>().enabled = false;
+                    if (closetSlideSlotClickScript.sc.GetIsUnlocked(closetSlideSlotClickScript.list_weapon[i].m_code) == true)
+                    {
+                        closetSlotImageArray[i + 2].GetChild(0).GetComponent<Image>().enabled = false;
+                        closetSlotImageArray[i + 2].GetComponent<Button>().enabled = true;
+                    }
+                    else
+                    {
+                        closetSlotImageArray[i + 2].GetComponent<Button>().enabled = false;
+                    }
+                }
                 break;
-
             case 1:
                 for (int i = 0; i < closetSlideSlotClickScript.list_amulet.Count; i++)
                 {
