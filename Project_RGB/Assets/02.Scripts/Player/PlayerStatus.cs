@@ -48,7 +48,7 @@ public class PlayerStatus : MonoBehaviour
 
         changer.ChangeSkill(SpawnCode.R001, gameObject, skill);
         changer.ChangeSkill(SpawnCode.G001, gameObject, skill);
-        changer.ChangeSkill(SpawnCode.B005, gameObject, skill);
+        changer.ChangeSkill(SpawnCode.B001, gameObject, skill);
         changer.ChangeWeapon(SpawnCode.W001, gameObject, weapon);
         changer.ChangeArmor(SpawnCode.A001, gameObject, armor);
         changer.ChangeArmor(SpawnCode.S001, gameObject, armor);
@@ -374,6 +374,7 @@ public class PlayerStatus : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("부모의 콜라이더가 실행됬다구 젠자ㅏㅏㅏㅏㅇ");
         if (collision.gameObject.tag == "Monster")
         {
             GameObject obj = collision.gameObject;

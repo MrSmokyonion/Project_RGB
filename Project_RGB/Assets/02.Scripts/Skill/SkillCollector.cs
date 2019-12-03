@@ -7,5 +7,6 @@ namespace SkillEffect
     public class SkillCollector : MonoBehaviour
     {
         public GameObject piercingSpear;
+        public GameObject barrier;
     }
 }

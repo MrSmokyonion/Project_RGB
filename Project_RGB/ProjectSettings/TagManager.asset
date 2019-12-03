@@ -54,6 +54,30 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1186810457
+    locked: 0
+  - name: Platform
+    uniqueID: 580760791
+    locked: 0
+  - name: BackObject
+    uniqueID: 1382112969
+    locked: 0
+  - name: Monster
+    uniqueID: 2057150613
+    locked: 0
+  - name: Object
+    uniqueID: 1274599461
+    locked: 0
+  - name: NPC
+    uniqueID: 114311193
+    locked: 0
+  - name: Skill
+    uniqueID: 3487473075
+    locked: 0
+  - name: Player
+    uniqueID: 2384253737
+    locked: 0
   - name: UI
     uniqueID: 1070425191
     locked: 0

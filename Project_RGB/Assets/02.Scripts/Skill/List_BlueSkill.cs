@@ -7,12 +7,12 @@ public class Skill_Blue_Barrier : Skill_Blue
 {
     public Skill_Blue_Barrier()
     {
-        m_value1 = 0;
+        m_value1 = 3;
         m_value2 = 10;
         m_delay = 20f;
 
         m_title = "배리어";
-        m_description = string.Format("{1}초동안 플레이어에게 {0}만큼 피해를 흡수하는 보호막을 씌워줍니다.", m_value1, m_value2);
+        m_description = string.Format("{1}초동안 플레이어에게 {0}번의 피해를 방어하는 보호막을 씌워줍니다.", m_value1, m_value2);
         m_code = SpawnCode.B001;
         m_spritePath = "";
         m_price = 1;
@@ -22,6 +22,12 @@ public class Skill_Blue_Barrier : Skill_Blue
     public override void ExecuteSkill(GameObject obj)
     {
         Debug.Log("Blue Skill -> " + m_title);
+
+        GameObject barrierObj = GameObject.Instantiate(FindObjectOfType<SkillEffect.SkillCollector>().barrier, obj.transform);
+        Barrier barrierClass = barrierObj.GetComponent<Barrier>();
+
+        barrierClass.barrierCnt = m_value1;
+        barrierClass.time = m_value2;
     }
 }
 
@@ -112,18 +118,18 @@ public class Skill_Blue_DefenceBuff : Skill_Blue
     {
         Debug.Log("Blue Skill -> " + m_title);
 
-        obj.GetComponent<PlayerStatus>().defence += (int)m_value1;
-        target = obj;
+        //obj.GetComponent<PlayerStatus>().defence += (int)m_value1;
+        //target = obj;
 
-        Thread thread = new Thread(new ThreadStart(CancelSkill));
-        thread.Start();
-        thread.Join();
-        Debug.Log("여기입니다 SOSOSOSOSOSOSOOSOSOSOSOOSOSOSOSOOSOSOS");
+        //Thread thread = new Thread(new ThreadStart(CancelSkill));
+        //thread.Start();
+        //thread.Join();
+        //Debug.Log("여기입니다 SOSOSOSOSOSOSOOSOSOSOSOOSOSOSOSOOSOSOS");
     }
 
-    void CancelSkill()
-    {
-        Thread.Sleep((int)m_value2 * 1000);
-        target.GetComponent<PlayerStatus>().defence -= (int)m_value1;
-    }
+    //void CancelSkill()
+    //{
+    //    Thread.Sleep((int)m_value2 * 1000);
+    //    target.GetComponent<PlayerStatus>().defence -= (int)m_value1;
+    //}
 }
