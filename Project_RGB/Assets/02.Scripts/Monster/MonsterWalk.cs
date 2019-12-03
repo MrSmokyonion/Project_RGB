@@ -7,7 +7,7 @@ public class MonsterWalk : MonsterParent
 {
     public override void MyStart()
     {
-        Debug.Log("MyStart");
+        //Debug.Log("MyStart");
 
         Invoke("AttackRangeCheckSystem", 0.2f);
 
@@ -26,47 +26,47 @@ public class MonsterWalk : MonsterParent
 
     public void PosAndMoveSystem()
     {
-        if (((myMonsterInfo.monsterState == MonsterState.IDLE) && (myMonsterInfo.monsterState != MonsterState.DEAD)) || (myMonsterInfo.monsterState == MonsterState.WALK))
+        if (!isAttacking && !isDamaged)                                                           //공격 중에는 move,rotate하면 안됨
         {
-            AnimationStateSet(MonsterState.WALK);
+            if (((myMonsterInfo.monsterState == MonsterState.IDLE) && (myMonsterInfo.monsterState != MonsterState.DEAD)) || (myMonsterInfo.monsterState == MonsterState.WALK))
+            {
+                AnimationStateSet(MonsterState.WALK);
 
-            //플레이어와 몬스터 각각의 x,y값
-            pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
-            mPosXY = new Vector2(this.transform.position.x, this.transform.position.y);
+                //플레이어와 몬스터 각각의 x,y값
+                pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
+                mPosXY = new Vector2(this.transform.position.x, this.transform.position.y);
 
-            isLRM = (pPosXY.x < mPosXY.x) ? 1 :
-               ((pPosXY.x > mPosXY.x) ? 2 : 3);                                    //Player가 Left 1, Right 2, Midle 3 에 있음
+                isLRM = (pPosXY.x < mPosXY.x) ? 1 :
+                   ((pPosXY.x > mPosXY.x) ? 2 : 3);                                 //Player가 Left 1, Right 2, Midle 3 에 있음
 
-            MoveSystem();
+                MoveSystem();
 
-            Invoke("PosAndMoveSystem", 0.1f);
+                Invoke("PosAndMoveSystem", 0.1f);
+            }
         }
     }
 
     public void MoveSystem()
     {
+        //----------------------------좌우----------------------------
         //----------------------------이동----------------------------
-        if (!isAttacking)                                                           //공격 중에는 move,rotate하면 안됨
+        Vector3 myLS = transform.localScale;
+
+        if (isLRM == 1)                                                         //왼쪽에 플레이어가 있음
         {
-            //----------------------------좌우----------------------------
-            Vector3 myLS = transform.localScale;
-
-            if (isLRM == 1)                                                         //왼쪽에 플레이어가 있음
-            {
-                transform.localScale = new Vector3(myLS.x > 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
-                myMonsterRigid.velocity = new Vector2(-myMonsterInfo.monsterSpeed, myMonsterRigid.velocity.y);
-            }
-            else if (isLRM == 2)                                                    //오른쪽에 플레이어가 있음
-            {
-                transform.localScale = new Vector3(myLS.x < 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
-                myMonsterRigid.velocity = new Vector2(myMonsterInfo.monsterSpeed, myMonsterRigid.velocity.y);
-            }
-            else
-            {
-                myMonsterRigid.velocity = new Vector2(0, myMonsterRigid.velocity.y);
-            }
-
+            transform.localScale = new Vector3(myLS.x > 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
+            myMonsterRigid.velocity = new Vector2(-myMonsterInfo.monsterSpeed, myMonsterRigid.velocity.y);
         }
+        else if (isLRM == 2)                                                    //오른쪽에 플레이어가 있음
+        {
+            transform.localScale = new Vector3(myLS.x < 0 ? myLS.x : -myLS.x, myLS.y, myLS.z);
+            myMonsterRigid.velocity = new Vector2(myMonsterInfo.monsterSpeed, myMonsterRigid.velocity.y);
+        }
+        else
+        {
+            myMonsterRigid.velocity = new Vector2(0, myMonsterRigid.velocity.y);
+        }
+
     }
 
     #endregion
@@ -77,7 +77,7 @@ public class MonsterWalk : MonsterParent
     {
         if (myMonsterInfo.monsterState != MonsterState.DEAD)
         {
-            if (!isAttacking)   //공격중이 아닐 때. 공격범위 체크.
+            if (!isAttacking && !isDamaged)   //공격중이 아닐 때. 공격범위 체크.
             {
                 //--------------------------범위 체크--------------------------
                 pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);

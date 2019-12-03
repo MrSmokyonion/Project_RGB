@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1544252825108271272}
   - component: {fileID: 8562042475535005410}
   - component: {fileID: 4913818530523617780}
+  - component: {fileID: 4493498286199197365}
   m_Layer: 9
   m_Name: DropGoldObject
   m_TagString: DropGold
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7167336867105431056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.6308076, y: -0.27693933, z: -0.2421875}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7119272, y: 0.7119272, z: 0.7119272}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -142,4 +143,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GoldAmount: 0
+  isCrystal: 0
+  isGet: 0
   CrystalSprite: {fileID: 21300000, guid: 9db0ea7c30e08474493c56cfdc8bb6bd, type: 3}
+--- !u!95 &4493498286199197365
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7167336867105431056}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1e7bd4141bd37b9408109730ccc2bc1a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -171,7 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quest: {fileID: 0}
   myMonsterCode: 102
-  DropGoldObject: {fileID: 0}
+  DropGoldObject: {fileID: 7167336867105431056, guid: 20d3a769e2ce30f44ba8088317f518dc,
+    type: 3}
   myMonsterAnimator: {fileID: 0}
   myMonsterRigid: {fileID: 0}
   PlayerObject: {fileID: 0}

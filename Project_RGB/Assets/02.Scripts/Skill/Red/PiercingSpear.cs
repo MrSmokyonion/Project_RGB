@@ -7,6 +7,7 @@ namespace SkillEffect
     {
         public float speed;
         public int cnt = 0;
+        public int power = 10;
 
         SpriteRenderer sr;
         Rigidbody2D rigid;
