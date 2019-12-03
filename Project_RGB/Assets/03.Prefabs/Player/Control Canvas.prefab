@@ -1294,6 +1294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPushed: 0
   IsInteract: 0
+  player: {fileID: 0}
   isSpear: 0
 --- !u!1 &8799411886813919206
 GameObject:
@@ -1840,7 +1841,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1070425191
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &8799411886997161464
