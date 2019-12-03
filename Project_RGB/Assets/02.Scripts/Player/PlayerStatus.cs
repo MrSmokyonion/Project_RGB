@@ -42,7 +42,7 @@ public class PlayerStatus : MonoBehaviour
     private float d_blue;
 
     #region Init
-    private void Start()
+    private void Awake()
     {
         //PlayerPrefs.SetString("UserCode", "#9a1d002a");
 

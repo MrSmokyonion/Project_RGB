@@ -15,7 +15,7 @@ public class SkillUI : MonoBehaviour
 
     void Start()
     {
-        
+       SkillUISetting();
     }
 
     // Update is called once per frame
