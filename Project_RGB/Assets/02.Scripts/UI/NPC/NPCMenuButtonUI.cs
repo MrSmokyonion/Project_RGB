@@ -8,10 +8,10 @@ public class NPCMenuButtonUI : MonoBehaviour
     // Start is called before the first frame update
 
 
-    public void SlideNPCMenuButtonClick()
-    {
-        npcQuestUI.SlideNPCMenuButtonClick();
-    }
+    //public void SlideNPCMenuButtonClick()
+    //{
+    //    npcQuestUI.SlideNPCMenuButtonClick();
+    //}
 
 
     public void QuestCanvasOpen()
@@ -22,7 +22,9 @@ public class NPCMenuButtonUI : MonoBehaviour
     public void StoreCanvasOpen()
     {
         npcQuestUI.StoreCanvasOpen();
+        
     }
+
 
 
 }
