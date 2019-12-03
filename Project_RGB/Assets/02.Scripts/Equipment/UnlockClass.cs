@@ -15,7 +15,7 @@ public class UnlockClass : MonoBehaviour
 
         list.Add(SpawnCode.R001);
         list.Add(SpawnCode.G001);
-        list.Add(SpawnCode.B005);
+        list.Add(SpawnCode.B001);
 
         list.Add(SpawnCode.W001);
         list.Add(SpawnCode.W101);
@@ -25,7 +25,6 @@ public class UnlockClass : MonoBehaviour
         list.Add(SpawnCode.S001);
 
         list.Add(SpawnCode.F001);
-
     }
 
     //해당 코드의 아이템이 언락이 되어있는지 확인함
