@@ -14,18 +14,19 @@ namespace SkillEffect
         SoundManager sound;
 
         GameObject[] enemyCnt = new GameObject[5]; // 이 문장 어색함 수정 필요.
-        
+
 
         private void Start()
         {
             sr = GetComponent<SpriteRenderer>();
             rigid = GetComponent<Rigidbody2D>();
 
-            rigid.velocity = new Vector2(speed, 0f);
-            sr.flipX = (speed < 0f) ? true : false;
+            rigid.velocity = new Vector2(speed * 2.8f, 0f);
+            sr.flipX = (speed * 2.8f < 0f) ? true : false;
 
             sound = FindObjectOfType<SoundManager>();
             sound.Play("skill_piercingSpear");
+            Destroy(gameObject,3f);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

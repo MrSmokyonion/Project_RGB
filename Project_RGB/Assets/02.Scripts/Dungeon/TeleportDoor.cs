@@ -6,12 +6,28 @@ public class TeleportDoor : MonoBehaviour
 {
     public bool teleportOpen = false;
     public bool chapterClear = false;
-    public GameObject outputDoor;                                      //이 문과 연결 되어있는 나가는 문. (Chapter Clear 문은 output이 없음)
-    public DungeonManager dungeonManager;
+    public GameObject outputDoor;                           //이 문과 연결 되어있는 나가는 문. (Chapter Clear 문은 output이 없음)
+    public DungeonManager dungeonManager;                   //(Find)
+    public GameObject playerObject;                         //(Find)
+    public Sprite OpenDoor;                                 //(Inspector)
+
+    private void Start()
+    {
+        dungeonManager = GameObject.Find("DungeonManager").GetComponent<DungeonManager>();
+        playerObject = GameObject.Find("Player");
+        dungeonManager.teleportDoors.Add(this);
+    }
+
+    private void Update()
+    {
+        if (teleportOpen || chapterClear)
+            GetComponent<SpriteRenderer>().sprite = OpenDoor;
+    }
 
     public void PlayerInteractWithDoor()
     {
         //Player가 상호작용 버튼을 눌러서 문의 이 함수에 넣어줄 시 데려왔을 시.
+        Debug.Log("teleportOpen:" + teleportOpen);
         if (teleportOpen)
         {
             if (!chapterClear)
@@ -30,9 +46,12 @@ public class TeleportDoor : MonoBehaviour
         }
     }
 
-    void AfterPlayerInteractWithDoor()
+    public void AfterPlayerInteractWithDoor()
     {
-        dungeonManager.AfterGoToNextStage(outputDoor.transform.position);
+        Debug.Log("텔레포트 실행");
+        playerObject.transform.position = outputDoor.transform.position;
+        Debug.Log("텔레포트 완료해야함.");
+        dungeonManager.AfterGoToNextStage();
     }
 
     #region 일용할 양식
