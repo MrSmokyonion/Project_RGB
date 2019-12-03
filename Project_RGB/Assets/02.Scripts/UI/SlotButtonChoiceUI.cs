@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class SlotButtonChoiceUI : MonoBehaviour     //슬롯에서 항목 선택시
 {
+
     public int index;
+   
     public SkillDetailUI skilldetailScript;
     public RepairSlotUI repairScript;
     public ClosetSlideSlotClick closetSlideSlotClickScript;

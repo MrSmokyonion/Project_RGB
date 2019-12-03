@@ -53,7 +53,7 @@ public class SpawnClass : MonoBehaviour
 
         Weapon_Spear dump = _child.GetComponent<Weapon_Spear>();
         if (dump != null)
-            Destroy(dump);
+             Destroy(dump);
 
         Weapon_Spear tmp;
         switch (weaponCode)
@@ -74,7 +74,7 @@ public class SpawnClass : MonoBehaviour
     {
         if (!unlock.CheckCode(weaponCode)) return null;
 
-        Weapon_Bow dump = _child.GetComponent<Weapon_Bow>();
+        Base_Weapon dump = _child.GetComponent<Base_Weapon>();
         if (dump != null)
             Destroy(dump);
 
