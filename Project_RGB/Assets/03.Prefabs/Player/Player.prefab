@@ -166,10 +166,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1910713559
+  m_SortingLayer: 8
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d84331781c9468b468518123d40cf7e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 533759fd3cc6bb441abe606ef9e1b36b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -197,7 +197,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8125, y: 1}
+    oldSize: {x: 1.96, y: 3.02}
     newSize: {x: 0.8125, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -244,7 +244,7 @@ MonoBehaviour:
   skillButton: {fileID: 0}
   attackButton: {fileID: 0}
   uicon: {fileID: 0}
-  maxSpeed: 4
+  maxSpeed: 5
   jumpPower: 10
 --- !u!114 &5021940511773802681
 MonoBehaviour:
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Interactive: {fileID: 0}
   attack_pos: {fileID: 5021940511010790081}
-  attack_range: {x: 1, y: 1}
+  attack_range: {x: 0, y: 0}
   maxHp: 0
   curHp: 0
   foodBonusHp: 0
@@ -271,8 +271,7 @@ MonoBehaviour:
   weapon: {fileID: 5021940511469041587}
   armor: {fileID: 5021940511060409621}
   food: {fileID: 5021940512810479779}
-  projectile: {fileID: 2161223001675224827, guid: 67ffa76f954f0b34baad4753dfda4399,
-    type: 3}
+  projectile: {fileID: 0}
   cm: {fileID: 5021940511773802686}
   changer: {fileID: 5021940511773802680}
   skillCollector: {fileID: 0}
@@ -303,6 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 0
+  crystal: 0
   coupon: 0
 --- !u!1 &5021940511913650525
 GameObject:
