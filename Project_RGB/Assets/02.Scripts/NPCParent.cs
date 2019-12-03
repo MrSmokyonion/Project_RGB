@@ -6,9 +6,8 @@ using UnityEngine;
 public enum StoreType
 {
     Weapon,
-    Accessories,        //몬스터 종류 처치
-    Skill,              //몬스터 수량 처치
-    Food,               //NPC 심부름
+    Skill,
+    Food,
 }
 #endregion
 
@@ -45,11 +44,15 @@ public class NPCParent : MonoBehaviour
 
     public void NPCInfoListSetting()
     {
-        npcInfoList.Add(new NpcInfo(0, npcSpriteList[0], false, StoreType.Food, "아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ"));
-        npcInfoList.Add(new NpcInfo(1, npcSpriteList[1], true, StoreType.Weapon, "아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ"));
-        npcInfoList.Add(new NpcInfo(2, npcSpriteList[2], true, StoreType.Skill, "아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ"));
-        npcInfoList.Add(new NpcInfo(3, npcSpriteList[3], true, StoreType.Accessories, "아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ"));
-        npcInfoList.Add(new NpcInfo(4, npcSpriteList[4], false, StoreType.Food, "아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ"));
+        npcInfoList.Add(new NpcInfo(0, npcSpriteList[0], true, StoreType.Food, "저희 여관의 음식과 침대는 최고랍니다~ 쉬고 가시겠어요?"));
+        npcInfoList.Add(new NpcInfo(1, npcSpriteList[1], true, StoreType.Weapon, "허허허! 이 근육을 한 번 보게나! 이게 바로 20년의 망치질로 단련된 근육이라네!		"));
+        npcInfoList.Add(new NpcInfo(2, npcSpriteList[2], false, 0, "왜 이렇게 세상이 허전한지 모르겠어. 네가 어떻게 좀 해줄래?"));
+        npcInfoList.Add(new NpcInfo(3, npcSpriteList[3], true, StoreType.Skill, "..."));
+        npcInfoList.Add(new NpcInfo(4, npcSpriteList[4], false, 0, "먀옹(바닥에 그림을 그린다)"));
+        npcInfoList.Add(new NpcInfo(0, npcSpriteList[5], false, 0, "너 좋은거 가지고 있네? 좀만 나눠줘라. 아님말고.		"));
+        npcInfoList.Add(new NpcInfo(1, npcSpriteList[6], false, 0, "으잉으잉으잉 쯔쯔쯔… 고생이 많구먼"));
+        npcInfoList.Add(new NpcInfo(1, npcSpriteList[7], false, 0, "야 너!"));
+
     }
 
 

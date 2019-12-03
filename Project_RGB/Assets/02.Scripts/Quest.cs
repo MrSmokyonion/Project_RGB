@@ -88,18 +88,18 @@ public class Quest : MonoBehaviour
 
     public NPCQuestUI npcTest = null;
 
-
+    public PlayerStatus ps;
+    public SpawnClass sc;
+    public Capital capital;
     // Start is called before the first frame update
     void Awake()
-    {
-
-        Screen.SetResolution(1920, 1080, false);
+    {     
         QuestList();
         PlayerQuestList();
         UIQuestList();
         RequestQuestData();
         // test
-        PlayerPrefs.SetString("USERCODE", "#9a1e0001"); // #00000000
+        PlayerPrefs.SetString("USERCODE", "#9b0e0002"); // #00000000
         Debug.LogWarning(PlayerPrefs.GetString("USERCODE"));
     }
 
@@ -311,7 +311,7 @@ public class Quest : MonoBehaviour
             switch (questType)
             {
                 case QuestType.Type_Kill:
-                    if (questAcessList[i].questItemCur < questAcessList[i].questItemMax)
+                    if (questAcessList[i].questItemCur < questAcessList[i].questItemMax && questAcessList[i].questmonstercode == monsterCode)
                     {
                         playerQuestList[FindNameToQuestInfo(questAcessList[i].quest_name).quest_code].questItemCur++;     
                     }
@@ -342,14 +342,27 @@ public class Quest : MonoBehaviour
                         playerQuestList[FindNameToQuestInfo(questAcessList[i].quest_name).quest_code].questItemCur++;
                     }
                     break;
-
+                    
                 case QuestType.Gold_Collect:
                     {
-                        //questAcessList[i].questItemCur = 현재골드
-                        //playerQuestList[FindNameToQuestCode(questAcessList[i].quest_name).quest_code].questItemCur = 현재골드
+                        questAcessList[i].questItemCur = capital.money;
+                        playerQuestList[FindNameToQuestInfo(questAcessList[i].quest_name).quest_code].questItemCur = capital.money;
                     }
                     break;
+                case QuestType.GetItem_Type_Kill:
+                    {
+                        if(sc.GetIsUnlocked(questAcessList[i].quest_reward_item) == false)
+                        {
+                            sc.UnlockCode(questAcessList[i].quest_reward_item);
+                        }
 
+                        if (questAcessList[i].questItemCur < questAcessList[i].questItemMax && ps.GetComponent<Base_Weapon>().m_code == questAcessList[i].quest_reward_item && questAcessList[i].questmonstercode == monsterCode)
+                        {
+                            playerQuestList[FindNameToQuestInfo(questAcessList[i].quest_name).quest_code].questItemCur++;
+                        }
+
+                    }
+                    break;
 
 
             }
@@ -371,7 +384,7 @@ public class Quest : MonoBehaviour
             {
 
                 //******************************************보상 처리******************************************
-             
+                QuestReward(questAcessList[i]);
 
                 //*********************************************************************************************
                 questSuccessList.Add(questAcessList[i]);
@@ -460,7 +473,7 @@ public class Quest : MonoBehaviour
             case QuestRewardCode.Equipment:
 
                 //********************아이템 얻는 코드************************
-                //quest.quest_reward_item
+                sc.UnlockCode(quest.quest_reward_item);
                 //************************************************************
 
                 break;
@@ -468,7 +481,7 @@ public class Quest : MonoBehaviour
             case QuestRewardCode.Only_Gold:
 
                 //********************골드 얻는 코드************************
-                //quest.quest_reward_gold
+                capital.PlusMoney(quest.quest_reward_gold);
                 //************************************************************
 
                 break;
@@ -476,7 +489,7 @@ public class Quest : MonoBehaviour
             case QuestRewardCode.Repair_Coupon:
 
                 //********************쿠폰 얻는 코드************************
-
+                capital.PlusCoupon(1);
                 //************************************************************
 
                 break;
@@ -484,7 +497,7 @@ public class Quest : MonoBehaviour
             case QuestRewardCode.Skill:
 
                 //********************스킬 얻는 코드************************
-                //quest.quest_reward_item
+                sc.UnlockCode(quest.quest_reward_item);
                 //************************************************************
 
                 break;

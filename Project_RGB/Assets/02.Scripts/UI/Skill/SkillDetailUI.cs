@@ -24,11 +24,12 @@ public class SkillDetailUI : MonoBehaviour
     public Image useSkillImage;
     public Text skillNameText;
     public Text cooldownText;
-    public Text powerText;
-    public Text valueText;
+
     public Text SkillDescriptionText;
 
     //*************************************************************
+
+    public SkillUI skillUIscript;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,10 +64,22 @@ public class SkillDetailUI : MonoBehaviour
             //skillImageArray[i].sprite = list_red[i].m_spritePath;
             Skill_Red tmp = ps.skill.GetComponent<Skill_Red>();
             skillNameText.text = tmp.m_title;
-            cooldownText.text = tmp.m_delay.ToString();
-            powerText.text = tmp.m_value1.ToString();
-            valueText.text = tmp.m_value2.ToString();
+            cooldownText.text = "쿨타임 : " + tmp.m_delay.ToString();
             SkillDescriptionText.text = tmp.m_description;
+            for (int i = 0; i < list_red.Count; i++)
+            {
+                if (sc.GetIsUnlocked(list_red[i].m_code) == false)
+                {
+                    skillImageArray[i].transform.GetChild(0).gameObject.SetActive(false);
+                    skillImageArray[i].GetComponent<Button>().interactable = false;
+
+                }
+                if (list_red[i].m_code != tmp.m_code)
+                {
+                    skillImageArray[i].transform.GetChild(1).gameObject.SetActive(false);
+                }
+            }
+
         }
 
         else if (skillType == 1)//Green
@@ -76,10 +89,22 @@ public class SkillDetailUI : MonoBehaviour
             //skillImageArray[i].sprite = SkillList[i].Image;
             Skill_Green tmp = ps.skill.GetComponent<Skill_Green>();
             skillNameText.text = tmp.m_title;
-            cooldownText.text = tmp.m_delay.ToString();
-            powerText.text = tmp.m_value1.ToString();
-            valueText.text = tmp.m_value2.ToString();
+            cooldownText.text = "쿨타임 : " + tmp.m_delay.ToString();
             SkillDescriptionText.text = tmp.m_description;
+
+            for (int i = 0; i < list_green.Count; i++)
+            {
+                if (sc.GetIsUnlocked(list_green[i].m_code) == false)
+                {
+                    skillImageArray[i].transform.GetChild(0).gameObject.SetActive(false);
+                    skillImageArray[i].GetComponent<Button>().interactable = false;
+
+                }
+                if (list_green[i].m_code != tmp.m_code)
+                {
+                    skillImageArray[i].transform.GetChild(1).gameObject.SetActive(false);
+                }
+            }
         }
 
         else
@@ -90,10 +115,22 @@ public class SkillDetailUI : MonoBehaviour
 
             Skill_Blue tmp = ps.skill.GetComponent<Skill_Blue>();
             skillNameText.text = tmp.m_title;
-            cooldownText.text = tmp.m_delay.ToString();
-            powerText.text = tmp.m_value1.ToString();
-            valueText.text = tmp.m_value2.ToString();
+            cooldownText.text = "쿨타임 : " + tmp.m_delay.ToString();
             SkillDescriptionText.text = tmp.m_description;
+
+            for (int i = 0; i < list_blue.Count; i++)
+            {
+                if (sc.GetIsUnlocked(list_blue[i].m_code) == false)
+                {
+                    skillImageArray[i].transform.GetChild(0).gameObject.SetActive(false);
+                    skillImageArray[i].GetComponent<Button>().interactable = false;
+
+                }
+                if (list_blue[i].m_code != tmp.m_code)
+                {
+                    skillImageArray[i].transform.GetChild(1).gameObject.SetActive(false);
+                }
+            }
         }
 
         //for (int i = 0; i < skillList.Count; i++)
@@ -105,6 +142,15 @@ public class SkillDetailUI : MonoBehaviour
         //}
     }
 
+    public void SlotSetting()
+    {
+        for (int i = 0; i < skillImageArray.Length; i++)
+        {
+            skillImageArray[i].transform.GetChild(0).gameObject.SetActive(true);
+            skillImageArray[i].GetComponent<Button>().interactable = true;
+            skillImageArray[i].transform.GetChild(1).gameObject.SetActive(true);
+        }
+    }
     public void ChangeSkill(int index)
     {
         Base_Skill tmp;
@@ -118,7 +164,9 @@ public class SkillDetailUI : MonoBehaviour
         else
             tmp = list_blue[index];
 
+        skillUIscript.ps.changer.ChangeSkill(tmp.m_code, ps.gameObject, ps.skill);
         ChangeSkillUI(tmp);
+        skillUIscript.SkillUISetting();
     }
 
     public void ChangeSkillUI(Base_Skill tmp)
@@ -127,9 +175,8 @@ public class SkillDetailUI : MonoBehaviour
         //useSkillImage.sprite = list_red[0].m_spritePath;
         skillNameText.text = tmp.m_title;
         cooldownText.text = tmp.m_delay.ToString();
-        powerText.text = tmp.m_value1.ToString();
-        valueText.text = tmp.m_value2.ToString();
         SkillDescriptionText.text = tmp.m_description;
+        
     }
 
 }
