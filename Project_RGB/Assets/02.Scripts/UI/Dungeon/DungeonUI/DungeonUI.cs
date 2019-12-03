@@ -37,7 +37,7 @@ public class DungeonUI : MonoBehaviour
     public string GoldSetting()
     {
         //캐피탈에서 Gold 받아오기
-        Debug.Log("capitalScript.money.ToString()");
+        //Debug.Log("capitalScript.money.ToString()");
         return capitalScript.money.ToString();
     }
 

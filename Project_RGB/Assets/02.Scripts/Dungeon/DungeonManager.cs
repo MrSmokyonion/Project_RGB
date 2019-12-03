@@ -40,7 +40,7 @@ public class DungeonManager : MonoBehaviour
         //소환된 Chapter의 stage마다 MonsterCount 확인
         for (int i = 0; i < maxStageNumber; i++)
         {
-            Debug.Log("챕터 이름 잘 들어갔나요" + chapterObject.transform.GetChild(i).name);
+            //Debug.Log("챕터 이름 잘 들어갔나요" + chapterObject.transform.GetChild(i).name);
             stageMonsterCounts.Add(chapterObject.transform.GetChild(i).name, chapterObject.transform.GetChild(i)/*stage+(i+1)*/.GetChild(1)/*Monsters*/.childCount);
         }
     }

@@ -27,8 +27,12 @@ public class DroppedGoldOrCrystal : MonoBehaviour
     public void GetMoneyOrCrystal()
     {
         isGet = true;
-        //Player에게 닿을 시 Collider를 끈다. (혹시 모를 버그와 중복 방지)
+
+        //Player에게 닿을 시 Collider를 끄고 멈춘다. (혹시 모를 버그와 중복 방지)
         this.GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<Rigidbody2D>().gravityScale = 0;
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        GetComponent<Rigidbody2D>().angularVelocity = 0;
         //이펙트를 내뿜는다, 천천히 사라진다, Gold가 적립된다.
         Animator ani = this.GetComponent<Animator>();
         ani.SetBool("isGet", isGet);
