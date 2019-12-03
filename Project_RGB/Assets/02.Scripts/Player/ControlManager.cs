@@ -76,10 +76,10 @@ public class ControlManager : MonoBehaviour
         //Movement
         rigid.AddForce(Vector2.right * MoveStick.Horizontal, ForceMode2D.Impulse);
 
-        if (rigid.velocity.x > maxSpeed)
-            rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
-        else if (rigid.velocity.x < maxSpeed * (-1))
-            rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
+        if (rigid.velocity.x > maxSpeed*2.2f)
+            rigid.velocity = new Vector2(maxSpeed * 2.2f, rigid.velocity.y);
+        else if (rigid.velocity.x < maxSpeed * 2.2f * (-1))
+            rigid.velocity = new Vector2(maxSpeed * 2.2f * (-1), rigid.velocity.y);
     }
     public void Move_Jump()
     {

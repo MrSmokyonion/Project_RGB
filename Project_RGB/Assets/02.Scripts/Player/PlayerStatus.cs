@@ -238,9 +238,12 @@ public class PlayerStatus : MonoBehaviour
                 GameObject obj = collider2Ds[i].gameObject;
 
                 //Monster 데미지 처리
-                obj.GetComponent<MonsterParent>().MonsterHitWeapon(power);
+                if (obj.GetComponent<MonsterParent>().myMonsterInfo.monsterState != MonsterState.DEAD)
+                {
+                    obj.GetComponent<MonsterParent>().MonsterHitWeapon(power);
 
-                soundManager.Play(soundStr + "hit");
+                    soundManager.Play(soundStr + "hit");
+                }
             }
         }
     }

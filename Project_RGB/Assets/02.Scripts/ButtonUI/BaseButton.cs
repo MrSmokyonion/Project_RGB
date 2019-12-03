@@ -19,12 +19,12 @@ public abstract class BaseButton : MonoBehaviour, IPointerDownHandler, IPointerU
 
     public virtual void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log(gameObject.name + " is Pushed!");
+        //Debug.Log(gameObject.name + " is Pushed!");
         isPushed = true;
     }
     public virtual void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log(gameObject.name + " is Released!");
+        //Debug.Log(gameObject.name + " is Released!");
         isPushed = false;
     }
 
