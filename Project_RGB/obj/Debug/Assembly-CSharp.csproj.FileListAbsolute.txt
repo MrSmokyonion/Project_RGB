@@ -243,3 +243,6 @@ D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\Cinemachine.dll
 D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\com.unity.cinemachine.editor.dll
 D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\Cinemachine.pdb
 D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\com.unity.cinemachine.editor.pdb
+D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\Boo.Lang.dll
+D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\UnityEditor.UI.dll
+D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\UnityEditor.Timeline.dll
