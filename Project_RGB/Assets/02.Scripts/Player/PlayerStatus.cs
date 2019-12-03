@@ -86,9 +86,9 @@ public class PlayerStatus : MonoBehaviour
     }
     public void Init_HpDefence()
     {
-        maxHp = 100;
+        maxHp = 200;
         curHp = maxHp;
-        defence = 1;
+        defence = 5;
     }
     public void Init_Food()
     {
@@ -344,7 +344,7 @@ public class PlayerStatus : MonoBehaviour
         if (collision.gameObject.tag == "Monster")
         {
             GameObject obj = collision.gameObject;
-            OnDamaged(obj.transform.position, 10);  //해당 몬스터의 파워가 여기 들어가야함.
+            OnDamaged(obj.transform.position, obj.GetComponent<MonsterParent>().myMonsterInfo.monsterDamage);  //해당 몬스터의 파워가 여기 들어가야함.
         }
         if (collision.gameObject.tag == "DropGold")  //Gold Or Crystal
         {
@@ -365,10 +365,11 @@ public class PlayerStatus : MonoBehaviour
         }
         if (collision.gameObject.tag == "Item")
         {
+            //아이템 획득 후 처리
             DroppedItem dropIS = GetComponent<DroppedItem>();
             changer.UnlockCode(dropIS.dropItemCode);
-            //여기 아이템 먹는 처리 하면 됨
-            //dropIS.dropItemCode //아이템 코드
+            //NoticeTextUI 에게 알려야함.
+            //여기에 작성좀
         }
     }
 
@@ -378,7 +379,7 @@ public class PlayerStatus : MonoBehaviour
         if (collision.gameObject.tag == "Monster")
         {
             GameObject obj = collision.gameObject;
-            OnDamaged(obj.transform.position, 10); //해당 몬스터의 파워가 여기 들어가야함.
+            OnDamaged(obj.transform.position, obj.GetComponent<MonsterParent>().myMonsterInfo.monsterDamage); //해당 몬스터의 파워가 여기 들어가야함.
         }
     }
 

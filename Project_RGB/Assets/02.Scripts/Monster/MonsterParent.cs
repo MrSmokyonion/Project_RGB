@@ -159,19 +159,19 @@ public class MonsterInfoList
         //Boss Monsters
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM301, true, "습지의 여왕", MonsterState.IDLE,
             10, 10, 100, 0, 10,
-            500, 80, SpawnCode.G001));
+            500, 20, SpawnCode.W203));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM302, true, "타오르는 피닉스", MonsterState.IDLE,
             10, 10, 100, 5, 10,
-            500, 80, SpawnCode.G001));
+            500, 5, SpawnCode.A003));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM303, true, "얼음 네시", MonsterState.IDLE,
             10, 10, 100, 7, 30,
-            500, 80, SpawnCode.G001));
+            500, 10, SpawnCode.W105));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM304, true, "사자 해바리기", MonsterState.IDLE,
             10, 10, 100, 7, 10,
-            500, 80, SpawnCode.G001));
+            500, 5, SpawnCode.W005));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM305, true, "빛의 정령", MonsterState.IDLE,
             10, 10, 100, 0, 10,
-            500, 80, SpawnCode.G001));
+            500, 80, SpawnCode.NONE));
         //-------------------------------305
 
 
@@ -286,7 +286,7 @@ public class MonsterParent : MonoBehaviour
             myMonsterRigid = GetComponent<Rigidbody2D>();
             myMonsterInfo = monsterInfoDataBase.MonsterDataLoadWithCode(myMonsterCode);
 
-            Invoke("PlayerCloserCheck", 0.4f);
+            Invoke("CheckPlayerCloserEnoughToMove", 0.4f);
 
             //Debug.Log(myMonsterInfo.monsterHp + "HP" + myMonsterInfo.monsterName);        //Debug log 몬스터확인.
         }
@@ -312,7 +312,7 @@ public class MonsterParent : MonoBehaviour
             return;
         }
 
-        Invoke("PlayerCloserCheck", 0.4f);
+        Invoke("CheckPlayerCloserEnoughToMove", 0.4f);
     }
 
     public virtual void MyStart()
@@ -388,14 +388,16 @@ public class MonsterParent : MonoBehaviour
             }
             if (Random.Range(0, 101) <= 30)    //30% 확률
             {
-                
+
             }
         }
     }
 
-    public void DropItem()
+    public virtual void DropItem() //Only Boss!
     {
         //어떤 식으로든 아이템에게 아이템 달라고 요청. 그 후 생성 및 뿌림.
+
+        //----------------아래 이야기는 보류----------------
         //아이템 클래스에게 MonsterCode를 넘김 
         //아이템 클래스에서 그 MonsterCode에 맞는 아이템을 뿌림. (아이템이 MonsterCode 소지하고 있음.)
     }
@@ -428,6 +430,7 @@ public class MonsterParent : MonoBehaviour
     public virtual void MonsterHitWeapon(int power)
     {
         AnimationStateSet(MonsterState.ATTACKED);
+
         //Player의 무기/스킬/함정에 접촉 처리.
         //데미지 만큼 myMonsterInfo.monsterHp 깎음
         //자폭 몬스터 있나?..
@@ -435,7 +438,9 @@ public class MonsterParent : MonoBehaviour
         if (myMonsterInfo.monsterHp >= power)
         {
             myMonsterInfo.monsterHp -= power;//bW.power;
-            //뒤로 밀려나고 때리는 소리가 남.
+                                             //맞고 밀려남
+            int dirt = (gameObject.transform.position.x - transform.parent.position.x > 0) ? 1 : -1;
+            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(dirt, 1) * 7, ForceMode2D.Impulse);
         }
         else
         {
