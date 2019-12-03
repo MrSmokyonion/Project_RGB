@@ -2648,12 +2648,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill Collector
       objectReference: {fileID: 0}
-    - target: {fileID: 77566383578246987, guid: 7329ffed45e919e4099f888805c05dd9,
-        type: 3}
-      propertyPath: barrier
-      value: 
-      objectReference: {fileID: 1706568201243432043, guid: 378281f4844c9ea4c9b6179121b17fa8,
-        type: 3}
     - target: {fileID: 77566383578246988, guid: 7329ffed45e919e4099f888805c05dd9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2709,6 +2703,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 77566383578246987, guid: 7329ffed45e919e4099f888805c05dd9,
+        type: 3}
+      propertyPath: barrier
+      value: 
+      objectReference: {fileID: 1706568201243432043, guid: 378281f4844c9ea4c9b6179121b17fa8,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7329ffed45e919e4099f888805c05dd9, type: 3}
 --- !u!1001 &532954800984781387
@@ -2972,6 +2972,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5021940511773802681, guid: 40836c671dc6dec4f9da32ad976ebe60,
+        type: 3}
+      propertyPath: skillCollector
+      value: 
+      objectReference: {fileID: 568759340}
     - target: {fileID: 5021940511773802685, guid: 40836c671dc6dec4f9da32ad976ebe60,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3027,11 +3032,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5021940511773802681, guid: 40836c671dc6dec4f9da32ad976ebe60,
-        type: 3}
-      propertyPath: skillCollector
-      value: 
-      objectReference: {fileID: 568759340}
     - target: {fileID: 5021940511773802680, guid: 40836c671dc6dec4f9da32ad976ebe60,
         type: 3}
       propertyPath: router
@@ -3270,7 +3270,7 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 26346253}
-    - target: {fileID: 8799411886980323801, guid: 65773222a9818404bbb9d30731a3e423,
+    - target: {fileID: 8799411885367758952, guid: 65773222a9818404bbb9d30731a3e423,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3280,7 +3280,7 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1192355612}
-    - target: {fileID: 8799411885367758952, guid: 65773222a9818404bbb9d30731a3e423,
+    - target: {fileID: 8799411886980323801, guid: 65773222a9818404bbb9d30731a3e423,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

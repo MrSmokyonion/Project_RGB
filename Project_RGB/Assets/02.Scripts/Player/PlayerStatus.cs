@@ -49,7 +49,7 @@ public class PlayerStatus : MonoBehaviour
         changer.ChangeSkill(SpawnCode.R001, gameObject, skill);
         changer.ChangeSkill(SpawnCode.G001, gameObject, skill);
         changer.ChangeSkill(SpawnCode.B001, gameObject, skill);
-        changer.ChangeWeapon(SpawnCode.W001, gameObject, weapon);
+        changer.ChangeWeapon(SpawnCode.W101, gameObject, weapon);
         changer.ChangeArmor(SpawnCode.A001, gameObject, armor);
         changer.ChangeArmor(SpawnCode.S001, gameObject, armor);
         Debug.Log(skill.GetComponent<Skill_Red>());
