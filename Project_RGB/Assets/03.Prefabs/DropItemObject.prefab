@@ -10,10 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 553606312521803961}
   - component: {fileID: 553606312521803846}
-  - component: {fileID: 46006765741178052}
   - component: {fileID: 553606312521803847}
   - component: {fileID: 553606312521803844}
-  - component: {fileID: 6435171681814976916}
   m_Layer: 0
   m_Name: DropItemObject
   m_TagString: Item
@@ -83,27 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &46006765741178052
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 553606312521803845}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &553606312521803847
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -144,22 +121,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropItemCode: 28
   isGet: 0
---- !u!95 &6435171681814976916
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 553606312521803845}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1e7bd4141bd37b9408109730ccc2bc1a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0

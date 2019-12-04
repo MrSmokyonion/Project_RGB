@@ -93,7 +93,6 @@ public class DungeonUI : MonoBehaviour
 
     public void ProgressSliderSetting(int nowStageNumber, int maxStageNumber)
     {
-        Debug.Log("nowStageNumber:"+ nowStageNumber+ "/maxStageNumber:"+ maxStageNumber);
         progressSlider.value = nowStageNumber / maxStageNumber;
     }
 

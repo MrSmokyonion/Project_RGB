@@ -374,9 +374,9 @@ public class PlayerStatus : MonoBehaviour
         if (collision.gameObject.tag == "Item")
         {
             FindObjectOfType<SoundManager>().Play("default_getItem");
+
             //아이템 획득 후 처리
-            DroppedItem dropIS = collision.gameObject.GetComponent<DroppedItem>();
-            dropIS.GetItem();
+            DroppedItem dropIS = GetComponent<DroppedItem>();
             changer.UnlockCode(dropIS.dropItemCode);
             //NoticeTextUI 에게 알려야함.
             //여기에 작성좀
@@ -429,7 +429,6 @@ public class PlayerStatus : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         gameObject.layer = 11;
         GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-        GetComponent<Animator>().SetBool("isHit", false);
     }
     #endregion
 

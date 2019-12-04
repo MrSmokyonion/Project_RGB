@@ -24,8 +24,7 @@ public class DungeonManager : MonoBehaviour
     private void Awake()
     {
         //index 저장
-        //nowChapterNumber = PlayerPrefs.GetInt("DUNGEON_NUM"); //원래 이걸 써야하는데 지금은 무조건 챕터1 소환하는걸로..
-        nowChapterNumber = 1;
+        nowChapterNumber = PlayerPrefs.GetInt("DUNGEON_NUM");
         nowStageNumber = 1;
         switch (nowChapterNumber)
         {
