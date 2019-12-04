@@ -42,7 +42,7 @@ public class PlayerStatus : MonoBehaviour
     private float d_blue;
 
     #region Init
-    private void Start()
+    private void Awake()
     {
         //PlayerPrefs.SetString("UserCode", "#9a1d002a");
 
@@ -62,20 +62,20 @@ public class PlayerStatus : MonoBehaviour
         if (_Weapon is Weapon_Sword)
         {
             range = 0.5f;
-            attack_range = new Vector2(1f, 1f);
+            attack_range = new Vector2(3.5f, 1.5f);
             cm.SetAttackUI(0);
         }
         if (_Weapon is Weapon_Spear)
         {
             range = 0.5f;
-            attack_range = new Vector2(2f, 0.5f);
+            attack_range = new Vector2(5f, 0.5f);
             cm.SetAttackUI(1);
             //projectile.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load(weapon.spritePath, typeof(Sprite)) as Sprite;
         }
         if (_Weapon is Weapon_Bow)
         {
             range = 0.1f;
-            attack_range = new Vector2(1f, 1f);
+            attack_range = new Vector2(2f, 1f);
             cm.SetAttackUI(2);
         }
         power = _Weapon.power;
@@ -234,14 +234,16 @@ public class PlayerStatus : MonoBehaviour
         {
             if (collider2Ds[i].tag == "Monster")
             {
-                Debug.Log("Monster Hit!");
+                //Debug.Log("Monster Hit!");
                 GameObject obj = collider2Ds[i].gameObject;
 
-                //Monster 넉백
-                int dirt = (obj.transform.position.x - transform.position.x > 0) ? 1 : -1;
-                obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(dirt, 1) * 7, ForceMode2D.Impulse);
+                //Monster 데미지 처리
+                if (obj.GetComponent<MonsterParent>().myMonsterInfo.monsterState != MonsterState.DEAD)
+                {
+                    obj.GetComponent<MonsterParent>().MonsterHitWeapon(power);
 
-                soundManager.Play(soundStr + "hit");
+                    soundManager.Play(soundStr + "hit");
+                }
             }
         }
     }
@@ -284,6 +286,7 @@ public class PlayerStatus : MonoBehaviour
 
         if (Interactive.tag == "TeleportDoor")
         {
+            Debug.Log("텔레포트!!!1");
             TeleportDoor terpoDoor = Interactive.GetComponent<TeleportDoor>();
             terpoDoor.PlayerInteractWithDoor();
         }
@@ -382,7 +385,7 @@ public class PlayerStatus : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("부모의 콜라이더가 실행됬다구 젠자ㅏㅏㅏㅏㅇ");
+        Debug.Log("부모의 콜라이더가 실행됬다구 젠자ㅏㅏㅏㅏㅇ5252믿고있었다고!!1");
         if (collision.gameObject.tag == "Monster")
         {
             GameObject obj = collision.gameObject;
@@ -411,7 +414,7 @@ public class PlayerStatus : MonoBehaviour
         //Knock-Back
         GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 0.4f);
         int dirt = (transform.position.x - targetpos.x > 0) ? 1 : -1;
-        GetComponent<Rigidbody2D>().AddForce(new Vector2(dirt, 1) * 7, ForceMode2D.Impulse);
+        GetComponent<Rigidbody2D>().AddForce(new Vector2(dirt, 1) * 3, ForceMode2D.Impulse);
         GetComponent<Animator>().SetBool("isHit", true);
     }
 

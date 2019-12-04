@@ -5,20 +5,13 @@ using UnityEngine.UI;
 
 public class EquipmentUI : MonoBehaviour
 {
-    public Image useWeaponImage;
-    public Image useAmuletImage;
-    public Image useRockImage;
+    public Text maxHPText;
+    public Text bonusHPText;
+    public Text powerText;
+    public Text defenceText;
 
-    public Text StatsText1;
-    public Text StatsText2;
-    public Text StatsText3;
-
-    public Slider StatsSlider1;
-    public Slider StatsSlider2;
-    public Slider StatsSlider3;
 
     public PlayerStatus ps;
-    public int clickType = 0;       //0 - weapon 1 - amulet 2- stone 
     // Start is called before the first frame update
     void Start()
     {
@@ -33,45 +26,11 @@ public class EquipmentUI : MonoBehaviour
 
     public void EquipmentUISetting()
     {
-        Base_Weapon pWepon;
-        Armor_Amulet pAmulet;
-        Armor_Stone pStone;
 
-
-        //if (clickType == 0)
-        //{
-        //    pWepon = ps.weapon.GetComponent<Base_Weapon>();
-        //    StatsText1;
-        //    StatsText2;
-        //    StatsText3;
-
-        //    StatsSlider1;
-        //    StatsSlider2;
-        //    StatsSlider3;
-        //}
-        //else if (clickType == 1)
-        //{
-        //    pAmulet = ps.weapon.GetComponent<Armor_Amulet>();
-        //    StatsText1.text;
-        //    StatsText2;
-        //    StatsText3;
-
-        //    StatsSlider1;
-        //    StatsSlider2;
-        //    StatsSlider3;
-        //}
-        //else
-        //{
-        //    pStone = ps.weapon.GetComponent<Armor_Stone>();
-        //    StatsText1.text;
-        //    StatsText2;
-        //    StatsText3;
-
-        //    StatsSlider1;
-        //    StatsSlider2;
-        //    StatsSlider3;
-        //}
-
+        maxHPText.text = "최대 체력 : " + ps.maxHp.ToString();
+        bonusHPText.text = "추가 체력 : " + Food().ToString();
+        powerText.text = "공격력 : " + ps.power.ToString();
+        defenceText.text = "방어력 : " + ps.defence.ToString();
 
         //플레이어에서 현재 착용중인 장비 가져와서 세팅
         //useWeaponImage.sprite = pWepon.m_code;
@@ -79,9 +38,14 @@ public class EquipmentUI : MonoBehaviour
         //useRockImage.sprite = pStone.m_code;
     }
 
-    public void ItemSlotClick(int num)   //0 - weapon 1 - amulet 2- stone 
+    public int Food()
     {
-        clickType = num;
-        EquipmentUISetting();
+       BaseFood food =  ps.food.GetComponent<BaseFood>();
+        if (food == null)
+            return 0;
+        else
+           return food.m_foodBonusHp;
+       
     }
+
 }

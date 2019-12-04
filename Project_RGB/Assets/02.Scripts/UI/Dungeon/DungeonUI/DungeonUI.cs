@@ -10,12 +10,13 @@ public class DungeonUI : MonoBehaviour
     public Quest questScript;
     public DungeonManager dungeonManager;
     public Capital capitalScript;
-    public PlayerStatus playerStatusScript;
+    public PlayerStatus ps;
     public bool isFoodEat;
     //**********************************************
     //******************UI 변수*********************
     public Slider playerHPSlider;
-    public Image playerPlusHPSlider;
+    public Image playerPlusHPImage;
+    public Image playerHPImage;
     public Text goldText;
     public Image playerImage;
     public Text questText;
@@ -37,37 +38,56 @@ public class DungeonUI : MonoBehaviour
     public string GoldSetting()
     {
         //캐피탈에서 Gold 받아오기
-        Debug.Log("capitalScript.money.ToString()");
+        //Debug.Log("capitalScript.money.ToString()");
         return capitalScript.money.ToString();
     }
 
     public void Questsetting()
     {
-        ////Quest에서 해당 던전 quest 가져오기  
-        //List<QuestInfo> dungeonQuestList = questScript.GetDungeonQuestList(dungeonManager.nowChapterNumber);
+        //Quest에서 해당 던전 quest 가져오기  
+        List<QuestInfo> dungeonQuestList = questScript.GetDungeonQuestList(dungeonManager.nowChapterNumber);
 
-        //questText.text = null;
+        questText.text = null;
 
-        //for (int i = 0; i < dungeonQuestList.Count; i++)
-        //    questText.text += dungeonQuestList[i].summary + " : " + dungeonQuestList[i].questItemCur + Environment.NewLine;
+        for (int i = 0; i < dungeonQuestList.Count; i++)
+            questText.text += dungeonQuestList[i].summary + " : " + dungeonQuestList[i].questItemCur + Environment.NewLine;
 
     }
     public void HPSliderSetting()
     {
-        if (isFoodEat == true)
+        int bonusHP = FoodCheck();
+        if (bonusHP != 0)
         {
-            playerHPSlider.fillRect.parent.GetComponent<RectTransform>().offsetMax = new Vector2(200, 0); // 음식 증가값에 따른 조정 필요!
-            playerPlusHPSlider.enabled = true;
+            isFoodEat = true;
+            playerHPSlider.fillRect.parent.GetComponent<RectTransform>().offsetMax = new Vector2(200 + (200 / bonusHP), 0); // 음식 증가값에 따른 조정 필요!
+            playerHPSlider.maxValue = ps.maxHp + bonusHP;
+            playerHPImage.enabled = true;
+            playerPlusHPImage.enabled = false;
+
 
         }
         else
         {
+            isFoodEat = false;
             playerHPSlider.fillRect.parent.GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
-            playerPlusHPSlider.enabled = false;
+            playerHPSlider.maxValue = ps.maxHp;
+            playerPlusHPImage.enabled = true;
+            playerHPImage.enabled = false;
 
-            //playerHPSlider.value = playerStatusScript.curHp / playerStatusScript.maxHp;
+            //hpSlider.value = playerStatusScript.curHp / playerStatusScript.maxHp;
+            //
         }
 
+
+    }
+
+    public int FoodCheck()
+    {
+        BaseFood food = ps.food.GetComponent<BaseFood>();
+        if (food == null)
+            return 0;
+        else
+            return food.m_foodBonusHp;
 
     }
 

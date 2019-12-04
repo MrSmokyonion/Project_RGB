@@ -52,9 +52,9 @@ public class MonsterInfo
                            int goldamount, int droprate, SpawnCode dropitemcode)
     {
         monsterCode = monstercode;
-        isBoss = isb;                   //상의★얘가 있어야하나??
+        isBoss = isb;
         monsterName = name;
-        monsterState = state;           //상의★얘가 있어야하나??
+        monsterState = state;
 
         monsterDamage = damage;
         monsterDefense = defense;
@@ -70,7 +70,7 @@ public class MonsterInfo
     public MonsterCode monsterCode;     //몬스터 코드
     public bool isBoss;                 //등급 (보스인지 판단)
     public string monsterName;          //이름
-    public MonsterState monsterState;   //상태
+    public MonsterState monsterState = MonsterState.IDLE;   //상태
 
     public int monsterDamage;           //공격력
     public int monsterDefense;          //방어력
@@ -95,13 +95,13 @@ public class MonsterInfoList
 
         //Walk Monsters
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM101, false, "걷는 꽃", MonsterState.IDLE,
-            10, 10, 10, 4, 0,
+            10, 10, 5, 4, 0,
             101, 0, SpawnCode.NONE));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM102, false, "뛰는 돌", MonsterState.IDLE,
-            10, 10, 100, 5, 10,
+            10, 10, 11, 5, 10,
             150, 0, SpawnCode.NONE));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM103, false, "서 있는 나무", MonsterState.IDLE,
-            10, 10, 200, 0, 5,
+            10, 10, 12, 0, 5,
             50, 0, SpawnCode.NONE));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM104, false, "불타는 돌", MonsterState.IDLE,
             10, 10, 200, 6, 10,
@@ -158,7 +158,7 @@ public class MonsterInfoList
 
         //Boss Monsters
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM301, true, "습지의 여왕", MonsterState.IDLE,
-            10, 10, 100, 0, 10,
+            10, 10, 36, 0, 10,
             500, 20, SpawnCode.W203));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM302, true, "타오르는 피닉스", MonsterState.IDLE,
             10, 10, 100, 5, 10,
@@ -177,7 +177,7 @@ public class MonsterInfoList
 
         //Object Monster
         monsterInfoList.Add(new MonsterInfo(MonsterCode.OM401, true, "자연의 열매", MonsterState.IDLE,
-            10, 10, 100, 0, 0,
+            10, 10, 10, 0, 0,
             500, 80, SpawnCode.NONE));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.OM402, true, "불타는 꽃", MonsterState.IDLE,
             10, 10, 100, 0, 0,
@@ -260,6 +260,7 @@ public class MonsterParent : MonoBehaviour
     public Rigidbody2D myMonsterRigid;  //리지드바디
 
     public GameObject PlayerObject;     //현재 이 맵의 Player 오브젝트 (Find)
+    DungeonManager dungeonManager;      //현재 이 맵의 DungeonManager (Find)
 
     public Vector2 pPosXY;
     public Vector2 mPosXY;
@@ -268,7 +269,7 @@ public class MonsterParent : MonoBehaviour
 
     public bool attackOrder;            //공격해라 (명령)
     public bool isAttacking;            //공격중인가? (판단)
-    public float attackingRunTime;      //공격 애니메이션 실행 시간
+    public float attackingRunTime;      //애니메이션 실행 시간
     public bool isDamaged;              //데미지 입었는가? (피격 상태 판단)
 
     #region Awake And Start
@@ -277,6 +278,7 @@ public class MonsterParent : MonoBehaviour
     {
         //Awake에서 quest 찾아서 넣어두기. (모든 코드에서 실행되도록...)
         PlayerObject = GameObject.Find("Player");
+        dungeonManager = GameObject.Find("DungeonManager").GetComponent<DungeonManager>();
         quest = GameObject.Find("DungeonCanvas").GetComponent<Quest>();
 
         if (myMonsterCode != MonsterCode.PARENT)                                            //부모 일 경우 정보 불러오지 않음
@@ -336,29 +338,85 @@ public class MonsterParent : MonoBehaviour
 
         if (nowState == MonsterState.IDLE)
         {
-            Debug.Log(MonsterState.IDLE.ToString() + ":true");
+            //Debug.Log(MonsterState.IDLE.ToString() + ":true");
             myMonsterAnimator.SetBool(MonsterState.IDLE.ToString(), true);
         }
         if (nowState == MonsterState.WALK)
         {
-            Debug.Log(MonsterState.WALK.ToString() + ":true");
+            //Debug.Log(MonsterState.WALK.ToString() + ":true");
             myMonsterAnimator.SetBool(MonsterState.WALK.ToString(), true);
         }
         if (nowState == MonsterState.ATTACK)
         {
-            Debug.Log(MonsterState.ATTACK.ToString() + ":true");
+            //Debug.Log(MonsterState.ATTACK.ToString() + ":true");
             myMonsterAnimator.SetBool(MonsterState.ATTACK.ToString(), true);
         }
         if (nowState == MonsterState.ATTACKED)
         {
-            Debug.Log(MonsterState.ATTACKED.ToString() + ":true");
+            //Debug.Log(MonsterState.ATTACKED.ToString() + ":true");
             myMonsterAnimator.SetBool(MonsterState.ATTACKED.ToString(), true);
         }
         if (nowState == MonsterState.DEAD)
         {
-            Debug.Log(MonsterState.DEAD.ToString() + ":true");
+            //Debug.Log(MonsterState.DEAD.ToString() + ":true");
             myMonsterAnimator.SetBool(MonsterState.DEAD.ToString(), true);
         }
+    }
+
+    #endregion
+
+    #region MonsterHitWeapon
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Skill") //Skill만 하면 되나?
+        {
+            Debug.Log("OnCollision / SKill에 맞았어요");
+            //MonsterHitWeapon(PlayerObject.GetComponent<PlayerStatus>().power);  //플레이어 데미지만 가져옴
+            MonsterHitWeapon(collision.gameObject.GetComponent<SkillEffect.PiercingSpear>().power); //스킬 고유 데미지
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "Skill") //Skill만 하면 되나?
+        {
+            Debug.Log("OnTrigger / SKill에 맞았어요");
+            //MonsterHitWeapon(PlayerObject.GetComponent<PlayerStatus>().power);  //플레이어 데미지만 가져옴
+            MonsterHitWeapon(collision.gameObject.GetComponent<SkillEffect.PiercingSpear>().power); //스킬 고유 데미지
+        }
+    }
+
+    public virtual void MonsterHitWeapon(int power)
+    {
+        isDamaged = true;
+        AnimationStateSet(MonsterState.ATTACKED);
+        myMonsterInfo.monsterHp -= power;//bW.power;
+                                         //맞고 밀려남
+        int dirt = (gameObject.transform.position.x - PlayerObject.transform.position.x > 0) ? 1 : -1;
+        gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(dirt, 1) * 6, ForceMode2D.Impulse);
+
+        //Player의 무기/스킬/함정에 접촉 처리.
+        //데미지 만큼 myMonsterInfo.monsterHp 깎음
+        //자폭 몬스터 있나?..
+        //Base_Weapon bW = col.gameObject.GetComponent<Base_Weapon>();
+        if (myMonsterInfo.monsterHp > 0)
+        {
+            Invoke("ResetIsAttacked", 1f);
+        }
+        else
+        {
+            Debug.Log(name + "Dead");
+            myMonsterInfo.monsterHp = 0;
+            DeadProcess();
+        }
+    }
+
+    public void ResetIsAttacked()
+    {
+        isDamaged = false;
+        //공격받은 애니메이션 끝남
+        AnimationStateSet(MonsterState.IDLE);
     }
 
     #endregion
@@ -407,10 +465,13 @@ public class MonsterParent : MonoBehaviour
         //죽는 애니메이션과 동시에 아이템 드롭. 그 후 사라짐
         AnimationStateSet(MonsterState.DEAD);
         DropGoldAndItems();
-        Invoke("Dead", 2f);
         //퀘스트에 해당하는 몬스터 일 시
         quest.QuestMonsterCheck(myMonsterCode);
-        Debug.Log(name + "Dead");
+        //만약 OM, TM이 아니라면 (일반몹이라면)
+        if ((int)myMonsterCode < (int)MonsterCode.OM401)
+            dungeonManager.MonsterDestroyProcessing(myMonsterCode);
+        Invoke("Dead", 2f);
+
 
     }
 
@@ -421,32 +482,6 @@ public class MonsterParent : MonoBehaviour
         //펑!하고 사라져야함.(Effect)
 
         Destroy(this.gameObject);
-    }
-
-    #endregion
-
-    #region MonsterHitWeapon
-
-    public virtual void MonsterHitWeapon(int power)
-    {
-        AnimationStateSet(MonsterState.ATTACKED);
-
-        //Player의 무기/스킬/함정에 접촉 처리.
-        //데미지 만큼 myMonsterInfo.monsterHp 깎음
-        //자폭 몬스터 있나?..
-        //Base_Weapon bW = col.gameObject.GetComponent<Base_Weapon>();
-        if (myMonsterInfo.monsterHp >= power)
-        {
-            myMonsterInfo.monsterHp -= power;//bW.power;
-                                             //맞고 밀려남
-            int dirt = (gameObject.transform.position.x - transform.parent.position.x > 0) ? 1 : -1;
-            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(dirt, 1) * 7, ForceMode2D.Impulse);
-        }
-        else
-        {
-            myMonsterInfo.monsterHp = 0;
-            DeadProcess();
-        }
     }
 
     #endregion

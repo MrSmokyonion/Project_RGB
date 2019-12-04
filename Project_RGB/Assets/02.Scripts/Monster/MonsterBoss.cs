@@ -18,18 +18,21 @@ public class MonsterBoss : MonsterParent
 
     public void PosAndMoveSystem()
     {
-        if (myMonsterInfo.monsterState != MonsterState.DEAD)
+        if (!isAttacking && !isDamaged)                                                           //공격 중에는 move,rotate하면 안됨
         {
-            //플레이어와 몬스터 각각의 x,y값
-            pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
-            mPosXY = new Vector2(this.transform.position.x, this.transform.position.y);
+            if (((myMonsterInfo.monsterState == MonsterState.IDLE) && (myMonsterInfo.monsterState != MonsterState.DEAD)) || (myMonsterInfo.monsterState == MonsterState.WALK))
+            {
+                //플레이어와 몬스터 각각의 x,y값
+                pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
+                mPosXY = new Vector2(this.transform.position.x, this.transform.position.y);
 
-            isLRM = (pPosXY.x < mPosXY.x) ? 1 :
-               ((pPosXY.x > mPosXY.x) ? 2 : 3);                                    //Player가 Left 1, Right 2, Midle 3 에 있음
+                isLRM = (pPosXY.x < mPosXY.x) ? 1 :
+                   ((pPosXY.x > mPosXY.x) ? 2 : 3);                                    //Player가 Left 1, Right 2, Midle 3 에 있음
 
-            MoveSystem();
+                MoveSystem();
 
-            Invoke("PosAndMoveSystem", 0.5f);
+                Invoke("PosAndMoveSystem", 0.5f);
+            }
         }
     }
 
@@ -67,7 +70,7 @@ public class MonsterBoss : MonsterParent
     {
         if (myMonsterInfo.monsterState != MonsterState.DEAD)
         {
-            if (!isAttacking)
+            if (!isAttacking && !isDamaged)   //공격중이 아닐 때. 공격범위 체크.
             {
                 //--------------------------범위 체크--------------------------
                 pPosXY = new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y);
@@ -200,8 +203,8 @@ public class MonsterBoss : MonsterParent
                 }
             }
             // myMonsterAnimator.SetBool("IsAttacking", isAttacking);          //공격 애니메이션 실행
-            AnimationStateSet(MonsterState.ATTACK);
             myMonsterAnimator.SetInteger("AttackType", aniType);          //공격 애니메이션 타입 설정
+            AnimationStateSet(MonsterState.ATTACK);
             Invoke("ResetIsAttacking", attackingRunTime);
         }
     }

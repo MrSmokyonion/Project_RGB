@@ -7,6 +7,7 @@ public class StoreMenuSlotUI : MonoBehaviour
 {
 
     public GameObject StoreBuyCheckSlot;
+    public StoreUI storeUIscript;
     // Start is called before the first frame update
 
     private void Start()
@@ -21,6 +22,7 @@ public class StoreMenuSlotUI : MonoBehaviour
 
     public void StoreBuyButtonClick()//구입 확인버튼 창
     {
+       
         StoreBuyCheckSlot.SetActive(true);
     }
 
