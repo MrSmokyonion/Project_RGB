@@ -392,6 +392,8 @@ public class PlayerStatus : MonoBehaviour
         Debug.Log("부모의 콜라이더가 실행됬다구 젠자ㅏㅏㅏㅏㅇ5252믿고있었다고!!1");
         if (collision.gameObject.tag == "Monster")
         {
+            FindObjectOfType<SoundManager>().Play("default_hurt");
+
             GameObject obj = collision.gameObject;
             OnDamaged(obj.transform.position, obj.GetComponent<MonsterParent>().myMonsterInfo.monsterDamage); //해당 몬스터의 파워가 여기 들어가야함.
         }

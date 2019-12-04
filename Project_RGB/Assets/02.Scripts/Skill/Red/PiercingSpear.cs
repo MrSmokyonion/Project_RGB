@@ -26,7 +26,7 @@ namespace SkillEffect
 
             sound = FindObjectOfType<SoundManager>();
             sound.Play("skill_piercingSpear");
-            Destroy(gameObject,3f);
+            Destroy(gameObject,1.3f);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
