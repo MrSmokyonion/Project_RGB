@@ -2631,6 +2631,13 @@ MonoBehaviour:
   scrollbar: {fileID: 261992174}
   index: 0
   slider: {fileID: 2055494576}
+  dungeonNameText: {fileID: 1244046976}
+  dungeonChanpterName:
+  - "\uD3C9\uD654\uB85C\uC6B4 \uC232"
+  - "\uBD88\uD0C0\uB294 \uC6A9\uC554 \uD3ED\uD3EC"
+  - "\uCC28\uAC00\uC6B4 \uC5BC\uC74C \uD638\uC218"
+  - "\uAF43\uC774 \uAC00\uB4DD\uD55C \uB4E4\uD310"
+  - "\uC815\uB839\uC744 \uBAA8\uC2DC\uB294 \uC2E0\uC804"
   sceneManagerScript: {fileID: 1859767618}
 --- !u!114 &1941276209
 MonoBehaviour:
