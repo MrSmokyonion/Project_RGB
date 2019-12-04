@@ -14,7 +14,7 @@ public class Stone_Default : Armor_Stone
         m_code = SpawnCode.S001;
         m_spritePath = "";
         m_price = 100;
-        m_isSale = true;
+        m_isSale = false;
     }
 
     public override void Execute(PlayerStatus status)
@@ -77,7 +77,7 @@ public class Stone_Minor : Armor_Stone
         m_code = SpawnCode.S004;
         m_spritePath = "";
         m_price = 100;
-        m_isSale = true;
+        m_isSale = false;
     }
 
     public override void Execute(PlayerStatus status)

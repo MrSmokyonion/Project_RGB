@@ -14,7 +14,7 @@ public class Amulet_Default : Armor_Amulet
         m_code = SpawnCode.A001;
         m_spritePath = "";
         m_price = 100;
-        m_isSale = true;
+        m_isSale = false;
     }
 
     public override void Execute(PlayerStatus status)
@@ -55,8 +55,8 @@ public class Amulet_Drain : Armor_Amulet
         m_description = string.Format("몬스터를 처치할 때마다, 최대체력의 {0}%만큼 회복합니다.", value);
         m_code = SpawnCode.A003;
         m_spritePath = "";
-        m_price = -987654321;
-        m_isSale = false;
+        m_price = 500;//-987654321;
+        m_isSale = true;
     }
 
     public override void Execute(PlayerStatus status)

@@ -14,6 +14,15 @@ public class SpriteSupplier : MonoBehaviour
     public SpriteSource[] skill_green;
     public SpriteSource[] skill_blue;
 
+    [Header("Armor")]
+    public SpriteSource[] armor_Amulet;
+    public SpriteSource[] armor_Stone;
+
+    [Header("Food")]
+    public SpriteSource[] food;
+
+
+
     public static SpriteSupplier instance;
 
     private void Awake()
@@ -46,6 +55,25 @@ public class SpriteSupplier : MonoBehaviour
                 s = Array.Find(skill_green, tmp => tmp.code == code); break;
             case SpawnCode.B001: case SpawnCode.B002: case SpawnCode.B003: case SpawnCode.B004: case SpawnCode.B005:
                 s = Array.Find(skill_blue, tmp => tmp.code == code); break;
+
+
+            case SpawnCode.A001:
+            case SpawnCode.A002:
+            case SpawnCode.A003:
+            case SpawnCode.A004:
+            case SpawnCode.A005:
+                s = Array.Find(armor_Amulet, tmp => tmp.code == code); break;
+            case SpawnCode.S001:
+            case SpawnCode.S002:
+            case SpawnCode.S003:
+            case SpawnCode.S004:
+            case SpawnCode.S005:
+                s = Array.Find(armor_Stone, tmp => tmp.code == code); break;
+
+            case SpawnCode.F001: case SpawnCode.F002: case SpawnCode.F003: case SpawnCode.F004: case SpawnCode.F005:
+                s = Array.Find(food, tmp => tmp.code == code); break;
+
+
         }
 
         if(s == null)

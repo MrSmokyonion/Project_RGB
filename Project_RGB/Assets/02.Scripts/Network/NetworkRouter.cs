@@ -68,7 +68,7 @@ public class NetworkRouter : MonoBehaviour
 
 
 
-    private const string ip = "192.168.219.126";      // IP : 61.81.99.35 (외부)
+    private const string ip = "169.254.52.51";      // IP : 61.81.99.35 (외부)
     private const int port = 3000;                  // Port
     private string url;                             // Uniform Resource Locator
                                                     // uri : Uniform Resource Identifier

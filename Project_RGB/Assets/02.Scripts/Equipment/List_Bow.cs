@@ -16,7 +16,7 @@ public class Bow_Default : Weapon_Bow
         m_code = SpawnCode.W201;
         m_spritePath = "";
         m_price = 100;
-        m_isSale = true;
+        m_isSale = false;
     }
 }
 
