@@ -8,7 +8,10 @@ public class StoreBuyCheckUI : MonoBehaviour
     public GameObject StoreBuyCheckSlot;
     public GameObject StoreBuyPanel;
     public StoreUI itemStoreCanvas = null;
+
+
     public bool isfood;
+
 
     GameObject useItem;
 
@@ -29,7 +32,7 @@ public class StoreBuyCheckUI : MonoBehaviour
     {
 
         //**********************구입하는 코드**************************
-
+        itemStoreCanvas.ItemBuy(int.Parse(StoreBuyCheckSlot.transform.parent.name));
 
         //*************************************************************
 
@@ -54,12 +57,13 @@ public class StoreBuyCheckUI : MonoBehaviour
             //아이템 개수가 0이면 이미지 띄우기
             Destroy(StoreBuyPanel.transform.parent.gameObject);
         }
-      
+
         StoreBuyCheckSlot.SetActive(false);
 
         Debug.Log("A");
         //*************************************************************
     }
+
 
     public void StoreBuyCheckSlotCancelClick()//구입취소
     {

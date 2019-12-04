@@ -104,6 +104,7 @@
     <Compile Include="Assets\02.Scripts\SceneLoadManager.cs" />
     <Compile Include="Assets\02.Scripts\SceneManager.cs" />
     <Compile Include="Assets\02.Scripts\Skill\BaseSkill.cs" />
+    <Compile Include="Assets\02.Scripts\Skill\Blue\Barrier.cs" />
     <Compile Include="Assets\02.Scripts\Skill\List_BlueSkill.cs" />
     <Compile Include="Assets\02.Scripts\Skill\List_GreenSkill.cs" />
     <Compile Include="Assets\02.Scripts\Skill\List_RedSkill.cs" />

@@ -9,7 +9,7 @@ public class Bow_Default : Weapon_Bow
         power = 3;
         dualbility = 100;
         delay = 0.75f;
-        speed = 10;
+        speed = 15;
 
         m_title = "기본 활";
         m_description = string.Format("기본 활입니다. 뭘 더 바라시나요.");

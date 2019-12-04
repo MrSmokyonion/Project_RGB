@@ -32,6 +32,8 @@ public class DistanceAttackButton : AttackButton
     {
         isPushed = false;
         player = obj;
+
+        FindObjectOfType<SoundManager>().Play("bow_swing");
     }
 
     public override void OnPointerUp(PointerEventData eventData)
