@@ -19,7 +19,7 @@ public class Amulet_Default : Armor_Amulet
 
     public override void Execute(PlayerStatus status)
     {
-        Debug.Log(m_title);
+        //Debug.Log(m_title);
     }
 }
 

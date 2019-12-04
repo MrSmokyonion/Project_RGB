@@ -8,7 +8,7 @@ public class DroppedItem : MonoBehaviour
     public bool isGet = false;                                         //플레이어가 아이템을 주웠는가?(중복 방지용)
 
 
-    public void GetMoneyOrCrystal()
+    public void GetItem()
     {
         isGet = true;
         //Player에게 닿을 시 Collider를 끈다. (혹시 모를 버그와 중복 방지)

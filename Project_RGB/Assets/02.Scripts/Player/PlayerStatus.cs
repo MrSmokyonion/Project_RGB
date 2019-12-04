@@ -53,6 +53,7 @@ public class PlayerStatus : MonoBehaviour
         changer.ChangeArmor(SpawnCode.A001, gameObject, armor);
         changer.ChangeArmor(SpawnCode.S001, gameObject, armor);
         Debug.Log(skill.GetComponent<Skill_Red>());
+
     }
 
     public void Init_Weapon()
@@ -376,10 +377,13 @@ public class PlayerStatus : MonoBehaviour
             FindObjectOfType<SoundManager>().Play("default_getItem");
 
             //아이템 획득 후 처리
-            DroppedItem dropIS = GetComponent<DroppedItem>();
+            DroppedItem dropIS = collision.gameObject.GetComponent<DroppedItem>();
+            dropIS.GetItem();
             changer.UnlockCode(dropIS.dropItemCode);
             //NoticeTextUI 에게 알려야함.
-            //여기에 작성좀
+            //아이템 먹었다고 자랑해야함
+            NoticeTextUI noticeUI = GameObject.Find("NoticeTextBackground").transform.GetChild(0).GetComponent<NoticeTextUI>();
+            noticeUI.ItemEat("야매로 만듬.여기에 획득 아이템잉름 들어가야함");
         }
     }
 
@@ -429,6 +433,7 @@ public class PlayerStatus : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         gameObject.layer = 11;
         GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        GetComponent<Animator>().SetBool("isHit", false);
     }
     #endregion
 

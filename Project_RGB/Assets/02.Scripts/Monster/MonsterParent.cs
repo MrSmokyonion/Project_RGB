@@ -159,7 +159,7 @@ public class MonsterInfoList
         //Boss Monsters
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM301, true, "습지의 여왕", MonsterState.IDLE,
             10, 10, 36, 0, 10,
-            500, 20, SpawnCode.W203));
+            500, 100/*20*/, SpawnCode.W203));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM302, true, "타오르는 피닉스", MonsterState.IDLE,
             10, 10, 100, 5, 10,
             500, 5, SpawnCode.A003));
@@ -260,7 +260,7 @@ public class MonsterParent : MonoBehaviour
     public Rigidbody2D myMonsterRigid;  //리지드바디
 
     public GameObject PlayerObject;     //현재 이 맵의 Player 오브젝트 (Find)
-    DungeonManager dungeonManager;      //현재 이 맵의 DungeonManager (Find)
+    public DungeonManager dungeonManager;      //현재 이 맵의 DungeonManager (Find)
 
     public Vector2 pPosXY;
     public Vector2 mPosXY;
@@ -328,6 +328,7 @@ public class MonsterParent : MonoBehaviour
 
     public void AnimationStateSet(MonsterState nowState)
     {
+        //Debug.Log("nowState:" + nowState);
         myMonsterInfo.monsterState = nowState;
 
         myMonsterAnimator.SetBool(MonsterState.IDLE.ToString(), false);
@@ -406,7 +407,7 @@ public class MonsterParent : MonoBehaviour
         }
         else
         {
-            Debug.Log(name + "Dead");
+            //Debug.Log(name + "Dead");
             myMonsterInfo.monsterHp = 0;
             DeadProcess();
         }

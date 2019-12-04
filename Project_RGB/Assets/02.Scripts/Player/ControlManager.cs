@@ -108,11 +108,11 @@ public class ControlManager : MonoBehaviour
     {
         if (rigid.velocity.y < 0)
         {
-            Debug.DrawRay(rigid.position, Vector2.down * 2, new Color(0.0f, 1.0f, 0.0f));
-            RaycastHit2D raycast = Physics2D.Raycast(rigid.position, Vector2.down * 2, 1.0f, LayerMask.GetMask("Platform"));
+            Debug.DrawRay(rigid.position, Vector2.down * 3, new Color(0.0f, 2.0f, 0.0f));
+            RaycastHit2D raycast = Physics2D.Raycast(rigid.position, Vector2.down * 3, 2.0f, LayerMask.GetMask("Platform"));
             if (raycast.collider != null)
             {
-                if (raycast.distance < 0.5f)
+                if (raycast.distance < 1.8f)
                 {
                     jumpButton.isJumping = false;
                     GetComponent<Animator>().SetBool("isHit", false);

@@ -97,7 +97,7 @@ public class DungeonManager : MonoBehaviour
             //스테이지 클리어. 다음 스테이지로 넘어갈 수 있도록 처리해줘야함.
             TeleportDoor openDoor = GameObject.Find("TeleportDoor" + (nowStageNumber * 2 - 1)).GetComponent<TeleportDoor>();
             openDoor.teleportOpen = true;
-            Debug.Log("열린문이름:" + openDoor.gameObject.name);
+            //Debug.Log("열린문이름:" + openDoor.gameObject.name);
             if (nowStageNumber == maxStageNumber)
             {
                 openDoor.chapterClear = true;
@@ -107,20 +107,23 @@ public class DungeonManager : MonoBehaviour
 
     public void ChapterClear()
     {
-        Debug.Log("ChapterClear:" + (SceneType.DUNGEON_CHAPTER) + "_" + nowChapterNumber);
+        fadeInOutManager.FadeOutPlay();
+        //Debug.Log("ChapterClear:" + (SceneType.DUNGEON_CHAPTER) + "_" + nowChapterNumber);
         NetworkRouter.PostRouter(PostType.PLAYER_DUNGEON_STATE_UPDATE, ((SceneType.DUNGEON_CHAPTER) + "_" + nowChapterNumber));
-
-        //페이드 아웃 후, 씬 이동
-
+        Invoke("GoToDungeonSelectScene",2.2f);
     }
 
     void GoToVillageScene()
     {
+        SceneManager sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManager>();
+        sceneManager.ChangeScene(SceneType.VILLAGE);
         //죽음
     }
 
     void GoToDungeonSelectScene()
     {
+        SceneManager sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManager>();
+        sceneManager.ChangeScene(SceneType.CHOICE_DUNGEON);
         //클리어
     }
 }
