@@ -35,6 +35,17 @@ public class SceneManager : MonoBehaviour
         //2.튜토리얼을 클리어한 경우/ 스킵한 경우/ '튜토리얼 완료' 기존유저가 Start를 누르는 경우 -> nowScene = SceneType.VILLAGE로 이동;
     }
 
+    public void GoToVillage()
+    {
+        //BackButton 구현하기귀찬항서 임의로 만ㄷ름
+        GameObject.Find("FadeInOut").GetComponent<FadeInOutManager>().FadeOutPlay();
+        Invoke("VillageCall", 2.2f);
+    }
+    void VillageCall()
+    {
+        ChangeScene(SceneType.VILLAGE);
+    }
+
     // 씬 전환
     public void ChangeScene(SceneType type)
     {
@@ -46,8 +57,9 @@ public class SceneManager : MonoBehaviour
             case SceneType.TITLE: scene = "TitleScene"; break;
             case SceneType.VILLAGE: scene = "VillageScene"; break;
             case SceneType.CHOICE_DUNGEON: scene = "ChoiceDungeonScene"; break;
+            case SceneType.DUNGEON_LOADING: scene = "DungeonLoadingScene"; break;
             case SceneType.TUTORIAL:
-            case SceneType.DUNGEON_CHAPTER : scene = "DungeonChapterScene"; break;
+            case SceneType.DUNGEON_CHAPTER: scene = "DungeonChapterScene"; break;
 
                 //SplashScene, TitleScene, VillageScene, ChoiceDungeonScene, DungeonChapterScene
                 //DungeonSelectionTestRoom, MonsterTestRoom

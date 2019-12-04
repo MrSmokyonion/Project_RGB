@@ -303,6 +303,7 @@ MonoBehaviour:
   myMonsterAnimator: {fileID: 0}
   myMonsterRigid: {fileID: 0}
   PlayerObject: {fileID: 0}
+  dungeonManager: {fileID: 0}
   pPosXY: {x: 0, y: 0}
   mPosXY: {x: 0, y: 0}
   isLRM: 0
@@ -1604,7 +1605,7 @@ RectTransform:
   - {fileID: 1481390311}
   - {fileID: 361594081}
   m_Father: {fileID: 1792092351}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1757,6 +1758,16 @@ PrefabInstance:
       propertyPath: MoveStick
       value: 
       objectReference: {fileID: 631612479}
+    - target: {fileID: 5021940511773802686, guid: 40836c671dc6dec4f9da32ad976ebe60,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021940511773802686, guid: 40836c671dc6dec4f9da32ad976ebe60,
+        type: 3}
+      propertyPath: jumpPower
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5021940511773802680, guid: 40836c671dc6dec4f9da32ad976ebe60,
         type: 3}
       propertyPath: spawn
@@ -1918,7 +1929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41925de88c166d24f8e3bdc6b87510c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nowScene: 0
+  nowScene: 8
 --- !u!4 &1405653900
 Transform:
   m_ObjectHideFlags: 0
@@ -2332,9 +2343,9 @@ RectTransform:
   - {fileID: 265800347}
   - {fileID: 1096690777}
   - {fileID: 1475688162}
-  - {fileID: 2136765638}
   - {fileID: 670785335}
   - {fileID: 1220181041}
+  - {fileID: 2136765638}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2847,7 +2858,7 @@ RectTransform:
   m_LocalScale: {x: 22.907879, y: 13.6788, z: 13.6788}
   m_Children: []
   m_Father: {fileID: 1792092351}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3182,7 +3193,7 @@ PrefabInstance:
     - target: {fileID: 4579180811614018904, guid: fdbf71bedfcbdf14f8834791dcd91420,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4579180811614018904, guid: fdbf71bedfcbdf14f8834791dcd91420,
         type: 3}
@@ -3249,12 +3260,12 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4579180811614018902, guid: fdbf71bedfcbdf14f8834791dcd91420,
+    - target: {fileID: 4579180810676252856, guid: fdbf71bedfcbdf14f8834791dcd91420,
         type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4579180810676252856, guid: fdbf71bedfcbdf14f8834791dcd91420,
+    - target: {fileID: 4579180811614018902, guid: fdbf71bedfcbdf14f8834791dcd91420,
         type: 3}
       propertyPath: m_Enabled
       value: 0

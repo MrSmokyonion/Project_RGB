@@ -86,8 +86,8 @@ public class MonsterBoss : MonsterParent
                 }
                 AttackSystem();
             }
-            Invoke("AttackRangeCheckSystem", 0.5f);                                                 //계속 체크
         }
+            Invoke("AttackRangeCheckSystem", 0.5f);                                                 //계속 체크
     }
 
     public void AttackSystem()
@@ -114,6 +114,7 @@ public class MonsterBoss : MonsterParent
                 }
                 else if (attackType == 3)                                       //Boss위치에 몬스터 소환(걷는 꽃)
                 {
+                    dungeonManager.MonsterInstantiateProcessing();
                     bossAttackPrefabList[1].transform.position = mPosXY;
                     Instantiate(bossAttackPrefabList[1]);
                 }
