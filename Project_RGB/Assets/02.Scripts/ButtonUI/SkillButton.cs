@@ -80,6 +80,7 @@ public class SkillButton : BaseButton
 
         Time.timeScale = 0.05f;
         Time.fixedDeltaTime = Time.timeScale * .02f;
+        FindObjectOfType<SoundManager>().SlowMotion_Descrease();
     }
 
     public override void OnPointerUp(PointerEventData eventData)
@@ -95,6 +96,7 @@ public class SkillButton : BaseButton
 
         Time.timeScale = 1f;
         Time.fixedDeltaTime = Time.timeScale * .02f;
+        FindObjectOfType<SoundManager>().SlowMotion_Increase();
     }
 }
 public enum SkillState { Idle = 0, Red, Green, Blue }

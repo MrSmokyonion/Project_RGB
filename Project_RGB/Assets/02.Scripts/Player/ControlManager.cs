@@ -23,6 +23,8 @@ public class ControlManager : MonoBehaviour
     private SpriteRenderer sr;
     private PlayerStatus ps;
 
+    private bool isMove = false;
+
     private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -65,7 +67,16 @@ public class ControlManager : MonoBehaviour
     #region Movements
     private void Move_Horizontal()
     {
-        if (MoveStick.Horizontal < 0.2 && MoveStick.Horizontal > -0.2) return;
+        if (MoveStick.Horizontal < 0.2 && MoveStick.Horizontal > -0.2)
+        {
+            if (isMove == false)
+            {
+                isMove = true;
+                FindObjectOfType<SoundManager>().Stop("default_step");
+                GetComponent<Animator>().SetBool("isWalk", false);
+            }
+            return;
+        }
 
         //Sprite, Melee Direction
         bool b = MoveStick.Horizontal < 0;
@@ -80,10 +91,18 @@ public class ControlManager : MonoBehaviour
             rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
         else if (rigid.velocity.x < maxSpeed * (-1))
             rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
+
+        if(isMove == true)
+        {
+            isMove = false;
+            FindObjectOfType<SoundManager>().Play("default_step");
+            GetComponent<Animator>().SetBool("isWalk", true);
+        }
     }
     public void Move_Jump()
     {
         rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+        FindObjectOfType<SoundManager>().Play("default_jump");
     }
     private void LandingPlatform()
     {
@@ -94,7 +113,10 @@ public class ControlManager : MonoBehaviour
             if (raycast.collider != null)
             {
                 if (raycast.distance < 0.5f)
+                {
                     jumpButton.isJumping = false;
+                    GetComponent<Animator>().SetBool("isHit", false);
+                }
             }
         }
     }

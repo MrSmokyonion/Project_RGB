@@ -22,6 +22,7 @@ public class Skill_Blue_Barrier : Skill_Blue
     public override void ExecuteSkill(GameObject obj)
     {
         Debug.Log("Blue Skill -> " + m_title);
+        FindObjectOfType<SoundManager>().Play("skill_barrier");
 
         GameObject barrierObj = GameObject.Instantiate(FindObjectOfType<SkillEffect.SkillCollector>().barrier, obj.transform);
         Barrier barrierClass = barrierObj.GetComponent<Barrier>();

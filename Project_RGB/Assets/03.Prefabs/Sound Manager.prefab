@@ -43,7 +43,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b3a62db72c43774ea754bdef1c07264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_default: []
+  m_default:
+  - name: default_step
+    clip: {fileID: 8300000, guid: 3db8f404df21a804eb78169335e4368d, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: default_jump
+    clip: {fileID: 8300000, guid: 37d169b3d60d75d45829cc4c9d314f53, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: default_hurt
+    clip: {fileID: 8300000, guid: 2f9fc708ec491014bbe02b1ccffa9c65, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: default_getCapital
+    clip: {fileID: 8300000, guid: 64d663b82652c1a4182ea57512706be9, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: default_getItem
+    clip: {fileID: 8300000, guid: ba3c30771637308448d34bef33b3c453, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   m_weapon:
   - name: sword_attack
     clip: {fileID: 8300000, guid: 7e9db0f773815fc4f910f84763bcc750, type: 3}
@@ -106,4 +136,10 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  m_bgm: []
+  m_bgm:
+  - name: bgm_1
+    clip: {fileID: 8300000, guid: ef1c6d38e9f62a64a81f410c27d678f7, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

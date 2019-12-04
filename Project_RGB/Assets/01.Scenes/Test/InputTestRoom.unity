@@ -1703,11 +1703,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3108915123111008100, guid: a0ad1d0977674f14f96f11bd978e2e9e,
-        type: 3}
-      propertyPath: m_Name
-      value: WM101
-      objectReference: {fileID: 0}
     - target: {fileID: 3108915123111008111, guid: a0ad1d0977674f14f96f11bd978e2e9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1762,6 +1757,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108915123111008100, guid: a0ad1d0977674f14f96f11bd978e2e9e,
+        type: 3}
+      propertyPath: m_Name
+      value: WM101
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ad1d0977674f14f96f11bd978e2e9e, type: 3}
@@ -2648,6 +2648,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill Collector
       objectReference: {fileID: 0}
+    - target: {fileID: 77566383578246987, guid: 7329ffed45e919e4099f888805c05dd9,
+        type: 3}
+      propertyPath: barrier
+      value: 
+      objectReference: {fileID: 1706568201243432043, guid: 378281f4844c9ea4c9b6179121b17fa8,
+        type: 3}
     - target: {fileID: 77566383578246988, guid: 7329ffed45e919e4099f888805c05dd9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2703,12 +2709,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 77566383578246987, guid: 7329ffed45e919e4099f888805c05dd9,
-        type: 3}
-      propertyPath: barrier
-      value: 
-      objectReference: {fileID: 1706568201243432043, guid: 378281f4844c9ea4c9b6179121b17fa8,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7329ffed45e919e4099f888805c05dd9, type: 3}
 --- !u!1001 &532954800984781387
@@ -2777,6 +2777,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532954801159038637, guid: e20dbccf6297e05428fec3908886b425,
+        type: 3}
+      propertyPath: m_bgm.Array.data[0].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 532954801159038637, guid: e20dbccf6297e05428fec3908886b425,
+        type: 3}
+      propertyPath: m_skill.Array.data[2].name
+      value: skill_barrier
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e20dbccf6297e05428fec3908886b425, type: 3}
@@ -2972,11 +2982,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5021940511773802681, guid: 40836c671dc6dec4f9da32ad976ebe60,
-        type: 3}
-      propertyPath: skillCollector
-      value: 
-      objectReference: {fileID: 568759340}
     - target: {fileID: 5021940511773802685, guid: 40836c671dc6dec4f9da32ad976ebe60,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3032,6 +3037,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5021940511773802681, guid: 40836c671dc6dec4f9da32ad976ebe60,
+        type: 3}
+      propertyPath: skillCollector
+      value: 
+      objectReference: {fileID: 568759340}
     - target: {fileID: 5021940511773802680, guid: 40836c671dc6dec4f9da32ad976ebe60,
         type: 3}
       propertyPath: router
@@ -3160,6 +3170,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 829128378}
+    - target: {fileID: 5747066696639307783, guid: 65773222a9818404bbb9d30731a3e423,
+        type: 3}
+      propertyPath: handleRange
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8799411886997161466, guid: 65773222a9818404bbb9d30731a3e423,
         type: 3}
       propertyPath: m_LocalPosition.x
