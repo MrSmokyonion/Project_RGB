@@ -72,7 +72,7 @@ public class ControlManager : MonoBehaviour
             if (isMove == false)
             {
                 isMove = true;
-                //FindObjectOfType<SoundManager>().Stop("default_step");
+                FindObjectOfType<SoundManager>().Stop("default_step");
                 GetComponent<Animator>().SetBool("isWalk", false);
             }
             return;

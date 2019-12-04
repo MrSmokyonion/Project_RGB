@@ -185,7 +185,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!61 &5856591308178229009
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -231,6 +231,7 @@ MonoBehaviour:
   myMonsterAnimator: {fileID: 0}
   myMonsterRigid: {fileID: 0}
   PlayerObject: {fileID: 0}
+  dungeonManager: {fileID: 0}
   pPosXY: {x: 0, y: 0}
   mPosXY: {x: 0, y: 0}
   isLRM: 0
