@@ -115,7 +115,7 @@ public class ControlManager : MonoBehaviour
                 if (raycast.distance < 0.5f)
                 {
                     jumpButton.isJumping = false;
-                    GetComponent<Animator>().SetBool("isHit", false);
+                    //GetComponent<Animator>().SetBool("isHit", false); //???뭐지
                 }
             }
         }
