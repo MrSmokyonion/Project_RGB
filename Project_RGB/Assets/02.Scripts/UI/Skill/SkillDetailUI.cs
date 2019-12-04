@@ -67,6 +67,9 @@ public class SkillDetailUI : MonoBehaviour
             skillNameText.text = tmp.m_title;
             cooldownText.text = "쿨타임 : " + tmp.m_delay.ToString();
             SkillDescriptionText.text = tmp.m_description;
+
+            useSkillImage.sprite = spriteSupplier.GetSource(list_red[0].m_code);
+
             for (int i = 0; i < list_red.Count; i++)
             {
                 if (sc.GetIsUnlocked(list_red[i].m_code) == false)
@@ -93,6 +96,8 @@ public class SkillDetailUI : MonoBehaviour
             skillNameText.text = tmp.m_title;
             cooldownText.text = "쿨타임 : " + tmp.m_delay.ToString();
             SkillDescriptionText.text = tmp.m_description;
+
+            useSkillImage.sprite = spriteSupplier.GetSource(list_green[0].m_code);
 
             for (int i = 0; i < list_green.Count; i++)
             {
@@ -121,6 +126,8 @@ public class SkillDetailUI : MonoBehaviour
             skillNameText.text = tmp.m_title;
             cooldownText.text = "쿨타임 : " + tmp.m_delay.ToString();
             SkillDescriptionText.text = tmp.m_description;
+
+            useSkillImage.sprite = spriteSupplier.GetSource(list_blue[0].m_code);
 
             for (int i = 0; i < list_blue.Count; i++)
             {

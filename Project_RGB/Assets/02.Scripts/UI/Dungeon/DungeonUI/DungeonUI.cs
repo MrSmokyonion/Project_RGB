@@ -72,9 +72,8 @@ public class DungeonUI : MonoBehaviour
             playerHPSlider.maxValue = ps.maxHp;
             playerPlusHPImage.enabled = true;
             playerHPImage.enabled = false;
-
-            //hpSlider.value = playerStatusScript.curHp / playerStatusScript.maxHp;
-            //
+            
+            playerHPSlider.value = ps.maxHp - ps.curHp;
         }
 
 

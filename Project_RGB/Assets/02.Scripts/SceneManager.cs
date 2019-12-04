@@ -56,7 +56,9 @@ public class SceneManager : MonoBehaviour
             case SceneType.SPLASH: scene = "SplashScene"; break;
             case SceneType.TITLE: scene = "TitleScene"; break;
             case SceneType.VILLAGE: scene = "VillageScene"; break;
-            case SceneType.CHOICE_DUNGEON: scene = "ChoiceDungeonScene"; break;
+            case SceneType.CHOICE_DUNGEON:
+                PlayerPrefs.SetInt("MONEY", GameObject.Find("Player").GetComponent<Capital>().money);   //급하게 넣어둠
+                scene = "ChoiceDungeonScene"; break;
             case SceneType.DUNGEON_LOADING: scene = "DungeonLoadingScene"; break;
             case SceneType.TUTORIAL:
             case SceneType.DUNGEON_CHAPTER: scene = "DungeonChapterScene"; break;
