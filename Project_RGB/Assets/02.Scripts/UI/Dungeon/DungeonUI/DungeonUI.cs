@@ -18,7 +18,6 @@ public class DungeonUI : MonoBehaviour
     public Image playerPlusHPImage;
     public Image playerHPImage;
     public Text goldText;
-    public Image playerImage;
     public Text questText;
     public Slider progressSlider;
     //**********************************************

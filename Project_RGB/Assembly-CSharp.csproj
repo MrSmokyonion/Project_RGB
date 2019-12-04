@@ -145,6 +145,7 @@
     <Compile Include="Assets\02.Scripts\UI\Store\StoreUI.cs" />
     <Compile Include="Assets\02.Scripts\UI\Village\VilageSlideMenu.cs" />
     <Compile Include="Assets\02.Scripts\UI\Village\VillageUI.cs" />
+    <Compile Include="Assets\02.Scripts\village\Cave.cs" />
     <Compile Include="Assets\changeScene.cs" />
     <Compile Include="Assets\DroppedItem.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />

@@ -6,16 +6,24 @@ using UnityEngine.UI;
 public class NoticeTextUI : MonoBehaviour
 {
     public float delay = 0.1f;
+    public Text noticeText;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine("NoticeTextUIStart");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void ItemEat(string itemName)
+    {
+        noticeText.text = "itemName" + " " + "을 획득하였습니다.";
+
+        StartCoroutine("NoticeTextUIStart");
     }
 
     IEnumerator NoticeTextUIEnd()

@@ -86,7 +86,7 @@ public class Quest : MonoBehaviour
     public List<QuestInfo> questAcessList = new List<QuestInfo>();
     public List<QuestInfo> questSuccessList = new List<QuestInfo>();
 
-    public NPCQuestUI npcTest = null;
+    public NPCQuestUI npcTest;
 
     public PlayerStatus ps;
     public SpawnClass sc;
