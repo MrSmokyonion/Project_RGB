@@ -23,7 +23,7 @@ public class SkillUI : MonoBehaviour
     {
         
     }
-
+    //주석
     public void SkillUISetting()
     {
         //플레이어의 착용중인 장비 가져오기
