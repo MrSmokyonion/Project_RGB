@@ -4,8 +4,4 @@ using UnityEngine;
 
 public class MonsterObject : MonsterParent
 {
-    public override void MyStart()
-    {
-        myMonsterInfo.monsterHp = 1;
-    }
 }

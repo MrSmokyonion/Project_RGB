@@ -41,9 +41,9 @@ public class MonsterWalk : MonsterParent
 
                 MoveSystem();
 
-                Invoke("PosAndMoveSystem", 0.1f);
             }
         }
+        Invoke("PosAndMoveSystem", 0.1f);
     }
 
     public void MoveSystem()

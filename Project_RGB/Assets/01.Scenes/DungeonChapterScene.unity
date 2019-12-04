@@ -1757,6 +1757,16 @@ PrefabInstance:
       propertyPath: MoveStick
       value: 
       objectReference: {fileID: 631612479}
+    - target: {fileID: 5021940511773802686, guid: 40836c671dc6dec4f9da32ad976ebe60,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021940511773802686, guid: 40836c671dc6dec4f9da32ad976ebe60,
+        type: 3}
+      propertyPath: jumpPower
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5021940511773802680, guid: 40836c671dc6dec4f9da32ad976ebe60,
         type: 3}
       propertyPath: spawn

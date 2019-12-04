@@ -159,7 +159,7 @@ public class MonsterInfoList
         //Boss Monsters
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM301, true, "습지의 여왕", MonsterState.IDLE,
             10, 10, 36, 0, 10,
-            500, 20, SpawnCode.W203));
+            500, 100/*20*/, SpawnCode.W203));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM302, true, "타오르는 피닉스", MonsterState.IDLE,
             10, 10, 100, 5, 10,
             500, 5, SpawnCode.A003));
