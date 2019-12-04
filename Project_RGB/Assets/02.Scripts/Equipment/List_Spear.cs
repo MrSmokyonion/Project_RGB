@@ -16,7 +16,7 @@ public class Spear_Default : Weapon_Spear
         m_code = SpawnCode.W101;
         m_spritePath = "";
         m_price = 100;
-        m_isSale = true;
+        m_isSale = false;
     }
 }
 
@@ -70,7 +70,7 @@ public class Spear_DangPa : Weapon_Spear
         m_code = SpawnCode.W104;
         m_spritePath = "";
         m_price = 100;
-        m_isSale = true;
+        m_isSale = false;
     }
 }
 

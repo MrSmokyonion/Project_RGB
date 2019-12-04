@@ -158,7 +158,6 @@
     <Compile Include="Assets\LoadingBarScript.cs" />
     <Compile Include="Assets\UI_Controller.cs" />
     <None Include="Assets\04.Sprites\11.Tests\test.txt" />
-    <None Include="Assets\10.Sounds\test.txt" />
     <None Include="Assets\09.Fonts\test.txt" />
     <None Include="Assets\12.etc\test.txt" />
     <None Include="Assets\08.Effects\test.txt" />

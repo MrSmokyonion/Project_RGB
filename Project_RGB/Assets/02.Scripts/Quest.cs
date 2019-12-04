@@ -163,7 +163,7 @@ public class Quest : MonoBehaviour
         //퀘스트 고유 번호 str, 퀘스트 고유 번호, npc 고유 번호,  챕터,  퀘스트 상태,  퀘스트 유형, 몬스터 코드, 퀘스트 대상 완료 개수, 퀘스트 보상 유형, 퀘스트 골드 보상, 퀘스트 진행개수, 퀘스트 이름,  퀘스트 내용, 퀘스트 요약, 퀘스트 대사
 
         //==================================================================================Chapter 1=====================================================================================================
-        questInfoList.Add(new QuestInfo("Q001", 0, 6, 1, QuestState.accept, QuestType.Type_Kill, MonsterCode.WM101, 5, QuestRewardCode.Only_Gold, 3000, 0, 0,
+        questInfoList.Add(new QuestInfo("Q001", 0, 6, 1, QuestState.enable, QuestType.Type_Kill, MonsterCode.WM101, 5, QuestRewardCode.Only_Gold, 3000, 0, 0,
             "꽃 때문에 못살겠어!", "꽃들 사이에 숨어서 주민을 공격하는 걷는 꽃 몬스터가 골칫거리라고 한다. 평화로운 숲에서 걷는 꽃 몬스터를 5마리 처치하자.", "걷는 꽃", "으잉으잉으잉 쯔쯔쯔… 나쁜 꽃놈들이 마을 사람들을 자꾸 습격하는구먼.자네가 좀 해결해주게.", "오잉어잉어잉 쯔쯔쯔… 고생했구만… 고맙다네."));
 
         questInfoList.Add(new QuestInfo("Q002", 1, 0, 1, QuestState.enable, QuestType.Type_Kill, MonsterCode.OM401, 10, QuestRewardCode.Only_Gold, 3000, 0, 0,

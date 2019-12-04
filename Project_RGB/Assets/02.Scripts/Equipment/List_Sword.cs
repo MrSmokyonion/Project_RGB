@@ -15,7 +15,7 @@ public class Sword_Default : Weapon_Sword
         m_code = SpawnCode.W001;
         m_spritePath = "";
         m_price = 100;
-        m_isSale = true;
+        m_isSale = false;
     }
 }
 
@@ -66,7 +66,7 @@ public class Sword_Broad : Weapon_Sword
         m_code = SpawnCode.W004;
         m_spritePath = "";
         m_price = 100;
-        m_isSale = true;
+        m_isSale = false;
     }
 }
 
