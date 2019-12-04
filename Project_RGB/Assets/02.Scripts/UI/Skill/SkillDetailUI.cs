@@ -28,6 +28,7 @@ public class SkillDetailUI : MonoBehaviour
     public Text SkillDescriptionText;
 
     //*************************************************************
+    public SpriteSupplier spriteSupplier;
 
     public SkillUI skillUIscript;
     // Start is called before the first frame update
@@ -73,13 +74,14 @@ public class SkillDetailUI : MonoBehaviour
                     skillImageArray[i].transform.GetChild(0).gameObject.SetActive(false);
                     skillImageArray[i].GetComponent<Button>().interactable = false;
 
+                    if (list_red[i].m_code != tmp.m_code)
+                    {
+                        skillImageArray[i].transform.GetChild(1).gameObject.SetActive(false);
+                    }
                 }
-                if (list_red[i].m_code != tmp.m_code)
-                {
-                    skillImageArray[i].transform.GetChild(1).gameObject.SetActive(false);
-                }
-            }
+                skillImageArray[i].sprite = spriteSupplier.GetSource(list_red[i].m_code);
 
+            }
         }
 
         else if (skillType == 1)//Green
@@ -99,11 +101,13 @@ public class SkillDetailUI : MonoBehaviour
                     skillImageArray[i].transform.GetChild(0).gameObject.SetActive(false);
                     skillImageArray[i].GetComponent<Button>().interactable = false;
 
+
                 }
                 if (list_green[i].m_code != tmp.m_code)
                 {
                     skillImageArray[i].transform.GetChild(1).gameObject.SetActive(false);
                 }
+                skillImageArray[i].sprite = spriteSupplier.GetSource(list_green[i].m_code);
             }
         }
 
@@ -130,6 +134,7 @@ public class SkillDetailUI : MonoBehaviour
                 {
                     skillImageArray[i].transform.GetChild(1).gameObject.SetActive(false);
                 }
+                skillImageArray[i].sprite = spriteSupplier.GetSource(list_blue[i].m_code);
             }
         }
 
@@ -176,7 +181,7 @@ public class SkillDetailUI : MonoBehaviour
         skillNameText.text = tmp.m_title;
         cooldownText.text = tmp.m_delay.ToString();
         SkillDescriptionText.text = tmp.m_description;
-        
+
     }
 
 }

@@ -10,8 +10,12 @@ public class EquipmentUI : MonoBehaviour
     public Text powerText;
     public Text defenceText;
 
+    public Image weaponImage;
+    public Image AlmuetImage;
+    public Image stoneImage;
 
     public PlayerStatus ps;
+    public SpriteSupplier spriteSupplier;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,10 +36,12 @@ public class EquipmentUI : MonoBehaviour
         powerText.text = "공격력 : " + ps.power.ToString();
         defenceText.text = "방어력 : " + ps.defence.ToString();
 
+
+
         //플레이어에서 현재 착용중인 장비 가져와서 세팅
-        //useWeaponImage.sprite = pWepon.m_code;
-        //useAmuletImage.sprite = pAmulet.m_spritePath;
-        //useRockImage.sprite = pStone.m_code;
+        weaponImage.sprite = spriteSupplier.GetSource(ps.weapon.GetComponent<Base_Weapon>().m_code);
+        AlmuetImage.sprite = spriteSupplier.GetSource(ps.armor.GetComponent<Armor_Amulet>().m_code);
+        stoneImage.sprite = spriteSupplier.GetSource(ps.armor.GetComponent<Armor_Stone>().m_code);
     }
 
     public int Food()
