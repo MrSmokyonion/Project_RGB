@@ -8,6 +8,11 @@ public class Capital : MonoBehaviour
     public int crystal = 0;
     public int coupon = 1;
 
+    private void Start()
+    {
+        money = PlayerPrefs.GetInt("MONEY");
+    }
+
     public bool PlusMoney(int pMoney)
     {
         if (pMoney < 0)                             //뭘 입금하려는 거에여
