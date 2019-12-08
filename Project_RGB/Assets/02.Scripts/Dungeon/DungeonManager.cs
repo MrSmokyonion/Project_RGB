@@ -6,7 +6,7 @@ public class DungeonManager : MonoBehaviour
 {
     //***************Chapter & Stage 관련 변수********
     public GameObject[] chapter012345_Prefab;                                   //(Inspector)
-    public int nowChapterNumber = -2;                                           // 0는 튜토리얼, -2는 로딩이 안된 것. 챕터 1, 2, 3, ...
+    public int nowChapterNumber = 1;         /*원래 -2인데 빌드를 위해 바꿈*/     // 0는 튜토리얼, -2는 로딩이 안된 것. 챕터 1, 2, 3, ...
     public int nowStageNumber = -2;                                             // 스테이지 1, 2, 3... , -2는 로딩이 안된 것.
     public int maxStageNumber = -2;                                             // -2는 로딩 안된 것.
     int maxClearStageNumber = -1;                                               // 기본 -1, 튜토리얼 클리어 후 0, 1챕터 클리어 후 -> 1로 변경.
@@ -24,7 +24,8 @@ public class DungeonManager : MonoBehaviour
     private void Awake()
     {
         //index 저장
-        nowChapterNumber = PlayerPrefs.GetInt("DUNGEON_NUM");
+        //nowChapterNumber = PlayerPrefs.GetInt("DUNGEON_NUM");
+        nowChapterNumber = 1;
         nowStageNumber = 1;
         switch (nowChapterNumber)
         {

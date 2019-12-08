@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-D:/그림들/RGB Game2019/RGB.apk
+D:/그림들/RGB Game2019/RGB3.apk
 SceneListBegin?
 Assets/01.Scenes/TitleScene.unity
 Assets/01.Scenes/VillageScene.unity

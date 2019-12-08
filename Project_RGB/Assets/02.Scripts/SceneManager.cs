@@ -25,6 +25,8 @@ public class SceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Screen.SetResolution(1920, 1080, true);
+        
         //nowScene가 EMPTY일시 서버 또는 로컬데이터를 통해 자신이 TARGET_SCENE(가려하는 씬) 어디인지 확인.
 
         //Unity 로고 -> SceneType.SPLASH
