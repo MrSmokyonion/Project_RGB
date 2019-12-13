@@ -21,6 +21,8 @@ public class Skill_Green_HighJump : Skill_Green
     public override void ExecuteSkill(GameObject obj)
     {
         Debug.Log("Green Skill -> HighJump!");
+        FindObjectOfType<SoundManager>().Play("skill_highJump");
+
         Rigidbody2D rigid = obj.GetComponent<Rigidbody2D>();
         rigid.AddForce(Vector2.up * m_value1, ForceMode2D.Impulse);
     }

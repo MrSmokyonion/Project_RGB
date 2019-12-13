@@ -264,6 +264,6 @@ D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\Newtonsoft.Json.dll
 D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\Assembly-CSharp.pdb
 D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\Cinemachine.dll
 D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\com.unity.cinemachine.editor.dll
-D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\Cinemachine.pdb
 D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\com.unity.cinemachine.editor.pdb
 D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\UnityEditor.Android.Extensions.dll
+D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\Cinemachine.pdb

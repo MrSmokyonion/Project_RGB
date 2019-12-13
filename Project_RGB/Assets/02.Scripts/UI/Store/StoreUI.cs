@@ -28,6 +28,8 @@ public class StoreUI : MonoBehaviour
     public bool isClick = false;
 
     Animator slideStoreAnimator;
+
+    public SpriteSupplier spriteSupplier;
     //public List<Item> itemList;
     // Start is called before the first frame update
     void Start()
@@ -155,10 +157,11 @@ public class StoreUI : MonoBehaviour
                 itemNameText[i].text = list_food_S[i].m_title;
                 itemPriceText[i].text = list_food_S[i].m_price.ToString();
                 itemDescriptionText[i].text = list_food_S[i].m_description;
+                itemImage[i].sprite = spriteSupplier.GetSource(list_food_S[i].m_code);
 
                 if (capital.money < list_food_S[i].m_price)
                     itemBuyButton[i].interactable = false;
-                //itemImage[i].sprite = list_food[i].m_spritePath;
+                
             }
         }
 
@@ -175,9 +178,12 @@ public class StoreUI : MonoBehaviour
                 itemPriceText[i].text = list_weapon_S[i].m_price.ToString();
                 itemDescriptionText[i].text = list_weapon_S[i].m_description;
                 itemBuyButton[i].transform.GetChild(0).GetComponent<Text>().text = "구입하기";
+                itemImage[i].sprite = spriteSupplier.GetSource(list_weapon_S[i].m_code);
 
                 if (capital.money < list_weapon_S[i].m_price)
                     itemBuyButton[i].interactable = false;
+
+              
 
             }
             Debug.Log("i: " + i);
@@ -188,7 +194,7 @@ public class StoreUI : MonoBehaviour
                 itemPriceText[i].text = list_armor_S[i- list_weapon_S.Count].m_price.ToString();
                 itemDescriptionText[i].text = list_armor_S[i- list_weapon_S.Count].m_description;
                 itemBuyButton[i].transform.GetChild(0).GetComponent<Text>().text = "구입하기";
-
+                itemImage[i].sprite = spriteSupplier.GetSource(list_armor_S[i - list_weapon_S.Count].m_code);
 
                 if (capital.money < list_armor_S[i- list_weapon_S.Count].m_price)
                     itemBuyButton[i].interactable = false;
@@ -206,7 +212,7 @@ public class StoreUI : MonoBehaviour
                 itemPriceText[i].text = list_skill_S[i].m_price.ToString();
                 itemDescriptionText[i].text = list_skill_S[i].m_description;
                 itemBuyButton[i].transform.GetChild(0).GetComponent<Text>().text = "구입하기";
-
+                //itemImage[i].sprite = spriteSupplier.GetSource(list_skill_S[i].m_code);
 
                 if (capital.crystal < list_skill_S[i].m_price)
                     itemBuyButton[i].interactable = false;

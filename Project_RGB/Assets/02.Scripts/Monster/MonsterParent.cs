@@ -95,13 +95,13 @@ public class MonsterInfoList
 
         //Walk Monsters
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM101, false, "걷는 꽃", MonsterState.IDLE,
-            10, 10, 5, 4, 0,
-            101, 0, SpawnCode.NONE));
+            20, 10, 5, 4, 0,
+            51, 0, SpawnCode.NONE));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM102, false, "뛰는 돌", MonsterState.IDLE,
-            10, 10, 11, 5, 10,
-            150, 0, SpawnCode.NONE));
+            25, 10, 11, 5, 10,
+            75, 0, SpawnCode.NONE));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM103, false, "서 있는 나무", MonsterState.IDLE,
-            10, 10, 12, 0, 5,
+            20, 10, 12, 0, 10,
             50, 0, SpawnCode.NONE));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.WM104, false, "불타는 돌", MonsterState.IDLE,
             10, 10, 200, 6, 10,
@@ -158,8 +158,8 @@ public class MonsterInfoList
 
         //Boss Monsters
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM301, true, "습지의 여왕", MonsterState.IDLE,
-            10, 10, 36, 0, 10,
-            500, 20, SpawnCode.W203));
+            35, 10, 36, 0, 10,
+            500, 100/*20*/, SpawnCode.W203));
         monsterInfoList.Add(new MonsterInfo(MonsterCode.BM302, true, "타오르는 피닉스", MonsterState.IDLE,
             10, 10, 100, 5, 10,
             500, 5, SpawnCode.A003));
@@ -260,7 +260,7 @@ public class MonsterParent : MonoBehaviour
     public Rigidbody2D myMonsterRigid;  //리지드바디
 
     public GameObject PlayerObject;     //현재 이 맵의 Player 오브젝트 (Find)
-    DungeonManager dungeonManager;      //현재 이 맵의 DungeonManager (Find)
+    public DungeonManager dungeonManager;      //현재 이 맵의 DungeonManager (Find)
 
     public Vector2 pPosXY;
     public Vector2 mPosXY;
@@ -328,6 +328,7 @@ public class MonsterParent : MonoBehaviour
 
     public void AnimationStateSet(MonsterState nowState)
     {
+        //Debug.Log("nowState:" + nowState);
         myMonsterInfo.monsterState = nowState;
 
         myMonsterAnimator.SetBool(MonsterState.IDLE.ToString(), false);
@@ -406,7 +407,7 @@ public class MonsterParent : MonoBehaviour
         }
         else
         {
-            Debug.Log(name + "Dead");
+            //Debug.Log(name + "Dead");
             myMonsterInfo.monsterHp = 0;
             DeadProcess();
         }

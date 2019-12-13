@@ -124,14 +124,14 @@ public class MonsterTrap : MonsterParent
                 attackingRunTime = ac.animationClips[i].length;
             }
         }
-        myMonsterAnimator.SetBool("IsAttacking", isAttacking);                      //공격 애니메이션 실행
+        myMonsterAnimator.SetBool("ATTACK", isAttacking);                      //공격 애니메이션 실행
         Invoke("ResetIsAttacking", attackingRunTime);
     }
 
     public void ResetIsAttacking()
     {
         isAttacking = false;                                                        //공격 애니메이션 끝남
-        myMonsterAnimator.SetBool("IsAttacking", isAttacking);
+        myMonsterAnimator.SetBool("ATTACK", isAttacking);
         //Debug.Log("공격 끝남");
     }
 

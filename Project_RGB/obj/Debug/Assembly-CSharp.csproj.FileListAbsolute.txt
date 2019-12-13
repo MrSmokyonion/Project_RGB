@@ -241,8 +241,8 @@ D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\Newtonsoft.Json.dll
 D:\RGB\Project_RGB\Project_RGB\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
 D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\Cinemachine.dll
 D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\com.unity.cinemachine.editor.dll
-D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\Cinemachine.pdb
 D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\com.unity.cinemachine.editor.pdb
+D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\Cinemachine.pdb
 D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\Boo.Lang.dll
 D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\UnityEditor.UI.dll
 D:\RGB\Project_RGB\Project_RGB\Temp\bin\Debug\UnityEditor.Timeline.dll

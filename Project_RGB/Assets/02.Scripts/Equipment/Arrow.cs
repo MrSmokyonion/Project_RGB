@@ -21,6 +21,7 @@ public class Arrow : MonoBehaviour
             if (raycastHit2D.collider.tag == "Monster")
             {
                 raycastHit2D.transform.GetComponent<MonsterParent>().MonsterHitWeapon(power);
+                FindObjectOfType<SoundManager>().Play("bow_hit");
                 Debug.Log(raycastHit2D.transform.name + "명중");
                 DestroyBullet();
             }

@@ -9,14 +9,14 @@ public class Bow_Default : Weapon_Bow
         power = 3;
         dualbility = 100;
         delay = 0.75f;
-        speed = 10;
+        speed = 15;
 
         m_title = "기본 활";
         m_description = string.Format("기본 활입니다. 뭘 더 바라시나요.");
         m_code = SpawnCode.W201;
         m_spritePath = "";
         m_price = 100;
-        m_isSale = true;
+        m_isSale = false;
     }
 }
 

@@ -51,12 +51,10 @@ public class NPCQuestUI : MonoBehaviour
     {
         //if(npcquestlist.Count!=0)
             
-        Debug.Log("NpcQuestListSetting");
-
-        int questNpcCode = transform.parent.GetComponent<NPCMenuUI>().npcCode;
-        Debug.Log("transform.parent.GetComponent<NPCMenuUI>().gameObject : " + transform.parent.GetComponent<NPCMenuUI>().gameObject);
+        questNpcCode = transform.parent.GetComponent<NPCMenuUI>().npcCode;
+       
         npcquestlist = questScript.GetnpcQuestList(questNpcCode);
-        Debug.Log("npcqusetlist.Count : " + npcquestlist.Count);
+
 
         for (int i = 0; i < npcquestlist.Count; i++)
         {
@@ -138,7 +136,6 @@ public class NPCQuestUI : MonoBehaviour
 
     public void QuestCompeleteScript(int index)
     {
-       
         npcQuestDialogue.text = npcquestlist[index].complete_script;
         questScript.SuccessquestComplete(questNpcCode);
     }

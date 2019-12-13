@@ -6,21 +6,20 @@ using UnityEngine.UI;
 public class NoticeTextUI : MonoBehaviour
 {
     public float delay = 0.1f;
-    // Start is called before the first frame update
-    void Start()
+    public Text noticeText;
+
+    public void ItemEat(string itemName)
     {
+        //noticeText.text = "itemName" + " " + "을 획득하였습니다.";
+        noticeText.text = "드라이어드의 활" + " " + "을 획득하였습니다.";
+
         StartCoroutine("NoticeTextUIStart");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        StartCoroutine("NoticeTextUIEnd");
     }
 
     IEnumerator NoticeTextUIEnd()
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(2.5f);
 
         for (float a = 255; a >= 0; a -= 10)
         {
@@ -31,6 +30,10 @@ public class NoticeTextUI : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
+        transform.GetComponent<Text>().enabled = false;
+        transform.parent.GetComponent<Image>().enabled = false;
+        transform.GetChild(0).GetComponent<Image>().enabled = false;
+        transform.GetChild(0).GetChild(0).GetComponent<Image>().enabled = false;
         Destroy(gameObject);
     }
 
@@ -50,7 +53,7 @@ public class NoticeTextUI : MonoBehaviour
             transform.GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, a / 255f);
             yield return new WaitForFixedUpdate();
         }
-
+        
         Destroy(gameObject);
     }
 

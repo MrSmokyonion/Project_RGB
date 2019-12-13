@@ -18,7 +18,6 @@ public class DungeonUI : MonoBehaviour
     public Image playerPlusHPImage;
     public Image playerHPImage;
     public Text goldText;
-    public Image playerImage;
     public Text questText;
     public Slider progressSlider;
     //**********************************************
@@ -73,9 +72,8 @@ public class DungeonUI : MonoBehaviour
             playerHPSlider.maxValue = ps.maxHp;
             playerPlusHPImage.enabled = true;
             playerHPImage.enabled = false;
-
-            //hpSlider.value = playerStatusScript.curHp / playerStatusScript.maxHp;
-            //
+            
+            playerHPSlider.value = ps.maxHp - ps.curHp;
         }
 
 

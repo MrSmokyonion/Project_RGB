@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3108915123111008100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.861938, y: 0.5221796, z: 0}
+  m_LocalPosition: {x: 619.64197, y: 1.0972242, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -149,6 +149,7 @@ MonoBehaviour:
   myMonsterAnimator: {fileID: 0}
   myMonsterRigid: {fileID: 0}
   PlayerObject: {fileID: 0}
+  dungeonManager: {fileID: 0}
   pPosXY: {x: 0, y: 0}
   mPosXY: {x: 0, y: 0}
   isLRM: 0

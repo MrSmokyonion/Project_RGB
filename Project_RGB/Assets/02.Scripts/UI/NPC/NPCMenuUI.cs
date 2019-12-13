@@ -21,7 +21,7 @@ public class NPCMenuUI : MonoBehaviour
     {
         npcParentScript = GetComponent<NPCParent>();
         //npcQuestScript.SetActive(false);
-            slideNPCMenuAnimator = transform.GetChild(0).GetComponent<Animator>();
+        slideNPCMenuAnimator = transform.GetChild(0).GetComponent<Animator>();
 
         // Debug.Log("storeAvailable" + GetComponent<NPCParent>().npcInfoList[npcCode].storeAvailable);
         StoreAvailableCheck(npcParentScript.npcInfoList[npcCode].storeAvailable);
@@ -42,22 +42,15 @@ public class NPCMenuUI : MonoBehaviour
 
     public void SlideNPCMenuButtonClick()
     {
-        isClick = !isClick;
-        if (isClick)
-        {
-            slideNPCMenuAnimator.SetBool("isOpen", true);
-        }
-        else
-        {
-            slideNPCMenuAnimator.SetBool("isOpen", false);
-        }
+        slideNPCMenuAnimator.SetBool("isOpen", true);
+
     }
 
 
     public void QuestCanvasOpen()
     {
         npcquestCanvas.GetComponent<NPCQuestUI>().QuestClear();
-        npcquestCanvas.transform.GetChild(0).GetComponent<Animator>().SetBool("isOpen",true);
+        npcquestCanvas.transform.GetChild(0).GetComponent<Animator>().SetBool("isOpen", true);
         //npcquestCanvas.GetComponent<NPCQuestUI>().NpcQuestListSetting();
         npcquestCanvas.enabled = true;
     }
@@ -77,7 +70,7 @@ public class NPCMenuUI : MonoBehaviour
         else //스킬
         {
             storeCanvas[4].enabled = true;
-            storeCanvas[4].transform.GetChild(0).GetComponent<Animator>().SetBool("isOpen", true); 
+            storeCanvas[4].transform.GetChild(0).GetComponent<Animator>().SetBool("isOpen", true);
         }
 
     }
@@ -91,7 +84,7 @@ public class NPCMenuUI : MonoBehaviour
     public void RepairCanvasOpen()  //수리
     {
         storeCanvas[3].enabled = true;
-        storeCanvas[3].transform.GetChild(0).GetComponent<Animator>().SetBool("isOpen",true);
+        storeCanvas[3].transform.GetChild(0).GetComponent<Animator>().SetBool("isOpen", true);
     }
 
     public void StoreAvailableCheck(bool storeavailable)
