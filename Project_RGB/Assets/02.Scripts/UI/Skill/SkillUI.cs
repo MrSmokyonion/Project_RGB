@@ -32,11 +32,11 @@ public class SkillUI : MonoBehaviour
         SkillImage1.sprite = spriteSupplier.GetSource(tmpr.m_code);
         SkillText1.text = tmpr.m_title;
 
-        Skill_Blue tmpb = ps.skill.GetComponent<Skill_Blue>();
+        Skill_Green tmpb = ps.skill.GetComponent<Skill_Green>();
         SkillImage2.sprite = spriteSupplier.GetSource(tmpb.m_code);
         SkillText2.text = tmpb.m_title;
 
-        Skill_Green tmpg = ps.skill.GetComponent<Skill_Green>();
+        Skill_Blue tmpg = ps.skill.GetComponent<Skill_Blue>();
         SkillImage3.sprite = spriteSupplier.GetSource(tmpg.m_code);
         SkillText3.text = tmpg.m_title;
    

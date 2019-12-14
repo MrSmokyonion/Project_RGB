@@ -92,22 +92,18 @@ public class Quest : MonoBehaviour
     public SpawnClass sc;
     public Capital capital;
     // Start is called before the first frame update
-    void Awake()
-    {     
+    void Start()
+    {
+        PlayerPrefs.SetString("USERCODE", "#9b0e0002"); // #00000000
         QuestList();
         PlayerQuestList();
         UIQuestList();
         RequestQuestData();
         // test
-        PlayerPrefs.SetString("USERCODE", "#9b0e0002"); // #00000000
+
         Debug.LogWarning(PlayerPrefs.GetString("USERCODE"));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     #region 퀘스트 Setting
 

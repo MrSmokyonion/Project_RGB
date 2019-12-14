@@ -161,7 +161,7 @@ public class StoreUI : MonoBehaviour
 
                 if (capital.money < list_food_S[i].m_price)
                     itemBuyButton[i].interactable = false;
-                
+
             }
         }
 
@@ -183,20 +183,20 @@ public class StoreUI : MonoBehaviour
                 if (capital.money < list_weapon_S[i].m_price)
                     itemBuyButton[i].interactable = false;
 
-              
+
 
             }
             Debug.Log("i: " + i);
 
             for (i = list_weapon_S.Count; i < list_weapon_S.Count + list_armor_S.Count; i++)
             {
-                itemNameText[i].text = list_armor_S[i- list_weapon_S.Count].m_title;
-                itemPriceText[i].text = list_armor_S[i- list_weapon_S.Count].m_price.ToString();
-                itemDescriptionText[i].text = list_armor_S[i- list_weapon_S.Count].m_description;
+                itemNameText[i].text = list_armor_S[i - list_weapon_S.Count].m_title;
+                itemPriceText[i].text = list_armor_S[i - list_weapon_S.Count].m_price.ToString();
+                itemDescriptionText[i].text = list_armor_S[i - list_weapon_S.Count].m_description;
                 itemBuyButton[i].transform.GetChild(0).GetComponent<Text>().text = "구입하기";
                 itemImage[i].sprite = spriteSupplier.GetSource(list_armor_S[i - list_weapon_S.Count].m_code);
 
-                if (capital.money < list_armor_S[i- list_weapon_S.Count].m_price)
+                if (capital.money < list_armor_S[i - list_weapon_S.Count].m_price)
                     itemBuyButton[i].interactable = false;
 
             }
@@ -217,6 +217,59 @@ public class StoreUI : MonoBehaviour
                 if (capital.crystal < list_skill_S[i].m_price)
                     itemBuyButton[i].interactable = false;
 
+            }
+
+        }
+    }
+
+    public void ItemCheck()
+    {
+        if (itemType == 0) //음식
+        {
+            for (int i = 0; i < list_food_S.Count; i++)
+            {
+                if (capital.money < list_food_S[i].m_price)
+                    itemBuyButton[i].interactable = false;
+                else
+                    itemBuyButton[i].interactable = true;
+
+            }
+        }
+
+        else if (itemType == 1) //Weapon & Armor
+        {
+            int i = 0;
+            Debug.Log(list_weapon_S.Count);
+            Debug.Log(list_armor_S.Count);
+
+            for (i = 0; i < list_weapon_S.Count; i++)
+            {
+                if (capital.money < list_weapon_S[i].m_price)
+                    itemBuyButton[i].interactable = false;
+                else
+                    itemBuyButton[i].interactable = true;
+            }
+            Debug.Log("i: " + i);
+
+            for (i = list_weapon_S.Count; i < list_weapon_S.Count + list_armor_S.Count; i++)
+            {
+                if (capital.money < list_armor_S[i - list_weapon_S.Count].m_price)
+                    itemBuyButton[i].interactable = false;
+                else
+                    itemBuyButton[i].interactable = true;
+            }
+            //Debug.Log("list_weapon.Count + list_armor : " + list_weapon.Count.ToString() + list_armor.ToString());
+
+        }
+
+        else                    //Skill
+        {
+            for (int i = 0; i < list_skill_S.Count; i++)
+            {
+                if (capital.crystal < list_skill_S[i].m_price)
+                    itemBuyButton[i].interactable = false;
+                else
+                    itemBuyButton[i].interactable = true;
             }
 
         }
