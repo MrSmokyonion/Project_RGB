@@ -13,10 +13,12 @@ public class NPCMenuUI : MonoBehaviour
     Animator slideNPCMenuAnimator;
 
     bool isClick = false;
+    bool textEnable = true;
 
     private IEnumerator coroutine;
     public Text npcDialogueText;
     NPCParent npcParentScript;
+
     private void Start()
     {
         npcParentScript = GetComponent<NPCParent>();
@@ -30,8 +32,13 @@ public class NPCMenuUI : MonoBehaviour
 
     public void DialogeueSetting()
     {
-        coroutine = TypeText(npcParentScript.npcInfoList[npcCode].Dialogue, npcDialogueText, true);
-        StartCoroutine(coroutine);
+
+        if (textEnable == true)
+        {
+            npcDialogueText.text = "";
+            coroutine = TypeText(npcParentScript.npcInfoList[npcCode].Dialogue, npcDialogueText, true);
+            StartCoroutine(coroutine);
+        }
     }
 
     public void DialogueTextClick()
@@ -50,6 +57,7 @@ public class NPCMenuUI : MonoBehaviour
     public void QuestCanvasOpen()
     {
         npcquestCanvas.GetComponent<NPCQuestUI>().QuestClear();
+        npcquestCanvas.GetComponent<NPCQuestUI>().NpcQuestListSetting();
         npcquestCanvas.transform.GetChild(0).GetComponent<Animator>().SetBool("isOpen", true);
         //npcquestCanvas.GetComponent<NPCQuestUI>().NpcQuestListSetting();
         npcquestCanvas.enabled = true;
@@ -60,17 +68,23 @@ public class NPCMenuUI : MonoBehaviour
         if (npcParentScript.npcInfoList[npcCode].storetype == StoreType.Food) //음식
         {
             storeCanvas[0].enabled = true;
+            storeCanvas[0].GetComponent<StoreUI>().ItemCheck();
             storeCanvas[0].transform.GetChild(0).GetComponent<Animator>().SetBool("isOpen", true);
+
         }
         else if (npcParentScript.npcInfoList[npcCode].storetype == StoreType.WeaponAndRepair) //수리 & 장비 캔버스
         {
             storeCanvas[1].enabled = true;
+            //storeCanvas[1].GetComponent<StoreUI>().ItemCheck();
             storeCanvas[1].transform.GetChild(0).GetComponent<Animator>().SetBool("isOpen", true);
+
         }
-        else //스킬
+        else if (npcParentScript.npcInfoList[npcCode].storetype == StoreType.Skill) //스킬
         {
             storeCanvas[4].enabled = true;
+            storeCanvas[4].GetComponent<StoreUI>().ItemCheck();
             storeCanvas[4].transform.GetChild(0).GetComponent<Animator>().SetBool("isOpen", true);
+
         }
 
     }
@@ -78,12 +92,14 @@ public class NPCMenuUI : MonoBehaviour
     public void EquipmentCanvasOpen() // 장비
     {
         storeCanvas[2].enabled = true;
+        storeCanvas[2].GetComponent<StoreUI>().ItemCheck();
         storeCanvas[2].transform.GetChild(0).GetComponent<Animator>().SetBool("isOpen", true);
     }
 
     public void RepairCanvasOpen()  //수리
     {
         storeCanvas[3].enabled = true;
+        storeCanvas[3].GetComponent<StoreUI>().ItemCheck();
         storeCanvas[3].transform.GetChild(0).GetComponent<Animator>().SetBool("isOpen", true);
     }
 
@@ -98,6 +114,7 @@ public class NPCMenuUI : MonoBehaviour
 
         if (check == true)
         {
+            textEnable = false;
             label.text = "";
             foreach (char letter in TEXTString.ToCharArray())
             {
@@ -108,7 +125,7 @@ public class NPCMenuUI : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1.0f);
-
+        textEnable = true;
         yield return null;
     }
 }

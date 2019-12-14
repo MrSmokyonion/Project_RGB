@@ -28,7 +28,6 @@ public class NPCQuestUI : MonoBehaviour
 
     private IEnumerator coroutine;
 
-
     public class NpcQuestSlot
     {
         public Text questName;
@@ -41,10 +40,9 @@ public class NPCQuestUI : MonoBehaviour
         questslotlist = new List<NpcQuestSlot>();
 
         NpcQuestListSetting();
+
     }
 
-    void Update()
-    { }
 
 
     public void NpcQuestListSetting()   //해당 NPC 퀘스트 받아오기

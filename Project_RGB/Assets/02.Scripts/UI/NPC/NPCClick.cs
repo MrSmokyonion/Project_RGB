@@ -28,8 +28,9 @@ public class NPCClick : MonoBehaviour
         npcMenuUI.DialogeueSetting();
         npcCanvas.transform.GetChild(0).GetComponent<Image>().enabled = true;
         npcMenuUI.SlideNPCMenuButtonClick();
+        npcMenuUI.StoreAvailableCheck(npcCanvas.GetComponent<NPCParent>().npcInfoList[clicknpccode].storeAvailable);
 
-       
+
     }
 
 }
