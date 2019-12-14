@@ -12,6 +12,7 @@ public class DungeonUI : MonoBehaviour
     public Capital capitalScript;
     public PlayerStatus ps;
     public bool isFoodEat;
+    public bool isQuestOpen = true;
     //**********************************************
     //******************UI 변수*********************
     public Slider playerHPSlider;
@@ -20,6 +21,8 @@ public class DungeonUI : MonoBehaviour
     public Text goldText;
     public Text questText;
     public Slider progressSlider;
+    public Sprite questCloseSprite;
+    public Sprite questOpenSprite;
     //**********************************************
     // Start is called before the first frame update
     void Start()
@@ -101,5 +104,21 @@ public class DungeonUI : MonoBehaviour
         //playerImage.sprite = 
         Questsetting();
         HPSliderSetting();
+    }
+
+    public void QuestTextOpen()
+    {
+        isQuestOpen = !isQuestOpen;
+
+        if (isQuestOpen == true)
+        {
+            questText.transform.GetChild(0).GetComponent<Image>().sprite = questOpenSprite;
+        }
+        else
+        {
+            questText.transform.GetChild(0).GetComponent<Image>().sprite = questCloseSprite;
+        }
+
+        questText.GetComponent<Animator>().SetBool("isOpen", isQuestOpen);
     }
 }
