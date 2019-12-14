@@ -1237,7 +1237,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 772654350}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1792092347}
+        m_MethodName: QuestTextOpen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &772654350
@@ -1783,6 +1794,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5021940511773802681, guid: 40836c671dc6dec4f9da32ad976ebe60,
+        type: 3}
+      propertyPath: skillCollector
+      value: 
+      objectReference: {fileID: 1064998395}
     - target: {fileID: 5021940511773802685, guid: 40836c671dc6dec4f9da32ad976ebe60,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1838,11 +1854,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5021940511773802681, guid: 40836c671dc6dec4f9da32ad976ebe60,
-        type: 3}
-      propertyPath: skillCollector
-      value: 
-      objectReference: {fileID: 1064998395}
     - target: {fileID: 5021940511773802686, guid: 40836c671dc6dec4f9da32ad976ebe60,
         type: 3}
       propertyPath: uicon
@@ -2371,12 +2382,15 @@ MonoBehaviour:
   capitalScript: {fileID: 1826624009}
   ps: {fileID: 1826624011}
   isFoodEat: 0
+  isQuestOpen: 1
   playerHPSlider: {fileID: 1220181042}
   playerPlusHPImage: {fileID: 697257836}
   playerHPImage: {fileID: 2002255868}
   goldText: {fileID: 757919708}
   questText: {fileID: 1096690775}
   progressSlider: {fileID: 1475688161}
+  questCloseSprite: {fileID: 21300000, guid: 308e7701c7d133b49993a00a880b4892, type: 3}
+  questOpenSprite: {fileID: 21300000, guid: e3c121c58dcc6154292e49ac7b631ab1, type: 3}
 --- !u!114 &1792092348
 MonoBehaviour:
   m_ObjectHideFlags: 0
