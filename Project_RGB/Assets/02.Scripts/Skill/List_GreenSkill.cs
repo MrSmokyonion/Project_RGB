@@ -22,6 +22,7 @@ public class Skill_Green_HighJump : Skill_Green
     {
         Debug.Log("Green Skill -> HighJump!");
         FindObjectOfType<SoundManager>().Play("skill_highJump");
+        FindObjectOfType<ParticleSupplier>().SetParticle(obj.gameObject.transform.position, "skill_jump");
 
         Rigidbody2D rigid = obj.GetComponent<Rigidbody2D>();
         rigid.AddForce(Vector2.up * m_value1, ForceMode2D.Impulse);

@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8106417337070133813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8106417337070133814}
+  - component: {fileID: 8106417337070133815}
+  m_Layer: 0
+  m_Name: Particle Supplier
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8106417337070133814
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8106417337070133813}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8106417337070133815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8106417337070133813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e74c1a324b927014e92dd7b98b7e6fd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ptcArr:
+  - name: player_hit
+    obj: {fileID: 1541538065508680, guid: 44800152a56c0ab4eb317247d519c240, type: 3}
+  - name: player_jump
+    obj: {fileID: 1119867307103944, guid: 25b191ca780ded040b24e5de0abac4cf, type: 3}
+  - name: skill_fire
+    obj: {fileID: 1359664476281672, guid: 0ff0b8df550b93944b345da1c870480b, type: 3}
+  - name: skill_hit
+    obj: {fileID: 1212367790854748, guid: a9031875874d4b846946ef80ec72b4bd, type: 3}
+  - name: skill_jump
+    obj: {fileID: 1212367790854748, guid: a9031875874d4b846946ef80ec72b4bd, type: 3}
+  - name: skill_buff
+    obj: {fileID: 1409523919410504, guid: baa2843cdbfeb4e49860eed74cf73e4f, type: 3}
+  - name: enemy_hit
+    obj: {fileID: 1885181938588496, guid: 81d8f707fca065646a1568e2a494519b, type: 3}
+  - name: boss_hit
+    obj: {fileID: 1486926545982796, guid: e2bf258fc5ca5ab46864d82e5e97b668, type: 3}
+  - name: boss_dead
+    obj: {fileID: 1919999163364108, guid: ae0caf18e25389a49ad2e7781a83679b, type: 3}

@@ -244,6 +244,7 @@ public class PlayerStatus : MonoBehaviour
                     obj.GetComponent<MonsterParent>().MonsterHitWeapon(power);
 
                     soundManager.Play(soundStr + "hit");
+                    FindObjectOfType<ParticleSupplier>().SetParticle(obj.gameObject.transform.position, "enemy_hit");
                 }
             }
         }
@@ -348,9 +349,10 @@ public class PlayerStatus : MonoBehaviour
         if (collision.gameObject.tag == "Monster")
         {
             FindObjectOfType<SoundManager>().Play("default_hurt");
+            FindObjectOfType<ParticleSupplier>().SetParticle(transform.position, "player_hit");
 
             GameObject obj = collision.gameObject;
-            //OnDamaged(obj.transform.position, obj.GetComponent<MonsterParent>().myMonsterInfo.monsterDamage);  //해당 몬스터의 파워가 여기 들어가야함.
+            OnDamaged(obj.transform.position, obj.GetComponent<MonsterParent>().myMonsterInfo.monsterDamage);  //해당 몬스터의 파워가 여기 들어가야함.
             OnDamaged(obj.transform.position, 0);  //해당 몬스터의 파워가 여기 들어가야함.
         }
         if (collision.gameObject.tag == "DropGold")  //Gold Or Crystal

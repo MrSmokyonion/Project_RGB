@@ -103,6 +103,7 @@ public class ControlManager : MonoBehaviour
     {
         rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
         FindObjectOfType<SoundManager>().Play("default_jump");
+        FindObjectOfType<ParticleSupplier>().SetParticle(transform.position, "player_jump");
     }
     private void LandingPlatform()
     {

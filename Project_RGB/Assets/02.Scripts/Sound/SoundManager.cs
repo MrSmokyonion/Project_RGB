@@ -57,9 +57,9 @@ public class SoundManager : MonoBehaviour
     }
 
     #region Play
-    public void Play(string name)
+    public void Play(string _name)
     {
-        string[] tmp = name.Split('_');
+        string[] tmp = _name.Split('_');
         Sound[] arr = null;
         switch (tmp[0])
         {
@@ -69,15 +69,15 @@ public class SoundManager : MonoBehaviour
             case "bow": arr = m_weapon; break;
             case "skill": arr = m_skill; break;
 
-            case "bgm": Play_BGM(name); return;
+            case "bgm": Play_BGM(_name); return;
 
-            default: Debug.LogWarning("SoundManager: " + name + " does not found!"); return;
+            default: Debug.LogWarning("SoundManager: " + _name + " does not found!"); return;
         }
 
-        Sound s = Array.Find(arr, sound => sound.name == name);
+        Sound s = Array.Find(arr, sound => sound.name == _name);
         if (s == null)
         {
-            Debug.LogWarning("SoundManager: " + name + " does not found!");
+            Debug.LogWarning("SoundManager: " + _name + " does not found!");
             return;
         }
 

@@ -26,6 +26,7 @@ namespace SkillEffect
 
             sound = FindObjectOfType<SoundManager>();
             sound.Play("skill_piercingSpear");
+            FindObjectOfType<ParticleSupplier>().SetParticle(transform.position, "skill_fire");
             Destroy(gameObject,1.3f);
         }
 
@@ -37,6 +38,7 @@ namespace SkillEffect
             if (collision.gameObject.tag == "Monster")
             {
                 enemyCnt[cnt++] = collision.gameObject;
+                FindObjectOfType<ParticleSupplier>().SetParticle(collision.gameObject.transform.position, "skill_hit");
                 //collision.gameObject.GetComponent<MonsterParent>().MonsterHitWeapon(50);
 
                 if (cnt >= 5)

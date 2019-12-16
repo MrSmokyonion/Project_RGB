@@ -23,6 +23,7 @@ public class Skill_Blue_Barrier : Skill_Blue
     {
         Debug.Log("Blue Skill -> " + m_title);
         FindObjectOfType<SoundManager>().Play("skill_barrier");
+        FindObjectOfType<ParticleSupplier>().SetParticle(obj.transform.position, "skill_buff");
 
         GameObject barrierObj = GameObject.Instantiate(FindObjectOfType<SkillEffect.SkillCollector>().barrier, obj.transform);
         Barrier barrierClass = barrierObj.GetComponent<Barrier>();
