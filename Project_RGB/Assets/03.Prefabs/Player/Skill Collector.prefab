@@ -45,3 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   piercingSpear: {fileID: 5255988643561297743, guid: 1ee20922451a37d439779cafbe03b990,
     type: 3}
+  barrier: {fileID: 1706568201243432043, guid: 378281f4844c9ea4c9b6179121b17fa8, type: 3}
