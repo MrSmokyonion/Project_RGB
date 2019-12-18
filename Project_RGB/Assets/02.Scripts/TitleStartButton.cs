@@ -10,6 +10,8 @@ public class TitleStartButton : MonoBehaviour
 
     private void Start()
     {
+        AudioSource titleSound = GetComponent<AudioSource>();
+        titleSound.Play();
         StartCoroutine(LoadVillageScene());
     }
 
