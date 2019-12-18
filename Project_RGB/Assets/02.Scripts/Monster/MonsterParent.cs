@@ -271,6 +271,7 @@ public class MonsterParent : MonoBehaviour
     public bool isAttacking;            //공격중인가? (판단)
     public float attackingRunTime;      //애니메이션 실행 시간
     public bool isDamaged;              //데미지 입었는가? (피격 상태 판단)
+    public bool alreadyDropObjects;     //이미 물건들을 떨궜는가?
 
     #region Awake And Start
 
@@ -390,6 +391,7 @@ public class MonsterParent : MonoBehaviour
 
     public virtual void MonsterHitWeapon(int power)
     {
+        Debug.Log("맞았음");
         isDamaged = true;
         AnimationStateSet(MonsterState.ATTACKED);
         myMonsterInfo.monsterHp -= power;//bW.power;
@@ -407,6 +409,9 @@ public class MonsterParent : MonoBehaviour
         }
         else
         {
+            //중복방지
+            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<Rigidbody2D>().gravityScale = 0f;
             //Debug.Log(name + "Dead");
             myMonsterInfo.monsterHp = 0;
             DeadProcess();
@@ -426,28 +431,32 @@ public class MonsterParent : MonoBehaviour
 
     public void DropGoldAndItems()
     {
-        //-----------------------------------골드 드랍-----------------------------------
-        DroppedGoldOrCrystal gold = Instantiate(DropGoldObject).GetComponent<DroppedGoldOrCrystal>();
-
-        int mDropGold = myMonsterInfo.monsterDropGoldAmount;
-        gold.GoldAmount = Random.Range((int)(mDropGold * 0.7), (int)(mDropGold * 1.2));                      // (몬스터 골드량의 70%) ~ (몬스터의 골드량 120%)을 전달 함.
-        gold.name = myMonsterInfo.monsterName + " 드롭 골드량:" + gold;
-
-        int ranX = Random.Range(-100, 101);     //min ~ max-1
-        int ranY = Random.Range(100, 201);      //min ~ max-1
-        gold.transform.position = GetComponent<Transform>().position;
-        gold.GetComponent<Rigidbody2D>().AddForce(new Vector3(ranX, ranY, 0));              //위 방향으로 랜덤 발사
-
-        //-------------------------보스일 때 확률적으로 아이템 드랍 & 크리스탈 드랍-------------------------
-        if (myMonsterInfo.isBoss)
+        if (!alreadyDropObjects)
         {
-            if (Random.Range(0, 101)/*0~100*/ <= myMonsterInfo.monsterDropRate)
-            {
-                DropItem();
-            }
-            if (Random.Range(0, 101) <= 30)    //30% 확률
-            {
+            alreadyDropObjects = true;
+            //-----------------------------------골드 드랍-----------------------------------
+            DroppedGoldOrCrystal gold = Instantiate(DropGoldObject).GetComponent<DroppedGoldOrCrystal>();
 
+            int mDropGold = myMonsterInfo.monsterDropGoldAmount;
+            gold.GoldAmount = Random.Range((int)(mDropGold * 0.7), (int)(mDropGold * 1.2));                      // (몬스터 골드량의 70%) ~ (몬스터의 골드량 120%)을 전달 함.
+            gold.name = myMonsterInfo.monsterName + " 드롭 골드량:" + gold;
+
+            int ranX = Random.Range(-100, 101);     //min ~ max-1
+            int ranY = Random.Range(100, 201);      //min ~ max-1
+            gold.transform.position = GetComponent<Transform>().position;
+            gold.GetComponent<Rigidbody2D>().AddForce(new Vector3(ranX, ranY, 0));              //위 방향으로 랜덤 발사
+
+            //-------------------------보스일 때 확률적으로 아이템 드랍 & 크리스탈 드랍-------------------------
+            if (myMonsterInfo.isBoss)
+            {
+                if (Random.Range(0, 101)/*0~100*/ <= myMonsterInfo.monsterDropRate)
+                {
+                    DropItem();
+                }
+                if (Random.Range(0, 101) <= 30)    //30% 확률
+                {
+
+                }
             }
         }
     }
@@ -472,8 +481,6 @@ public class MonsterParent : MonoBehaviour
         if ((int)myMonsterCode < (int)MonsterCode.OM401)
             dungeonManager.MonsterDestroyProcessing(myMonsterCode);
         Invoke("Dead", 2f);
-
-
     }
 
     public void Dead()
