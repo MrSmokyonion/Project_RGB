@@ -76,7 +76,7 @@ public class DungeonSelectionImageUI : MonoBehaviour
     public void DungeonTransform()
     {
         //index 저장  //인데 지금 PlayerPrefs때문인지 뭔지 뭔가의 메타데이터 같은 친구들이 이상해져서 임시로 가려둠
-        //PlayerPrefs.SetInt("DUNGEON_NUM", index + 1);
+        PlayerPrefs.SetInt("DUNGEON_NUM", index + 1);
         //Debug.Log(index + 1);
 
         //씬매니저에게 해당 index 씬 바꿔달라 요청
